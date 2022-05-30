@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import DltAppBar from './components/DltAppBar'
 import Login from './views/Login'
 import Home from './views/Home'
 import './App.css'
@@ -9,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      {/* <Navbar></Navbar> */}
+      <DltAppBar></DltAppBar>
       <Routes>
         <Route path='/' element={<Login></Login>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>

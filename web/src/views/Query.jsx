@@ -1,7 +1,7 @@
 import { Container, Grid } from '@mui/material'
 import React from 'react'
 
-export default function Home() {
+export default function Query() {
   return (
     <Container maxWidth="false">
       <Grid
@@ -19,9 +19,6 @@ export default function Home() {
         <Grid item md={4} lg={3}>Hello 7</Grid>
         <Grid item md={4} lg={3}>Hello 8</Grid>
         <Grid item md={4} lg={3}>Hello 9</Grid>
-        <Grid item md={4} lg={3}>Hello 10</Grid>
-        <Grid item md={4} lg={3}>Hello 11</Grid>
-        <Grid item md={4} lg={3}>Hello 12</Grid>
       </Grid>
     </Container>
   )

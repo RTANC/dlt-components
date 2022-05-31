@@ -4,13 +4,17 @@ import DltReportMenu from './DltReportMenu'
 import DltDataManageMenu from './DltDataManageMenu'
 import DltManualMenu from './DltManualMenu'
 import AccountCircle from '@mui/icons-material/AccountCircle'
-import MenuIcon from '@mui/icons-material/Menu'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded'
+import {useSelector, useDispatch} from 'react-redux'
+import {logout} from '../redux/loginSlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function DltAppBar() {
-    const [auth, setAuth] = useState(true);
+    const auth = useSelector((state) => state.login.isLogin)
+    const dispatch = useDispatch()
     const [anchorEl, setAnchorEl] = useState(null);
+    const navigate = useNavigate()
 
 
     const handleMenu = (event) => {
@@ -21,17 +25,23 @@ export default function DltAppBar() {
       setAnchorEl(null);
     }
 
+    const handleLogout = () => {
+      dispatch(logout())
+      handleClose()
+      navigate('/')
+    }
+
   return (
-    <AppBar>
+    <AppBar position="static" sx={{mb: 2}}>
         <Toolbar>
           <Typography variant="h6" component="div" to="/home" sx={{ display: 'flex', mr: 2 }}>
             GCS
           </Typography>
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
-              <Button color="primary" sx={{ color: 'white' }} startIcon={<LocalShippingIcon></LocalShippingIcon>}>
+              <Button color="primary" sx={{ color: 'white' }} startIcon={<LocalShippingIcon></LocalShippingIcon>} onClick={() => navigate('/home')}>
                 บันทึกข้อมูลรับส่งสินค้า
               </Button>
-              <Button color="primary" sx={{ color: 'white' }} startIcon={<FindInPageRoundedIcon></FindInPageRoundedIcon>}>
+              <Button color="primary" sx={{ color: 'white' }} startIcon={<FindInPageRoundedIcon></FindInPageRoundedIcon>} onClick={() => navigate('/query')}>
                 สืบค้นข้อมูล
               </Button>
               <DltReportMenu></DltReportMenu>
@@ -66,7 +76,7 @@ export default function DltAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>ข้อมูลผู้ใช้งาน</MenuItem>
-                <MenuItem onClick={handleClose}>ออกจากระบบ</MenuItem>
+                <MenuItem onClick={handleLogout}>ออกจากระบบ</MenuItem>
               </Menu>
             </div>
           )}

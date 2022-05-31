@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Menu, MenuItem } from '@mui/material'
 import { InformationOutline } from 'mdi-material-ui'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 export default function DltManualMenu() {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -22,6 +23,7 @@ export default function DltManualMenu() {
         sx={{ color: 'white' }}
         color="primary"
         startIcon={<InformationOutline></InformationOutline>}
+        endIcon={<ArrowDropDownIcon></ArrowDropDownIcon>}
       >
         คู่มือ
       </Button>
@@ -34,9 +36,8 @@ export default function DltManualMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>คู่มือสำหรับผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={handleClose}>คู่มือสำหรับเจ้าหน้าที่</MenuItem>
       </Menu>
     </React.Fragment>
   )

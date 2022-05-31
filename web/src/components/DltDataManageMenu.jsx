@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Menu, MenuItem } from '@mui/material'
 import { DatabaseCog } from 'mdi-material-ui'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 export default function DltDataManageMenu() {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -22,6 +23,7 @@ export default function DltDataManageMenu() {
         sx={{ color: 'white' }}
         color="primary"
         startIcon={<DatabaseCog></DatabaseCog>}
+        endIcon={<ArrowDropDownIcon></ArrowDropDownIcon>}
       >
         จัดการข้อมูล
       </Button>
@@ -34,9 +36,12 @@ export default function DltDataManageMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>ข้อมูลผู้ใช้งาน</MenuItem>
+        <MenuItem onClick={handleClose}>รายชื่อผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={handleClose}>รายการรถของผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={handleClose}>รายการรถลูกค้าของผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={handleClose}>เกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={handleClose}>ข้อมูลเหตุการณ์ภายในระบบ</MenuItem>
       </Menu>
     </React.Fragment>
   )

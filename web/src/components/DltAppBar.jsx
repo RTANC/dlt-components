@@ -65,8 +65,8 @@ export default function DltAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>ข้อมูลผู้ใช้งาน</MenuItem>
+                <MenuItem onClick={handleClose}>ออกจากระบบ</MenuItem>
               </Menu>
             </div>
           )}

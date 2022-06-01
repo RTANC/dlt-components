@@ -1,5 +1,5 @@
 import React from 'react'
-import {TextField, Box, InputAdornment} from '@mui/material'
+import {TextField, Box, InputAdornment, FormControl} from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
@@ -11,19 +11,21 @@ export default function DltDateTimePicker(props) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={thLocale}>
-        <MobileDateTimePicker
-          label={props.label}
-          inputFormat='dd/MM/yyyy HH:mm'
-          mask='__/__/____ __:__'
-          value={props.value}
-          onChange={props.onChange}
-          name={props.name}
-          renderInput={(params) => <TextField {...params} InputProps={{startAdornment: (
-            <InputAdornment position="start">
-              <Calendar />
-            </InputAdornment>
-          )}}/>}
-        />
+        <FormControl fullWidth>
+          <MobileDateTimePicker
+            label={props.label}
+            inputFormat='dd/MM/yyyy HH:mm'
+            mask='__/__/____ __:__'
+            value={props.value}
+            onChange={props.onChange}
+            name={props.name}
+            renderInput={(params) => <TextField {...params} InputProps={{startAdornment: (
+              <InputAdornment position="start">
+                <Calendar />
+              </InputAdornment>
+            )}}/>}
+          />
+        </FormControl>
       </LocalizationProvider>
     </Box>
   )

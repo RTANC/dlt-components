@@ -12,14 +12,14 @@ export default function SelectProvince(props) {
           console.log(error)
         }
       }
-  
+
       useEffect(() => {
         fetchProvinces()
       }, [])
   return (
     <FormControl fullWidth>
       <InputLabel>{props.label}</InputLabel>
-      <Select onChange={props.onChange} value={props.value} name="province">
+      <Select onChange={props.onChange} value={props.value} name={props.name}>
           {provinces.map((v, i) => (
             <MenuItem value={v.ProvinceID} key={i}>{v.ProvinceName}</MenuItem>
           ))}

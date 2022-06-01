@@ -23,7 +23,7 @@ export default function SelectStation(props) {
   return (
     <FormControl fullWidth>
       <InputLabel>สถานี</InputLabel>
-      <Select onChange={props.onChange} value={props.value}>
+      <Select onChange={props.onChange} value={props.value} name={props.name}>
           {stations.map((v, i) => (
             <MenuItem value={v.StationID} key={i}>{v.StationName}</MenuItem>
           ))}

@@ -1,8 +1,9 @@
-import { Container, Grid } from '@mui/material'
+import { Container, Grid, Slide } from '@mui/material'
 import React from 'react'
 
 export default function Query() {
   return (
+    <Slide direction="left" in={true} mountOnEnter unmountOnExit>
     <Container maxWidth="false">
       <Grid
         container
@@ -21,5 +22,6 @@ export default function Query() {
         <Grid item md={4} lg={3}>Hello 9</Grid>
       </Grid>
     </Container>
+    </Slide>
   )
 }

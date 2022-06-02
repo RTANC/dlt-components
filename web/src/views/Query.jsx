@@ -1,4 +1,4 @@
-import { Container, Grid, Slide, Card, CardContent, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CardActions, Button, Box } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -9,6 +9,7 @@ import SelectVehicleGroup from '../components/SelectVehicleGroup'
 import SelectGoodCategory from '../components/SelectGoodCategory'
 import SelectIsConfirm from '../components/SelectIsConfirm'
 import CheckBoxVehicleStatus from '../components/CheckBoxVehicleStatus'
+import DltTextField from '../components/DltTextField'
 
 export default function Query() {
   const [params, setParams] = useState({
@@ -85,11 +86,19 @@ export default function Query() {
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <SelectIsConfirm value={params.isConfirm} label='ยืนยันรายการ' onChange={(e) => {setParams({...params,'isConfirm': e.target.value})}}></SelectIsConfirm>
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
+                  <DltTextField label='ทะเบียนรถ' value={params.lp} onChange={(e) => {setParams({...params, 'lp': e.target.value})}}></DltTextField>
+                </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <CheckBoxVehicleStatus isVehicleInStation={params.isVehicleInStation} isOverWeight={params.isOverWeight} onChange={(e) => {setParams({...params, [e.target.name]: e.target.checked})}}></CheckBoxVehicleStatus>
                 </Grid>
               </Grid>
+              <CardActions>
+                <Box sx={{width: '100%', alignContent: 'center'}}>
+                <Button color='info'>ค้นหา</Button>
+                <Button>ล้างข้อมูล</Button>
+                </Box>
+              </CardActions>
             </CardContent>
           </Card>
         </Grid>

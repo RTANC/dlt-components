@@ -1,10 +1,8 @@
 import React from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login } from '../redux/loginSlice'
-const theme = createTheme()
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -20,7 +18,6 @@ export default function Login() {
         navigate('/home')
     }
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -87,6 +84,5 @@ export default function Login() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
   )
 }

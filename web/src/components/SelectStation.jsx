@@ -1,6 +1,7 @@
 import { FormControl, FormHelperText, MenuItem, Select, InputLabel } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { getStations } from '../services/stations'
+import PropTypes from 'prop-types'
 
 export default function SelectStation(props) {
     // const [stations, setStations] = useState(['พุทธมณฑล', 'คลองหลวง', 'ร่มเกล้า'])
@@ -21,14 +22,24 @@ export default function SelectStation(props) {
     
     
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth error={props.error !== false}>
       <InputLabel>สถานี</InputLabel>
       <Select onChange={props.onChange} value={props.value} name={props.name}>
           {stations.map((v, i) => (
             <MenuItem value={v.StationID} key={i}>{v.StationName}</MenuItem>
           ))}
       </Select>
-      <FormHelperText>*จำเป็น</FormHelperText>
+      {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
+      {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>
   )
+}
+
+SelectStation.propTypes = {
+  required: PropTypes.bool
+}
+
+SelectStation.defaultProps = {
+  required: false,
+  error: false
 }

@@ -1,6 +1,7 @@
 import { FormControl, FormHelperText, MenuItem, Select, InputLabel } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { getCompany } from '../services/company'
+import PropTypes from 'prop-types'
 
 export default function SelectCompany(props) {
     // const [stations, setStations] = useState(['พุทธมณฑล', 'คลองหลวง', 'ร่มเกล้า'])
@@ -21,14 +22,24 @@ export default function SelectCompany(props) {
     
     
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth error={props.error !== false}>
       <InputLabel>ผู้ประกอบการ</InputLabel>
       <Select onChange={props.onChange} value={props.value} name={props.name}>
           {company.map((v, i) => (
             <MenuItem value={v.CompanyID} key={i}>{v.CompanyName}</MenuItem>
           ))}
       </Select>
-      <FormHelperText>*จำเป็น</FormHelperText>
+      {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
+      {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>
   )
+}
+
+SelectCompany.propTypes = {
+  required: PropTypes.bool
+}
+
+SelectCompany.defaultProps = {
+  required: false,
+  error: false
 }

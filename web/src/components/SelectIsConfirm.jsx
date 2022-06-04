@@ -9,7 +9,6 @@ export default function SelectIsConfirm(props) {
             <MenuItem value={true}>ยืนยันแล้ว</MenuItem>
             <MenuItem value={false}>ยังไม่ยืนยัน</MenuItem>
         </Select>
-        <FormHelperText>*จำเป็น</FormHelperText>
     </FormControl>
   )
 }

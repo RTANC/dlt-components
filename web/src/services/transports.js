@@ -1,5 +1,5 @@
 import { api } from './api'
 
 export function getProvinces() {
-    return api.get('/provinces')
+    return api.get('transports/provinces')
 }

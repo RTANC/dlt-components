@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const { getProvinces } = require('./provinces.controller')
+const { getProvinces } = require('./licenseplates.controller')
 
-router.get('/', getProvinces)
+router.get('/provinces', getProvinces)
 // router.get('/:uid', getUser)
 
 // router.patch('/:uid', updateUser)

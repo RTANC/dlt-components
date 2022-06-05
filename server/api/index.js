@@ -3,9 +3,10 @@ const router = express.Router()
 
 const stationRoutes = require('./stations')
 const companyRoutes = require('./company')
-const provinceRoutes = require('./provinces')
+const transportRoutes = require('./transports')
 const vehicleRoutes = require('./vehicles')
 const goodRoutes = require('./goods')
+const licenseplateRoutes = require('./licenseplates')
 
 router.get('/systems', (req, res, next) => {
     res.status(200).send({
@@ -15,8 +16,9 @@ router.get('/systems', (req, res, next) => {
 
 router.use('/stations', stationRoutes)
 router.use('/company', companyRoutes)
-router.use('/provinces', provinceRoutes)
+router.use('/transports', transportRoutes)
 router.use('/vehicles', vehicleRoutes)
 router.use('/goods', goodRoutes)
+router.use('/licenseplates', licenseplateRoutes)
 
 module.exports = router

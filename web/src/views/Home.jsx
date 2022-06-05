@@ -1,4 +1,4 @@
-import { Container, Grid, Slide, Card, CardContent, Typography } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, Typography, Box, ToggleButtonGroup, ToggleButton } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -10,7 +10,13 @@ import SelectObjective from '../components/SelectObjective'
 import CheckBoxVehicleOut from '../components/CheckBoxVehicleOut'
 import CheckBoxEditLPR from '../components/CheckBoxEditLPR'
 import SelectProvince from '../components/SelectProvince'
+import SelectLPProvince from '../components/SelectLPProvince'
 import moment from 'moment-timezone'
+import ImageListLP from '../components/ImageListLP'
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
+
+
 export default function Home() {
   const [transport, setTransport] = useState({
     station: {
@@ -72,7 +78,8 @@ export default function Home() {
       error: false,
       rules: []
     },
-    isVehicleOut: false
+    isVehicleOut: false,
+    mode: 1
   })
 
   transport.station.rules = [transport.station.value !== '' || '*ข้อมูลจำเป็น']
@@ -131,10 +138,10 @@ export default function Home() {
                     <Grid item xs={9}><CheckBoxEditLPR value={transport.editLPR} onChange={(e) => {setTransport({...transport, editLPR: e.target.checked})}}></CheckBoxEditLPR></Grid>
                     <Grid item xs={4}><DltTextField label='ทะเบียนหน้า-แก้ไข' value={transport.f1mp1.value} onChange={(e) => {setTransport({...transport, f1mp1: {...transport.f1mp1, value: e.target.value}})}} required error={transport.f1mp1.error}></DltTextField></Grid>
                     <Grid item xs={4}><DltTextField label='ทะเบียนหน้า-แก้ไข' value={transport.f1mp2.value} onChange={(e) => {setTransport({...transport, f1mp2: {...transport.f1mp2, value: e.target.value}})}} required error={transport.f1mp2.error}></DltTextField></Grid>
-                    <Grid item xs={4}><SelectProvince label='ทะเบียนหน้า-แก้ไข (จังหวัด)' value={transport.f1mpId.value} onChange={(e) => {setTransport({...transport, f1mpId: {...transport.f1mpId, value: e.target.value}})}} required error={transport.f1mpId.error}></SelectProvince></Grid>
+                    <Grid item xs={4}><SelectLPProvince label='ทะเบียนหน้า-แก้ไข (จังหวัด)' value={transport.f1mpId.value} onChange={(e) => {setTransport({...transport, f1mpId: {...transport.f1mpId, value: e.target.value}})}} required error={transport.f1mpId.error}></SelectLPProvince></Grid>
                     <Grid item xs={4}><DltTextField label='ทะเบียนหลัง-แก้ไข' value={transport.r1mp1.value} onChange={(e) => {setTransport({...transport, r1mp1: {...transport.r1mp1, value: e.target.value}})}} required error={transport.r1mp1.error}></DltTextField></Grid>
                     <Grid item xs={4}><DltTextField label='ทะเบียนหลัง-แก้ไข' value={transport.r1mp2.value} onChange={(e) => {setTransport({...transport, r1mp2: {...transport.r1mp2, value: e.target.value}})}} required error={transport.r1mp2.error}></DltTextField></Grid>
-                    <Grid item xs={4}><SelectProvince label='ทะเบียนหลัง-แก้ไข (จังหวัด)' value={transport.r1mpId.value} onChange={(e) => {setTransport({...transport, r1mpId: {...transport.r1mpId, value: e.target.value}})}} required error={transport.r1mpId.error}></SelectProvince></Grid>
+                    <Grid item xs={4}><SelectLPProvince label='ทะเบียนหลัง-แก้ไข (จังหวัด)' value={transport.r1mpId.value} onChange={(e) => {setTransport({...transport, r1mpId: {...transport.r1mpId, value: e.target.value}})}} required error={transport.r1mpId.error}></SelectLPProvince></Grid>
                     <Grid item xs={9}>
                       <DltDateTimePicker disabled value={transport.timeStampIn.value} label='วัน/เดือน/ปี ขาเข้า' name='timeStampIn' required error={transport.timeStampIn.error}></DltDateTimePicker>
                     </Grid>
@@ -150,7 +157,9 @@ export default function Home() {
                   </Grid>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  
+                  <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                    <ImageListLP></ImageListLP>
+                  </Box>
                 </Grid>
               </Grid>
             </CardContent>
@@ -163,7 +172,17 @@ export default function Home() {
                 สินค้า
               </Typography>
             </CardContent>
-            <CardContent></CardContent>
+            <CardContent>
+              <Grid container spacing={2} direction='row' wrap='wrap'>
+                <Grid item xs={12}>
+                  <ToggleButtonGroup color='primary' value={transport.mode} exclusive onChange={(e, val) => { setTransport({...transport, 'mode': val}) }} fullWidth>
+                    <ToggleButton value={1}><ArrowCircleDownIcon sx={{mr: 1}}/> ส่งสินค้าเข้า</ToggleButton>
+                    <ToggleButton value={2}><ArrowCircleUpIcon sx={{mr: 1}}/> รับสินค้าออก</ToggleButton>
+                    <ToggleButton value={3}><ArrowCircleDownIcon/> <ArrowCircleUpIcon sx={{mr: 1}}/> รับและส่งสินค้าสถานี</ToggleButton>
+                  </ToggleButtonGroup>
+                </Grid>
+              </Grid>
+            </CardContent>
           </Card>
         </Grid>
       </Grid>

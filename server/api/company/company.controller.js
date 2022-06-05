@@ -3,9 +3,8 @@ const sequelize = require('../../connection')
 
 exports.getCompany = async (req, res, next) => {
     try {
-        // stations = ['พุทธมณฑล', 'คลองหลวง', 'ร่มเกล้า']
-        const stations = await sequelize.query("SELECT * FROM company where CompanyID > 0", { type: QueryTypes.SELECT });
-        res.status(200).send(stations)
+        const company = await sequelize.query("SELECT CompanyID, CompanyName FROM company where CompanyID > 0", { type: QueryTypes.SELECT });
+        res.status(200).send(company)
     } catch (error) {
         next(error)
     }

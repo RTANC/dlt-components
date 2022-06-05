@@ -1,9 +1,9 @@
 import { FormControl, FormHelperText, MenuItem, Select, InputLabel } from '@mui/material'
 import React, { useState, useEffect } from 'react'
-import { getProvinces } from '../services/transports'
+import { getProvinces } from '../services/licenseplates'
 import PropTypes from 'prop-types'
 
-export default function SelectProvince(props) {
+export default function SelectLPProvince(props) {
     const [provinces, setProvinces] = useState([])
     const fetchProvinces = async () => {
         try {
@@ -31,11 +31,11 @@ export default function SelectProvince(props) {
   )
 }
 
-SelectProvince.propTypes = {
-  required: PropTypes.bool
-}
-
-SelectProvince.defaultProps = {
+SelectLPProvince.propTypes = {
+    required: PropTypes.bool
+  }
+  
+SelectLPProvince.defaultProps = {
   required: false,
   error: false
 }

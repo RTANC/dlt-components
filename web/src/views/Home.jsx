@@ -15,6 +15,7 @@ import moment from 'moment-timezone'
 import ImageListLP from '../components/ImageListLP'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
+import CheckBoxGoodCategory from '../components/CheckBoxGoodCategory'
 
 
 export default function Home() {
@@ -79,7 +80,12 @@ export default function Home() {
       rules: []
     },
     isVehicleOut: false,
-    mode: 1
+    mode: 3,
+    rx: {
+      province: '',
+      goods: ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      other: ''
+    }
   })
 
   transport.station.rules = [transport.station.value !== '' || '*ข้อมูลจำเป็น']
@@ -173,7 +179,7 @@ export default function Home() {
               </Typography>
             </CardContent>
             <CardContent>
-              <Grid container spacing={2} direction='row' wrap='wrap'>
+              <Grid container spacing={2} direction='row' wrap='wrap' >
                 <Grid item xs={12}>
                   <ToggleButtonGroup color='primary' value={transport.mode} exclusive onChange={(e, val) => { setTransport({...transport, 'mode': val}) }} fullWidth>
                     <ToggleButton value={1}><ArrowCircleDownIcon sx={{mr: 1}}/> ส่งสินค้าเข้า</ToggleButton>
@@ -181,6 +187,23 @@ export default function Home() {
                     <ToggleButton value={3}><ArrowCircleDownIcon/> <ArrowCircleUpIcon sx={{mr: 1}}/> รับและส่งสินค้าสถานี</ToggleButton>
                   </ToggleButtonGroup>
                 </Grid>
+                <Grid item xs={6}>
+                  <Grid container spacing={2} direction='row' wrap='wrap'>
+                    <Grid item xs={12}>
+                      <Typography variant='subtitle1' align='left' color='primary' gutterBottom>กรณีส่งสินค้าเข้าสถานี</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <SelectProvince value={transport.rx.province} name='rxProvince' label='จังหวัดต้นทาง' onChange={(e) => {setTransport({...transport, rx: {...transport.rx, province: e.target.value}})}}></SelectProvince>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant='body1' align='left' gutterBottom sx={{display: 'flex', alignItems: 'center'}}>สถานีปลายทาง: <ArrowCircleDownIcon sx={{mx: 1}}/> สถานีขนส่งสินค้า</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CheckBoxGoodCategory value={transport.rx.goods}></CheckBoxGoodCategory>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={6}></Grid>
               </Grid>
             </CardContent>
           </Card>

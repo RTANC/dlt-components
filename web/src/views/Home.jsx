@@ -199,7 +199,7 @@ export default function Home() {
                       <Typography variant='body1' align='left' gutterBottom sx={{display: 'flex', alignItems: 'center'}}>สถานีปลายทาง: <ArrowCircleDownIcon sx={{mx: 1}}/> สถานีขนส่งสินค้า</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                      <CheckBoxGoodCategory value={transport.rx.goods}></CheckBoxGoodCategory>
+                      <CheckBoxGoodCategory value={transport.rx.goods} onChange={(e) => {transport.rx.goods[parseInt(e.target.name)] = e.target.checked ;setTransport({...transport, rx: {...transport.rx}})}}></CheckBoxGoodCategory>
                     </Grid>
                   </Grid>
                 </Grid>

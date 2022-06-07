@@ -1,4 +1,4 @@
-import { Container, Grid, Slide, Card, CardContent, Typography, Box, ToggleButtonGroup, ToggleButton } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, Typography, Box, ToggleButtonGroup, ToggleButton, CardActions } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -15,10 +15,14 @@ import moment from 'moment-timezone'
 import ImageListLP from '../components/ImageListLP'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
+import SaveIcon from '@mui/icons-material/Save'
+import CancelIcon from '@mui/icons-material/Cancel'
 import CheckBoxGoodCategory from '../components/CheckBoxGoodCategory'
-
+import { LoadingButton } from '@mui/lab'
+import formValidator from '../services/validator'
 
 export default function Home() {
+  const [loading, setLoading] = useState(false)
   const [transport, setTransport] = useState({
     station: {
       value: 1,
@@ -84,7 +88,16 @@ export default function Home() {
     rx: {
       province: '',
       goods: ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      other: ''
+      other: '',
+      rules: [],
+      error: false
+    },
+    tx: {
+      province: '',
+      goods: ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      other: '',
+      rules: [],
+      error: false
     }
   })
 
@@ -93,6 +106,73 @@ export default function Home() {
   transport.timeStampIn.rules = [transport.timeStampIn.value !== null || '*ข้อมูลจำเป็น']
   transport.vehicleClass.rules = [transport.vehicleClass.value !== '' || '*ข้อมูลจำเป็น']
   transport.objective.rules = [transport.objective.value !== '' || '*ข้อมูลจำเป็น']
+  switch (transport.mode) {
+    case 1: transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
+    break
+    case 2: transport.tx.rules = [!(transport.tx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
+    break
+    default: transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
+    transport.tx.rules = [!(transport.tx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
+  }
+
+  const handleRxGoodCategory = (e) => {
+    if (parseInt(e.target.name) === 0) {
+      transport.rx.goods[0] = e.target.value
+    } else {
+      transport.rx.goods[parseInt(e.target.name)] = e.target.checked
+    }
+
+    if (transport.rx.goods[14] === false) {
+      transport.rx.goods[0] = ''
+    }
+
+    if (transport.mode !== 2) {
+      transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
+    } else {
+      transport.rx.rules = []
+      transport.rx.error = false
+    }
+    setTransport({...transport, rx: {...transport.rx}})
+  }
+
+  const handleTxGoodCategory = (e) => {
+    if (parseInt(e.target.name) === 0) {
+      transport.tx.goods[0] = e.target.value
+    } else {
+      transport.tx.goods[parseInt(e.target.name)] = e.target.checked
+    }
+
+    if (transport.tx.goods[14] === false) {
+      transport.tx.goods[0] = ''
+    }
+
+    if (transport.mode !== 1) {
+      transport.tx.rules = [!(transport.tx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
+    } else {
+      transport.tx.rules = []
+      transport.tx.error = false
+    }
+    setTransport({...transport, tx: {...transport.tx}})
+  }
+
+  const submit = async (e) => {
+    try {
+      e.preventDefault()
+      setLoading(true)
+      if (formValidator(transport, setTransport)) {
+
+      }
+      console.log(transport)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const cancel = () => {
+
+  }
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
@@ -179,7 +259,7 @@ export default function Home() {
               </Typography>
             </CardContent>
             <CardContent>
-              <Grid container spacing={2} direction='row' wrap='wrap' >
+              <Grid container spacing={4} direction='row' wrap='wrap' >
                 <Grid item xs={12}>
                   <ToggleButtonGroup color='primary' value={transport.mode} exclusive onChange={(e, val) => { setTransport({...transport, 'mode': val}) }} fullWidth>
                     <ToggleButton value={1}><ArrowCircleDownIcon sx={{mr: 1}}/> ส่งสินค้าเข้า</ToggleButton>
@@ -187,25 +267,46 @@ export default function Home() {
                     <ToggleButton value={3}><ArrowCircleDownIcon/> <ArrowCircleUpIcon sx={{mr: 1}}/> รับและส่งสินค้าสถานี</ToggleButton>
                   </ToggleButtonGroup>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} sx={{visibility: transport.mode !== 2 ? 'visible' : 'hidden'}}>
                   <Grid container spacing={2} direction='row' wrap='wrap'>
                     <Grid item xs={12}>
                       <Typography variant='subtitle1' align='left' color='primary' gutterBottom>กรณีส่งสินค้าเข้าสถานี</Typography>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
                       <SelectProvince value={transport.rx.province} name='rxProvince' label='จังหวัดต้นทาง' onChange={(e) => {setTransport({...transport, rx: {...transport.rx, province: e.target.value}})}}></SelectProvince>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={12} md={6} lg={6} sx={{display: 'flex', alignItems: 'center'}}>
                       <Typography variant='body1' align='left' gutterBottom sx={{display: 'flex', alignItems: 'center'}}>สถานีปลายทาง: <ArrowCircleDownIcon sx={{mx: 1}}/> สถานีขนส่งสินค้า</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                      <CheckBoxGoodCategory value={transport.rx.goods} onChange={(e) => {transport.rx.goods[parseInt(e.target.name)] = e.target.checked ;setTransport({...transport, rx: {...transport.rx}})}}></CheckBoxGoodCategory>
+                      <CheckBoxGoodCategory value={transport.rx.goods} onChange={handleRxGoodCategory} required error={transport.rx.error}></CheckBoxGoodCategory>
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item xs={6}></Grid>
+                <Grid item xs={6} sx={{visibility: transport.mode !== 1 ? 'visible' : 'hidden'}}>
+                  <Grid container spacing={2} direction='row' wrap='wrap'>
+                    <Grid item xs={12}>
+                      <Typography variant='subtitle1' align='left' color='primary' gutterBottom>กรณีรับสินค้าจากสถานี</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6} sx={{display: 'flex', alignItems: 'center'}}>
+                      <Typography variant='body1' align='left' gutterBottom sx={{display: 'flex', alignItems: 'center'}}>สถานีต้นทาง: <ArrowCircleUpIcon sx={{mx: 1}}/> สถานีขนส่งสินค้า</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                      <SelectProvince value={transport.tx.province} name='txProvince' label='จังหวัดปลายทาง' onChange={(e) => {setTransport({...transport, tx: {...transport.tx, province: e.target.value}})}}></SelectProvince>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CheckBoxGoodCategory value={transport.tx.goods} onChange={handleTxGoodCategory} required error={transport.tx.error}></CheckBoxGoodCategory>
+                    </Grid>
+                  </Grid>
+                </Grid>
               </Grid>
             </CardContent>
+            <CardActions>
+              <Box sx={{width: '100%', alignContent: 'center'}}>
+                <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={submit} startIcon={<SaveIcon></SaveIcon>}>บันทึก</LoadingButton>
+                <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CancelIcon></CancelIcon>}>ยกเลิก</LoadingButton>
+              </Box>
+            </CardActions>
           </Card>
         </Grid>
       </Grid>

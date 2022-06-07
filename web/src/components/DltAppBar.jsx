@@ -34,7 +34,7 @@ export default function DltAppBar() {
   return (
     <AppBar position="static" sx={{mb: 2}}>
         <Toolbar>
-          <Typography variant="h6" component="div" to="/home" sx={{ display: 'flex', mr: 2 }}>
+          <Typography variant="h6" component="div" sx={{ display: 'flex', mr: 2 }}>
             GCS
           </Typography>
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
@@ -75,7 +75,7 @@ export default function DltAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>ข้อมูลผู้ใช้งาน</MenuItem>
+                <MenuItem onClick={() => navigate('/profile')}>ข้อมูลผู้ใช้งาน</MenuItem>
                 <MenuItem onClick={handleLogout}>ออกจากระบบ</MenuItem>
               </Menu>
             </div>

@@ -1,9 +1,10 @@
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from '@mui/material'
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, Grid, TextField } from '@mui/material'
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function CheckBoxGoodCategory(props) {
   return (
-      <FormControl fullWidth>
+      <FormControl fullWidth error={props.error !== false}>
           <FormLabel sx={{display: 'flex', alignContent: 'start', color: 'black', mb: 2, height: 30, alignItems: 'center'}}>ประเภทสินค้า</FormLabel>
           <FormGroup>
               <Grid container spacing={2} direction='row' wrap='wrap'>
@@ -50,6 +51,8 @@ export default function CheckBoxGoodCategory(props) {
                     <FormControlLabel control={<Checkbox name='14' checked={props.value[14]} onChange={props.onChange}></Checkbox>} label='สินค้าอื่นๆ'></FormControlLabel>
                   </Grid>
                   <Grid item xs={6}>
+                    {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
+                    {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
                   </Grid>
                   <Grid item xs={6} sx={{display: 'flex', alignContent: 'start'}}>
                     <TextField name='0' value={props.value[0]} onChange={props.onChange} placeholder='โปรดระบุ' sx={{visibility: props.value[14] ? 'visible' : 'hidden'}}></TextField>
@@ -58,4 +61,13 @@ export default function CheckBoxGoodCategory(props) {
           </FormGroup>
       </FormControl>
   )
+}
+
+CheckBoxGoodCategory.propTypes = {
+  required: PropTypes.bool
+}
+
+CheckBoxGoodCategory.defaultProps = {
+  required: false,
+  error: false
 }

@@ -14,6 +14,7 @@ import DltTextField from '../components/DltTextField'
 import formValidator from '../services/validator'
 import moment from 'moment-timezone'
 import SearchIcon from '@mui/icons-material/Search'
+import CachedIcon from '@mui/icons-material/Cached'
 
 export default function Query() {
   const [params, setParams] = useState({
@@ -166,13 +167,13 @@ export default function Query() {
                   <CheckBoxVehicleStatus isVehicleInStation={params.isVehicleInStation} isOverWeight={params.isOverWeight} onChange={(e) => {setParams({...params, [e.target.name]: e.target.checked})}}></CheckBoxVehicleStatus>
                 </Grid>
               </Grid>
-              <CardActions>
-                <Box sx={{width: '100%', alignContent: 'center'}}>
-                  <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={submit} startIcon={<SearchIcon></SearchIcon>}>ค้นหา</LoadingButton>
-                  <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={clear}>ล้างข้อมูล</LoadingButton>
-                </Box>
-              </CardActions>
             </CardContent>
+            <CardActions>
+              <Box sx={{width: '100%', alignContent: 'center'}}>
+                <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={submit} startIcon={<SearchIcon></SearchIcon>}>ค้นหา</LoadingButton>
+                <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={clear} startIcon={<CachedIcon></CachedIcon>}>ล้างข้อมูล</LoadingButton>
+              </Box>
+            </CardActions>
           </Card>
         </Grid>
       </Grid>

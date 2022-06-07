@@ -4,6 +4,7 @@ import DltAppBar from './components/DltAppBar'
 import Login from './views/Login'
 import Home from './views/Home'
 import Query from './views/Query'
+import Profile from './views/Profile'
 import './App.css'
 import { useSelector } from 'react-redux'
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<Login></Login>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/query' element={<Query></Query>}></Route>
+        <Route path='/profile' element={<Profile></Profile>}></Route>
       </Routes>
       {/* <Footer></Footer> */}
       </BrowserRouter>

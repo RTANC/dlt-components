@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 export default function CheckBoxGoodCategory(props) {
   return (
       <FormControl fullWidth error={props.error !== false}>
-          <FormLabel sx={{display: 'flex', alignContent: 'start', color: 'black', mb: 2, height: 30, alignItems: 'center'}}>ประเภทสินค้า</FormLabel>
+          <FormLabel sx={{display: 'flex', alignContent: 'start', color: 'black', mb: 2, height: 30, alignItems: 'center'}} component="legend">ประเภทสินค้า</FormLabel>
           <FormGroup>
               <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={6} sx={{display: 'flex', alignContent: 'start'}}>

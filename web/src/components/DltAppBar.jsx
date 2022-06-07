@@ -75,7 +75,7 @@ export default function DltAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={() => navigate('/profile')}>ข้อมูลผู้ใช้งาน</MenuItem>
+                <MenuItem onClick={() => {setAnchorEl(null);navigate('/profile')}}>ข้อมูลผู้ใช้งาน</MenuItem>
                 <MenuItem onClick={handleLogout}>ออกจากระบบ</MenuItem>
               </Menu>
             </div>

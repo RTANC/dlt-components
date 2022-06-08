@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { Button, Menu, MenuItem } from '@mui/material'
 import { DatabaseCog } from 'mdi-material-ui'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import { useNavigate } from 'react-router-dom'
 
 export default function DltDataManageMenu() {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
+    const navigate = useNavigate()
+
     const handleClick = (e) => {
       setAnchorEl(e.currentTarget)
     }
@@ -36,12 +39,12 @@ export default function DltDataManageMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>ข้อมูลผู้ใช้งาน</MenuItem>
-        <MenuItem onClick={handleClose}>รายชื่อผู้ประกอบการ</MenuItem>
-        <MenuItem onClick={handleClose}>รายการรถของผู้ประกอบการ</MenuItem>
-        <MenuItem onClick={handleClose}>รายการรถลูกค้าของผู้ประกอบการ</MenuItem>
-        <MenuItem onClick={handleClose}>เกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</MenuItem>
-        <MenuItem onClick={handleClose}>ข้อมูลเหตุการณ์ภายในระบบ</MenuItem>
+        <MenuItem onClick={() => {handleClose(); navigate('/management/user')}}>ข้อมูลผู้ใช้งาน</MenuItem>
+        <MenuItem onClick={() => {handleClose(); navigate('/management/company')}}>รายชื่อผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={() => {handleClose(); navigate('/management/user')}}>รายการรถของผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={() => {handleClose(); navigate('/management/user')}}>รายการรถลูกค้าของผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={() => {handleClose(); navigate('/management/user')}}>เกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</MenuItem>
+        <MenuItem onClick={() => {handleClose(); navigate('/management/user')}}>ข้อมูลเหตุการณ์ภายในระบบ</MenuItem>
       </Menu>
     </React.Fragment>
   )

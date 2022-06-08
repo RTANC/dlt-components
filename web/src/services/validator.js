@@ -1,4 +1,5 @@
 export function validator (rules) {
+    if (rules.length === 0) return false
     let err = null
     for (let i = 0; i < rules.length; i++) {
         err = rules[i]

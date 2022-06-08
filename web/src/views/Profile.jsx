@@ -51,13 +51,13 @@ export default function Profile() {
         }
     })
 
-    profile.firstname.rules = [profile.firstname.value !== '' || '*ข้อมูลจำเป็น']
-    profile.lastname.rules = [profile.lastname.value || '*ข้อมูลจำเป็น']
-    profile.username.rules = [profile.username.value || '*ข้อมูลจำเป็น']
-    profile.newPassword.rules = [profile.newPassword.value || '*ข้อมูลจำเป็น']
-    profile.confirmPassword.rules = [profile.confirmPassword.value || '*ข้อมูลจำเป็น']
-    profile.email.rules = [profile.email.value || '*ข้อมูลจำเป็น', /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(profile.email.value) || '*รูปแบบ email ไม่ถูกต้อง']
-    profile.tel.rules = [profile.tel.value || '*ข้อมูลจำเป็น']
+    profile.firstname.rules = [!!profile.firstname.value || '*ข้อมูลจำเป็น']
+    profile.lastname.rules = [!!profile.lastname.value || '*ข้อมูลจำเป็น']
+    profile.username.rules = [!!profile.username.value || '*ข้อมูลจำเป็น']
+    profile.newPassword.rules = [!!profile.newPassword.value || '*ข้อมูลจำเป็น']
+    profile.confirmPassword.rules = [!!profile.confirmPassword.value || '*ข้อมูลจำเป็น']
+    profile.email.rules = [!!profile.email.value || '*ข้อมูลจำเป็น', /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(profile.email.value) || '*รูปแบบ email ไม่ถูกต้อง']
+    profile.tel.rules = [!!profile.tel.value || '*ข้อมูลจำเป็น']
 
     const handleFirstName = (e) => {
       profile.firstname.value = e.target.value
@@ -74,14 +74,39 @@ export default function Profile() {
       setProfile({...profile})
     }
 
+    const handleChpasswd = (e) => {
+      if (e.target.checked) {
+        profile.newPassword.rules = [!!profile.newPassword.value || '*ข้อมูลจำเป็น']
+        profile.confirmPassword.rules = [!!profile.confirmPassword.value || '*ข้อมูลจำเป็น']
+      } else {
+        profile.newPassword.value = ''
+        profile.newPassword.rules = []
+        profile.newPassword.error = false
+        profile.confirmPassword.value = ''
+        profile.confirmPassword.rules = []
+        profile.confirmPassword.error = false
+      }
+      setProfile({...profile, chpasswd: e.target.checked})
+    }
+
     const handleNewPassword = (e) => {
       profile.newPassword.value = e.target.value
-      setProfile({...profile, newPassword: {...profile.newPassword}})
+      setProfile({...profile})
     }
 
     const handleConfirmPassword = (e) => {
       profile.confirmPassword.value = e.target.value
-      setProfile({...profile, confirmPassword: {...profile.confirmPassword}})
+      setProfile({...profile})
+    }
+
+    const handleEmail = (e) => {
+      profile.email.value = e.target.value
+      setProfile({...profile})
+    }
+
+    const handleTel = (e) => {
+      profile.tel.value = e.target.value
+      setProfile({...profile})
     }
 
     const submit = async (e) => {
@@ -127,26 +152,26 @@ export default function Profile() {
                         <DltTextField label='นามสกุล' value={profile.lastname.value} onChange={handleLastName} onKeyUp={(e) => {setProfile({...profile, lastname: {...profile.lastname, error: validator(profile.firstname.rules)}})}} error={profile.lastname.error} required></DltTextField>
                       </Grid>
                       <Grid item xs={8} md={7}>
-                        <DltTextField label='User Name' value={profile.username.value} onChange={handleUsername} required></DltTextField>
+                        <DltTextField label='User Name' value={profile.username.value} onChange={handleUsername} onKeyUp={(e) => {setProfile({...profile, username: {...profile.username, error: validator(profile.username.rules)}})}} error={profile.username.error} required></DltTextField>
                       </Grid>
                       <Grid item xs={4} md={5}>
                         <FormControl fullWidth>
                           <FormGroup>
-                            <FormControlLabel label='เปลี่ยน Password' control={<Checkbox checked={profile.chpasswd} onChange={(e) => {setProfile({...profile, chpasswd: e.target.checked})}}></Checkbox>}></FormControlLabel>
+                            <FormControlLabel label='เปลี่ยน Password' control={<Checkbox checked={profile.chpasswd} onChange={handleChpasswd}></Checkbox>}></FormControlLabel>
                           </FormGroup>
                         </FormControl>
                       </Grid>
+                      {profile.chpasswd && (<Grid item xs={6} md={6}>
+                        <DltTextField type='password' label='Password ใหม่' value={profile.newPassword.value} onChange={handleNewPassword} onKeyUp={(e) => {setProfile({...profile, newPassword: {...profile.newPassword, error: validator(profile.newPassword.rules)}})}} error={profile.newPassword.error} required></DltTextField>
+                      </Grid>)}
+                      {profile.chpasswd && (<Grid item xs={6} md={6}>
+                        <DltTextField type='password' label='ยืนยัน Password ใหม่' value={profile.confirmPassword.value} onChange={handleConfirmPassword} onKeyUp={(e) => {setProfile({...profile, confirmPassword: {...profile.confirmPassword, error: validator(profile.confirmPassword.rules)}})}} error={profile.confirmPassword.error} required></DltTextField>
+                      </Grid>)}
                       <Grid item xs={6} md={6}>
-                        <DltTextField type='password' label='Password ใหม่' value={profile.newPassword.value} onChange={handleNewPassword} required></DltTextField>
+                        <DltTextField type='email' label='Email Address' value={profile.email.value} onChange={handleEmail} onKeyUp={(e) => {setProfile({...profile, email: {...profile.email, error: validator(profile.email.rules)}})}} error={profile.email.error} required></DltTextField>
                       </Grid>
                       <Grid item xs={6} md={6}>
-                        <DltTextField type='password' label='ยืนยัน Password ใหม่' value={profile.confirmPassword.value} onChange={handleConfirmPassword} required></DltTextField>
-                      </Grid>
-                      <Grid item xs={6} md={6}>
-                        <DltTextField type='email' label='Email Address' value={profile.email.value} required></DltTextField>
-                      </Grid>
-                      <Grid item xs={6} md={6}>
-                        <DltTextField type='tel' label='เบอร์โทรติดต่อ' value={profile.tel.value} required></DltTextField>
+                        <DltTextField type='number' label='เบอร์โทรติดต่อ' value={profile.tel.value} onChange={handleTel} onKeyUp={(e) => {setProfile({...profile, tel: {...profile.tel, error: validator(profile.tel.rules)}})}} error={profile.tel.error} required></DltTextField>
                       </Grid>
                     </Grid>
                 </CardContent>

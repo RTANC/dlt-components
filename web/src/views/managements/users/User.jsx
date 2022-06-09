@@ -6,19 +6,20 @@ import SelectUserRole from '../../../components/SelectUserRole'
 import SelectStation from '../../../components/SelectStation'
 import DltTextField from '../../../components/DltTextField'
 import { LoadingButton } from '@mui/lab'
+import SelectAgency from '../../../components/SelectAgency'
 
 export default function User() {
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState({
     userRole: 3,
     station: 1,
-    dept: '',
+    agency: '',
     text: ''
   })
 
   const search = async () => {
     try {
-      
+
     } catch (error) {
       console.log(error)
     }
@@ -40,7 +41,9 @@ export default function User() {
                     <Grid item xs={12} sm={12} md={6} lg={6}>
                       <SelectStation value={query.station} onChange={(e) => {setQuery({...query, station: e.target.value})}}></SelectStation>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                      <SelectAgency value={query.agency} onChange={(e) => {setQuery({...query, agency: e.target.value})}} stationId={query.station}></SelectAgency>
+                    </Grid>
                     <Grid item xs={12} sm={12} md={6} lg={6}>
                       <DltTextField label='ชื่อ/นามสกุล/UserName' value={query.text} onChange={(e) => {setQuery({...query, text: e.target.value})}}></DltTextField>
                     </Grid>

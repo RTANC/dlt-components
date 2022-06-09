@@ -30,7 +30,7 @@ export default function Home() {
       rules: []
     },
     company: {
-      value: 191,
+      value: 189,
       error: false,
       rules: []
     },

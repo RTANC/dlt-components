@@ -1,4 +1,4 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid } from '@mui/material'
+import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, IconButton } from '@mui/material'
 import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import CachedIcon from '@mui/icons-material/Cached'
@@ -7,6 +7,9 @@ import SelectStation from '../../../components/SelectStation'
 import DltTextField from '../../../components/DltTextField'
 import { LoadingButton } from '@mui/lab'
 import SelectAgency from '../../../components/SelectAgency'
+import { DataGrid } from '@mui/x-data-grid'
+import moment from 'moment-timezone'
+import EditIcon from '@mui/icons-material/Edit'
 
 export default function User() {
   const [loading, setLoading] = useState(false)
@@ -16,6 +19,38 @@ export default function User() {
     agency: '',
     text: ''
   })
+
+  const columns = [
+    { field: 'id', headerName: 'ID', flex: 0.3 },
+    { field: 'LoginName', headerName: 'User Name', flex: 1 },
+    { field: 'FullName', headerName: 'ชื่อ - นามสกุล', flex: 1 },
+    { field: 'RoleName', headerName: 'กลุ่มผู้ใช้', flex: 1 },
+    { field: 'CompanyName', headerName: 'หน่วยงาน', flex: 1 },
+    { field: 'PhoneNo', headerName: 'เบอร์ติดต่อ', flex: 1 },
+    { field: 'EmailAddress', headerName: 'Email', flex: 1 },
+    { field: 'LastLogInDateTime', headerName: 'ล็อคอินครั้งล่าสุด', sortable: true, flex: 1, valueFormatter: (params) => {
+      try {
+        if (!!params.value) {
+          return moment(params.value).format('DD/MM/YYYY HH:mm:ss')
+        }
+      } catch (error) {
+        return ''
+      }
+    } },
+    { field: 'IsActive', headerName: 'Active', sortable: false, flex: 0.3 },
+    {
+      field: 'UserID',
+      headerName: 'แก้ไข',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: false,
+      flex: 0.4,
+      renderCell: (params) => (<IconButton color="primary"><EditIcon/></IconButton>)
+    }
+  ]
+
+  const rows = [
+    { id: 1, UserID: '1', LoginName: 'Jon', FullName: 'jonny dep', RoleID: 'admin', CompanyID: 'hollywood', PhoneNo: '9999999999', EmailAddress: 'dep@gmail.com', LastLogInDateTime: moment(), IsActive: 'Yes'  }
+  ]
 
   const search = async () => {
     try {
@@ -53,7 +88,16 @@ export default function User() {
                         <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CachedIcon/>}>ยกเลิก</LoadingButton>
                       </Box>
                     </Grid>
-                    <Grid item xs={12}></Grid>
+                    <Grid item xs={12}>
+                    <div style={{ height: 400, width: '100%' }}>
+                      <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                      />
+                    </div>
+                    </Grid>
                   </Grid>
                 </CardContent>
             </Card>

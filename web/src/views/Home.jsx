@@ -22,6 +22,7 @@ import { LoadingButton } from '@mui/lab'
 import formValidator from '../services/validator'
 
 export default function Home() {
+  
   const [loading, setLoading] = useState(false)
   const [transport, setTransport] = useState({
     station: {

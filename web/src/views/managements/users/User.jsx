@@ -10,8 +10,12 @@ import SelectAgency from '../../../components/SelectAgency'
 import { DataGrid } from '@mui/x-data-grid'
 import moment from 'moment-timezone'
 import EditIcon from '@mui/icons-material/Edit'
+import { getUsers } from '../../../services/managements'
+import { useNavigate } from 'react-router-dom'
+import BtnFab from '../../../components/BtnFab'
 
 export default function User() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState({
     userRole: 3,
@@ -19,7 +23,7 @@ export default function User() {
     agency: '',
     text: ''
   })
-
+  
   const columns = [
     { field: 'id', headerName: 'ID', flex: 0.3 },
     { field: 'LoginName', headerName: 'User Name', flex: 1 },
@@ -37,26 +41,37 @@ export default function User() {
         return ''
       }
     } },
-    { field: 'IsActive', headerName: 'Active', sortable: false, flex: 0.3 },
+    { field: 'IsActive', headerName: 'Active', sortable: false, flex: 0.3, valueFormatter: (params) => {
+      try {
+        if (params.value) {
+          return 'Yes'
+        } else {
+          return 'No'
+        }
+      } catch (error) {
+        return ''
+      }
+    } },
     {
       field: 'UserID',
       headerName: 'แก้ไข',
-      description: 'This column has a value getter and is not sortable.',
       sortable: false,
       flex: 0.4,
-      renderCell: (params) => (<IconButton color="primary"><EditIcon/></IconButton>)
+      renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/user/'+params.value)}}><EditIcon/></IconButton>)
     }
   ]
 
-  const rows = [
-    { id: 1, UserID: '1', LoginName: 'Jon', FullName: 'jonny dep', RoleID: 'admin', CompanyID: 'hollywood', PhoneNo: '9999999999', EmailAddress: 'dep@gmail.com', LastLogInDateTime: moment(), IsActive: 'Yes'  }
-  ]
+  const [rows, setRows] = useState([])
 
   const search = async () => {
     try {
-
+      setLoading(true)
+      const data = (await getUsers(query.userRole, query.station, query.agency, query.text)).data
+      setRows(data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -84,8 +99,8 @@ export default function User() {
                     </Grid>
                     <Grid item xs={12}>
                       <Box sx={{width: '100%', alignContent: 'center'}}>
-                        <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={search} startIcon={<SearchIcon></SearchIcon>}>ค้นหา</LoadingButton>
-                        <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CachedIcon/>}>ยกเลิก</LoadingButton>
+                        <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={search} startIcon={<SearchIcon></SearchIcon>}>ค้นหา</LoadingButton>
+                        <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CachedIcon/>}>ยกเลิก</LoadingButton>
                       </Box>
                     </Grid>
                     <Grid item xs={12}>
@@ -100,6 +115,7 @@ export default function User() {
                     </Grid>
                   </Grid>
                 </CardContent>
+                <BtnFab onClick={() => {navigate('/management/user/0')}}></BtnFab>
             </Card>
         </Container>
     </Slide>

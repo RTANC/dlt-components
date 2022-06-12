@@ -22,7 +22,7 @@ export default function SelectStation(props) {
     
     
   return (
-    <FormControl fullWidth error={props.error !== false}>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled}>
       <InputLabel>สถานี</InputLabel>
       <Select onChange={props.onChange} value={props.value} name={props.name}>
           {stations.map((v, i) => (
@@ -41,5 +41,6 @@ SelectStation.propTypes = {
 
 SelectStation.defaultProps = {
   required: false,
-  error: false
+  error: false,
+  disabled: false
 }

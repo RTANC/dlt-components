@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 export default function DltTextField(props) {
   return (
     <FormControl fullWidth>
-        <TextField onKeyUp={props.onKeyUp} type={props.type} label={props.label} value={props.value} onChange={props.onChange} disabled={props.disabled} error={props.error !== false}></TextField>
-        {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
+        <TextField onKeyUp={props.onKeyUp} type={props.type} label={props.label} value={props.value} onChange={props.onChange} error={props.error !== false} name={props.name} disabled={props.disabled}></TextField>
+        {(props.required && !(props.disabled) && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
         {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>
   )

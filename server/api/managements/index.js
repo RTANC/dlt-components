@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const { getUsers } = require('./managements.controller')
+const { getUsers, getUser } = require('./managements.controller')
 
 router.get('/users', getUsers)
-// router.get('/:uid', getUser)
+router.get('/users/:uid', getUser)
 
 // router.patch('/:uid', updateUser)
 // router.patch('/:uid/grants', adminOwner, grant)

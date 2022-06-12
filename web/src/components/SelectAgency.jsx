@@ -20,9 +20,10 @@ export default function SelectAgency(props) {
     }, [props.stationId])
 
   return (
-    <FormControl fullWidth error={props.error !== false}>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled}>
       <InputLabel>หน่วยงาน</InputLabel>
       <Select onChange={props.onChange} value={props.value} name={props.name}>
+        {!(props.required) && <MenuItem value=""><em>-</em></MenuItem>}
           {agencies.map((v, i) => (
             <MenuItem value={v.CompanyID} key={i}>{v.CompanyName}</MenuItem>
           ))}
@@ -41,5 +42,6 @@ SelectAgency.propTypes = {
   SelectAgency.defaultProps = {
     required: false,
     error: false,
-    stationId: 1
+    stationId: 1,
+    disabled: false
   }

@@ -10,17 +10,22 @@ import { LoadingButton } from '@mui/lab'
 import SelectAgency from '../../../components/SelectAgency'
 import EditIcon from '@mui/icons-material/Edit'
 import { getUser } from '../../../services/managements'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { passwordValidator, emailValidator } from '../../../services/utils'
 import { validator } from '../../../services/validator'
 import CheckBoxChPasswd from '../../../components/CheckBoxChPasswd'
-
+import RadioBoxIsActiveUser from '../../../components/RadioBoxIsActiveUser'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import ContactsIcon from '@mui/icons-material/Contacts'
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
+import KeyIcon from '@mui/icons-material/Key'
+import CallIcon from '@mui/icons-material/Call'
 
 export default function UserForm() {
     const [loading, setLoading] = useState(false)
     const [editMode, setEditMode] = useState(false)
-    let { uid } = useParams()
-
+    const { uid } = useParams()
+    const navigate = useNavigate()
     const [user, setUser] = useState({
         id: null,
         useRole: 3,
@@ -62,7 +67,8 @@ export default function UserForm() {
           value: '',
           rules: [],
           error: false
-        }
+        },
+        isActive: true
     })
 
     user.firstname.rules = [!!user.firstname.value || '*ข้อมูลจำเป็น']
@@ -120,6 +126,7 @@ export default function UserForm() {
     const init = async () => {
       try {
         const userData = (await getUser(uid)).data
+        console.log(userData)
         user.id = userData.id
         user.title = userData.title
         user.useRole = userData.useRole
@@ -130,6 +137,7 @@ export default function UserForm() {
         user.username.value = userData.username
         user.email.value = userData.email
         user.tel.value = userData.tel
+        user.isActive = userData.isActive
         setUser({...user})
       } catch (error) {
         console.log(error)
@@ -138,14 +146,14 @@ export default function UserForm() {
 
     const save  = async () => {
         try {
-            
+
         } catch (error) {
             console.log(error)
         }
     }
 
     const cancel = () => {
-
+      navigate(-1)
     }
 
     useEffect(() => {
@@ -156,7 +164,7 @@ export default function UserForm() {
         setEditMode(false)
       }
     }, [])
-        
+
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
@@ -178,28 +186,31 @@ export default function UserForm() {
                     <SelectTitle value={user.title} onChange={(e) => {setUser({...user, title: e.target.value})}}></SelectTitle>
                 </Grid>
                 <Grid item xs={4} sm={4} md={5} lg={5}>
-                  <DltTextField label='ชื่อ' name='firstname' value={user.firstname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.firstname.error}></DltTextField>
+                  <DltTextField label='ชื่อ' name='firstname' value={user.firstname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.firstname.error} startIcon={<ContactsIcon/>}></DltTextField>
                 </Grid>
                 <Grid item xs={4} sm={4} md={5} lg={5}>
                   <DltTextField label='นามสกุล' name='lastname' value={user.lastname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.lastname.error}></DltTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={7} lg={7}>
-                  <DltTextField label='User Name' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required disabled={editMode} error={user.username.error}></DltTextField>
+                  <DltTextField label='User Name' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required disabled={editMode} error={user.username.error} startIcon={<AccountCircle/>}></DltTextField>
                 </Grid>
-                {editMode && <Grid item xs={4} sm={4} md={5} lg={5}>
+                {editMode && <Grid item xs={12} sm={12} md={5} lg={5}>
                   <CheckBoxChPasswd value={user.chPasswd} onChange={handleChpasswd}></CheckBoxChPasswd>
                 </Grid>}
                 {(!editMode || user.chPasswd) && <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField type='password' label='New Password' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.newPassword.error}></DltTextField>
+                  <DltTextField type='password' label='New Password' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.newPassword.error} startIcon={<KeyIcon/>}></DltTextField>
                 </Grid>}
                 {(!editMode || user.chPasswd) && <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField type='password' label='Confirm New Password' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required  error={user.newPassword.error}></DltTextField>
+                  <DltTextField type='password' label='Confirm New Password' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required  error={user.newPassword.error} startIcon={<KeyIcon/>}></DltTextField>
                 </Grid>}
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.email.error}></DltTextField>
+                  <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.email.error}  startIcon={<AlternateEmailIcon/>}></DltTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField label='เบอร์โทรติดต่อ' name='tel' value={user.tel.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.tel.error}></DltTextField>
+                  <DltTextField label='เบอร์โทรติดต่อ' name='tel' value={user.tel.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.tel.error} startIcon={<CallIcon/>}></DltTextField>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
+                  <RadioBoxIsActiveUser name='isActive' value={user.isActive} onChange={handleChange}></RadioBoxIsActiveUser>
                 </Grid>
               </Grid>
             </CardContent>

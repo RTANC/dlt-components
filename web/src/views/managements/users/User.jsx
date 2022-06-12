@@ -23,7 +23,7 @@ export default function User() {
     agency: '',
     text: ''
   })
-  
+
   const columns = [
     { field: 'id', headerName: 'ID', flex: 0.3 },
     { field: 'LoginName', headerName: 'User Name', flex: 1 },
@@ -76,7 +76,7 @@ export default function User() {
   }
 
   const cancel = () => {
-
+    navigate(-1)
   }
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
@@ -110,6 +110,7 @@ export default function User() {
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}
+                        disableSelectionOnClick
                       />
                     </div>
                     </Grid>

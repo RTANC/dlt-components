@@ -29,12 +29,12 @@ exports.getUsers = async (req, res, next) => {
 
 exports.getUser = async (req, res, next) => {
     try {
-        const sql_query = `select UserID as id, TitleID as title, FirstName as firstname, LastName as lastname, LoginName as username, RoleID as useRole, GCSUser.CompanyID as agency, Company.StationID as station, PhoneNo as tel, EmailAddress as email, GCSUser.IsActive
-        from GCSUser 
+        const sql_query = `select UserID as id, TitleID as title, FirstName as firstname, LastName as lastname, LoginName as username, RoleID as useRole, GCSUser.CompanyID as agency, Company.StationID as station, PhoneNo as tel, EmailAddress as email, GCSUser.IsActive as isActive
+        from GCSUser
         inner join Company on GCSUser.CompanyID = Company.CompanyID
         where UserID = ${req.params.uid}`
         const user = await sequelize.query(sql_query, { type: QueryTypes.SELECT });
-        res.status(200).send(user[0])        
+        res.status(200).send(user[0])
     } catch (error) {
         next(error)
     }

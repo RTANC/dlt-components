@@ -74,8 +74,8 @@ export default function UserForm() {
     user.firstname.rules = [!!user.firstname.value || '*ข้อมูลจำเป็น']
     user.lastname.rules = [!!user.lastname.value || '*ข้อมูลจำเป็น']
     user.username.rules = [!!user.username.value || '*ข้อมูลจำเป็น']
-    user.newPassword.rules = [!!user.newPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (user.newPassword.value === user.confirmPassword.value) || 'Password ไม่ตรงกัน' ]
-    user.confirmPassword.rules = [!!user.confirmPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (user.newPassword.value === user.confirmPassword.value) || 'Password ไม่ตรงกัน']
+    user.newPassword.rules = [!!user.newPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด']
+    user.confirmPassword.rules = [!!user.confirmPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.confirmPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (user.newPassword.value === user.confirmPassword.value) || 'Password ไม่ตรงกัน']
     user.email.rules = [!!user.email.value || '*ข้อมูลจำเป็น', emailValidator(user.email.value) || '*รูปแบบ email ไม่ถูกต้อง']
     user.tel.rules = [!!user.tel.value || '*ข้อมูลจำเป็น']
 
@@ -100,18 +100,14 @@ export default function UserForm() {
     }
 
     const handleValidateValue = (e) => {
-      if (e.target.name === 'confirmPassword') {
-        user['newPassword'].error = validator(user[e.target.name].rules)
-      } else {
-        user[e.target.name].error = validator(user[e.target.name].rules)
-      }
+      user[e.target.name].error = validator(user[e.target.name].rules)
       setUser({...user})
     }
 
     const handleChpasswd = (e) => {
       if (e.target.checked) {
-        user.newPassword.rules = [!!user.newPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (user.newPassword.value === user.confirmPassword.value) || 'Password ไม่ตรงกัน' ]
-        user.confirmPassword.rules = [!!user.confirmPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (user.newPassword.value === user.confirmPassword.value) || 'Password ไม่ตรงกัน']
+        user.newPassword.rules = [!!user.newPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด']
+        user.confirmPassword.rules = [!!user.confirmPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.confirmPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (user.newPassword.value === user.confirmPassword.value) || 'Password ไม่ตรงกัน']
       } else {
         user.newPassword.value = ''
         user.newPassword.rules = []
@@ -201,7 +197,7 @@ export default function UserForm() {
                   <DltTextField type='password' label='New Password' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.newPassword.error} startIcon={<KeyIcon/>}></DltTextField>
                 </Grid>}
                 {(!editMode || user.chPasswd) && <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField type='password' label='Confirm New Password' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required  error={user.newPassword.error} startIcon={<KeyIcon/>}></DltTextField>
+                  <DltTextField type='password' label='Confirm New Password' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required  error={user.confirmPassword.error} startIcon={<KeyIcon/>}></DltTextField>
                 </Grid>}
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.email.error}  startIcon={<AlternateEmailIcon/>}></DltTextField>

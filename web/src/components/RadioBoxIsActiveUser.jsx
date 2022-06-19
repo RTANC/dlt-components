@@ -4,10 +4,10 @@ import React from 'react'
 export default function RadioBoxIsActiveUser(props) {
   return (
     <FormControl fullWidth>
-      <FormLabel sx={{display: 'flex', alignContent: 'start'}}>สถานะผู้ใช้งาน</FormLabel>
+      <FormLabel sx={{display: 'flex', justifyContent: 'flex-start', justifyItems: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start'}}>สถานะผู้ใช้งาน</FormLabel>
         <RadioGroup value={props.value} name={props.name} onChange={props.onChange} row>
-            <FormControlLabel value={true} label='Active' control={<Radio/>}></FormControlLabel>
-            <FormControlLabel value={false} label='InActive' control={<Radio/>}></FormControlLabel>
+            <FormControlLabel value={true} label='เปิดใช้งาน' control={<Radio/>}></FormControlLabel>
+            <FormControlLabel value={false} label='ปิดการใช้งาน' control={<Radio/>}></FormControlLabel>
         </RadioGroup>
     </FormControl>
   )

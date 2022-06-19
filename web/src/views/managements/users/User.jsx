@@ -1,4 +1,4 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, IconButton } from '@mui/material'
+import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, IconButton, Divider, Button } from '@mui/material'
 import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import CachedIcon from '@mui/icons-material/Cached'
@@ -82,43 +82,46 @@ export default function User() {
   }
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container maxWidth="false">
+        <Container>
             <Card>
-                <CardHeader title={<Box sx={{display: 'flex',alignItems: 'center' }}><SearchIcon/> ข้อมูลผู้ใช้งาน</Box>} titleTypographyProps={{variant: 'h6', align: 'left'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
+                <CardHeader title='ข้อมูลผู้ใช้งาน' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
                 <CardContent>
                   <Grid container spacing={2} direction='row' wrap="wrap">
-                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <Grid item xs={12}>
                       <SelectUserRole value={query.userRole} onChange={(e) => {setQuery({...query, userRole: e.target.value})}}></SelectUserRole>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <Grid item xs={12}>
+                      <Divider></Divider>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={4} lg={4}>
                       <SelectStation value={query.station} onChange={(e) => {setQuery({...query, station: e.target.value})}}></SelectStation>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <Grid item xs={12} sm={12} md={4} lg={4}>
                       <SelectAgency value={query.agency} onChange={(e) => {setQuery({...query, agency: e.target.value})}} stationId={query.station}></SelectAgency>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <Grid item xs={12} sm={12} md={4} lg={4}>
                       <DltTextField label='ชื่อ/นามสกุล/UserName' value={query.text} onChange={(e) => {setQuery({...query, text: e.target.value})}}></DltTextField>
                     </Grid>
                     <Grid item xs={12}>
-                      <Box sx={{width: '100%', alignContent: 'center'}}>
+                      <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                        <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CachedIcon/>}>ล้างข้อมูล</LoadingButton>
                         <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={search} startIcon={<SearchIcon></SearchIcon>}>ค้นหา</LoadingButton>
-                        <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CachedIcon/>}>ยกเลิก</LoadingButton>
+                        <Button variant='contained' color='warning' onClick={() => {navigate('/management/user/0')}}>เพิ่มผู้ใช้งาน</Button>
                       </Box>
                     </Grid>
                     <Grid item xs={12}>
-                    <div style={{ height: 400, width: '100%' }}>
                       <DataGrid
                         rows={rows}
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         disableSelectionOnClick
+                        sx={{height: 400, width: '100%'}}
                       />
-                    </div>
                     </Grid>
                   </Grid>
                 </CardContent>
-                <BtnFab onClick={() => {navigate('/management/user/0')}}></BtnFab>
+                {/* <BtnFab onClick={() => {navigate('/management/user/0')}}></BtnFab> */}
             </Card>
         </Container>
     </Slide>

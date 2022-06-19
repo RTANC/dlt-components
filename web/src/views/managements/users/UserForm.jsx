@@ -1,4 +1,4 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, CardActions} from '@mui/material'
+import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, CardActions, Stack, Divider, Typography} from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import SaveIcon from '@mui/icons-material/Save'
 import CancelIcon from '@mui/icons-material/Cancel'
@@ -164,59 +164,80 @@ export default function UserForm() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container maxWidth="false">
-        <Card>
-            <CardHeader title={<Box sx={{display: 'flex',alignItems: 'center' }}><EditIcon/> { editMode ? 'แก้ไขข้อมูลผู้ใช้งาน' : 'เพิ่มข้อมูลผู้ใช้งาน'}</Box>} titleTypographyProps={{variant: 'h6', align: 'left'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
+        <Container>
+          <Stack spacing={2}>
+          <Card>
+              <CardHeader title={editMode ? 'แก้ไขข้อมูลผู้ใช้งาน' : 'เพิ่มข้อมูลผู้ใช้งาน'} titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
+              <CardContent>
+                <Grid container spacing={2} direction='row' wrap="wrap">
+                  <Grid item xs={12}>
+                    <SelectUserRole name='useRole' value={user.useRole} onChange={handleChange} required disabled={editMode}></SelectUserRole>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <SelectStation name='station' value={user.station} onChange={handleChange} required disabled={editMode}></SelectStation>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <SelectAgency name='agency' value={user.agency} onChange={handleChange} stationId={user.station} required disabled={editMode}></SelectAgency>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider></Divider>
+                  </Grid>
+                  <Grid item xs={4} sm={4} md={2} lg={2}>
+                      <SelectTitle value={user.title} onChange={(e) => {setUser({...user, title: e.target.value})}}></SelectTitle>
+                  </Grid>
+                  <Grid item xs={4} sm={4} md={5} lg={5}>
+                    <DltTextField label='ชื่อ' name='firstname' value={user.firstname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.firstname.error} startIcon={<ContactsIcon/>}></DltTextField>
+                  </Grid>
+                  <Grid item xs={4} sm={4} md={5} lg={5}>
+                    <DltTextField label='นามสกุล' name='lastname' value={user.lastname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.lastname.error}></DltTextField>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <DltTextField label='เบอร์โทรติดต่อ' name='tel' value={user.tel.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.tel.error} startIcon={<CallIcon/>}></DltTextField>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.email.error}  startIcon={<AlternateEmailIcon/>}></DltTextField>
+                  </Grid>
+                </Grid>
+              </CardContent>
+          </Card>
+          <Card>
             <CardContent>
               <Grid container spacing={2} direction='row' wrap="wrap">
-                <Grid item xs={12} sm={12} md={3} lg={3}>
-                  <SelectUserRole name='useRole' value={user.useRole} onChange={handleChange} required disabled={editMode}></SelectUserRole>
-                </Grid>
-                <Grid item xs={12} sm={12} md={3} lg={3}>
-                  <SelectStation name='station' value={user.station} onChange={handleChange} required disabled={editMode}></SelectStation>
-                </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <SelectAgency name='agency' value={user.agency} onChange={handleChange} stationId={user.station} required disabled={editMode}></SelectAgency>
-                </Grid>
-                <Grid item xs={4} sm={4} md={2} lg={2}>
-                    <SelectTitle value={user.title} onChange={(e) => {setUser({...user, title: e.target.value})}}></SelectTitle>
-                </Grid>
-                <Grid item xs={4} sm={4} md={5} lg={5}>
-                  <DltTextField label='ชื่อ' name='firstname' value={user.firstname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.firstname.error} startIcon={<ContactsIcon/>}></DltTextField>
-                </Grid>
-                <Grid item xs={4} sm={4} md={5} lg={5}>
-                  <DltTextField label='นามสกุล' name='lastname' value={user.lastname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.lastname.error}></DltTextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={7} lg={7}>
                   <DltTextField label='User Name' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required disabled={editMode} error={user.username.error} startIcon={<AccountCircle/>}></DltTextField>
-                </Grid>
-                {editMode && <Grid item xs={12} sm={12} md={5} lg={5}>
-                  <CheckBoxChPasswd value={user.chPasswd} onChange={handleChpasswd}></CheckBoxChPasswd>
-                </Grid>}
-                {(!editMode || user.chPasswd) && <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField type='password' label='New Password' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.newPassword.error} startIcon={<KeyIcon/>}></DltTextField>
-                </Grid>}
-                {(!editMode || user.chPasswd) && <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField type='password' label='Confirm New Password' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required  error={user.confirmPassword.error} startIcon={<KeyIcon/>}></DltTextField>
-                </Grid>}
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.email.error}  startIcon={<AlternateEmailIcon/>}></DltTextField>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField label='เบอร์โทรติดต่อ' name='tel' value={user.tel.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.tel.error} startIcon={<CallIcon/>}></DltTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <RadioBoxIsActiveUser name='isActive' value={user.isActive} onChange={handleChange}></RadioBoxIsActiveUser>
                 </Grid>
+                <Grid item xs={12}>
+                  <Divider></Divider>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h6" color="initial">{editMode ? 'เปลี่ยนรหัสผ่าน' : 'ตั้งรหัสผ่าน'}</Typography>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
+                  <DltTextField type='password' label='New Password' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.newPassword.error} startIcon={<KeyIcon/>}></DltTextField>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
+                  <DltTextField type='password' label='Confirm New Password' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required  error={user.confirmPassword.error} startIcon={<KeyIcon/>}></DltTextField>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                    <Typography variant="caption" color="initial">* Password ต้องมีความยาวอย่างน้อย 8 ตัวอักษร โดยเป็นตัวอักษร ผสมกับตัวเลข</Typography>
+                  </Box>
+                </Grid>
               </Grid>
             </CardContent>
+          </Card>
+          <Card>
             <CardActions>
-                <Box sx={{width: '100%', alignContent: 'center'}}>
-                    <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={save} startIcon={<SaveIcon/>}>บันทึก</LoadingButton>
-                    <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CancelIcon/>}>ยกเลิก</LoadingButton>
-                </Box>
+              <Box sx={{width: '100%', display:'flex', justifyContent:'center', alignContent: 'center'}}>
+                <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CancelIcon/>}>ยกเลิก</LoadingButton>
+                <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={save} startIcon={<SaveIcon/>}>บันทึก</LoadingButton>
+              </Box>
             </CardActions>
-        </Card>
+          </Card>
+        </Stack>
         </Container>
     </Slide>
   )

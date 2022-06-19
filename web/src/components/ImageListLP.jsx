@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function ImageListLP() {
   return (
-    <ImageList sx={{ width: 500, height: 500 }} cols={2} rowHeight={164}>
+    <ImageList sx={{ width: '100%', height: 300 }} cols={4} rowHeight={164}>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img

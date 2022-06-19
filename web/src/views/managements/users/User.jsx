@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import { getUsers } from '../../../services/managements'
 import { useNavigate } from 'react-router-dom'
 import BtnFab from '../../../components/BtnFab'
+import { SquareEditOutline } from 'mdi-material-ui'
 
 export default function User() {
   const navigate = useNavigate()
@@ -57,7 +58,8 @@ export default function User() {
       headerName: 'แก้ไข',
       sortable: false,
       flex: 0.4,
-      renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/user/'+params.value)}}><EditIcon/></IconButton>)
+      type: 'actions',
+      renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/user/'+params.value)}}><SquareEditOutline/></IconButton>)
     }
   ]
 

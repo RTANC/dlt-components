@@ -97,31 +97,18 @@ export default function DltAppBar() {
   return (
     <React.Fragment>
     <AppBar position="static" sx={{mb: 2}}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ display: 'flex', mr: 2 }}>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant="h6" component="div">
             GCS
           </Typography>
-          <Box sx={{ flexGrow: 1, display: 'flex' }}>
-              <Button color="primary" sx={{ color: 'white' }} startIcon={<LocalShippingIcon></LocalShippingIcon>} onClick={() => navigate('/home')}>
-                บันทึกข้อมูลรับส่งสินค้า
-              </Button>
-              <Button color="primary" sx={{ color: 'white' }} startIcon={<FindInPageRoundedIcon></FindInPageRoundedIcon>} onClick={() => navigate('/query')}>
-                สืบค้นข้อมูล
-              </Button>
-              <DltReportMenu></DltReportMenu>
-              <DltDataManageMenu></DltDataManageMenu>
-              <DltManualMenu></DltManualMenu>
-          </Box>
           {auth && (
-            <div>
-              <IconButton
-                size="large"
-                onClick={toggleDrawer(true)}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-            </div>
+            <IconButton
+              size="large"
+              onClick={toggleDrawer(true)}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
           )}
         </Toolbar>
     </AppBar>

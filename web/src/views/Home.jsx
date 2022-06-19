@@ -1,14 +1,11 @@
-import { Container, Grid, Slide, Card, CardContent, Typography, Box, ToggleButtonGroup, ToggleButton, CardActions } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, Typography, Box, ToggleButtonGroup, ToggleButton, CardActions, CardHeader, Stack, Button, Divider } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
 import DltTextField from '../components/DltTextField'
-import CheckBoxManualAddLPR from '../components/CheckBoxManualAddLPR'
 import DltDateTimePicker from '../components/DltDateTimePicker'
 import SelectVehicleClass from '../components/SelectVehicleClass'
 import SelectObjective from '../components/SelectObjective'
-import CheckBoxVehicleOut from '../components/CheckBoxVehicleOut'
-import CheckBoxEditLPR from '../components/CheckBoxEditLPR'
 import SelectProvince from '../components/SelectProvince'
 import SelectLPProvince from '../components/SelectLPProvince'
 import moment from 'moment-timezone'
@@ -20,6 +17,8 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import CheckBoxGoodCategory from '../components/CheckBoxGoodCategory'
 import { LoadingButton } from '@mui/lab'
 import formValidator from '../services/validator'
+import { SquareEditOutline } from 'mdi-material-ui'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 
 export default function Home() {
   
@@ -85,7 +84,7 @@ export default function Home() {
       rules: []
     },
     isVehicleOut: false,
-    mode: 3,
+    mode: 1,
     rx: {
       province: '',
       goods: ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -177,140 +176,120 @@ export default function Home() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-    <Container maxWidth="false">
-      <Grid
-        container
-        spacing={1}
-        direction="row"
-        wrap="wrap"
-      >
-        <Grid item xs={12}>
-          <Card>
-            <CardContent sx={{backgroundColor: '#eeeeee'}}>
-            <Typography variant="h6" align="left" >
-              ข้อมูลผู้บันทึก
-            </Typography>
-            </CardContent>
-            <CardContent>
-              <Grid container spacing={2} direction='row' wrap='wrap'>
-                <Grid item xs={12} sm={6} md={6}>
-                  <SelectStation value={transport.station.value} name='station' onChange={(e) => {setTransport({...transport,'station': {...transport.station, 'value': e.target.value}})}} required error={transport.station.error}></SelectStation>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  <SelectCompany value={transport.company.value} name='company' onChange={(e) => {setTransport({...transport,'company': {...transport.company, 'value': e.target.value}})}} required error={transport.company.error}></SelectCompany>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent sx={{backgroundColor: '#eeeeee'}}>
-              <Typography variant="h6" align="left" >
-                ข้อมูลรถบรรทุก
-              </Typography>
-            </CardContent>
-            <CardContent>
-              <Grid container spacing={2} direction='row' wrap='wrap'>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <Grid container spacing={2} direction='row' wrap='wrap'>
-                    <Grid item xs={9}>
-                      <DltTextField label='ค้นหาจากเลขทะเบียน'></DltTextField>
-                    </Grid>
-                    <Grid item xs={3}>
-                      <CheckBoxManualAddLPR value={transport.isManualAddLPR} onChange={(e) => {setTransport({...transport, 'isManualAddLPR': e.target.checked })}}></CheckBoxManualAddLPR>
-                    </Grid>
-                    <Grid item xs={9}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' value={transport.f1a} disabled></DltTextField></Grid>
-                    <Grid item xs={9}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' value={transport.f1a} disabled></DltTextField></Grid>
-                    <Grid item xs={9}><CheckBoxEditLPR value={transport.editLPR} onChange={(e) => {setTransport({...transport, editLPR: e.target.checked})}}></CheckBoxEditLPR></Grid>
-                    <Grid item xs={4}><DltTextField label='ทะเบียนหน้า-แก้ไข' value={transport.f1mp1.value} onChange={(e) => {setTransport({...transport, f1mp1: {...transport.f1mp1, value: e.target.value}})}} required error={transport.f1mp1.error}></DltTextField></Grid>
-                    <Grid item xs={4}><DltTextField label='ทะเบียนหน้า-แก้ไข' value={transport.f1mp2.value} onChange={(e) => {setTransport({...transport, f1mp2: {...transport.f1mp2, value: e.target.value}})}} required error={transport.f1mp2.error}></DltTextField></Grid>
-                    <Grid item xs={4}><SelectLPProvince label='ทะเบียนหน้า-แก้ไข (จังหวัด)' value={transport.f1mpId.value} onChange={(e) => {setTransport({...transport, f1mpId: {...transport.f1mpId, value: e.target.value}})}} required error={transport.f1mpId.error}></SelectLPProvince></Grid>
-                    <Grid item xs={4}><DltTextField label='ทะเบียนหลัง-แก้ไข' value={transport.r1mp1.value} onChange={(e) => {setTransport({...transport, r1mp1: {...transport.r1mp1, value: e.target.value}})}} required error={transport.r1mp1.error}></DltTextField></Grid>
-                    <Grid item xs={4}><DltTextField label='ทะเบียนหลัง-แก้ไข' value={transport.r1mp2.value} onChange={(e) => {setTransport({...transport, r1mp2: {...transport.r1mp2, value: e.target.value}})}} required error={transport.r1mp2.error}></DltTextField></Grid>
-                    <Grid item xs={4}><SelectLPProvince label='ทะเบียนหลัง-แก้ไข (จังหวัด)' value={transport.r1mpId.value} onChange={(e) => {setTransport({...transport, r1mpId: {...transport.r1mpId, value: e.target.value}})}} required error={transport.r1mpId.error}></SelectLPProvince></Grid>
-                    <Grid item xs={9}>
-                      <DltDateTimePicker disabled value={transport.timeStampIn.value} label='วัน/เดือน/ปี ขาเข้า' name='timeStampIn' required error={transport.timeStampIn.error}></DltDateTimePicker>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <SelectVehicleClass value={transport.vehicleClass.value} name='vehicleClass' onChange={(e) => {setTransport({...transport, 'vehicleClass': {...transport.vehicleClass, 'value': e.target.value}})}} required error={transport.vehicleClass.error}></SelectVehicleClass>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <SelectObjective value={transport.objective.value} name='objective' onChange={(e) => {setTransport({...transport, 'objective': {...transport.objective, 'value': e.target.value}})}} required error={transport.objective.error}></SelectObjective>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <CheckBoxVehicleOut value={transport.isVehicleOut} onChange={(e) => {setTransport({...transport, 'isVehicleOut': e.target.checked})}}></CheckBoxVehicleOut>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                    <ImageListLP></ImageListLP>
-                  </Box>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12}>
+    <Container>
+      <Stack spacing={2}>
         <Card>
-            <CardContent sx={{backgroundColor: '#eeeeee'}}>
-              <Typography variant="h6" align="left" >
-                สินค้า
-              </Typography>
-            </CardContent>
-            <CardContent>
-              <Grid container spacing={4} direction='row' wrap='wrap' >
-                <Grid item xs={12}>
-                  <ToggleButtonGroup color='primary' value={transport.mode} exclusive onChange={(e, val) => { setTransport({...transport, 'mode': val}) }} fullWidth>
-                    <ToggleButton value={1}><ArrowCircleDownIcon sx={{mr: 1}}/> ส่งสินค้าเข้า</ToggleButton>
-                    <ToggleButton value={2}><ArrowCircleUpIcon sx={{mr: 1}}/> รับสินค้าออก</ToggleButton>
-                    <ToggleButton value={3}><ArrowCircleDownIcon/> <ArrowCircleUpIcon sx={{mr: 1}}/> รับและส่งสินค้าสถานี</ToggleButton>
-                  </ToggleButtonGroup>
-                </Grid>
-                <Grid item xs={6} sx={{visibility: transport.mode !== 2 ? 'visible' : 'hidden'}}>
-                  <Grid container spacing={2} direction='row' wrap='wrap'>
-                    <Grid item xs={12}>
-                      <Typography variant='subtitle1' align='left' color='primary' gutterBottom>กรณีส่งสินค้าเข้าสถานี</Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6}>
-                      <SelectProvince value={transport.rx.province} name='rxProvince' label='จังหวัดต้นทาง' onChange={(e) => {setTransport({...transport, rx: {...transport.rx, province: e.target.value}})}}></SelectProvince>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6} sx={{display: 'flex', alignItems: 'center'}}>
-                      <Typography variant='body1' align='left' gutterBottom sx={{display: 'flex', alignItems: 'center'}}>สถานีปลายทาง: <ArrowCircleDownIcon sx={{mx: 1}}/> สถานีขนส่งสินค้า</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CheckBoxGoodCategory value={transport.rx.goods} onChange={handleRxGoodCategory} required error={transport.rx.error}></CheckBoxGoodCategory>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item xs={6} sx={{visibility: transport.mode !== 1 ? 'visible' : 'hidden'}}>
-                  <Grid container spacing={2} direction='row' wrap='wrap'>
-                    <Grid item xs={12}>
-                      <Typography variant='subtitle1' align='left' color='primary' gutterBottom>กรณีรับสินค้าจากสถานี</Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6} sx={{display: 'flex', alignItems: 'center'}}>
-                      <Typography variant='body1' align='left' gutterBottom sx={{display: 'flex', alignItems: 'center'}}>สถานีต้นทาง: <ArrowCircleUpIcon sx={{mx: 1}}/> สถานีขนส่งสินค้า</Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6} lg={6}>
-                      <SelectProvince value={transport.tx.province} name='txProvince' label='จังหวัดปลายทาง' onChange={(e) => {setTransport({...transport, tx: {...transport.tx, province: e.target.value}})}}></SelectProvince>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <CheckBoxGoodCategory value={transport.tx.goods} onChange={handleTxGoodCategory} required error={transport.tx.error}></CheckBoxGoodCategory>
-                    </Grid>
-                  </Grid>
-                </Grid>
+          <CardHeader title="บันทึกข้อมูลรับส่งสินค้า" titleTypographyProps={{variant: 'h5', align: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
+          <CardContent>
+            <Grid container spacing={2} direction='row' wrap='wrap'>
+              <Grid item xs={12} sm={6} md={6}>
+                <SelectStation value={transport.station.value} name='station' onChange={(e) => {setTransport({...transport,'station': {...transport.station, 'value': e.target.value}})}} required error={transport.station.error}></SelectStation>
               </Grid>
-            </CardContent>
-            <CardActions>
-              <Box sx={{width: '100%', alignContent: 'center'}}>
-                <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={submit} startIcon={<SaveIcon></SaveIcon>}>บันทึก</LoadingButton>
-                <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CancelIcon></CancelIcon>}>ยกเลิก</LoadingButton>
-              </Box>
-            </CardActions>
-          </Card>
-        </Grid>
-      </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <SelectCompany value={transport.company.value} name='company' onChange={(e) => {setTransport({...transport,'company': {...transport.company, 'value': e.target.value}})}} required error={transport.company.error}></SelectCompany>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent>
+            <Grid container spacing={2} direction='row' wrap='wrap'>
+              <Grid item xs={12}>
+                <DltTextField label='ค้นหาจากเลขทะเบียน'></DltTextField>
+              </Grid>
+              <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
+                <Button variant='contained' color='warning'>กรอกข้อมูลด้วยตนเอง</Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider></Divider>
+              </Grid>
+            </Grid>
+          </CardContent>
+          <CardContent>
+            <Grid container spacing={2} direction='row' wrap='wrap'>
+              <Grid item xs={6}>
+                <Typography variant="h5">ข้อมูลรถบรรทุก</Typography>
+              </Grid>
+              <Grid item xs={6} sx={{display: 'flex', justifyContent: 'end'}}>
+                <Button variant='contained' startIcon={<SquareEditOutline/>}>แก้ไขข้อมูล</Button>
+              </Grid>
+              <Grid item xs={12}>
+                <DltDateTimePicker disabled value={transport.timeStampIn.value} label='วัน เวลา ที่รถเข้า' name='timeStampIn' required error={transport.timeStampIn.error}></DltDateTimePicker>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider></Divider>
+              </Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' value={transport.f1a} disabled></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' value={transport.f1a} disabled></DltTextField></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' value={transport.f1mpId.value} onChange={(e) => {setTransport({...transport, f1mpId: {...transport.f1mpId, value: e.target.value}})}} required error={transport.f1mpId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' value={transport.r1mpId.value} onChange={(e) => {setTransport({...transport, r1mpId: {...transport.r1mpId, value: e.target.value}})}} required error={transport.r1mpId.error}></SelectLPProvince></Grid>
+              <Grid item xs={12}>
+                <ImageListLP></ImageListLP>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider></Divider>
+              </Grid>
+              <Grid item xs={6}><SelectVehicleClass value={transport.vehicleClass.value} name='vehicleClass' onChange={(e) => {setTransport({...transport, 'vehicleClass': {...transport.vehicleClass, 'value': e.target.value}})}} required error={transport.vehicleClass.error}></SelectVehicleClass></Grid>
+              <Grid item xs={6}><SelectObjective value={transport.objective.value} name='objective' onChange={(e) => {setTransport({...transport, 'objective': {...transport.objective, 'value': e.target.value}})}} required error={transport.objective.error}></SelectObjective></Grid>
+              <Grid item xs={12}>
+                <Divider></Divider>
+              </Grid>
+              <Grid item xs={12}  sx={{display: 'flex', justifyContent: 'center'}}>
+                <Button variant="contained" color="error" endIcon={<LocalShippingIcon/>}>
+                  รถออกจากสถานนี
+                </Button>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent>
+            <Grid container spacing={2} direction='row' wrap='wrap'>
+              <Grid item xs={12}>
+                <ToggleButtonGroup color='primary' value={transport.mode} exclusive onChange={(e, val) => { setTransport({...transport, 'mode': val}) }} fullWidth>
+                  <ToggleButton value={1}><ArrowCircleDownIcon sx={{mr: 1}}/> ส่งสินค้าเข้า</ToggleButton>
+                  <ToggleButton value={3}><ArrowCircleDownIcon/> <ArrowCircleUpIcon sx={{mr: 1}}/> ส่งและสินค้า</ToggleButton>
+                  <ToggleButton value={2}><ArrowCircleUpIcon sx={{mr: 1}}/> รับสินค้าออก</ToggleButton>
+                </ToggleButtonGroup>
+              </Grid>
+              {transport.mode !== 2 && <Grid item xs={12} sm={12} md={transport.mode === 1 ? 12 : 6 }>
+                <Grid container spacing={2} direction='row' wrap='wrap'>
+                  <Grid item xs={12}><Typography variant='h5'>ส่งสินค้าเข้าสถานนี</Typography></Grid>
+                  <Grid item xs={6}>
+                    <SelectProvince value={transport.rx.province} name='rxProvince' label='จังหวัดต้นทาง' onChange={(e) => {setTransport({...transport, rx: {...transport.rx, province: e.target.value}})}}></SelectProvince>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <SelectStation value={transport.station.value} readonly></SelectStation>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CheckBoxGoodCategory value={transport.rx.goods} onChange={handleRxGoodCategory} required error={transport.rx.error}></CheckBoxGoodCategory>
+                  </Grid>
+                </Grid>
+              </Grid>}
+              {(transport.mode !== 1) && <Grid item xs={12} sm={12} md={transport.mode === 2 ? 12 : 6 }>
+                <Grid container spacing={2} direction='row' wrap='wrap'>
+                  <Grid item xs={12}><Typography variant='h5'>รับสินค้าออกจากสถานี</Typography></Grid>
+                  <Grid item xs={6}>
+                    <SelectStation value={transport.station.value} readonly></SelectStation>
+                  </Grid>
+                  <Grid item xs={6}>
+                  <SelectProvince value={transport.tx.province} name='txProvince' label='จังหวัดปลายทาง' onChange={(e) => {setTransport({...transport, tx: {...transport.tx, province: e.target.value}})}}></SelectProvince>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CheckBoxGoodCategory value={transport.tx.goods} onChange={handleTxGoodCategory} required error={transport.tx.error}></CheckBoxGoodCategory>
+                  </Grid>
+                </Grid>
+              </Grid>}
+            </Grid>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
+            <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={submit} startIcon={<SaveIcon></SaveIcon>}>บันทึก</LoadingButton>
+            <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CancelIcon></CancelIcon>}>ยกเลิก</LoadingButton>
+          </CardActions>
+        </Card>
+      </Stack>
     </Container>
     </Slide>
   )

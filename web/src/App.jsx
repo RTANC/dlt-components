@@ -6,7 +6,10 @@ import Home from './views/Home'
 import Query from './views/Query'
 import Profile from './views/Profile'
 import ManagementUser from './views/managements/users/User'
+import ManagementCompany from './views/managements/companies/Company'
 import ManagementUserForm from './views/managements/users/UserForm'
+import ManagementCompanyForm from './views/managements/companies/CompanyForm'
+
 import './App.css'
 import { useSelector } from 'react-redux'
 
@@ -25,6 +28,8 @@ function App() {
         <Route path='/profile' element={<Profile></Profile>}></Route>
         <Route path='/management/user' element={<ManagementUser></ManagementUser>}></Route>
         <Route path='/management/user/:uid' element={<ManagementUserForm></ManagementUserForm>}></Route>
+        <Route path='/management/company' element={<ManagementCompany></ManagementCompany>}></Route>
+        <Route path='/management/company/:companyId' element={<ManagementCompanyForm></ManagementCompanyForm>}></Route>
       </Routes>
       {/* <Footer></Footer> */}
       </BrowserRouter>

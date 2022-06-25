@@ -33,8 +33,45 @@ exports.getUser = async (req, res, next) => {
         from GCSUser
         inner join Company on GCSUser.CompanyID = Company.CompanyID
         where UserID = ${req.params.uid}`
-        const user = await sequelize.query(sql_query, { type: QueryTypes.SELECT });
+        const user = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
         res.status(200).send(user[0])
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getCompanies = async (req, res, next) => {
+    try {
+        const company = await sequelize.query(`select CompanyID as id, CompanyID as CompanyCode, CompanyID, StationName, CompanyName, TransportLicenseID, TransportTypeID, TransportScopeID
+        from Company
+        inner join Station on Company.StationID = Station.StationID
+        where CompanyID > 3 and Company.StationID = ${req.query.station}`, { type: QueryTypes.SELECT })
+        res.status(200).send(company)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getCompany = async (req, res, next) => {
+    try {
+        const company = await sequelize.query(`select *
+        from Company
+        where CompanyID = ${req.params.companyId}`, { type: QueryTypes.SELECT })
+        res.status(200).send(company[0])
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getVehicles = async (req, res, next) => {
+    try {
+        const vehicles = await sequelize.query(`SELECT G1VehicleID, Company.CompanyName, Description, FrontLP, RearLP, ProvinceName
+        FROM G1Vehicle
+        inner join Company on G1Vehicle.CompanyID = Company.CompanyID
+        inner join LPProvince on G1Vehicle.FrontLPPID = LPProvince.ProvinceID and G1Vehicle.RearLPPID = LPProvince.ProvinceID
+        where G1Vehicle.StationID = 2 and G1Vehicle.CompanyID = 53
+        order by EntryDate`, { type: QueryTypes.SELECT })
+        res.status(200).send(vehicles)
     } catch (error) {
         next(error)
     }

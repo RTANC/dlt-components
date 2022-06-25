@@ -8,12 +8,10 @@ import SelectTitle from '../../../components/SelectTitle'
 import DltTextField from '../../../components/DltTextField'
 import { LoadingButton } from '@mui/lab'
 import SelectAgency from '../../../components/SelectAgency'
-import EditIcon from '@mui/icons-material/Edit'
 import { getUser } from '../../../services/managements'
 import { useParams, useNavigate } from 'react-router-dom'
 import { passwordValidator, emailValidator } from '../../../services/utils'
 import { validator } from '../../../services/validator'
-import CheckBoxChPasswd from '../../../components/CheckBoxChPasswd'
 import RadioBoxIsActiveUser from '../../../components/RadioBoxIsActiveUser'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import ContactsIcon from '@mui/icons-material/Contacts'
@@ -34,50 +32,42 @@ export default function UserForm() {
         title: 1,
         firstname: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         lastname: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         username: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         chPasswd: false,
         newPassword: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         confirmPassword: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         email: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น',  (v) => emailValidator(v) || '*รูปแบบ email ไม่ถูกต้อง'],
           error: false
         },
         tel: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         isActive: true
     })
-
-    user.firstname.rules = [!!user.firstname.value || '*ข้อมูลจำเป็น']
-    user.lastname.rules = [!!user.lastname.value || '*ข้อมูลจำเป็น']
-    user.username.rules = [!!user.username.value || '*ข้อมูลจำเป็น']
-    user.newPassword.rules = [!!user.newPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด']
-    user.confirmPassword.rules = [!!user.confirmPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.confirmPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (user.newPassword.value === user.confirmPassword.value) || 'Password ไม่ตรงกัน']
-    user.email.rules = [!!user.email.value || '*ข้อมูลจำเป็น', emailValidator(user.email.value) || '*รูปแบบ email ไม่ถูกต้อง']
-    user.tel.rules = [!!user.tel.value || '*ข้อมูลจำเป็น']
 
     const handleChange = (e) => {
       user[e.target.name] = e.target.value
@@ -100,23 +90,8 @@ export default function UserForm() {
     }
 
     const handleValidateValue = (e) => {
-      user[e.target.name].error = validator(user[e.target.name].rules)
+      user[e.target.name].error = validator(e.target.value, user[e.target.name].rules)
       setUser({...user})
-    }
-
-    const handleChpasswd = (e) => {
-      if (e.target.checked) {
-        user.newPassword.rules = [!!user.newPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด']
-        user.confirmPassword.rules = [!!user.confirmPassword.value || '*ข้อมูลจำเป็น', passwordValidator(user.confirmPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (user.newPassword.value === user.confirmPassword.value) || 'Password ไม่ตรงกัน']
-      } else {
-        user.newPassword.value = ''
-        user.newPassword.rules = []
-        user.newPassword.error = false
-        user.confirmPassword.value = ''
-        user.confirmPassword.rules = []
-        user.confirmPassword.error = false
-      }
-      setUser({...user, chPasswd: e.target.checked})
     }
 
     const init = async () => {

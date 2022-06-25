@@ -101,11 +101,11 @@ export default function Home() {
     }
   })
 
-  transport.station.rules = [transport.station.value !== '' || '*ข้อมูลจำเป็น']
-  transport.company.rules = [transport.company.value !== '' || '*ข้อมูลจำเป็น']
-  transport.timeStampIn.rules = [transport.timeStampIn.value !== null || '*ข้อมูลจำเป็น']
-  transport.vehicleClass.rules = [transport.vehicleClass.value !== '' || '*ข้อมูลจำเป็น']
-  transport.objective.rules = [transport.objective.value !== '' || '*ข้อมูลจำเป็น']
+  transport.station.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
+  transport.company.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
+  transport.timeStampIn.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
+  transport.vehicleClass.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
+  transport.objective.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
   switch (transport.mode) {
     case 1: transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
     break

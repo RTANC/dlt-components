@@ -1,8 +1,8 @@
-export function validator (rules) {
+export function validator (v, rules) {
     if (rules.length === 0) return false
     let err = null
     for (let i = 0; i < rules.length; i++) {
-        err = rules[i]
+        err = rules[i](v)
         if (err !== true) {
           break
         }
@@ -22,7 +22,7 @@ export default function formValidator (formValues, setFormValues) {
         try {
             const key = keys[i]
             if (formValues[key].rules) {
-                newValue[key] = { ...formValues[key], 'error': validator(formValues[key].rules) }
+                newValue[key] = { ...formValues[key], 'error': validator(formValues[key].value, formValues[key].rules) }
                 pass = pass && (newValue[key].error === false)
             }
           } catch (error) {

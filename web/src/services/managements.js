@@ -14,3 +14,11 @@ export function getUsers(roleId, stationId, companyId, text) {
 export function getUser (userId) {
     return api.get('/managements/users/' + userId)
 }
+
+export function getCompanies (station) {
+    return api.get('/managements/company?station=' + station)
+}
+
+export function getCompany (id) {
+    return api.get('/managements/company/' + id)
+}

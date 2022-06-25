@@ -13,6 +13,7 @@ import ContactsIcon from '@mui/icons-material/Contacts'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import KeyIcon from '@mui/icons-material/Key'
 import CallIcon from '@mui/icons-material/Call'
+import DltPasswordTextField from '../components/DltPasswordTextField'
 
 export default function Profile() {
   const [loading, setLoading] = useState(false)
@@ -21,49 +22,41 @@ export default function Profile() {
         title: 1,
         firstname: {
           value: 'admin',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         lastname: {
           value: 'gcs',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         username: {
           value: 'admin',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         chpasswd: false,
         newPassword: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         confirmPassword: {
           value: '',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         email: {
           value: 'warawit8@gmail.com',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น',  (v) => emailValidator(v) || '*รูปแบบ email ไม่ถูกต้อง'],
           error: false
         },
         tel: {
           value: '0804224893',
-          rules: [],
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         }
     })
-
-    profile.firstname.rules = [!!profile.firstname.value || '*ข้อมูลจำเป็น']
-    profile.lastname.rules = [!!profile.lastname.value || '*ข้อมูลจำเป็น']
-    profile.username.rules = [!!profile.username.value || '*ข้อมูลจำเป็น']
-    profile.newPassword.rules = [!!profile.newPassword.value || '*ข้อมูลจำเป็น', passwordValidator(profile.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด']
-    profile.confirmPassword.rules = [!!profile.confirmPassword.value || '*ข้อมูลจำเป็น', passwordValidator(profile.confirmPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (profile.newPassword.value === profile.confirmPassword.value) || 'Password ไม่ตรงกัน']
-    profile.email.rules = [!!profile.email.value || '*ข้อมูลจำเป็น', /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(profile.email.value) || '*รูปแบบ email ไม่ถูกต้อง']
-    profile.tel.rules = [!!profile.tel.value || '*ข้อมูลจำเป็น']
 
     const handleFirstName = (e) => {
       profile.firstname.value = e.target.value
@@ -78,21 +71,6 @@ export default function Profile() {
     const handleUsername = (e) => {
       profile.username.value = e.target.value
       setProfile({...profile})
-    }
-
-    const handleChpasswd = (e) => {
-      if (e.target.checked) {
-        profile.newPassword.rules = [!!profile.newPassword.value || '*ข้อมูลจำเป็น', passwordValidator(profile.newPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด']
-        profile.confirmPassword.rules = [!!profile.confirmPassword.value || '*ข้อมูลจำเป็น', passwordValidator(profile.confirmPassword.value) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด', (profile.newPassword.value === profile.confirmPassword.value) || 'Password ไม่ตรงกัน']
-      } else {
-        profile.newPassword.value = ''
-        profile.newPassword.rules = []
-        profile.newPassword.error = false
-        profile.confirmPassword.value = ''
-        profile.confirmPassword.rules = []
-        profile.confirmPassword.error = false
-      }
-      setProfile({...profile, chpasswd: e.target.checked})
     }
 
     const handleNewPassword = (e) => {
@@ -116,7 +94,16 @@ export default function Profile() {
     }
 
     const handleValidateValue = (e) => {
-      profile[e.target.name].error = validator(profile[e.target.name].rules)
+      profile[e.target.name].error = validator(e.target.value, profile[e.target.name].rules)
+      setProfile({...profile})
+    }
+
+    const handleValidatePassword = (e) => {
+      profile[e.target.name].error = validator(e.target.value, profile[e.target.name].rules)
+      if ((!profile.newPassword.error || !profile.confirmPassword.error) && profile.newPassword.value === profile.confirmPassword.value) {
+        profile.newPassword.error = false
+        profile.confirmPassword.error - false
+      }
       setProfile({...profile})
     }
 
@@ -188,10 +175,10 @@ export default function Profile() {
                     <Typography variant="h6" color="initial">เปลี่ยนรหัสผ่าน</Typography>
                   </Grid>
                   <Grid item xs={6} md={6}>
-                    <DltTextField name='newPassword' type='password' label='Password ใหม่' value={profile.newPassword.value} onChange={handleNewPassword} onKeyUp={handleValidateValue} error={profile.newPassword.error} required startIcon={<KeyIcon/>}></DltTextField>
+                    <DltPasswordTextField name='newPassword' label='Password ใหม่' value={profile.newPassword.value} onChange={handleNewPassword} onKeyUp={handleValidatePassword} error={profile.newPassword.error} required></DltPasswordTextField>
                   </Grid>
                   <Grid item xs={6} md={6}>
-                    <DltTextField name='confirmPassword' type='password' label='ยืนยัน Password ใหม่' value={profile.confirmPassword.value} onChange={handleConfirmPassword} onKeyUp={handleValidateValue} error={profile.confirmPassword.error} required startIcon={<KeyIcon/>}></DltTextField>
+                    <DltPasswordTextField name='confirmPassword' label='ยืนยัน Password ใหม่' value={profile.confirmPassword.value} onChange={handleConfirmPassword} onKeyUp={handleValidatePassword} error={profile.confirmPassword.error} required></DltPasswordTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{display: 'flex', justifyContent: 'center'}}>
@@ -204,8 +191,7 @@ export default function Profile() {
             <Card>
               <CardActions>
                 <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                  <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CancelIcon></CancelIcon>}>ยกเลิก</LoadingButton>
-                  <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={submit} startIcon={<SaveIcon></SaveIcon>}>บันทึก</LoadingButton>
+                  <LoadingButton loading={loading} color='success' variant='contained' onClick={submit} startIcon={<SaveIcon></SaveIcon>}>บันทึกข้อมูล</LoadingButton>
                 </Box>
               </CardActions>
             </Card>

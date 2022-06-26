@@ -19,6 +19,7 @@ import { LoadingButton } from '@mui/lab'
 import formValidator from '../services/validator'
 import { SquareEditOutline } from 'mdi-material-ui'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
+import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
 
 export default function Home() {
   
@@ -33,6 +34,9 @@ export default function Home() {
       value: 189,
       error: false,
       rules: []
+    },
+    lpNumber: {
+      value: ''
     },
     isManualAddLPR: false,
     f1a: '',
@@ -195,7 +199,7 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12}>
-                <DltTextField label='ค้นหาจากเลขทะเบียน'></DltTextField>
+                <AutoCompleteSearchLP value={transport.lpNumber.value} name='lpNumber'></AutoCompleteSearchLP>
               </Grid>
               <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
                 <Button variant='contained' color='warning'>กรอกข้อมูลด้วยตนเอง</Button>

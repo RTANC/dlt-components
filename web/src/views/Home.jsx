@@ -22,21 +22,21 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
 
 export default function Home() {
-  
+
   const [loading, setLoading] = useState(false)
   const [transport, setTransport] = useState({
     station: {
       value: 1,
       error: false,
-      rules: []
+      rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
     company: {
       value: 189,
       error: false,
-      rules: []
+      rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
     lpNumber: {
-      value: ''
+      value: null
     },
     isManualAddLPR: false,
     f1a: '',
@@ -75,17 +75,17 @@ export default function Home() {
     timeStampIn: {
       value: null,
       error: false,
-      rules: []
+      rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
     vehicleClass: {
       value: '',
       error: false,
-      rules: []
+      rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
     objective: {
       value: 1,
       error: false,
-      rules: []
+      rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
     isVehicleOut: false,
     mode: 1,
@@ -105,11 +105,6 @@ export default function Home() {
     }
   })
 
-  transport.station.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
-  transport.company.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
-  transport.timeStampIn.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
-  transport.vehicleClass.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
-  transport.objective.rules = [(v) => !!v || '*ข้อมูลจำเป็น']
   switch (transport.mode) {
     case 1: transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
     break
@@ -117,6 +112,12 @@ export default function Home() {
     break
     default: transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
     transport.tx.rules = [!(transport.tx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
+  }
+
+  const handleLPSearch = (e, v) => {
+    transport.lpNumber.value = v.id
+    console.log(v)
+    setTransport({...transport})
   }
 
   const handleRxGoodCategory = (e) => {
@@ -199,7 +200,7 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12}>
-                <AutoCompleteSearchLP value={transport.lpNumber.value} name='lpNumber'></AutoCompleteSearchLP>
+                <AutoCompleteSearchLP value={transport.lpNumber.value} name='lpNumber' onChange={handleLPSearch}></AutoCompleteSearchLP>
               </Grid>
               <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
                 <Button variant='contained' color='warning'>กรอกข้อมูลด้วยตนเอง</Button>

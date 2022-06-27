@@ -115,7 +115,7 @@ export default function Home() {
   }
 
   const handleLPSearch = (e, v) => {
-    transport.lpNumber.value = v.id
+    transport.lpNumber.value = v.TransportID
     console.log(v)
     setTransport({...transport})
   }
@@ -200,7 +200,7 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12}>
-                <AutoCompleteSearchLP value={transport.lpNumber.value} name='lpNumber' onChange={handleLPSearch}></AutoCompleteSearchLP>
+                <AutoCompleteSearchLP station={2} value={transport.lpNumber.value} name='lpNumber' onChange={handleLPSearch}></AutoCompleteSearchLP>
               </Grid>
               <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
                 <Button variant='contained' color='warning'>กรอกข้อมูลด้วยตนเอง</Button>

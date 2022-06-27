@@ -4,6 +4,6 @@ export function getProvinces() {
     return api.get('/transports/provinces')
 }
 
-export function getLicensePlates() {
-    return api.get('/transports/licenseplates')
+export function getLicensePlates(station, LPnumber) {
+    return api.get('/transports/licenseplates?station=' + station + '&LPnumber=' + LPnumber)
 }

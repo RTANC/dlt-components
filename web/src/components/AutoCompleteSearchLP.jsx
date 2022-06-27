@@ -1,77 +1,73 @@
 import { Autocomplete, CircularProgress, FormControl, FormHelperText, InputLabel, TextField, Box } from '@mui/material';
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getLicensePlates } from '../services/transports';
+import { getLicensePlates } from '../services/transports'
+import moment from 'moment-timezone'
 
 export default function AutoCompleteSearchLP(props) {
-    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState('')
     const [options, setOptions] = useState([])
-    const loading = open && options.length === 0
+    const [loading, setLoading] = useState(false)
 
-    const fetchLicenseplates = async () => {
+    const fetchLicenseplates = async (e, v) => {
       try {
-        const data = (await getLicensePlates()).data
-        setOptions(data)
+        setLoading(true)
+        if (v !== '') {
+          const data = (await getLicensePlates(props.station, v)).data
+          console.log(v)
+          setOptions(data)
+        }
+        
       } catch (error) {
         console.log(error)
+      } finally {
+        setLoading(false)
       }
     }
 
-    useEffect(() => {
-        fetchLicenseplates()
-      }, [loading])
-
-      useEffect(() => {
-        if (!open) {
-          setOptions([])
-        }
-      }, [open])
   return (
     <FormControl fullWidth>
         <Autocomplete
-          value={props.value}
+          // value={value}
           disableClearable
-          open={open}
-          // onChange={props.onChange}
-          // onInputChange={(e, v) => {console.log(v)}}
-          onOpen={() => {
-            setOpen(true)
-          }}
-          onClose={() => {
-            setOpen(false)
-          }}
-          isOptionEqualToValue={(option, value) => option.id === value}
+          onChange={props.onChange}
+          onInputChange={fetchLicenseplates}
+          // isOptionEqualToValue={(option, value) => option.TransportID === value}
+          filterOptions={(x) => x}
           options={options}
-          loading={loading}
-          getOptionLabel={(option) => { return option.id.toString()}}
+          // loading={loading}
+          autoComplete
+          includeInputInList
+          filterSelectedOptions
+          getOptionLabel={(option) => ''}
           renderOption={(props, option) => (
-            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} key={option.id}>
+            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} key={option.TransportID}>
               <img
                 loading="lazy"
                 width="164"
-                src={option.f1}
+                src='https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=164&h=164&fit=crop&auto=format'
               />
               <img
                 loading="lazy"
                 width="164"
-                src={option.r1}
+                src='https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=164&h=164&fit=crop&auto=format'
               />
-              {option.timeStampIn} หน้า:({option.front}) หลัง:{option.rear}
+              วัน และ เวลาเข้า: {moment(option.TimeStampIn).format('DD/MM/YYYY HH:mm:ss')} <br /> หน้า: {option.F1M + ' ' + option.F1MPNAME} <br /> หลัง: {option.R1M + ' ' + option.R1MPNAME}
             </Box>
           )}
           renderInput={(params) => (
-            <TextField
-              {...params}
-              label='ค้นหาจากเลขทะเบียน'
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <React.Fragment>
-                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                    {params.InputProps.endAdornment}
-                  </React.Fragment>
-                ),
-              }}
+            <TextField {...params}
+            label='ค้นหาจากเลขทะเบียน'
+            fullWidth
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <React.Fragment>
+                  {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
             />
           )}
         />

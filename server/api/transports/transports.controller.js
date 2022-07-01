@@ -12,7 +12,7 @@ exports.getProvinces = async (req, res, next) => {
 
 exports.getLicensePlates = async (req, res, next) => {
     try {
-        const sql = `select TransportID, TimeStampIn, F1M, (select ProvinceName from LPProvince where ProvinceID = F1MPID) as F1MPNAME, R1M, (select ProvinceName from LPProvince where ProvinceID = R1MPID) as R1MPNAME
+        const sql = `select TransportID, TimeStampIn, F1M, F1MPID, (select ProvinceName from LPProvince where ProvinceID = F1MPID) as F1MPNAME, R1M, R1MPID, (select ProvinceName from LPProvince where ProvinceID = R1MPID) as R1MPNAME
         from Transport
         where StationID = ${req.query.station} and (F1M like '${req.query.LPnumber}%' or R1M like '${req.query.LPnumber}%') and YEAR(TimeStampIn) = 2021 and MONTH(TimeStampIn) = 6`
 

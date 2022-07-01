@@ -44,13 +44,13 @@ export default function AutoCompleteSearchLP(props) {
             <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} key={option.TransportID}>
               <img
                 loading="lazy"
-                width="164"
-                src='https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=164&h=164&fit=crop&auto=format'
+                width="100"
+                src='https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=100&h=100&fit=crop&auto=format'
               />
               <img
                 loading="lazy"
-                width="164"
-                src='https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=164&h=164&fit=crop&auto=format'
+                width="100"
+                src='https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=100&h=100&fit=crop&auto=format'
               />
               วัน และ เวลาเข้า: {moment(option.TimeStampIn).format('DD/MM/YYYY HH:mm:ss')} <br /> หน้า: {option.F1M + ' ' + option.F1MPNAME} <br /> หลัง: {option.R1M + ' ' + option.R1MPNAME}
             </Box>

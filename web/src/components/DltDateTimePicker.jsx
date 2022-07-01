@@ -6,6 +6,7 @@ import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
 import { Calendar } from 'mdi-material-ui'
 import PropTypes from 'prop-types'
 import thLocale from 'date-fns/locale/th'
+import moment from 'moment-timezone'
 
 export default function DltDateTimePicker(props) {
   return (
@@ -14,19 +15,16 @@ export default function DltDateTimePicker(props) {
         <FormControl fullWidth error={props.error !== false}>
           <MobileDateTimePicker
             label={props.label}
-            inputFormat='dd/MM/yyyy HH:mm'
-            mask='__/__/____ __:__'
+            inputFormat='MM/dd/yyyy HH:mm'
+            // mask='__/__/____ __:__'
             value={props.value}
             onChange={props.onChange}
             name={props.name}
             minDateTime={props.minDateTime}
             maxDateTime={props.maxDateTime}
             disabled={props.disabled}
-            renderInput={(params) => <TextField {...params} InputProps={{startAdornment: (
-              <InputAdornment position="start">
-                <Calendar />
-              </InputAdornment>
-            )}}/>}
+            readOnly={props.readOnly}
+            renderInput={(params) => {params.inputProps.value =  moment(moment(params.inputProps.value).format('MM/DD/YYYY')).isValid() ? moment(params.inputProps.value).add(543, 'y').format('DD/MM/YYYY HH:mm') : ''; return <TextField {...params} />}}
           />
           {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
           {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
@@ -38,13 +36,15 @@ export default function DltDateTimePicker(props) {
 
 DltDateTimePicker.propTypes = {
   required: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool
 }
 
 DltDateTimePicker.defaultProps = {
   required: false,
   error: false,
   disabled: false,
+  readOnly: false,
   onChange: function () {
     return null
   }

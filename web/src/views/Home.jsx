@@ -35,19 +35,9 @@ export default function Home() {
       error: false,
       rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
-    lpNumber: {
-      value: null
-    },
     isManualAddLPR: false,
-    f1a: '',
-    r1a: '',
     editLPR: false,
-    f1mp1: {
-      value: '',
-      error: false,
-      rules: []
-    },
-    f1mp2: {
+    f1m: {
       value: '',
       error: false,
       rules: []
@@ -57,12 +47,7 @@ export default function Home() {
       error: false,
       rules: []
     },
-    r1mp1: {
-      value: '',
-      error: false,
-      rules: []
-    },
-    r1mp2: {
+    r1m: {
       value: '',
       error: false,
       rules: []
@@ -115,8 +100,18 @@ export default function Home() {
   }
 
   const handleLPSearch = (e, v) => {
-    transport.lpNumber.value = v.TransportID
+    // transport.lpNumber.value = v.TransportID
+    transport.f1m.value = v.F1M
+    transport.f1mpId.value = v.F1MPID
+    transport.r1m.value = v.R1M
+    transport.r1mpId.value = v.R1MPID
+    transport.timeStampIn.value = v.TimeStampIn
     console.log(v)
+    setTransport({...transport})
+  }
+
+  const handleChangeValue = (e) => {
+    transport[e.target.name].value = e.target.value
     setTransport({...transport})
   }
 
@@ -188,10 +183,10 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12} sm={6} md={6}>
-                <SelectStation value={transport.station.value} name='station' onChange={(e) => {setTransport({...transport,'station': {...transport.station, 'value': e.target.value}})}} required error={transport.station.error}></SelectStation>
+                <SelectStation value={transport.station.value} name='station' onChange={handleChangeValue} required error={transport.station.error}></SelectStation>
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
-                <SelectCompany value={transport.company.value} name='company' onChange={(e) => {setTransport({...transport,'company': {...transport.company, 'value': e.target.value}})}} required error={transport.company.error}></SelectCompany>
+                <SelectCompany value={transport.company.value} name='company' onChange={handleChangeValue} required error={transport.company.error}></SelectCompany>
               </Grid>
             </Grid>
           </CardContent>
@@ -200,7 +195,7 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12}>
-                <AutoCompleteSearchLP station={2} value={transport.lpNumber.value} name='lpNumber' onChange={handleLPSearch}></AutoCompleteSearchLP>
+                <AutoCompleteSearchLP station={2} name='lpNumber' onChange={handleLPSearch}></AutoCompleteSearchLP>
               </Grid>
               <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
                 <Button variant='contained' color='warning'>กรอกข้อมูลด้วยตนเอง</Button>
@@ -219,23 +214,23 @@ export default function Home() {
                 <Button variant='contained' startIcon={<SquareEditOutline/>}>แก้ไขข้อมูล</Button>
               </Grid>
               <Grid item xs={12}>
-                <DltDateTimePicker disabled value={transport.timeStampIn.value} label='วัน เวลา ที่รถเข้า' name='timeStampIn' required error={transport.timeStampIn.error}></DltDateTimePicker>
+                <DltDateTimePicker value={transport.timeStampIn.value} label='วัน เวลา ที่รถเข้า' name='timeStampIn' onChange={(v) => {transport.timeStampIn.value = v; setTransport({...transport})}} required error={transport.timeStampIn.error}></DltDateTimePicker>
               </Grid>
               <Grid item xs={12}>
                 <Divider></Divider>
               </Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' value={transport.f1a} disabled></DltTextField></Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' value={transport.f1a} disabled></DltTextField></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' value={transport.f1mpId.value} onChange={(e) => {setTransport({...transport, f1mpId: {...transport.f1mpId, value: e.target.value}})}} required error={transport.f1mpId.error}></SelectLPProvince></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' value={transport.r1mpId.value} onChange={(e) => {setTransport({...transport, r1mpId: {...transport.r1mpId, value: e.target.value}})}} required error={transport.r1mpId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' value={transport.f1m.value} readOnly></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' value={transport.r1m.value} readOnly></DltTextField></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1mpId' value={transport.f1mpId.value} onChange={handleChangeValue} required error={transport.f1mpId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1mpId' value={transport.r1mpId.value} onChange={handleChangeValue} required error={transport.r1mpId.error}></SelectLPProvince></Grid>
               <Grid item xs={12}>
                 <ImageListLP></ImageListLP>
               </Grid>
               <Grid item xs={12}>
                 <Divider></Divider>
               </Grid>
-              <Grid item xs={6}><SelectVehicleClass value={transport.vehicleClass.value} name='vehicleClass' onChange={(e) => {setTransport({...transport, 'vehicleClass': {...transport.vehicleClass, 'value': e.target.value}})}} required error={transport.vehicleClass.error}></SelectVehicleClass></Grid>
-              <Grid item xs={6}><SelectObjective value={transport.objective.value} name='objective' onChange={(e) => {setTransport({...transport, 'objective': {...transport.objective, 'value': e.target.value}})}} required error={transport.objective.error}></SelectObjective></Grid>
+              <Grid item xs={6}><SelectVehicleClass value={transport.vehicleClass.value} name='vehicleClass' onChange={handleChangeValue} required error={transport.vehicleClass.error}></SelectVehicleClass></Grid>
+              <Grid item xs={6}><SelectObjective value={transport.objective.value} name='objective' onChange={handleChangeValue} required error={transport.objective.error}></SelectObjective></Grid>
               <Grid item xs={12}>
                 <Divider></Divider>
               </Grid>

@@ -186,7 +186,7 @@ export default function DltAppBar() {
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton>
+                  <ListItemButton onClick={() => {setState(false); navigate('/management/g1Vehicle')}}>
                     <ListItemText inset primary='รายการรถของผู้ประกอบการ'/>
                   </ListItemButton>
                 </ListItem>

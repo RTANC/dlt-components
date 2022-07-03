@@ -9,6 +9,8 @@ import ManagementUser from './views/managements/users/User'
 import ManagementCompany from './views/managements/companies/Company'
 import ManagementUserForm from './views/managements/users/UserForm'
 import ManagementCompanyForm from './views/managements/companies/CompanyForm'
+import ManagementG1Vehicle from './views/managements/g1vehicles/G1Vehicle'
+import ManagementG1VehicleForm from './views/managements/g1vehicles/G1VehicleForm'
 
 import './App.css'
 import { useSelector } from 'react-redux'
@@ -30,6 +32,8 @@ function App() {
         <Route path='/management/user/:uid' element={<ManagementUserForm></ManagementUserForm>}></Route>
         <Route path='/management/company' element={<ManagementCompany></ManagementCompany>}></Route>
         <Route path='/management/company/:companyId' element={<ManagementCompanyForm></ManagementCompanyForm>}></Route>
+        <Route path='/management/g1Vehicle' element={<ManagementG1Vehicle></ManagementG1Vehicle>}></Route>
+        <Route path='/management/g1Vehicle/:gid' element={<ManagementG1VehicleForm></ManagementG1VehicleForm>}></Route>
       </Routes>
       {/* <Footer></Footer> */}
       </BrowserRouter>

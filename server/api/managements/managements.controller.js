@@ -65,7 +65,7 @@ exports.getCompany = async (req, res, next) => {
 
 exports.getVehicles = async (req, res, next) => {
     try {
-        const vehicles = await sequelize.query(`SELECT G1VehicleID, Company.CompanyName, Description, FrontLP, RearLP, ProvinceName
+        const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G1VehicleID, EntryDate, Company.CompanyName, Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G1Vehicle.IsActive
         FROM G1Vehicle
         inner join Company on G1Vehicle.CompanyID = Company.CompanyID
         inner join LPProvince on G1Vehicle.FrontLPPID = LPProvince.ProvinceID and G1Vehicle.RearLPPID = LPProvince.ProvinceID

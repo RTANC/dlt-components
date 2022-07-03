@@ -186,7 +186,7 @@ export default function Home() {
                 <SelectStation value={transport.station.value} name='station' onChange={handleChangeValue} required error={transport.station.error}></SelectStation>
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
-                <SelectCompany value={transport.company.value} name='company' onChange={handleChangeValue} required error={transport.company.error}></SelectCompany>
+                <SelectCompany value={transport.company.value} name='company' onChange={handleChangeValue} station={transport.station.value} required error={transport.company.error}></SelectCompany>
               </Grid>
             </Grid>
           </CardContent>

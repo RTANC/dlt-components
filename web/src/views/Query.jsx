@@ -167,7 +167,7 @@ export default function Query() {
                   <DltDateTimePicker value={params.endDateTime.value} label='วันเวลา-สิ้นสุด' name='endDateTime' onChange={(e) => {setParams({...params,'endDateTime': { ...params.endDateTime, 'value': e }})}} required minDateTime={new Date(params.startDateTime.value)} error={params.endDateTime.error}></DltDateTimePicker>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectCompany value={params.company} name='company' onChange={(e) => {setParams({...params,'company': e.target.value})}}></SelectCompany>
+                  <SelectCompany value={params.company} name='company' onChange={(e) => {setParams({...params,'company': e.target.value})}} station={params.station.value}></SelectCompany>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <SelectProvince value={params.inProvince} label='จังหวัดต้นทาง' name='inProvince' onChange={(e) => {setParams({...params,'inProvince': e.target.value})}}></SelectProvince>

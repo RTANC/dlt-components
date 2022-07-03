@@ -9,7 +9,7 @@ export default function SelectCompany(props) {
 
     const fetchCompany = async () => {
       try {
-        const data = (await getCompany()).data
+        const data = (await getCompany(props.station)).data
         setCompany(data)
       } catch (error) {
         console.log(error)
@@ -18,7 +18,7 @@ export default function SelectCompany(props) {
 
     useEffect(() => {
       fetchCompany()
-    }, [])
+    }, [props.station])
     
     
   return (

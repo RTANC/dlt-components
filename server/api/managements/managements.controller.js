@@ -69,7 +69,7 @@ exports.getVehicles = async (req, res, next) => {
         FROM G1Vehicle
         inner join Company on G1Vehicle.CompanyID = Company.CompanyID
         inner join LPProvince on G1Vehicle.FrontLPPID = LPProvince.ProvinceID and G1Vehicle.RearLPPID = LPProvince.ProvinceID
-        where G1Vehicle.StationID = 2 and G1Vehicle.CompanyID = 53
+        where G1Vehicle.StationID = ${req.query.station} and G1Vehicle.CompanyID = ${req.query.company}
         order by EntryDate`, { type: QueryTypes.SELECT })
         res.status(200).send(vehicles)
     } catch (error) {

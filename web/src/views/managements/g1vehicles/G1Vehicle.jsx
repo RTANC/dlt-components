@@ -9,6 +9,7 @@ import { DataGrid } from '@mui/x-data-grid'
 import SelectCompany from '../../../components/SelectCompany'
 import DltTextField from '../../../components/DltTextField'
 import moment from 'moment-timezone'
+import { getG1Vehicles } from '../../../services/managements'
 
 export default function G1Vehicle() {
     const navigate = useNavigate()
@@ -36,7 +37,8 @@ export default function G1Vehicle() {
     const search = async () => {
         try {
           setLoading(true)
-        //   setRows(data)
+          const data = (await getG1Vehicles(g1Vehicle.station.value, g1Vehicle.company.value)).data
+          setRows(data)
         } catch (error) {
           console.log(error)
         } finally {

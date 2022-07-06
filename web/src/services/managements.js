@@ -22,3 +22,7 @@ export function getCompanies (station) {
 export function getCompany (id) {
     return api.get('/managements/company/' + id)
 }
+
+export function getG1Vehicles (stationId, companyId) {
+    return api.get('/managements/vehicles/?station=' + stationId + '&company=' + companyId)
+}

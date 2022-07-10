@@ -12,12 +12,12 @@ import SelectLPProvince from '../../../components/SelectLPProvince'
 import { useEffect } from 'react'
 import ImageListLP from '../../../components/ImageListLP'
 
-export default function G1VehicleForm() {
+export default function G2VehicleForm() {
     const navigate = useNavigate()
     const { gid } = useParams()
     const [loading, setLoading] = useState(false)
     const [editMode, setEditMode] = useState(false)
-    const [g1Vehicle, setG1Vehicle] = useState({
+    const [g2Vehicle, setG2Vehicle] = useState({
         station: {
             value: 1
         },
@@ -50,14 +50,14 @@ export default function G1VehicleForm() {
     })
 
     const handleValueChange = (e) => {
-        g1Vehicle[e.target.name].value = e.target.value
-        setG1Vehicle({...g1Vehicle})
+        g2Vehicle[e.target.name].value = e.target.value
+        setG2Vehicle({...g2Vehicle})
     }
 
     const save = async () => {
         try {
           setLoading(true)
-          // const data = (await getG1Vehicles(g1Vehicle.station.value, g1Vehicle.company.value, g1Vehicle.licensePlate.value)).data
+          // const data = (await getG2Vehicles(g2Vehicle.station.value, g2Vehicle.company.value, g2Vehicle.licensePlate.value)).data
         } catch (error) {
           console.log(error)
         } finally {
@@ -85,41 +85,41 @@ export default function G1VehicleForm() {
           setEditMode(false)
         }
       }, [])
-      
+
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
           <Stack spacing={2}>
             <Card>
-              <CardHeader title='แก้ไขรายการรถของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
+              <CardHeader title='แก้ไขรายการรถลูกค้าของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} md={6}>
-                    <SelectStation value={g1Vehicle.station.value} name='station' onChange={handleValueChange} required></SelectStation>
+                    <SelectStation value={g2Vehicle.station.value} name='station' onChange={handleValueChange} required></SelectStation>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <RadioBoxIsActiveUser value={g1Vehicle.isActive.value} label='สถานะการใช้งาน' name='isActive' onChange={handleValueChange}></RadioBoxIsActiveUser>
+                    <RadioBoxIsActiveUser value={g2Vehicle.isActive.value} label='สถานะการใช้งาน' name='isActive' onChange={handleValueChange}></RadioBoxIsActiveUser>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider></Divider>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectCompany value={g1Vehicle.company.value} name='company' onChange={handleValueChange} station={g1Vehicle.station.value} required></SelectCompany>
+                    <SelectCompany value={g2Vehicle.company.value} name='company' onChange={handleValueChange} station={g2Vehicle.station.value} required></SelectCompany>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectVehicleClass value={g1Vehicle.vehicleClass.value} name='vehicleClass' onChange={handleValueChange} required></SelectVehicleClass>
+                    <SelectVehicleClass value={g2Vehicle.vehicleClass.value} name='vehicleClass' onChange={handleValueChange} required></SelectVehicleClass>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <DltTextField label='ทะเบียนหน้า' value={g1Vehicle.frontLP.value} name='frontLP' onChange={handleValueChange} placeholder='XX-XXXXX' required></DltTextField>
+                    <DltTextField label='ทะเบียนหน้า' value={g2Vehicle.frontLP.value} name='frontLP' onChange={handleValueChange} placeholder='XX-XXXXX' required></DltTextField>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <DltTextField label='ทะเบียนหลัง' value={g1Vehicle.rearLP.value} name='rearLP' onChange={handleValueChange} placeholder='XX-XXXXX' required></DltTextField>
+                    <DltTextField label='ทะเบียนหลัง' value={g2Vehicle.rearLP.value} name='rearLP' onChange={handleValueChange} placeholder='XX-XXXXX' required></DltTextField>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectLPProvince label='จังหวัด' value={g1Vehicle.frontLPProvince.value} name='frontLPProvince' onChange={handleValueChange} required></SelectLPProvince>
+                    <SelectLPProvince label='จังหวัด' value={g2Vehicle.frontLPProvince.value} name='frontLPProvince' onChange={handleValueChange} required></SelectLPProvince>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectLPProvince label='จังหวัด' value={g1Vehicle.rearLPProvince.value} name='rearLPProvince' onChange={handleValueChange} required></SelectLPProvince>
+                    <SelectLPProvince label='จังหวัด' value={g2Vehicle.rearLPProvince.value} name='rearLPProvince' onChange={handleValueChange} required></SelectLPProvince>
                   </Grid>
                   {editMode && <Grid item xs={12}>
                     <ImageListLP></ImageListLP>

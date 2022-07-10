@@ -9,13 +9,12 @@ import { DataGrid } from '@mui/x-data-grid'
 import SelectCompany from '../../../components/SelectCompany'
 import DltTextField from '../../../components/DltTextField'
 import moment from 'moment-timezone'
-import { getG1Vehicles } from '../../../services/managements'
 
-export default function G1Vehicle() {
+export default function G2Vehicle() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [rows, setRows] = useState([])
-    const [g1Vehicle, setG1Vehicle] = useState({
+    const [g2Vehicle, setG2Vehicle] = useState({
         station: {
             value: 1
         },
@@ -30,15 +29,15 @@ export default function G1Vehicle() {
     })
 
     const handleValueChange = (e) => {
-        g1Vehicle[e.target.name].value = e.target.value
-        setG1Vehicle({...g1Vehicle})
+        g2Vehicle[e.target.name].value = e.target.value
+        setG2Vehicle({...g2Vehicle})
     }
 
     const search = async () => {
         try {
           setLoading(true)
-          const data = (await getG1Vehicles(g1Vehicle.station.value, g1Vehicle.company.value, g1Vehicle.licensePlate.value)).data
-          setRows(data)
+        //   const data = (await getG2Vehicles(g2Vehicle.station.value, g2Vehicle.company.value, g2Vehicle.licensePlate.value)).data
+        //   setRows(data)
         } catch (error) {
           console.log(error)
         } finally {
@@ -71,31 +70,30 @@ export default function G1Vehicle() {
         { field: 'FrontLP', headerName: 'ทะเบียนหน้า', flex: 1 },
         { field: 'RearLP', headerName: 'ทะเบียนหลัง', flex: 1 },
         {
-          field: 'G1VehicleID',
+          field: 'G2VehicleID',
           headerName: 'แก้ไข',
           sortable: false,
           flex: 0.4,
           type: 'actions',
-          renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/g1Vehicle/'+params.value)}}><SquareEditOutline/></IconButton>)
+          renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/g2Vehicle/'+params.value)}}><SquareEditOutline/></IconButton>)
         }
       ]
-
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
           <Stack spacing={2}>
             <Card>
-              <CardHeader title='รายการรถของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
+              <CardHeader title='รายการรถลูกค้าของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} md={4}>
-                    <SelectStation value={g1Vehicle.station.value} name='station' onChange={handleValueChange} required></SelectStation>
+                    <SelectStation value={g2Vehicle.station.value} name='station' onChange={handleValueChange} required></SelectStation>
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <SelectCompany value={g1Vehicle.company.value} name='company' onChange={handleValueChange} station={g1Vehicle.station.value}></SelectCompany>
+                    <SelectCompany value={g2Vehicle.company.value} name='company' onChange={handleValueChange} station={g2Vehicle.station.value}></SelectCompany>
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <DltTextField value={g1Vehicle.licensePlate.value} name='licensePlate' onChange={handleValueChange} label='ค้นหาทะเบียนรถ'></DltTextField>
+                    <DltTextField value={g2Vehicle.licensePlate.value} name='licensePlate' onChange={handleValueChange} label='ค้นหาทะเบียนรถ'></DltTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
@@ -105,7 +103,7 @@ export default function G1Vehicle() {
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'end'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/g1Vehicle/0')}}>เพิ่มรถ</LoadingButton>
+                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/g2Vehicle/0')}}>เพิ่มรถ</LoadingButton>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>

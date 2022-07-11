@@ -31,5 +31,16 @@ export function getG1Vehicles (stationId, companyId, text) {
     if (!!text) {
         query += '&text=' + text
     }
-    return api.get('/managements/vehicles/?station=' + stationId + query)
+    return api.get('/managements/G1/vehicles/?station=' + stationId + query)
+}
+
+export function getG2Vehicles (stationId, companyId, text) {
+    let query = ''
+    if (!!companyId) {
+        query += '&company=' + companyId
+    }
+    if (!!text) {
+        query += '&text=' + text
+    }
+    return api.get('/managements/G2/vehicles/?station=' + stationId + query)
 }

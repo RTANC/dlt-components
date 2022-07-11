@@ -63,7 +63,7 @@ exports.getCompany = async (req, res, next) => {
     }
 }
 
-exports.getVehicles = async (req, res, next) => {
+exports.getG1Vehicles = async (req, res, next) => {
     try {
         let extWhere = ''
         if (!!req.query.company) {
@@ -77,6 +77,27 @@ exports.getVehicles = async (req, res, next) => {
         inner join Company on G1Vehicle.CompanyID = Company.CompanyID
         inner join LPProvince on G1Vehicle.FrontLPPID = LPProvince.ProvinceID and G1Vehicle.RearLPPID = LPProvince.ProvinceID
         where G1Vehicle.StationID = ${req.query.station} ${extWhere}
+        order by EntryDate`, { type: QueryTypes.SELECT })
+        res.status(200).send(vehicles)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getG2Vehicles = async (req, res, next) => {
+    try {
+        let extWhere = ''
+        if (!!req.query.company) {
+            extWhere += ' and G2Vehicle.CompanyID = ' + req.query.company
+        }
+        if (!!req.query.text) {
+            extWhere += ` and (FrontLP like '%${req.query.text}%' or RearLP like  '%${req.query.text}%')`
+        }
+        const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G2VehicleID, EntryDate, Company.CompanyName, Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G2Vehicle.IsActive
+        FROM G2Vehicle
+        inner join Company on G2Vehicle.CompanyID = Company.CompanyID
+        inner join LPProvince on G2Vehicle.FrontLPPID = LPProvince.ProvinceID and G2Vehicle.RearLPPID = LPProvince.ProvinceID
+        where G2Vehicle.StationID = ${req.query.station} ${extWhere}
         order by EntryDate`, { type: QueryTypes.SELECT })
         res.status(200).send(vehicles)
     } catch (error) {

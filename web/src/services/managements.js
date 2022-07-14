@@ -44,3 +44,23 @@ export function getG2Vehicles (stationId, companyId, text) {
     }
     return api.get('/managements/G2/vehicles/?station=' + stationId + query)
 }
+
+export function getG2VehicleRules () {
+    return api.get('/managements/G2/vehiclerules/')
+}
+
+export function getG2Rules () {
+    return api.get('/managements/G2/rules/')
+}
+
+export function getG2Rule (stationId) {
+    return api.get('/managements/G2/rules/' + stationId)
+}
+
+export function getIncidents () {
+    return api.get('/managements/incidents')
+}
+
+export function getIncident (incidentId) {
+    return api.get('/managements/incidents' + incidentId)
+}

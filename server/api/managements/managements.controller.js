@@ -104,3 +104,58 @@ exports.getG2Vehicles = async (req, res, next) => {
         next(error)
     }
 }
+
+exports.getG2VehicleRules = async (req, res, next) => {
+    try {
+        const rules = await sequelize.query(`select id = ROW_NUMBER() OVER (ORDER BY G2VehicleRule.StationID), G2VehicleRule.StationID, StationName, RuleDescription, TargetDate, UpdateTimeStamp, LoginName
+        from G2VehicleRule
+        inner join G2VehicleRuleDescription on G2VehicleRule.RuleID = G2VehicleRuleDescription.RuleID
+        inner join Station on G2VehicleRule.StationID = Station.StationID
+        inner join GCSUser on  G2VehicleRule.UserID = GCSUser.UserID`, { type: QueryTypes.SELECT })
+        res.status(200).send(rules)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getG2Rules = async (req, res, next) => {
+    try {
+        const rules = await sequelize.query(`select RuleID, RuleDescription
+        from G2VehicleRuleDescription`, { type: QueryTypes.SELECT })
+        res.status(200).send(rules)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getG2Rule = async (req, res, next) => {
+    try {
+        const rules = await sequelize.query(`select StationID, RuleID
+        from G2VehicleRule
+        where StationID = ${req.params.station}`, { type: QueryTypes.SELECT })
+        res.status(200).send(rules[0])
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getIncidents = async (req, res, next) => {
+    try {
+        const incidents = await sequelize.query(`select id = ROW_NUMBER() OVER (ORDER BY ID), ID, StartDt, EndDt, StationName, Title
+        from Incident
+        inner join Station on Incident.StationId = Station.StationID
+        where Incident.StationId = ${req.query.station} AND (StartDt BETWEEN '${req.query.StartDt}' AND '${req.query.EndDt}') AND (EndDt BETWEEN '${req.query.StartDt}' AND '${req.query.EndDt}')`, { type: QueryTypes.SELECT })
+        res.status(200).send(incidents)
+    } catch (error) {
+        
+    }
+}
+
+exports.getIncident = async (req, res, next) => {
+    try {
+        const incident = []
+        res.status(200).send(incident[0])
+    } catch (error) {
+        
+    }
+}

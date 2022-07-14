@@ -13,14 +13,16 @@ import ManagementG1Vehicle from './views/managements/g1vehicles/G1Vehicle'
 import ManagementG1VehicleForm from './views/managements/g1vehicles/G1VehicleForm'
 import ManagementG2Vehicle from './views/managements/g2vehicles/G2Vehicle'
 import ManagementG2VehicleForm from './views/managements/g2vehicles/G2VehicleForm'
+import ManagementG2VehicleRule from './views/managements/g2vehiclerules/G2VehicleRule'
+import ManagementG2VehicleRuleForm from './views/managements/g2vehiclerules/G2VehicleRuleForm'
+import ManagementIncident from './views/managements/incidents/Incident'
+import ManagementIncidentForm from './views/managements/incidents/IncidentForm'
 
-import './App.css'
+// import './App.css'
 import { useSelector } from 'react-redux'
-
 
 function App() {
   const showAppBar = useSelector((state) => state.login.isLogin)
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -38,6 +40,10 @@ function App() {
         <Route path='/management/g1Vehicle/:gid' element={<ManagementG1VehicleForm></ManagementG1VehicleForm>}></Route>
         <Route path='/management/g2Vehicle' element={<ManagementG2Vehicle></ManagementG2Vehicle>}></Route>
         <Route path='/management/g2Vehicle/:gid' element={<ManagementG2VehicleForm></ManagementG2VehicleForm>}></Route>
+        <Route path='/management/g2Vehiclerule' element={<ManagementG2VehicleRule></ManagementG2VehicleRule>}></Route>
+        <Route path='/management/g2Vehiclerule/:stationId' element={<ManagementG2VehicleRuleForm></ManagementG2VehicleRuleForm>}></Route>
+        <Route path='/management/incidents' element={<ManagementIncident></ManagementIncident>}></Route>
+        <Route path='/management/incidents/:incidentId' element={<ManagementIncidentForm></ManagementIncidentForm>}></Route>
       </Routes>
       {/* <Footer></Footer> */}
       </BrowserRouter>

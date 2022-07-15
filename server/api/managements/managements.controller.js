@@ -144,7 +144,7 @@ exports.getIncidents = async (req, res, next) => {
         const incidents = await sequelize.query(`select id = ROW_NUMBER() OVER (ORDER BY ID), ID, StartDt, EndDt, StationName, Title
         from Incident
         inner join Station on Incident.StationId = Station.StationID
-        where Incident.StationId = ${req.query.station} AND (StartDt BETWEEN '${req.query.StartDt}' AND '${req.query.EndDt}') AND (EndDt BETWEEN '${req.query.StartDt}' AND '${req.query.EndDt}')`, { type: QueryTypes.SELECT })
+        where Incident.StationId = ${req.query.station} AND (StartDt BETWEEN '${req.query.startDt}' AND '${req.query.endDt}') AND (EndDt BETWEEN '${req.query.startDt}' AND '${req.query.endDt}')`, { type: QueryTypes.SELECT })
         res.status(200).send(incidents)
     } catch (error) {
         

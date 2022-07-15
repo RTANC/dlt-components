@@ -1,4 +1,5 @@
 import { api } from './api'
+import moment from 'moment-timezone'
 
 export function getUsers(roleId, stationId, companyId, text) {
     let query = ''
@@ -57,8 +58,8 @@ export function getG2Rule (stationId) {
     return api.get('/managements/G2/rules/' + stationId)
 }
 
-export function getIncidents () {
-    return api.get('/managements/incidents')
+export function getIncidents (stationId, startDt, endDt) {
+    return api.get('/managements/incidents?station=' + stationId + '&startDt=' + moment(startDt).format('YYYY-MM-DD HH:mm:ss') + '&endDt=' + moment(endDt).format('YYYY-MM-DD HH:mm:ss') )
 }
 
 export function getIncident (incidentId) {

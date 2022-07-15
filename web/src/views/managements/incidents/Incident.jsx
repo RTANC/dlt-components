@@ -9,6 +9,9 @@ import { getIncidents } from '../../../services/managements'
 import { useEffect } from 'react'
 import SelectStation from '../../../components/SelectStation'
 import DltDateTimePicker from '../../../components/DltDateTimePicker'
+import BtnClear from '../../../components/BtnClear'
+import BtnAdd from '../../../components/BtnAdd'
+import BtnSearch from '../../../components/BtnSearch'
 
 export default function Incident() {
     const navigate = useNavigate()
@@ -35,7 +38,7 @@ export default function Incident() {
     const search = async () => {
         try {
           setLoading(true)
-        //   const data = (await getG2VehicleRules()).data
+          const data = (await getIncidents(query.station.value, query.startDate.value, query.endDate.value)).data
           setRows(data)
         } catch (error) {
           console.log(error)
@@ -46,9 +49,15 @@ export default function Incident() {
 
       const clear = () => {
         try {
-            
+          setLoading(true)
+          query.station.value = 1
+          query.startDate.value = moment().startOf('year')
+          query.endDate.value = moment().endOf('year')
+          setQuery({...query})
         } catch (error) {
             console.log(error)
+        } finally{
+          setLoading(false)
         }
       }
 
@@ -56,7 +65,7 @@ export default function Incident() {
         { field: 'id', headerName: 'ที่', flex: 0.3 },
         { field: 'Title', headerName: 'หัวเรื่อง', flex: 2, valueGetter: (params) => {
           try {
-            return '(' + params.row.RuleID + ') ' + params.value
+            return params.value
           } catch (error) {
             return error
           }
@@ -94,9 +103,6 @@ export default function Incident() {
         }
       ]
 
-      useEffect(() => {
-      }, [])
-
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
@@ -109,17 +115,20 @@ export default function Incident() {
                         <SelectStation value={query.station.value} name='station' onChange={handleChangeValue}></SelectStation>
                     </Grid>
                     <Grid item xs={4}>
-                        <DltDateTimePicker value={query.startDate.value} name='startDate' label='วันที่เริ่มต้น' onChange={handleChangeValue}></DltDateTimePicker>
+                        <DltDateTimePicker value={query.startDate.value} name='startDate' label='วันที่เริ่มต้น' onChange={(e) => {query.startDate.value = e; setQuery({...query})}}></DltDateTimePicker>
                     </Grid>
                     <Grid item xs={4}>
-                        <DltDateTimePicker value={query.endDate.value} name='endDate' label='วันที่สิ้นสุด' onChange={handleChangeValue}></DltDateTimePicker>
+                        <DltDateTimePicker value={query.endDate.value} name='endDate' label='วันที่สิ้นสุด' onChange={(e) => {query.endDate.value = e; setQuery({...query})}}></DltDateTimePicker>
                     </Grid>
                     <Grid item xs={12}>
                         <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                          <BtnClear loading={loading} onClick={clear}></BtnClear>
+                          <BtnSearch loading={loading} onClick={search}></BtnSearch>
                         </Box>
                     </Grid>
                     <Grid item xs={12}>
                         <Box sx={{width: '100%', display: 'flex', justifyContent: 'end'}}>
+                          <BtnAdd label='เพิ่มเหตุการณ์' onClick={() => {navigate('/management/incidents/0')}}></BtnAdd>
                         </Box>
                     </Grid>
                     <Grid item xs={12}>

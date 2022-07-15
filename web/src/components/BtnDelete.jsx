@@ -1,0 +1,55 @@
+import React, { useState } from 'react'
+import { LoadingButton } from '@mui/lab'
+import DeleteIcon from '@mui/icons-material/Delete'
+import PropTypes from 'prop-types'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import { Button, Typography, Box } from '@mui/material'
+
+export default function BtnDelete(props) {
+    const [open, setOpen] = useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  BtnDelete.propTypes = {
+    loading: PropTypes.bool,
+    onClick: PropTypes.func
+}
+  
+BtnDelete.defaultProps = {
+    loading: false,
+    onClick: handleClose
+}
+  return (
+    <React.Fragment>
+        <LoadingButton loading={props.loading} disabled={props.loading} sx={{mx: 1}} color='error' variant='contained' onClick={handleClickOpen} startIcon={<DeleteIcon />}>{props.label}</LoadingButton>
+        <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogContent>
+            <DialogContentText sx={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+                <DeleteIcon color='error' sx={{ fontSize: 72 }}></DeleteIcon>
+                <Typography variant="h6">ต้องการลบข้อมูลใช่หรือไม่</Typography>
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{display: 'flex', justifyContent: 'center'}}>
+          <Button onClick={handleClose} color='secondary' variant='contained'>ยกเลิก</Button>
+          <Button onClick={props.onClick} color='error' autoFocus variant='contained'>
+            ยืนยัน
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
+  )
+}
+

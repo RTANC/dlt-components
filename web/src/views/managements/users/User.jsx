@@ -12,7 +12,6 @@ import moment from 'moment-timezone'
 import EditIcon from '@mui/icons-material/Edit'
 import { getUsers } from '../../../services/managements'
 import { useNavigate } from 'react-router-dom'
-import BtnFab from '../../../components/BtnFab'
 import { SquareEditOutline } from 'mdi-material-ui'
 
 export default function User() {
@@ -121,7 +120,6 @@ export default function User() {
                     </Grid>
                   </Grid>
                 </CardContent>
-                {/* <BtnFab onClick={() => {navigate('/management/user/0')}}></BtnFab> */}
             </Card>
         </Container>
     </Slide>

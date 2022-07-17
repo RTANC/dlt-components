@@ -11,6 +11,9 @@ import SelectVehicleClass from '../../../components/SelectVehicleClass'
 import SelectLPProvince from '../../../components/SelectLPProvince'
 import { useEffect } from 'react'
 import ImageListLP from '../../../components/ImageListLP'
+import { getG2Vehicle } from '../../../services/managements'
+import BtnSave from '../../../components/BtnSave'
+import BtnClear from '../../../components/BtnClear'
 
 export default function G2VehicleForm() {
     const navigate = useNavigate()
@@ -25,9 +28,6 @@ export default function G2VehicleForm() {
             value: '',
             error: false,
             rules: [(v) => !!v || '*ข้อมูลจำเป็น']
-        },
-        licensePlate: {
-            value: ''
         },
         vehicleClass: {
           value: ''
@@ -57,7 +57,6 @@ export default function G2VehicleForm() {
     const save = async () => {
         try {
           setLoading(true)
-          // const data = (await getG2Vehicles(g2Vehicle.station.value, g2Vehicle.company.value, g2Vehicle.licensePlate.value)).data
         } catch (error) {
           console.log(error)
         } finally {
@@ -65,15 +64,24 @@ export default function G2VehicleForm() {
         }
       }
     
-      const cancel = () => {
+      const clear = () => {
         navigate(-1)
       }
 
       const init = async () => {
         try {
-          
+          const data = (await getG2Vehicle(gid)).data
+          g2Vehicle.station.value = data.StationID
+          g2Vehicle.company.value = data.CompanyID
+          g2Vehicle.vehicleClass.value = data.VehicleClassID
+          g2Vehicle.frontLP.value = data.FrontLP
+          g2Vehicle.frontLPProvince.value = data.FrontLPPID
+          g2Vehicle.rearLP.value = data.RearLP
+          g2Vehicle.rearLPProvince.value = data.RearLPPID
+          g2Vehicle.isActive.value = data.IsActive
+          setG2Vehicle({...g2Vehicle})
         } catch (error) {
-          
+          console.log(error)
         }
       }
 
@@ -126,8 +134,8 @@ export default function G2VehicleForm() {
                   </Grid>}
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel}>ล้างข้อมูล</LoadingButton>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={save}>บันทึกข้อมูล</LoadingButton>
+                      <BtnClear loading={loading} onClick={clear}></BtnClear>
+                      <BtnSave loading={loading} onClick={save}></BtnSave>
                     </Box>
                   </Grid>
                 </Grid>

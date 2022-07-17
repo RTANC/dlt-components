@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import SelectStation from '../../../components/SelectStation'
 import DltDateTimePicker from '../../../components/DltDateTimePicker'
 import BtnBack from '../../../components/BtnBack'
-import BtnSubmit from '../../../components/BtnSubmit'
+import BtnSave from '../../../components/BtnSave'
 import DltTextField from '../../../components/DltTextField'
 import BtnDelete from '../../../components/BtnDelete'
 
@@ -55,12 +55,28 @@ export default function IncidentForm() {
         }
       }
 
+      const init = async () => {
+        try {
+          const data = (await getIncident(incidentId)).data
+          incident.station.value = data.StationID
+          incident.startDate.value = data.StartDt
+          incident.endDate.value = data.EndDt
+          incident.title.value = data.Title
+          incident.description.value = !(data.Description) ? data.Description : ''
+          incident.remark.value = !(data.Remark) ? data.Remark : ''
+          setIncident({...incident})
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
 
       useEffect(() => {
         if (incidentId === '0') {
           setEditMode(false)
         } else {
           setEditMode(true)
+          init()
         }
       }, [])
 
@@ -107,7 +123,7 @@ export default function IncidentForm() {
               <CardActions>
                 <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                   <BtnBack></BtnBack>
-                  <BtnSubmit></BtnSubmit>
+                  <BtnSave></BtnSave>
                 </Box>
               </CardActions>
             </Card>

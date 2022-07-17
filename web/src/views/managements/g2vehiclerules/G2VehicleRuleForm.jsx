@@ -4,7 +4,7 @@ import SelectStation from '../../../components/SelectStation'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import BtnBack from '../../../components/BtnBack'
-import BtnSubmit from '../../../components/BtnSubmit'
+import BtnSave from '../../../components/BtnSave'
 import { useEffect } from 'react'
 import SelectG2VehicleRules from '../../../components/SelectG2VehicleRules'
 import { getG2Rule } from '../../../services/managements'
@@ -69,7 +69,7 @@ export default function G2VehicleRuleForm() {
               <CardActions>
                 <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                   <BtnBack loading={loading}></BtnBack>
-                  <BtnSubmit loading={loading} onClick={save}></BtnSubmit>
+                  <BtnSave loading={loading} onClick={save}></BtnSave>
                 </Box>
               </CardActions>
             </Card>

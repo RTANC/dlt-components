@@ -84,6 +84,17 @@ exports.getG1Vehicles = async (req, res, next) => {
     }
 }
 
+exports.getG1Vehicle = async (req, res, next) => {
+    try {
+        const vehicle = await sequelize.query(`SELECT G1VehicleID, StationID, CompanyID, FrontLP, FrontLPPID, RearLP, RearLPPID, VehicleClassID, IsActive
+        FROM G1Vehicle
+        where G1VehicleID = ${req.params.id}`, { type: QueryTypes.SELECT })
+        res.status(200).send(vehicle[0])
+    } catch (error) {
+        next(error)
+    }
+}
+
 exports.getG2Vehicles = async (req, res, next) => {
     try {
         let extWhere = ''
@@ -100,6 +111,17 @@ exports.getG2Vehicles = async (req, res, next) => {
         where G2Vehicle.StationID = ${req.query.station} ${extWhere}
         order by EntryDate`, { type: QueryTypes.SELECT })
         res.status(200).send(vehicles)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getG2Vehicle = async (req, res, next) => {
+    try {
+        const vehicle = await sequelize.query(`SELECT G2VehicleID, StationID, CompanyID, FrontLP, FrontLPPID, RearLP, RearLPPID, VehicleClassID, IsActive
+        FROM G2Vehicle
+        where G2VehicleID = ${req.params.id}`, { type: QueryTypes.SELECT })
+        res.status(200).send(vehicle[0])
     } catch (error) {
         next(error)
     }
@@ -147,15 +169,17 @@ exports.getIncidents = async (req, res, next) => {
         where Incident.StationId = ${req.query.station} AND (StartDt BETWEEN '${req.query.startDt}' AND '${req.query.endDt}') AND (EndDt BETWEEN '${req.query.startDt}' AND '${req.query.endDt}')`, { type: QueryTypes.SELECT })
         res.status(200).send(incidents)
     } catch (error) {
-        
+        next(error)
     }
 }
 
 exports.getIncident = async (req, res, next) => {
     try {
-        const incident = []
+        const incident = await sequelize.query(`select ID, StartDt, EndDt, StationID, Title, Description, Remark
+        from Incident
+        where ID = ${req.params.id}`, { type: QueryTypes.SELECT })
         res.status(200).send(incident[0])
     } catch (error) {
-        
+        next(error)
     }
 }

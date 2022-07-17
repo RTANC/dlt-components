@@ -43,10 +43,8 @@ BtnDelete.defaultProps = {
             </DialogContentText>
         </DialogContent>
         <DialogActions sx={{display: 'flex', justifyContent: 'center'}}>
-          <Button onClick={handleClose} color='secondary' variant='contained'>ยกเลิก</Button>
-          <Button onClick={props.onClick} color='error' autoFocus variant='contained'>
-            ยืนยัน
-          </Button>
+          <LoadingButton color='secondary' loading={props.loading} disabled={props.loading} onClick={handleClose}>ยกเลิก</LoadingButton>
+          <LoadingButton color='error' loading={props.loading} disabled={props.loading} onClick={props.onClick}>ยืนยัน</LoadingButton>
         </DialogActions>
       </Dialog>
     </React.Fragment>

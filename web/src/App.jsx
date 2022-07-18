@@ -17,6 +17,25 @@ import ManagementG2VehicleRule from './views/managements/g2vehiclerules/G2Vehicl
 import ManagementG2VehicleRuleForm from './views/managements/g2vehiclerules/G2VehicleRuleForm'
 import ManagementIncident from './views/managements/incidents/Incident'
 import ManagementIncidentForm from './views/managements/incidents/IncidentForm'
+import ReportGCS01 from './views/reports/GCS01'
+import ReportGCS02 from './views/reports/GCS02'
+import ReportGCS03 from './views/reports/GCS03'
+import ReportGCS04 from './views/reports/GCS04'
+import ReportGCS05 from './views/reports/GCS05'
+import ReportGCS06 from './views/reports/GCS06'
+import ReportGCS07 from './views/reports/GCS07'
+import ReportGCS08 from './views/reports/GCS08'
+import ReportGCS09 from './views/reports/GCS09'
+import ReportGCS10 from './views/reports/GCS10'
+import ReportGCS11 from './views/reports/GCS11'
+import ReportGCS12 from './views/reports/GCS12'
+import ReportGCS13 from './views/reports/GCS13'
+import ReportGCS14 from './views/reports/GCS14'
+import ReportGCS15 from './views/reports/GCS15'
+import ReportGCS16 from './views/reports/GCS16'
+import ReportGCS17 from './views/reports/GCS17'
+import ReportGCS18 from './views/reports/GCS18'
+
 
 // import './App.css'
 import { useSelector } from 'react-redux'
@@ -44,6 +63,24 @@ function App() {
         <Route path='/management/g2Vehiclerule/:stationId' element={<ManagementG2VehicleRuleForm></ManagementG2VehicleRuleForm>}></Route>
         <Route path='/management/incidents' element={<ManagementIncident></ManagementIncident>}></Route>
         <Route path='/management/incidents/:incidentId' element={<ManagementIncidentForm></ManagementIncidentForm>}></Route>
+        <Route path='/report/GCS01' element={<ReportGCS01></ReportGCS01>}></Route>
+        <Route path='/report/GCS02' element={<ReportGCS02></ReportGCS02>}></Route>
+        <Route path='/report/GCS03' element={<ReportGCS03></ReportGCS03>}></Route>
+        <Route path='/report/GCS04' element={<ReportGCS04></ReportGCS04>}></Route>
+        <Route path='/report/GCS05' element={<ReportGCS05></ReportGCS05>}></Route>
+        <Route path='/report/GCS06' element={<ReportGCS06></ReportGCS06>}></Route>
+        <Route path='/report/GCS07' element={<ReportGCS07></ReportGCS07>}></Route>
+        <Route path='/report/GCS08' element={<ReportGCS08></ReportGCS08>}></Route>
+        <Route path='/report/GCS09' element={<ReportGCS09></ReportGCS09>}></Route>
+        <Route path='/report/GCS10' element={<ReportGCS10></ReportGCS10>}></Route>
+        <Route path='/report/GCS11' element={<ReportGCS11></ReportGCS11>}></Route>
+        <Route path='/report/GCS12' element={<ReportGCS12></ReportGCS12>}></Route>
+        <Route path='/report/GCS13' element={<ReportGCS13></ReportGCS13>}></Route>
+        <Route path='/report/GCS14' element={<ReportGCS14></ReportGCS14>}></Route>
+        <Route path='/report/GCS15' element={<ReportGCS15></ReportGCS15>}></Route>
+        <Route path='/report/GCS16' element={<ReportGCS16></ReportGCS16>}></Route>
+        <Route path='/report/GCS17' element={<ReportGCS17></ReportGCS17>}></Route>
+        <Route path='/report/GCS18' element={<ReportGCS18></ReportGCS18>}></Route>
       </Routes>
       {/* <Footer></Footer> */}
       </BrowserRouter>

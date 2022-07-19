@@ -18,10 +18,10 @@ export default function GCS01() {
             value: ''
         },
         startDate: {
-            value: moment().startOf('year')
+            value: moment().startOf('day')
         },
         endDate: {
-            value: moment().endOf('year')
+            value: moment().endOf('day')
         }
     })
 
@@ -44,8 +44,9 @@ export default function GCS01() {
         try {
           setLoading(true)
           query.station.value = 1
-          query.startDate.value = moment().startOf('year')
-          query.endDate.value = moment().endOf('year')
+          query.company.value = ''
+          query.startDate.value = moment().startOf('day')
+          query.endDate.value = moment().endOf('day')
           setQuery({...query})
         } catch (error) {
             console.log(error)

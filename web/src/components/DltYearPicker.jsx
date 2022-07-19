@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import thLocale from 'date-fns/locale/th'
 import moment from 'moment-timezone'
 
-export default function DltDatePicker(props) {
+export default function DltYearPicker(props) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={thLocale}>
@@ -17,6 +17,7 @@ export default function DltDatePicker(props) {
           <MobileDatePicker
             label={props.label}
             inputFormat='MM/dd/yyyy'
+            views={['year']}
             value={props.value}
             onChange={props.onChange}
             name={props.name}
@@ -24,7 +25,7 @@ export default function DltDatePicker(props) {
             maxDateTime={props.maxDateTime}
             disabled={props.disabled}
             readOnly={props.readOnly}
-            renderInput={(params) => {params.inputProps.value =  moment(moment(params.inputProps.value).format('MM/DD/YYYY')).isValid() ? moment(params.inputProps.value).add(543, 'y').format('DD/MM/YYYY') : ''; return <TextField {...params} focused color={(props.error !== false) ? 'error' : 'warning'}/>}}
+            renderInput={(params) => {params.inputProps.value =  (typeof(params.inputProps.value) !== 'undefined' && params.inputProps.value !== null && params.inputProps.value !== '') ? moment(params.inputProps.value).add(543, 'y').format('YYYY') : ''; return <TextField {...params} focused color={(props.error !== false) ? 'error' : 'warning'}/>}}
           />
           {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
           {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
@@ -34,18 +35,18 @@ export default function DltDatePicker(props) {
   )
 }
 
-DltDatePicker.propTypes = {
-  required: PropTypes.bool,
-  disabled: PropTypes.bool,
-  readOnly: PropTypes.bool,
+DltYearPicker.propTypes = {
+    required: PropTypes.bool,
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
 }
-
-DltDatePicker.defaultProps = {
-  required: false,
-  error: false,
-  disabled: false,
-  readOnly: false,
-  onChange: function () {
-    return null
-  }
+  
+DltYearPicker.defaultProps = {
+    required: false,
+    error: false,
+    disabled: false,
+    readOnly: false,
+    onChange: function () {
+      return null
+    }
 }

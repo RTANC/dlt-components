@@ -6,7 +6,7 @@ import { store } from './redux/store'
 import { Provider} from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import moment from 'moment-timezone'
-moment.tz.setDefault('UTC')
+// moment.tz.setDefault('UTC')
 
 const theme = createTheme({
   palette: {

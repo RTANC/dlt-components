@@ -74,7 +74,7 @@ export default function Incident() {
         { field: 'StartDt', headerName: 'วัน - เวลา เริ่ม', flex: 1, valueFormatter: (params) => {
             try {
                 if (params.value) {
-                    return moment(params.value).add(543, 'y').format('DD/MM/YYYY HH:mm:ss')
+                    return moment(params.value).tz('UTC').add(543, 'y').format('DD/MM/YYYY HH:mm:ss')
                 } else {
                     return '-'
                 }
@@ -85,7 +85,7 @@ export default function Incident() {
         { field: 'EndDt', headerName: 'วัน - เวลา สิ้นสุด', flex: 1, valueFormatter: (params) => {
             try {
                 if (params.value) {
-                    return moment(params.value).add(543, 'y').format('DD/MM/YYYY HH:mm:ss')
+                    return moment(params.value).tz('UTC').add(543, 'y').format('DD/MM/YYYY HH:mm:ss')
                 } else {
                     return '-'
                 }

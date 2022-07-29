@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import moment from 'moment-timezone'
-import { getIncident } from '../../../services/managements'
+import { createIncident, deleteIncident, getIncident, updateIncident } from '../../../services/managements'
 import { useEffect } from 'react'
 import SelectStation from '../../../components/SelectStation'
 import DltDateTimePicker from '../../../components/DltDateTimePicker'
@@ -11,6 +11,8 @@ import BtnBack from '../../../components/BtnBack'
 import BtnSave from '../../../components/BtnSave'
 import DltTextField from '../../../components/DltTextField'
 import BtnDelete from '../../../components/BtnDelete'
+import formValidator from '../../../services/validator'
+import { getKeyValue } from '../../../services/utils'
 
 export default function IncidentForm() {
   const navigate = useNavigate()
@@ -19,16 +21,21 @@ export default function IncidentForm() {
     const [editMode, setEditMode] = useState(false)
     const [incident, setIncident] = useState({
         station: {
-          value: 1
+          value: 1,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         startDate: {
-          value: moment().startOf('year')
+          value: moment().startOf('day'),
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         endDate: {
-          value: moment().endOf('year')
+          value: moment().endOf('day'),
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         title: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         description: {
           value: ''
@@ -47,7 +54,26 @@ export default function IncidentForm() {
     const save = async () => {
         try {
           setLoading(true)
+          if (formValidator(incident, setIncident)) {
+            if (!editMode) {
+              await createIncident(getKeyValue(incident))
+            }else {
+              await updateIncident(incidentId, getKeyValue(incident))
+            }
+            navigate(-1)
+          }
+        } catch (error) {
+          console.log(error)
+        } finally {
+          setLoading(false)
+        }
+      }
 
+      const del = async () => {
+        try {
+          setLoading(true)
+          await deleteIncident(incidentId)
+          navigate(-1)
         } catch (error) {
           console.log(error)
         } finally {
@@ -62,8 +88,8 @@ export default function IncidentForm() {
           incident.startDate.value = data.StartDt
           incident.endDate.value = data.EndDt
           incident.title.value = data.Title
-          incident.description.value = !(data.Description) ? data.Description : ''
-          incident.remark.value = !(data.Remark) ? data.Remark : ''
+          incident.description.value = data.Description
+          incident.remark.value = data.Remark
           setIncident({...incident})
         } catch (error) {
           console.log(error)
@@ -103,7 +129,7 @@ export default function IncidentForm() {
                     <Divider></Divider>
                   </Grid>
                   <Grid item xs={12}>
-                    <DltTextField value={incident.title.value} name='title' label='หัวเรื่อง' onChange={handleChangeValue} required></DltTextField>
+                    <DltTextField value={incident.title.value} name='title' label='หัวเรื่อง' onChange={handleChangeValue} required error={incident.title.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <DltTextField value={incident.description.value} name='description' label='รายละเอียด' onChange={handleChangeValue}></DltTextField>
@@ -113,7 +139,7 @@ export default function IncidentForm() {
                   </Grid>
                   {editMode && <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                      <BtnDelete loading={loading} label='ลบเหตุการณ์'></BtnDelete>
+                      <BtnDelete loading={loading} label='ลบเหตุการณ์' onClick={del}></BtnDelete>
                     </Box>
                   </Grid>}
                 </Grid>
@@ -122,8 +148,8 @@ export default function IncidentForm() {
             <Card>
               <CardActions>
                 <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                  <BtnBack></BtnBack>
-                  <BtnSave></BtnSave>
+                  <BtnBack loading={loading}></BtnBack>
+                  <BtnSave loading={loading} onClick={save}></BtnSave>
                 </Box>
               </CardActions>
             </Card>

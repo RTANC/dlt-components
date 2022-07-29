@@ -1,5 +1,6 @@
-const { QueryTypes } = require('sequelize');
+const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
+const moment = require('moment-timezone')
 
 exports.getUsers = async (req, res, next) => {
     try {
@@ -129,7 +130,7 @@ exports.getG2Vehicle = async (req, res, next) => {
 
 exports.getG2VehicleRules = async (req, res, next) => {
     try {
-        const rules = await sequelize.query(`select id = ROW_NUMBER() OVER (ORDER BY G2VehicleRule.StationID), G2VehicleRule.StationID, StationName, RuleDescription, TargetDate, UpdateTimeStamp, LoginName
+        const rules = await sequelize.query(`select id = ROW_NUMBER() OVER (ORDER BY G2VehicleRule.StationID), G2VehicleRule.StationID, G2VehicleRule.RuleID, StationName, RuleDescription, TargetDate, UpdateTimeStamp, LoginName
         from G2VehicleRule
         inner join G2VehicleRuleDescription on G2VehicleRule.RuleID = G2VehicleRuleDescription.RuleID
         inner join Station on G2VehicleRule.StationID = Station.StationID
@@ -140,22 +141,33 @@ exports.getG2VehicleRules = async (req, res, next) => {
     }
 }
 
-exports.getG2Rules = async (req, res, next) => {
-    try {
-        const rules = await sequelize.query(`select RuleID, RuleDescription
-        from G2VehicleRuleDescription`, { type: QueryTypes.SELECT })
-        res.status(200).send(rules)
-    } catch (error) {
-        next(error)
-    }
-}
-
-exports.getG2Rule = async (req, res, next) => {
+exports.getG2VehicleRule = async (req, res, next) => {
     try {
         const rules = await sequelize.query(`select StationID, RuleID
         from G2VehicleRule
         where StationID = ${req.params.station}`, { type: QueryTypes.SELECT })
         res.status(200).send(rules[0])
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.updateG2VehicleRule = async (req, res, next) => {
+    try {
+        await sequelize.query(`update G2VehicleRule
+        set RuleID = ${req.body.rule}, UserID = 1, UpdateTimeStamp = '${moment().format('YYYY-MM-DD HH:mm:ss')}'
+        where StationID = ${req.params.station}`, { type: QueryTypes.UPDATE })
+        res.sendStatus(201)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.getG2Rules = async (req, res, next) => {
+    try {
+        const rules = await sequelize.query(`select RuleID, RuleDescription
+        from G2VehicleRuleDescription`, { type: QueryTypes.SELECT })
+        res.status(200).send(rules)
     } catch (error) {
         next(error)
     }
@@ -179,6 +191,39 @@ exports.getIncident = async (req, res, next) => {
         from Incident
         where ID = ${req.params.id}`, { type: QueryTypes.SELECT })
         res.status(200).send(incident[0])
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.createIncident = async (req, res, next) => {
+    try {
+        const {station, startDate, endDate, title, description, remark} = req.body
+        await sequelize.query(`insert into Incident(StartDt, EndDt, StationId, Title, Description, Remark)
+        values('${moment(startDate).format('YYYY-MM-DD HH:mm:ss')}','${moment(endDate).format('YYYY-MM-DD HH:mm:ss')}','${station}','${title}','${description}','${remark}')`, { type: QueryTypes.INSERT })
+        res.sendStatus(201)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.updateIncident = async (req, res, next) => {
+    try {
+        const {station, startDate, endDate, title, description, remark} = req.body
+        await sequelize.query(`UPDATE Incident
+        SET StartDt = '${moment(startDate).format('YYYY-MM-DD HH:mm:ss')}', EndDt = '${moment(endDate).format('YYYY-MM-DD HH:mm:ss')}', StationId = '${station}', Title = '${title}', Description = '${description}', Remark = '${remark}'
+        WHERE ID = ${req.params.id}`, { type: QueryTypes.UPDATE })
+        res.sendStatus(201)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.deleteIncident = async (req, res, next) => {
+    try {
+        await sequelize.query(`delete Incident
+        where ID = ${req.params.id}`, { type: QueryTypes.DELETE })
+        res.sendStatus(204)
     } catch (error) {
         next(error)
     }

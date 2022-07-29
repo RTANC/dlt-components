@@ -58,12 +58,16 @@ export function getG2VehicleRules () {
     return api.get('/managements/G2/vehiclerules/')
 }
 
-export function getG2Rules () {
-    return api.get('/managements/G2/rules/')
+export function getG2VehicleRule (stationId) {
+    return api.get('/managements/G2/vehiclerules/' + stationId)
 }
 
-export function getG2Rule (stationId) {
-    return api.get('/managements/G2/rules/' + stationId)
+export function updateG2VehicleRule (stationId, rule) {
+    return api.patch('/managements/G2/vehiclerules/' + stationId, rule)
+}
+
+export function getG2Rules () {
+    return api.get('/managements/G2/rules/')
 }
 
 export function getIncidents (stationId, startDt, endDt) {
@@ -72,4 +76,16 @@ export function getIncidents (stationId, startDt, endDt) {
 
 export function getIncident (incidentId) {
     return api.get('/managements/incidents/' + incidentId)
+}
+
+export function createIncident (incident) {
+    return api.post('/managements/incidents/', incident)
+}
+
+export function updateIncident (incidentId, incident) {
+    return api.patch('/managements/incidents/' + incidentId, incident)
+}
+
+export function deleteIncident (incidentId) {
+    return api.delete('/managements/incidents/' + incidentId)
 }

@@ -7,9 +7,10 @@ import BtnBack from '../../../components/BtnBack'
 import BtnSave from '../../../components/BtnSave'
 import { useEffect } from 'react'
 import SelectG2VehicleRules from '../../../components/SelectG2VehicleRules'
-import { getG2Rule } from '../../../services/managements'
+import { getG2VehicleRule, updateG2VehicleRule } from '../../../services/managements'
 
 export default function G2VehicleRuleForm() {
+  const navigate = useNavigate()
   const { stationId } = useParams()
   const [loading, setLoading] = useState(false)
   const [g2VehicleRule, setG2VehicleRule] = useState({
@@ -27,14 +28,18 @@ export default function G2VehicleRuleForm() {
   }
   const save = async () => {
     try {
-      
+      setLoading(true)
+      await updateG2VehicleRule(g2VehicleRule.station.value, {rule: g2VehicleRule.rule.value})
+      navigate(-1)
     } catch (error) {
       
+    } finally {
+      setLoading(false)
     }
   }
   const init = async () => {
     try {
-      const data = (await getG2Rule(stationId)).data
+      const data = (await getG2VehicleRule(stationId)).data
       g2VehicleRule.station.value = data.StationID
       g2VehicleRule.rule.value = data.RuleID
       setG2VehicleRule({...g2VehicleRule})
@@ -56,7 +61,7 @@ export default function G2VehicleRuleForm() {
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}>
-                    <SelectStation value={g2VehicleRule.station.value} name='station' onChange={handleChangeValue}></SelectStation>
+                    <SelectStation value={g2VehicleRule.station.value} name='station' onChange={handleChangeValue} readOnly></SelectStation>
                   </Grid>
                   <Grid item xs={12}>
                     <SelectG2VehicleRules value={g2VehicleRule.rule.value} name='rule' onChange={handleChangeValue} required></SelectG2VehicleRules>

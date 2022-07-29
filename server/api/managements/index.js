@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { getUsers, getUser, getCompanies, getCompany, getG1Vehicles, getG1Vehicle, getG2Vehicles, getG2Vehicle, getG2VehicleRules, getG2Rules, getG2Rule, getIncidents, getIncident } = require('./managements.controller')
+const { getUsers, getUser, getCompanies, getCompany, getG1Vehicles, getG1Vehicle, getG2Vehicles, getG2Vehicle, getG2VehicleRules, getG2VehicleRule, updateG2VehicleRule, getG2Rules, getIncidents, getIncident, createIncident, updateIncident, deleteIncident } = require('./managements.controller')
 
 router.get('/users', getUsers)
 router.get('/users/:uid', getUser)
@@ -16,13 +16,16 @@ router.get('/G2/vehicles', getG2Vehicles)
 router.get('/G2/vehicles/:id', getG2Vehicle)
 
 router.get('/G2/vehiclerules', getG2VehicleRules)
+router.get('/G2/vehiclerules/:station', getG2VehicleRule)
+router.patch('/G2/vehiclerules/:station', updateG2VehicleRule)
 
 router.get('/G2/rules', getG2Rules)
-router.get('/G2/rules/:station', getG2Rule)
 
 router.get('/incidents/', getIncidents)
 router.get('/incidents/:id', getIncident)
-
+router.post('/incidents', createIncident)
+router.patch('/incidents/:id', updateIncident)
+router.delete('/incidents/:id', deleteIncident)
 // router.patch('/:uid', updateUser)
 // router.patch('/:uid/grants', adminOwner, grant)
 

@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
 import PropTypes from 'prop-types'
 import thLocale from 'date-fns/locale/th'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 export default function DltDateTimePicker(props) {
   return (

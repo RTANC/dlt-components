@@ -22,9 +22,9 @@ export default function SelectCompany(props) {
     
     
   return (
-    <FormControl fullWidth error={props.error !== false}>
+    <FormControl fullWidth error={props.error !== false} focused color='warning'>
       <InputLabel>ผู้ประกอบการ</InputLabel>
-      <Select onChange={props.onChange} value={props.value} name={props.name}>
+      <Select onChange={props.onChange} value={props.value} name={props.name} label='ผู้ประกอบการ'>
           {company.map((v, i) => (
             <MenuItem value={v.CompanyID} key={i}>{v.CompanyName}</MenuItem>
           ))}

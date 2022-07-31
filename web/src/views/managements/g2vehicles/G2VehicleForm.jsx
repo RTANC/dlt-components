@@ -11,14 +11,18 @@ import SelectVehicleClass from '../../../components/SelectVehicleClass'
 import SelectLPProvince from '../../../components/SelectLPProvince'
 import { useEffect } from 'react'
 import ImageListLP from '../../../components/ImageListLP'
-import { getG2Vehicle } from '../../../services/managements'
+import { createG2Vehicle, getG2Vehicle } from '../../../services/managements'
 import BtnSave from '../../../components/BtnSave'
 import BtnClear from '../../../components/BtnClear'
+import formValidator from '../../../services/validator'
+import G2Vehicle from './G2Vehicle'
+import { getKeyValue } from '../../../services/utils'
 
 export default function G2VehicleForm() {
     const navigate = useNavigate()
     const { gid } = useParams()
     const [loading, setLoading] = useState(false)
+    const [valid, setValid] = useState(false)
     const [editMode, setEditMode] = useState(false)
     const [g2Vehicle, setG2Vehicle] = useState({
         station: {
@@ -30,19 +34,29 @@ export default function G2VehicleForm() {
             rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         vehicleClass: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         frontLP: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         frontLPProvince: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         rearLP: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         rearLPProvince: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         isActive: {
           value: true
@@ -52,11 +66,18 @@ export default function G2VehicleForm() {
     const handleValueChange = (e) => {
         g2Vehicle[e.target.name].value = e.target.value
         setG2Vehicle({...g2Vehicle})
+        setValid(formValidator(g2Vehicle, setG2Vehicle))
     }
 
     const save = async () => {
         try {
           setLoading(true)
+          if (gid === '0') {
+            await createG2Vehicle(getKeyValue(g2Vehicle))
+            navigate(-1)
+          } else {
+
+          }
         } catch (error) {
           console.log(error)
         } finally {
@@ -80,6 +101,7 @@ export default function G2VehicleForm() {
           g2Vehicle.rearLPProvince.value = data.RearLPPID
           g2Vehicle.isActive.value = data.IsActive
           setG2Vehicle({...g2Vehicle})
+          setValid(formValidator(g2Vehicle, setG2Vehicle))
         } catch (error) {
           console.log(error)
         }
@@ -112,16 +134,16 @@ export default function G2VehicleForm() {
                     <Divider></Divider>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectCompany value={g2Vehicle.company.value} name='company' onChange={handleValueChange} station={g2Vehicle.station.value} required></SelectCompany>
+                    <SelectCompany value={g2Vehicle.company.value} name='company' onChange={handleValueChange} station={g2Vehicle.station.value} required error={g2Vehicle.company.error}></SelectCompany>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectVehicleClass value={g2Vehicle.vehicleClass.value} name='vehicleClass' onChange={handleValueChange} required></SelectVehicleClass>
+                    <SelectVehicleClass value={g2Vehicle.vehicleClass.value} name='vehicleClass' onChange={handleValueChange} required error={g2Vehicle.vehicleClass.error}></SelectVehicleClass>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <DltTextField label='ทะเบียนหน้า' value={g2Vehicle.frontLP.value} name='frontLP' onChange={handleValueChange} placeholder='XX-XXXXX' required></DltTextField>
+                    <DltTextField label='ทะเบียนหน้า' value={g2Vehicle.frontLP.value} name='frontLP' onChange={handleValueChange} onKeyUp={e => setValid(formValidator(g2Vehicle, setG2Vehicle))} placeholder='XX-XXXXX' required error={g2Vehicle.frontLP.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <DltTextField label='ทะเบียนหลัง' value={g2Vehicle.rearLP.value} name='rearLP' onChange={handleValueChange} placeholder='XX-XXXXX' required></DltTextField>
+                    <DltTextField label='ทะเบียนหลัง' value={g2Vehicle.rearLP.value} name='rearLP' onChange={handleValueChange} onKeyUp={e => setValid(formValidator(g2Vehicle, setG2Vehicle))} placeholder='XX-XXXXX' required error={g2Vehicle.rearLP.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <SelectLPProvince label='จังหวัด' value={g2Vehicle.frontLPProvince.value} name='frontLPProvince' onChange={handleValueChange} required></SelectLPProvince>
@@ -135,7 +157,7 @@ export default function G2VehicleForm() {
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                       <BtnClear loading={loading} onClick={clear}></BtnClear>
-                      <BtnSave loading={loading} onClick={save}></BtnSave>
+                      <BtnSave loading={loading} onClick={save} disabled={!valid}></BtnSave>
                     </Box>
                   </Grid>
                 </Grid>

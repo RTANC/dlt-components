@@ -54,6 +54,10 @@ export function getG2Vehicle (G2VehicleId) {
     return api.get('/managements/G2/vehicles/' + G2VehicleId)
 }
 
+export function createG2Vehicle (G2Vehicle) {
+    return api.post('/managements/G2/vehicles/', G2Vehicle)
+}
+
 export function getG2VehicleRules () {
     return api.get('/managements/G2/vehiclerules/')
 }

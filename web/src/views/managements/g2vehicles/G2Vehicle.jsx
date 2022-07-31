@@ -52,8 +52,8 @@ export default function G2Vehicle() {
 
       const columns = [
         { field: 'id', headerName: 'ที่', flex: 0.3 },
-        { field: 'IsActive', headerName: 'สถานะ', flex: 0.5, valueFormatter: (params) => {
-          if (params.value === 1) {
+        { field: 'IsActive', headerName: 'สถานะ', flex: 1, valueFormatter: (params) => {
+          if (params.value) {
             return 'เปิดใช้งาน'
           } else {
             return 'ปิดการใช้งาน'
@@ -61,7 +61,7 @@ export default function G2Vehicle() {
         }},
         { field: 'EntryDate', headerName: 'บันทึกครั้งแรก', flex: 1, valueFormatter: (params) => {
           try {
-            return moment(params.value).add(543, 'y').format('DD/MM/YYYY')
+            return moment(params.value).utc().add(543, 'y').format('DD/MM/YYYY')
           } catch (error) {
             return ''
           }

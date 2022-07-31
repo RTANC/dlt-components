@@ -52,8 +52,8 @@ export default function IncidentForm() {
     }
 
     const handleValidateValue = (e) => {
-      incident[e.target.name].error = validator(e.target.value, incident[e.target.name].rules)
-      setIncident({...incident})
+      // incident[e.target.name].error = validator(e.target.value, incident[e.target.name].rules)
+      // setIncident({...incident})
       setValid(formValidator(incident, setIncident))
     }
 

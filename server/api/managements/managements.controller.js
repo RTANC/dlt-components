@@ -105,10 +105,11 @@ exports.getG2Vehicles = async (req, res, next) => {
         if (!!req.query.text) {
             extWhere += ` and (FrontLP like '%${req.query.text}%' or RearLP like  '%${req.query.text}%')`
         }
-        const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G2VehicleID, EntryDate, Company.CompanyName, Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G2Vehicle.IsActive
+        const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G2VehicleID, EntryDate, Company.CompanyName, VehicleClass.Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G2Vehicle.IsActive
         FROM G2Vehicle
         inner join Company on G2Vehicle.CompanyID = Company.CompanyID
         inner join LPProvince on G2Vehicle.FrontLPPID = LPProvince.ProvinceID and G2Vehicle.RearLPPID = LPProvince.ProvinceID
+        inner join VehicleClass on G2Vehicle.VehicleClassID = VehicleClass.VehicleClassID
         where G2Vehicle.StationID = ${req.query.station} ${extWhere}
         order by EntryDate`, { type: QueryTypes.SELECT })
         res.status(200).send(vehicles)
@@ -123,6 +124,17 @@ exports.getG2Vehicle = async (req, res, next) => {
         FROM G2Vehicle
         where G2VehicleID = ${req.params.id}`, { type: QueryTypes.SELECT })
         res.status(200).send(vehicle[0])
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.createG2Vehicle = async (req, res, next) => {
+    try {
+        const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, isActive} = req.body
+        await sequelize.query(`insert G2Vehicle(StationID, CompanyID, FrontLP, FrontLPPID, RearLP, RearLPPID, VehicleClassID, EntryDate, IsActive)
+        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${isActive ? 1 : 0})`, { type: QueryTypes.INSERT })
+        res.sendStatus(201)
     } catch (error) {
         next(error)
     }

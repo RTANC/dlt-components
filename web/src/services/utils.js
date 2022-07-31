@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export function passwordValidator (password) {
     const reg = new RegExp('^([A-Za-z0-9_+-]){8,}$')
     return reg.test(password)
@@ -16,4 +18,12 @@ export function getKeyValue (obj) {
         }
     })
     return target
+}
+
+export function dateTimeFormatter(dateTime) {
+    return moment(dateTime).utc().add(543, 'y').format('DD/MM/YYYY HH:mm:ss')
+}
+
+export function dateFormatter(date) {
+    return moment(date).utc().add(543, 'y').format('DD/MM/YYYY')
 }

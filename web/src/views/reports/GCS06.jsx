@@ -5,7 +5,7 @@ import SelectStation from '../../components/SelectStation'
 import SelectCompany from '../../components/SelectCompany'
 import BtnClear from '../../components/BtnClear'
 import BtnSearch from '../../components/BtnSearch'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import DltMonthYearPicker from '../../components/DltMonthYearPicker'
 
 export default function GCS06() {

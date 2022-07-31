@@ -2,7 +2,7 @@ import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, Stack, Card
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { createIncident, deleteIncident, getIncident, updateIncident } from '../../../services/managements'
 import { useEffect } from 'react'
 import SelectStation from '../../../components/SelectStation'
@@ -11,13 +11,14 @@ import BtnBack from '../../../components/BtnBack'
 import BtnSave from '../../../components/BtnSave'
 import DltTextField from '../../../components/DltTextField'
 import BtnDelete from '../../../components/BtnDelete'
-import formValidator from '../../../services/validator'
+import formValidator, {validator} from '../../../services/validator'
 import { getKeyValue } from '../../../services/utils'
 
 export default function IncidentForm() {
   const navigate = useNavigate()
   const { incidentId } = useParams()
     const [loading, setLoading] = useState(false)
+    const [valid, setValid] = useState(false)
     const [editMode, setEditMode] = useState(false)
     const [incident, setIncident] = useState({
         station: {
@@ -48,6 +49,12 @@ export default function IncidentForm() {
     const handleChangeValue = (e) => {
         incident[e.target.name].value = e.target.value
         setIncident({...incident})
+    }
+
+    const handleValidateValue = (e) => {
+      incident[e.target.name].error = validator(e.target.value, incident[e.target.name].rules)
+      setIncident({...incident})
+      setValid(formValidator(incident, setIncident))
     }
 
 
@@ -85,17 +92,17 @@ export default function IncidentForm() {
         try {
           const data = (await getIncident(incidentId)).data
           incident.station.value = data.StationID
-          incident.startDate.value = data.StartDt
-          incident.endDate.value = data.EndDt
+          incident.startDate.value = moment(data.StartDt).utc().format('YYYY-MM-DDTHH:mm:ss')
+          incident.endDate.value = moment(data.EndDt).utc().format('YYYY-MM-DDTHH:mm:ss')
           incident.title.value = data.Title
           incident.description.value = data.Description
           incident.remark.value = data.Remark
           setIncident({...incident})
+          setValid(formValidator(incident, setIncident))
         } catch (error) {
           console.log(error)
         }
       }
-
 
       useEffect(() => {
         if (incidentId === '0') {
@@ -129,7 +136,7 @@ export default function IncidentForm() {
                     <Divider></Divider>
                   </Grid>
                   <Grid item xs={12}>
-                    <DltTextField value={incident.title.value} name='title' label='หัวเรื่อง' onChange={handleChangeValue} required error={incident.title.error}></DltTextField>
+                    <DltTextField value={incident.title.value} name='title' label='หัวเรื่อง' onChange={handleChangeValue} required error={incident.title.error} onKeyUp={handleValidateValue}></DltTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <DltTextField value={incident.description.value} name='description' label='รายละเอียด' onChange={handleChangeValue}></DltTextField>
@@ -149,7 +156,7 @@ export default function IncidentForm() {
               <CardActions>
                 <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                   <BtnBack loading={loading}></BtnBack>
-                  <BtnSave loading={loading} onClick={save}></BtnSave>
+                  <BtnSave loading={loading} onClick={save} disabled={!valid}></BtnSave>
                 </Box>
               </CardActions>
             </Card>

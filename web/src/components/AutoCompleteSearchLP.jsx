@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, FormControl, FormHelperText, InputLabel
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { getLicensePlates } from '../services/transports'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 export default function AutoCompleteSearchLP(props) {
     const [value, setValue] = useState('')

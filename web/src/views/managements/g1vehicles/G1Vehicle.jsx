@@ -8,7 +8,7 @@ import { SquareEditOutline } from 'mdi-material-ui'
 import { DataGrid } from '@mui/x-data-grid'
 import SelectCompany from '../../../components/SelectCompany'
 import DltTextField from '../../../components/DltTextField'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { getG1Vehicles } from '../../../services/managements'
 
 export default function G1Vehicle() {

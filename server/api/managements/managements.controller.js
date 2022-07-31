@@ -1,6 +1,6 @@
 const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
-const moment = require('moment-timezone')
+const moment = require('moment')
 
 exports.getUsers = async (req, res, next) => {
     try {
@@ -155,7 +155,7 @@ exports.getG2VehicleRule = async (req, res, next) => {
 exports.updateG2VehicleRule = async (req, res, next) => {
     try {
         await sequelize.query(`update G2VehicleRule
-        set RuleID = ${req.body.rule}, UserID = 1, UpdateTimeStamp = '${moment().format('YYYY-MM-DD HH:mm:ss')}'
+        set RuleID = ${req.body.rule}, UserID = 1, UpdateTimeStamp = '${moment().utc().format('YYYY-MM-DD HH:mm:ss')}'
         where StationID = ${req.params.station}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {

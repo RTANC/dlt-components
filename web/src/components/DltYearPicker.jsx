@@ -7,7 +7,7 @@ import { Calendar } from 'mdi-material-ui'
 
 import PropTypes from 'prop-types'
 import thLocale from 'date-fns/locale/th'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 export default function DltYearPicker(props) {
   return (

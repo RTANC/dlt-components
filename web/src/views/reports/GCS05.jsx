@@ -6,7 +6,7 @@ import SelectCompany from '../../components/SelectCompany'
 import DltDatePicker from '../../components/DltDatePicker'
 import BtnClear from '../../components/BtnClear'
 import BtnSearch from '../../components/BtnSearch'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 export default function GCS05() {
   const [loading, setLoading] = useState(false)

@@ -39,7 +39,7 @@ BtnDelete.defaultProps = {
         <DialogContent>
             <DialogContentText sx={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
                 <DeleteIcon color='error' sx={{ fontSize: 72 }}></DeleteIcon>
-                <Typography variant="h6">ต้องการลบข้อมูลใช่หรือไม่</Typography>
+                <Typography variant='h6' gutterBottom component="div">ต้องการลบข้อมูลใช่หรือไม่</Typography>
             </DialogContentText>
         </DialogContent>
         <DialogActions sx={{display: 'flex', justifyContent: 'center'}}>

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SquareEditOutline } from 'mdi-material-ui'
 import { DataGrid } from '@mui/x-data-grid'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { getG2VehicleRules } from '../../../services/managements'
 import { useEffect } from 'react'
 

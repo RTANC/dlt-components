@@ -9,7 +9,6 @@ import moment from 'moment'
 
 export default function DltDateTimePicker(props) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={thLocale}>
         <FormControl fullWidth error={props.error !== false}>
           <MobileDateTimePicker
@@ -29,7 +28,6 @@ export default function DltDateTimePicker(props) {
           {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
         </FormControl>
       </LocalizationProvider>
-    </Box>
   )
 }
 

@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SquareEditOutline } from 'mdi-material-ui'
 import { DataGrid } from '@mui/x-data-grid'
-import moment from 'moment-timezone'
+import moment from 'moment'
 import { getIncidents } from '../../../services/managements'
-import { useEffect } from 'react'
+import { dateTimeFormatter } from '../../../services/utils'
 import SelectStation from '../../../components/SelectStation'
 import DltDateTimePicker from '../../../components/DltDateTimePicker'
 import BtnClear from '../../../components/BtnClear'
@@ -74,7 +74,7 @@ export default function Incident() {
         { field: 'StartDt', headerName: 'วัน - เวลา เริ่ม', flex: 1, valueFormatter: (params) => {
             try {
                 if (params.value) {
-                    return moment(params.value).tz('UTC').add(543, 'y').format('DD/MM/YYYY HH:mm:ss')
+                    return dateTimeFormatter(params.value)
                 } else {
                     return '-'
                 }
@@ -85,7 +85,7 @@ export default function Incident() {
         { field: 'EndDt', headerName: 'วัน - เวลา สิ้นสุด', flex: 1, valueFormatter: (params) => {
             try {
                 if (params.value) {
-                    return moment(params.value).tz('UTC').add(543, 'y').format('DD/MM/YYYY HH:mm:ss')
+                    return dateTimeFormatter(params.value)
                 } else {
                     return '-'
                 }

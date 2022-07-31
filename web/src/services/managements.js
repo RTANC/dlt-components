@@ -1,5 +1,5 @@
 import { api } from './api'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 export function getUsers(roleId, stationId, companyId, text) {
     let query = ''

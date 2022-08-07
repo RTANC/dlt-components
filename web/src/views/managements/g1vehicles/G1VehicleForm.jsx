@@ -10,14 +10,17 @@ import SelectVehicleClass from '../../../components/SelectVehicleClass'
 import SelectLPProvince from '../../../components/SelectLPProvince'
 import { useEffect } from 'react'
 import ImageListLP from '../../../components/ImageListLP'
-import { getG1Vehicle } from '../../../services/managements'
+import { createG1Vehicle, getG1Vehicle, updateG1Vehicle } from '../../../services/managements'
 import BtnSave from '../../../components/BtnSave'
 import BtnClear from '../../../components/BtnClear'
+import formValidator from '../../../services/validator'
+import { getKeyValue } from '../../../services/utils'
 
 export default function G1VehicleForm() {
     const navigate = useNavigate()
     const { gid } = useParams()
     const [loading, setLoading] = useState(false)
+    const [valid, setValid] = useState(false)
     const [editMode, setEditMode] = useState(false)
     const [g1Vehicle, setG1Vehicle] = useState({
         station: {
@@ -29,19 +32,29 @@ export default function G1VehicleForm() {
             rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         vehicleClass: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         frontLP: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         frontLPProvince: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         rearLP: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         rearLPProvince: {
-          value: ''
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         isActive: {
           value: true
@@ -51,11 +64,18 @@ export default function G1VehicleForm() {
     const handleValueChange = (e) => {
         g1Vehicle[e.target.name].value = e.target.value
         setG1Vehicle({...g1Vehicle})
+        setValid(formValidator(g1Vehicle, setG1Vehicle))
     }
 
     const save = async () => {
         try {
           setLoading(true)
+          if (gid === '0') {
+            await createG1Vehicle(getKeyValue(g1Vehicle))
+          } else {
+            await updateG1Vehicle(gid, getKeyValue(g1Vehicle))
+          }
+          navigate(-1)
         } catch (error) {
           console.log(error)
         } finally {
@@ -79,6 +99,7 @@ export default function G1VehicleForm() {
           g1Vehicle.rearLPProvince.value = data.RearLPPID
           g1Vehicle.isActive.value = data.IsActive
           setG1Vehicle({...g1Vehicle})
+          setValid(formValidator(g1Vehicle, setG1Vehicle))
         } catch (error) {
           
         }
@@ -102,7 +123,7 @@ export default function G1VehicleForm() {
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} md={6}>
-                    <SelectStation value={g1Vehicle.station.value} name='station' onChange={handleValueChange} required></SelectStation>
+                    <SelectStation value={g1Vehicle.station.value} name='station' onChange={handleValueChange} required error={g1Vehicle.station.error}></SelectStation>
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <RadioBoxIsActiveUser value={g1Vehicle.isActive.value} label='สถานะการใช้งาน' name='isActive' onChange={handleValueChange}></RadioBoxIsActiveUser>
@@ -111,22 +132,22 @@ export default function G1VehicleForm() {
                     <Divider></Divider>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectCompany value={g1Vehicle.company.value} name='company' onChange={handleValueChange} station={g1Vehicle.station.value} required></SelectCompany>
+                    <SelectCompany value={g1Vehicle.company.value} name='company' onChange={handleValueChange} station={g1Vehicle.station.value} required error={g1Vehicle.company.error}></SelectCompany>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectVehicleClass value={g1Vehicle.vehicleClass.value} name='vehicleClass' onChange={handleValueChange} required></SelectVehicleClass>
+                    <SelectVehicleClass value={g1Vehicle.vehicleClass.value} name='vehicleClass' onChange={handleValueChange} required error={g1Vehicle.vehicleClass.error}></SelectVehicleClass>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <DltTextField label='ทะเบียนหน้า' value={g1Vehicle.frontLP.value} name='frontLP' onChange={handleValueChange} placeholder='XX-XXXXX' required></DltTextField>
+                    <DltTextField label='ทะเบียนหน้า' value={g1Vehicle.frontLP.value} name='frontLP' onChange={handleValueChange} onKeyUp={e => setValid(formValidator(g1Vehicle, setG1Vehicle))} placeholder='XX-XXXXX' required error={g1Vehicle.frontLP.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <DltTextField label='ทะเบียนหลัง' value={g1Vehicle.rearLP.value} name='rearLP' onChange={handleValueChange} placeholder='XX-XXXXX' required></DltTextField>
+                    <DltTextField label='ทะเบียนหลัง' value={g1Vehicle.rearLP.value} name='rearLP' onChange={handleValueChange} onKeyUp={e => setValid(formValidator(g1Vehicle, setG1Vehicle))} placeholder='XX-XXXXX' required error={g1Vehicle.rearLP.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectLPProvince label='จังหวัด' value={g1Vehicle.frontLPProvince.value} name='frontLPProvince' onChange={handleValueChange} required></SelectLPProvince>
+                    <SelectLPProvince label='จังหวัด' value={g1Vehicle.frontLPProvince.value} name='frontLPProvince' onChange={handleValueChange} required error={g1Vehicle.frontLPProvince.error}></SelectLPProvince>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectLPProvince label='จังหวัด' value={g1Vehicle.rearLPProvince.value} name='rearLPProvince' onChange={handleValueChange} required></SelectLPProvince>
+                    <SelectLPProvince label='จังหวัด' value={g1Vehicle.rearLPProvince.value} name='rearLPProvince' onChange={handleValueChange} required error={g1Vehicle.rearLPProvince.error}></SelectLPProvince>
                   </Grid>
                   {editMode && <Grid item xs={12}>
                     <ImageListLP></ImageListLP>
@@ -134,7 +155,7 @@ export default function G1VehicleForm() {
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                       <BtnClear loading={loading} onClick={clear}></BtnClear>
-                      <BtnSave loading={loading} onClick={save}></BtnSave>
+                      <BtnSave loading={loading} onClick={save} disabled={!valid}></BtnSave>
                     </Box>
                   </Grid>
                 </Grid>

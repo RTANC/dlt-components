@@ -39,6 +39,14 @@ export function getG1Vehicle (G1VehicleId) {
     return api.get('/managements/G1/vehicles/' + G1VehicleId)
 }
 
+export function createG1Vehicle (G1Vehicle) {
+    return api.post('/managements/G1/vehicles/', G1Vehicle)
+}
+
+export function updateG1Vehicle (id, G1Vehicle) {
+    return api.patch('/managements/G1/vehicles/' + id, G1Vehicle)
+}
+
 export function getG2Vehicles (stationId, companyId, text) {
     let query = ''
     if (!!companyId) {
@@ -56,6 +64,10 @@ export function getG2Vehicle (G2VehicleId) {
 
 export function createG2Vehicle (G2Vehicle) {
     return api.post('/managements/G2/vehicles/', G2Vehicle)
+}
+
+export function updateG2Vehicle (id, G2Vehicle) {
+    return api.patch('/managements/G2/vehicles/' + id, G2Vehicle)
 }
 
 export function getG2VehicleRules () {

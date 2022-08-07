@@ -8,8 +8,8 @@ import { SquareEditOutline } from 'mdi-material-ui'
 import { DataGrid } from '@mui/x-data-grid'
 import SelectCompany from '../../../components/SelectCompany'
 import DltTextField from '../../../components/DltTextField'
-import moment from 'moment'
 import { getG1Vehicles } from '../../../services/managements'
+import { dateTimeFormatter } from '../../../services/utils'
 
 export default function G1Vehicle() {
     const navigate = useNavigate()
@@ -61,7 +61,7 @@ export default function G1Vehicle() {
         }},
         { field: 'EntryDate', headerName: 'บันทึกครั้งแรก', flex: 1, valueFormatter: (params) => {
           try {
-            return moment(params.value).add(543, 'y').format('DD/MM/YYYY')
+            return dateTimeFormatter(params.value)
           } catch (error) {
             return ''
           }

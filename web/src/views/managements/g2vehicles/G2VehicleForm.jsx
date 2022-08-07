@@ -11,7 +11,7 @@ import SelectVehicleClass from '../../../components/SelectVehicleClass'
 import SelectLPProvince from '../../../components/SelectLPProvince'
 import { useEffect } from 'react'
 import ImageListLP from '../../../components/ImageListLP'
-import { createG2Vehicle, getG2Vehicle } from '../../../services/managements'
+import { createG2Vehicle, getG2Vehicle, updateG2Vehicle } from '../../../services/managements'
 import BtnSave from '../../../components/BtnSave'
 import BtnClear from '../../../components/BtnClear'
 import formValidator from '../../../services/validator'
@@ -76,7 +76,8 @@ export default function G2VehicleForm() {
             await createG2Vehicle(getKeyValue(g2Vehicle))
             navigate(-1)
           } else {
-
+            await updateG2Vehicle(gid, getKeyValue(g2Vehicle))
+            navigate(-1)
           }
         } catch (error) {
           console.log(error)

@@ -41,6 +41,28 @@ exports.getUser = async (req, res, next) => {
     }
 }
 
+exports.createUser = async (req, res, next) => {
+    try {
+        const {title, userRole, agency, firstname, lastname, username, newPassword, email, tel, isActive} = req.body
+        await sequelize.query(`insert GCSUser(CompanyID, RoleID, LoginName, LoginPassword, TitleID, FirstName, LastName, PhoneNo, EmailAddress, IsActive, IsForceChangePassword, CreatedDateTime)
+        values(${agency}, ${userRole}, '${username}', '${newPassword}', ${title}, '${firstname}', '${lastname}', '${tel}', '${email}', ${isActive === 'true' ? 1 : 0}, 1, '${moment().format('YYYY-MM-DD HH:mm:ss')}')`, { type: QueryTypes.INSERT })
+        res.sendStatus(201)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.updateUser = async (req, res, next) => {
+    try {
+        const {title, userRole, agency, firstname, lastname, username, newPassword, email, tel, isActive} = req.body
+        await sequelize.query(`insert GCSUser(CompanyID, RoleID, LoginName, LoginPassword, TitleID, FirstName, LastName, PhoneNo, EmailAddress, IsActive, IsForceChangePassword, UpdatedDateTime)
+        values(${agency}, ${userRole}, '${username}', '${newPassword}', ${title}, '${firstname}', '${lastname}', '${tel}', '${email}', ${isActive === 'true' ? 1 : 0}, 1, '${moment().format('YYYY-MM-DD HH:mm:ss')}')`, { type: QueryTypes.UPDATE })
+        res.sendStatus(201)
+    } catch (error) {
+        next(error)
+    }
+}
+
 exports.getCompanies = async (req, res, next) => {
     try {
         const company = await sequelize.query(`select CompanyID as id, CompanyID as CompanyCode, CompanyID, StationName, CompanyName, TransportLicenseID, TransportTypeID, TransportScopeID

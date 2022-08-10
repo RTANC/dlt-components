@@ -28,7 +28,7 @@ export default function UserForm() {
     const { uid } = useParams()
     const navigate = useNavigate()
     const [user, setUser] = useState({
-        useRole: {
+        userRole: {
           value: 3
         },
         station: {
@@ -96,9 +96,21 @@ export default function UserForm() {
     }
 
     const handleValidateValue = (e) => {
-      user[e.target.name].error = validator(e.target.value, user[e.target.name].rules)
-      formValidator
-      setUser({...user})
+      // user[e.target.name].error = validator(e.target.value, user[e.target.name].rules)
+      setValid(formValidator(user, setUser))
+    }
+
+    const handleValidatePassword = (e) => {
+      setValid(formValidator(user, setUser))
+      if (user.newPassword.value === user.confirmPassword.value) {
+        user.newPassword.error = false
+        user.confirmPassword.error = false
+      } else if (user.newPassword.value !== user.confirmPassword.value) {
+        user.newPassword.error = 'Password ไม่ตรงกัน'
+        user.confirmPassword.error = 'Password ไม่ตรงกัน'
+        setValid(false)
+        setUser({...user})
+      }
     }
 
     const init = async () => {
@@ -106,7 +118,7 @@ export default function UserForm() {
         const userData = (await getUser(uid)).data
         console.log(userData)
         user.title.value = userData.title
-        user.useRole.value = userData.useRole
+        user.userRole.value = userData.userRole
         user.station.value = userData.station
         user.agency.value = userData.agency
         user.firstname.value = userData.firstname
@@ -148,7 +160,7 @@ export default function UserForm() {
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap="wrap">
                   <Grid item xs={12}>
-                    <SelectUserRole name='useRole' value={user.useRole.value} onChange={handleValueChange} required disabled={editMode}></SelectUserRole>
+                    <SelectUserRole name='userRole' value={user.userRole.value} onChange={handleValueChange} required disabled={editMode}></SelectUserRole>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
                     <SelectStation name='station' value={user.station.value} onChange={handleValueChange} required disabled={editMode}></SelectStation>
@@ -160,19 +172,19 @@ export default function UserForm() {
                     <Divider></Divider>
                   </Grid>
                   <Grid item xs={4} sm={4} md={2} lg={2}>
-                      <SelectTitle value={user.title.value} onChange={handleValueChange}></SelectTitle>
+                    <SelectTitle value={user.title.value} onChange={handleValueChange}></SelectTitle>
                   </Grid>
                   <Grid item xs={4} sm={4} md={5} lg={5}>
-                    <DltTextField label='ชื่อ' name='firstname' value={user.firstname.value} onChange={handleValueChange} onKeyUp={e => {setValid(formValidator(user, setUser))}} required error={user.firstname.error}></DltTextField>
+                    <DltTextField label='ชื่อ' name='firstname' value={user.firstname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.firstname.error}></DltTextField>
                   </Grid>
                   <Grid item xs={4} sm={4} md={5} lg={5}>
-                    <DltTextField label='นามสกุล' name='lastname' value={user.lastname.value} onChange={handleValueChange} onKeyUp={e => {setValid(formValidator(user, setUser))}} required error={user.lastname.error}></DltTextField>
+                    <DltTextField label='นามสกุล' name='lastname' value={user.lastname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.lastname.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <DltTextField label='เบอร์โทรติดต่อ' name='tel' value={user.tel.value} onChange={handleValueChange} onKeyUp={e => {setValid(formValidator(user, setUser))}} required error={user.tel.error}></DltTextField>
+                    <DltTextField label='เบอร์โทรติดต่อ' name='tel' value={user.tel.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.tel.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={e => {setValid(formValidator(user, setUser))}} required error={user.email.error}></DltTextField>
+                    <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.email.error}></DltTextField>
                   </Grid>
                 </Grid>
               </CardContent>
@@ -181,7 +193,7 @@ export default function UserForm() {
             <CardContent>
               <Grid container spacing={2} direction='row' wrap="wrap">
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField label='ชื่อผู้ใช้งาน' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={e => {setValid(formValidator(user, setUser))}} required disabled={editMode} error={user.username.error}></DltTextField>
+                  <DltTextField label='ชื่อผู้ใช้งาน' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required disabled={editMode} error={user.username.error}></DltTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <RadioBoxIsActiveUser name='isActive' value={user.isActive.value} onChange={handleValueChange}></RadioBoxIsActiveUser>
@@ -193,10 +205,10 @@ export default function UserForm() {
                   <Typography variant="h6" color="initial">{editMode ? 'เปลี่ยนรหัสผ่าน' : 'ตั้งรหัสผ่าน'}</Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltPasswordTextField label='รหัสผ่าน' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={e => {setValid(formValidator(user, setUser))}} required error={user.newPassword.error}></DltPasswordTextField>
+                  <DltPasswordTextField label='รหัสผ่าน' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidatePassword} required error={user.newPassword.error}></DltPasswordTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltPasswordTextField label='ยืนยันรหัสผ่าน' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={e => {setValid(formValidator(user, setUser))}} required error={user.confirmPassword.error}></DltPasswordTextField>
+                  <DltPasswordTextField label='ยืนยันรหัสผ่าน' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidatePassword} required error={user.confirmPassword.error}></DltPasswordTextField>
                 </Grid>
                 <Grid item xs={12}>
                   <Box sx={{display: 'flex', justifyContent: 'center'}}>

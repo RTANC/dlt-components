@@ -16,6 +16,14 @@ export function getUser (userId) {
     return api.get('/managements/users/' + userId)
 }
 
+export function createUser (user) {
+    return api.post('/managements/users/', user)
+}
+
+export function updateUser (id, user) {
+    return api.patch('/managements/users/' + id, user)
+}
+
 export function getCompanies (station) {
     return api.get('/managements/company?station=' + station)
 }

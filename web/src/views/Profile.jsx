@@ -6,7 +6,7 @@ import SelectTitle from '../components/SelectTitle'
 import { LoadingButton } from '@mui/lab'
 import SaveIcon from '@mui/icons-material/Save'
 import CancelIcon from '@mui/icons-material/Cancel'
-import {validator} from '../services/validator'
+import formValidator, {validator} from '../services/validator'
 import {passwordValidator, emailValidator} from '../services/utils'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import ContactsIcon from '@mui/icons-material/Contacts'
@@ -14,12 +14,18 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import KeyIcon from '@mui/icons-material/Key'
 import CallIcon from '@mui/icons-material/Call'
 import DltPasswordTextField from '../components/DltPasswordTextField'
+import BtnSave from '../components/BtnSave'
 
 export default function Profile() {
   const [loading, setLoading] = useState(false)
+  const [valid, setValid] = useState(false)
     const [profile, setProfile] = useState({
-        useRole: 'กลุ่มผู้ใช้ระดับผู้ประกอบการ',
-        title: 1,
+        userRole: {
+          value: 'กลุ่มผู้ใช้ระดับผู้ประกอบการ'
+        },
+        title: {
+          value: 1
+        },
         firstname: {
           value: 'admin',
           rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
@@ -35,7 +41,6 @@ export default function Profile() {
           rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
-        chpasswd: false,
         newPassword: {
           value: '',
           rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
@@ -93,23 +98,30 @@ export default function Profile() {
       setProfile({...profile})
     }
 
-    const handleValidateValue = (e) => {
-      profile[e.target.name].error = validator(e.target.value, profile[e.target.name].rules)
+    const handleValueChange = (e) => {
+      profile[e.target.name].value = e.target.value
       setProfile({...profile})
     }
 
+    const handleValidateValue = (e) => {
+      setValid(formValidator(profile, setProfile))
+    }
+
     const handleValidatePassword = (e) => {
-      profile[e.target.name].error = validator(e.target.value, profile[e.target.name].rules)
-      if ((!profile.newPassword.error || !profile.confirmPassword.error) && profile.newPassword.value === profile.confirmPassword.value) {
+      setValid(formValidator(profile, setProfile))
+      if (profile.newPassword.value === profile.confirmPassword.value) {
         profile.newPassword.error = false
-        profile.confirmPassword.error - false
+        profile.confirmPassword.error = false
+      } else if (profile.newPassword.value !== profile.confirmPassword.value) {
+        profile.newPassword.error = 'Password ไม่ตรงกัน'
+        profile.confirmPassword.error = 'Password ไม่ตรงกัน'
+        setValid(false)
+        setProfile({...profile})
       }
-      setProfile({...profile})
     }
 
     const submit = async (e) => {
       try {
-        e.preventDefault()
         setLoading(true)
 
         console.log(profile)
@@ -139,25 +151,25 @@ export default function Profile() {
 
                     >
                       <Grid item xs={12}>
-                        <DltTextField value={profile.useRole} disabled label='กลุ่มผู้ใช้งาน'></DltTextField>
+                        <DltTextField value={profile.userRole.value} name='userRole' disabled label='กลุ่มผู้ใช้งาน'></DltTextField>
                       </Grid>
                       <Grid item xs={12}>
                         <Divider></Divider>
                       </Grid>
                       <Grid item xs={4} sm={4} md={2} lg={2}>
-                        <SelectTitle value={profile.title} onChange={(e) => {setProfile({...profile, title: e.target.value})}} name='title'></SelectTitle>
+                        <SelectTitle value={profile.title.value} name='title' onChange={handleValueChange} ></SelectTitle>
                       </Grid>
                       <Grid item xs={4} sm={4} md={5} lg={5}>
-                        <DltTextField name='firstname' label='ชื่อ' value={profile.firstname.value} onChange={handleFirstName} onKeyUp={handleValidateValue} error={profile.firstname.error} required startIcon={<ContactsIcon/>}></DltTextField>
+                        <DltTextField name='firstname' label='ชื่อ' value={profile.firstname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.firstname.error} required></DltTextField>
                       </Grid>
                       <Grid item xs={4} sm={4} md={5} lg={5}>
-                        <DltTextField name='lastname' label='นามสกุล' value={profile.lastname.value} onChange={handleLastName} onKeyUp={handleValidateValue} error={profile.lastname.error} required></DltTextField>
+                        <DltTextField name='lastname' label='นามสกุล' value={profile.lastname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.lastname.error} required></DltTextField>
                       </Grid>
                       <Grid item xs={6} md={6}>
-                        <DltTextField name='tel' type='number' label='เบอร์โทรติดต่อ' value={profile.tel.value} onChange={handleTel} onKeyUp={handleValidateValue} error={profile.tel.error} required startIcon={<CallIcon/>}></DltTextField>
+                        <DltTextField name='tel' type='number' label='เบอร์โทรติดต่อ' value={profile.tel.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.tel.error} required></DltTextField>
                       </Grid>
                       <Grid item xs={6} md={6}>
-                        <DltTextField name='email' type='email' label='Email Address' value={profile.email.value} onChange={handleEmail} onKeyUp={handleValidateValue} error={profile.email.error} required startIcon={<AlternateEmailIcon/>}></DltTextField>
+                        <DltTextField name='email' type='email' label='Email Address' value={profile.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.email.error} required></DltTextField>
                       </Grid>
                     </Grid>
                 </CardContent>
@@ -166,7 +178,7 @@ export default function Profile() {
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}>
-                    <DltTextField name='username' label='User Name' value={profile.username.value} onChange={handleUsername} onKeyUp={handleValidateValue} error={profile.username.error} required startIcon={<AccountCircle/>}></DltTextField>
+                    <DltTextField name='username' label='User Name' value={profile.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.username.error} required></DltTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider></Divider>
@@ -175,10 +187,10 @@ export default function Profile() {
                     <Typography variant="h6" color="initial">เปลี่ยนรหัสผ่าน</Typography>
                   </Grid>
                   <Grid item xs={6} md={6}>
-                    <DltPasswordTextField name='newPassword' label='Password ใหม่' value={profile.newPassword.value} onChange={handleNewPassword} onKeyUp={handleValidatePassword} error={profile.newPassword.error} required></DltPasswordTextField>
+                    <DltPasswordTextField name='newPassword' label='Password ใหม่' value={profile.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidatePassword} error={profile.newPassword.error} required></DltPasswordTextField>
                   </Grid>
                   <Grid item xs={6} md={6}>
-                    <DltPasswordTextField name='confirmPassword' label='ยืนยัน Password ใหม่' value={profile.confirmPassword.value} onChange={handleConfirmPassword} onKeyUp={handleValidatePassword} error={profile.confirmPassword.error} required></DltPasswordTextField>
+                    <DltPasswordTextField name='confirmPassword' label='ยืนยัน Password ใหม่' value={profile.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidatePassword} error={profile.confirmPassword.error} required></DltPasswordTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{display: 'flex', justifyContent: 'center'}}>
@@ -191,7 +203,7 @@ export default function Profile() {
             <Card>
               <CardActions>
                 <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                  <LoadingButton loading={loading} color='success' variant='contained' onClick={submit} startIcon={<SaveIcon></SaveIcon>}>บันทึกข้อมูล</LoadingButton>
+                  <BtnSave loading={loading}></BtnSave>
                 </Box>
               </CardActions>
             </Card>

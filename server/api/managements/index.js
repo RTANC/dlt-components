@@ -6,7 +6,7 @@ const { getUsers, getUser, createUser, updateUser, getCompanies, getCompany, get
 router.get('/users', getUsers)
 router.get('/users/:uid', getUser)
 router.post('/users', createUser)
-router.patch('/users/:uid', updateUser)
+router.patch('/users/:id', updateUser)
 
 router.get('/company', getCompanies)
 router.get('/company/:companyId', getCompany)

@@ -1,4 +1,5 @@
 import moment from 'moment'
+import CryptoJS from 'crypto-js'
 
 export function passwordValidator (password) {
     const reg = new RegExp('^([A-Za-z0-9_+-]){8,}$')
@@ -26,4 +27,8 @@ export function dateTimeFormatter(dateTime) {
 
 export function dateFormatter(date) {
     return moment(date).utc().add(543, 'y').format('DD/MM/YYYY')
+}
+
+export function hashMD5(str) {
+    return CryptoJS.MD5(str).toString().toUpperCase()
 }

@@ -1,24 +1,17 @@
 import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, CardActions, Stack, Divider, Typography} from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import SaveIcon from '@mui/icons-material/Save'
 import SelectUserRole from '../../../components/SelectUserRole'
 import SelectStation from '../../../components/SelectStation'
 import SelectTitle from '../../../components/SelectTitle'
 import DltTextField from '../../../components/DltTextField'
 import BtnBack from '../../../components/BtnBack'
 import BtnSave from '../../../components/BtnSave'
-import { LoadingButton } from '@mui/lab'
 import SelectAgency from '../../../components/SelectAgency'
-import { getUser } from '../../../services/managements'
+import { createUser, getUser, updateUser } from '../../../services/managements'
 import { useParams, useNavigate } from 'react-router-dom'
-import { passwordValidator, emailValidator } from '../../../services/utils'
+import { passwordValidator, emailValidator, getKeyValue, hashMD5 } from '../../../services/utils'
 import formValidator, { validator } from '../../../services/validator'
 import RadioBoxIsActiveUser from '../../../components/RadioBoxIsActiveUser'
-import AccountCircle from '@mui/icons-material/AccountCircle'
-import ContactsIcon from '@mui/icons-material/Contacts'
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
-import KeyIcon from '@mui/icons-material/Key'
-import CallIcon from '@mui/icons-material/Call'
 import DltPasswordTextField from '../../../components/DltPasswordTextField'
 
 export default function UserForm() {
@@ -116,7 +109,6 @@ export default function UserForm() {
     const init = async () => {
       try {
         const userData = (await getUser(uid)).data
-        console.log(userData)
         user.title.value = userData.title
         user.userRole.value = userData.userRole
         user.station.value = userData.station
@@ -128,6 +120,8 @@ export default function UserForm() {
         user.tel.value = userData.tel
         user.isActive.value = userData.isActive
         setUser({...user})
+        console.log(user)
+        setValid(formValidator(user, setUser))
       } catch (error) {
         console.log(error)
       }
@@ -135,9 +129,19 @@ export default function UserForm() {
 
     const save  = async () => {
         try {
-
+          setLoading(true)
+          const tmp = getKeyValue(user)
+          tmp.newPassword = hashMD5(tmp.newPassword)
+          if (!editMode) {
+            await createUser(tmp)
+          } else {
+            await updateUser(uid, tmp)
+          }
+          navigate(-1)
         } catch (error) {
             console.log(error)
+        } finally {
+          setLoading(false)
         }
     }
 

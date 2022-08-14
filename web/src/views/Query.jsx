@@ -1,5 +1,4 @@
 import { Container, Grid, Slide, Card, CardContent, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CardActions, Box, Stack, CardHeader } from '@mui/material'
-import { LoadingButton } from '@mui/lab'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -10,33 +9,21 @@ import SelectVehicleGroup from '../components/SelectVehicleGroup'
 import SelectGoodCategory from '../components/SelectGoodCategory'
 import SelectIsConfirm from '../components/SelectIsConfirm'
 import CheckBoxVehicleStatus from '../components/CheckBoxVehicleStatus'
+import BtnSearch from '../components/BtnSearch'
+import BtnClear from '../components/BtnClear'
 import DltTextField from '../components/DltTextField'
-import formValidator from '../services/validator'
 import moment from 'moment'
-import SearchIcon from '@mui/icons-material/Search'
-import CachedIcon from '@mui/icons-material/Cached'
 import { DataGrid } from '@mui/x-data-grid'
+import { dateTimeFormatter } from '../services/utils'
 
 export default function Query() {
   const [loading, setLoading] = useState(false)
   const [params, setParams] = useState({
     queryId: 1,
-    station: {
-      value: 1,
-      error: false,
-      rules: []
-    },
+    station: 1,
     company: '',
-    startDateTime: {
-      value: moment(),
-      error: false,
-      rules: []
-    },
-    endDateTime: {
-      value: moment().add(1, 'day'),
-      error: false,
-      rules: []
-    },
+    startDateTime: moment(),
+    endDateTime: moment().add(1, 'day'),
     inProvince: '',
     outProvince: '',
     vehicleClass: '',
@@ -53,7 +40,7 @@ export default function Query() {
     { field: 'timeStemp', headerName: 'วัน-เวลา บันทึกข้อมูล', sortable: true, flex: 1, valueFormatter: (params) => {
       try {
         if (!!params.value) {
-          return moment(params.value).format('DD/MM/YYYY HH:mm:ss')
+          return dateTimeFormatter(params.value)
         }
       } catch (error) {
         return ''
@@ -62,7 +49,7 @@ export default function Query() {
     { field: 'InTimeStemp', headerName: 'วัน-เวลา เข้า', sortable: true, flex: 1, valueFormatter: (params) => {
       try {
         if (!!params.value) {
-          return moment(params.value).format('DD/MM/YYYY HH:mm:ss')
+          return dateTimeFormatter(params.value)
         }
       } catch (error) {
         return ''
@@ -71,7 +58,7 @@ export default function Query() {
     { field: 'OutTimeStemp', headerName: 'วัน-เวลา ออก', sortable: true, flex: 1, valueFormatter: (params) => {
       try {
         if (!!params.value) {
-          return moment(params.value).format('DD/MM/YYYY HH:mm:ss')
+          return dateTimeFormatter(params.value)
         }
       } catch (error) {
         return ''
@@ -85,17 +72,9 @@ export default function Query() {
 
   const [rows, setRows] = useState([])
 
-  params.station.rules = [params.station.value !== '' || '*ข้อมูลจำเป็น']
-  params.startDateTime.rules = [params.startDateTime.value !== null || '*ข้อมูลจำเป็น', moment(params.startDateTime.value).isBefore(params.endDateTime.value) || '*วันเวลา-เริ่มต้น ต้องก่อน วันเวลา-สิ้นสุด']
-  params.endDateTime.rules = [params.endDateTime.value !== null || '*ข้อมูลจำเป็น', moment(params.endDateTime.value).isAfter(params.startDateTime.value) || '*วันเวลา-สิ้นสุด ต้องหลัง วันเวลา-เริ่มต้น']
-
-  const submit = async (e) => {
+  const search = async (e) => {
     try {
-      e.preventDefault()
       setLoading(true)
-      if (formValidator(params, setParams)) {
-
-      }
       
       // console.log(err)      
     } catch (error) {
@@ -108,22 +87,10 @@ export default function Query() {
   const clear = () => {
     setParams({
       queryId: 1,
-      station: {
-        value: 1,
-        error: false,
-        rules: []
-      },
+      station: 1,
       company: '',
-      startDateTime: {
-        value: moment(),
-        error: false,
-        rules: []
-      },
-      endDateTime: {
-        value: moment().add(1, 'day'),
-        error: false,
-        rules: []
-      },
+      startDateTime: moment(),
+      endDateTime: moment().add(1, 'day'),
       inProvince: '',
       outProvince: '',
       vehicleClass: '',
@@ -134,10 +101,11 @@ export default function Query() {
       isVehicleInStation: false,
       isOverWeight: false
     })
+  }
 
-    params.station.rules = [params.station.value !== '' || '*ข้อมูลจำเป็น']
-    params.startDateTime.rules = [params.startDateTime.value !== null || '*ข้อมูลจำเป็น', moment(params.startDateTime.value).isBefore(params.endDateTime.value) || '*วันเวลา-เริ่มต้น ต้องก่อน วันเวลา-สิ้นสุด']
-    params.endDateTime.rules = [params.endDateTime.value !== null || '*ข้อมูลจำเป็น', moment(params.endDateTime.value).isAfter(params.startDateTime.value) || '*วันเวลา-สิ้นสุด ต้องหลัง วันเวลา-เริ่มต้น']
+  const handleChange = (e) => {
+    params[e.target.name] = e.target.value
+    setParams({...params})
   }
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
@@ -150,45 +118,45 @@ export default function Query() {
                 <Grid item xs={12}>
                   <FormControl>
                     <FormLabel sx={{display: 'flex', alignContent: 'flex-start'}}>เลือกข้อมูล</FormLabel>
-                    <RadioGroup row value={params.queryId} onChange={(e) => {setParams({...params, 'queryId': e.target.value})}}>
-                      <FormControlLabel value="1" control={<Radio />} label="รถที่มีรายการรับส่งสินค้า"></FormControlLabel>
-                      <FormControlLabel value="2" control={<Radio />} label="รถทุกคันที่เข้าสถานีฯ"></FormControlLabel>
-                      <FormControlLabel value="3" control={<Radio />} label="รถบรรทุกที่ออกจากสถานีฯ"></FormControlLabel>
+                    <RadioGroup row value={params.queryId} name='queryId' onChange={handleChange}>
+                      <FormControlLabel value={1} control={<Radio />} label="รถที่มีรายการรับส่งสินค้า"></FormControlLabel>
+                      <FormControlLabel value={2} control={<Radio />} label="รถทุกคันที่เข้าสถานีฯ"></FormControlLabel>
+                      <FormControlLabel value={3} control={<Radio />} label="รถบรรทุกที่ออกจากสถานีฯ"></FormControlLabel>
                     </RadioGroup>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectStation value={params.station.value} name='station' onChange={(e) => {setParams({...params,'station': { ...params.station, 'value': e.target.value }})}} required error={params.station.error}></SelectStation>
+                  <SelectStation value={params.station} name='station' onChange={handleChange} required></SelectStation>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <DltDateTimePicker value={params.startDateTime.value} label='วันเวลา-เริ่มต้น' name='startDateTime' onChange={(e) => {setParams({...params,'startDateTime': { ...params.startDateTime, 'value': e }})}} required maxDateTime={new Date(params.endDateTime.value)} error={params.startDateTime.error}></DltDateTimePicker>
+                  <DltDateTimePicker value={params.startDateTime} label='วันเวลา-เริ่มต้น' name='startDateTime' onChange={handleChange} required maxDateTime={new Date(params.endDateTime)}></DltDateTimePicker>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <DltDateTimePicker value={params.endDateTime.value} label='วันเวลา-สิ้นสุด' name='endDateTime' onChange={(e) => {setParams({...params,'endDateTime': { ...params.endDateTime, 'value': e }})}} required minDateTime={new Date(params.startDateTime.value)} error={params.endDateTime.error}></DltDateTimePicker>
+                  <DltDateTimePicker value={params.endDateTime} label='วันเวลา-สิ้นสุด' name='endDateTime' onChange={handleChange} required minDateTime={new Date(params.startDateTime)}></DltDateTimePicker>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectCompany value={params.company} name='company' onChange={(e) => {setParams({...params,'company': e.target.value})}} station={params.station.value}></SelectCompany>
+                  <SelectCompany value={params.company} name='company' onChange={handleChange} station={params.station}></SelectCompany>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectProvince value={params.inProvince} label='จังหวัดต้นทาง' name='inProvince' onChange={(e) => {setParams({...params,'inProvince': e.target.value})}}></SelectProvince>
+                  <SelectProvince value={params.inProvince} label='จังหวัดต้นทาง' name='inProvince' onChange={handleChange}></SelectProvince>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectProvince value={params.outProvince} label='จังหวัดปลายทาง' name='outProvince' onChange={(e) => {setParams({...params,'outProvince': e.target.value})}}></SelectProvince>
+                  <SelectProvince value={params.outProvince} label='จังหวัดปลายทาง' name='outProvince' onChange={handleChange}></SelectProvince>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectVehicleClass value={params.vehicleClass} label='ประเภทรถ' onChange={(e) => {setParams({...params,'vehicleClass': e.target.value})}}></SelectVehicleClass>
+                  <SelectVehicleClass value={params.vehicleClass} label='ประเภทรถ' onChange={handleChange}></SelectVehicleClass>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectGoodCategory value={params.goodCategory} label='ประเภทสินค้า'  onChange={(e) => {setParams({...params,'goodCategory': e.target.value})}}></SelectGoodCategory>
+                  <SelectGoodCategory value={params.goodCategory} label='ประเภทสินค้า' onChange={handleChange}></SelectGoodCategory>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectVehicleGroup value={params.vehicleGroup} label='กลุ่มรถ' onChange={(e) => {setParams({...params,'vehicleGroup': e.target.value})}}></SelectVehicleGroup>
+                  <SelectVehicleGroup value={params.vehicleGroup} label='กลุ่มรถ' onChange={handleChange}></SelectVehicleGroup>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectIsConfirm value={params.isConfirm} label='ยืนยันรายการ' onChange={(e) => {setParams({...params,'isConfirm': e.target.value})}}></SelectIsConfirm>
+                  <SelectIsConfirm value={params.isConfirm} label='ยืนยันรายการ' onChange={handleChange}></SelectIsConfirm>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <DltTextField label='ทะเบียนรถ' value={params.lp} onChange={(e) => {setParams({...params, 'lp': e.target.value})}}></DltTextField>
+                  <DltTextField label='ทะเบียนรถ' value={params.lp} onChange={handleChange}></DltTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <CheckBoxVehicleStatus isVehicleInStation={params.isVehicleInStation} isOverWeight={params.isOverWeight} onChange={(e) => {setParams({...params, [e.target.name]: e.target.checked})}}></CheckBoxVehicleStatus>
@@ -196,8 +164,8 @@ export default function Query() {
               </Grid>
             </CardContent>
             <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
-              <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={clear}>ล้างข้อมูล</LoadingButton>
-              <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained'>ค้นหา</LoadingButton>
+              <BtnClear loading={loading} onClick={clear}></BtnClear>
+              <BtnSearch loading={loading} onClick={search}></BtnSearch>
             </CardActions>
           </Card>
           <Card>

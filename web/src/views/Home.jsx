@@ -12,14 +12,13 @@ import moment from 'moment'
 import ImageListLP from '../components/ImageListLP'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
-import SaveIcon from '@mui/icons-material/Save'
-import CancelIcon from '@mui/icons-material/Cancel'
 import CheckBoxGoodCategory from '../components/CheckBoxGoodCategory'
-import { LoadingButton } from '@mui/lab'
 import formValidator from '../services/validator'
 import { SquareEditOutline } from 'mdi-material-ui'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
+import BtnSave from '../components/BtnSave'
+import BtnClear from '../components/BtnClear'
 
 export default function Home() {
 
@@ -155,7 +154,7 @@ export default function Home() {
     setTransport({...transport, tx: {...transport.tx}})
   }
 
-  const submit = async (e) => {
+  const save = async (e) => {
     try {
       e.preventDefault()
       setLoading(true)
@@ -285,8 +284,8 @@ export default function Home() {
         </Card>
         <Card>
           <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
-            <LoadingButton loading={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={submit} startIcon={<SaveIcon></SaveIcon>}>บันทึก</LoadingButton>
-            <LoadingButton loading={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CancelIcon></CancelIcon>}>ยกเลิก</LoadingButton>
+            <BtnClear loading={loading} onClick={cancel}></BtnClear>
+            <BtnSave loading={loading} onClick={save}></BtnSave>
           </CardActions>
         </Card>
       </Stack>

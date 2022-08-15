@@ -247,35 +247,35 @@ export default function Home() {
               <Grid item xs={12}>
                 <ToggleButtonGroup color='primary' value={transport.mode} exclusive onChange={(e, val) => { setTransport({...transport, 'mode': val}) }} fullWidth>
                   <ToggleButton value={1}><ArrowCircleDownIcon sx={{mr: 1}}/> ส่งสินค้าเข้า</ToggleButton>
-                  <ToggleButton value={3}><ArrowCircleDownIcon/> <ArrowCircleUpIcon sx={{mr: 1}}/> ส่งและสินค้า</ToggleButton>
+                  <ToggleButton value={3}><ArrowCircleDownIcon/> <ArrowCircleUpIcon sx={{mr: 1}}/> ส่งและรับสินค้า</ToggleButton>
                   <ToggleButton value={2}><ArrowCircleUpIcon sx={{mr: 1}}/> รับสินค้าออก</ToggleButton>
                 </ToggleButtonGroup>
               </Grid>
               {transport.mode !== 2 && <Grid item xs={12} sm={12} md={transport.mode === 1 ? 12 : 6 }>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}><Typography variant='h5'>ส่งสินค้าเข้าสถานนี</Typography></Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
                     <SelectProvince value={transport.rx.province} name='rxProvince' label='จังหวัดต้นทาง' onChange={(e) => {setTransport({...transport, rx: {...transport.rx, province: e.target.value}})}}></SelectProvince>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
                     <SelectStation value={transport.station.value} readonly></SelectStation>
                   </Grid>
                   <Grid item xs={12}>
-                    <CheckBoxGoodCategory value={transport.rx.goods} onChange={handleRxGoodCategory} required error={transport.rx.error}></CheckBoxGoodCategory>
+                    <CheckBoxGoodCategory value={transport.rx.goods} onChange={handleRxGoodCategory} required error={transport.rx.error} xs={(transport.mode !== 3) ? 6 : 12}></CheckBoxGoodCategory>
                   </Grid>
                 </Grid>
               </Grid>}
               {(transport.mode !== 1) && <Grid item xs={12} sm={12} md={transport.mode === 2 ? 12 : 6 }>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}><Typography variant='h5'>รับสินค้าออกจากสถานี</Typography></Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
                     <SelectStation value={transport.station.value} readonly></SelectStation>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
                   <SelectProvince value={transport.tx.province} name='txProvince' label='จังหวัดปลายทาง' onChange={(e) => {setTransport({...transport, tx: {...transport.tx, province: e.target.value}})}}></SelectProvince>
                   </Grid>
                   <Grid item xs={12}>
-                    <CheckBoxGoodCategory value={transport.tx.goods} onChange={handleTxGoodCategory} required error={transport.tx.error}></CheckBoxGoodCategory>
+                    <CheckBoxGoodCategory value={transport.tx.goods} onChange={handleTxGoodCategory} required error={transport.tx.error} xs={(transport.mode !== 3) ? 6 : 12}></CheckBoxGoodCategory>
                   </Grid>
                 </Grid>
               </Grid>}

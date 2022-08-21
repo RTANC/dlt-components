@@ -9,6 +9,7 @@ const goodRoutes = require('./goods')
 const licenseplateRoutes = require('./licenseplates')
 const agenciesRoutes = require('./agencies')
 const managementsRoutes = require('./managements')
+const queryRoutes = require('./query')
 
 router.get('/systems', (req, res, next) => {
     res.status(200).send({
@@ -24,5 +25,6 @@ router.use('/goods', goodRoutes)
 router.use('/licenseplates', licenseplateRoutes)
 router.use('/agencies', agenciesRoutes)
 router.use('/managements', managementsRoutes)
+router.use('/query', queryRoutes)
 
 module.exports = router

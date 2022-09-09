@@ -1,4 +1,4 @@
-import { CardHeader, Container, Slide, Grid, Card, Typography, Box, CardContent, FormControl, FormGroup, FormControlLabel, Checkbox, CardActions, Stack, Divider } from '@mui/material'
+import { CardHeader, Container, Slide, Grid, Card, Typography, Box, CardContent, Dialog, DialogActions, DialogContent, DialogContentText, CardActions, Stack, Divider, Button } from '@mui/material'
 import React, { useState } from 'react'
 import DltTextField from '../components/DltTextField'
 import SelectTitle from '../components/SelectTitle'
@@ -9,10 +9,13 @@ import BtnSave from '../components/BtnSave'
 import { useEffect } from 'react'
 import { getUserProfile, updateUserProfile } from '../services/profiles'
 import SelectUserRole from '../components/SelectUserRole'
+import SaveIcon from '@mui/icons-material/Save'
 
 export default function Profile() {
   const [loading, setLoading] = useState(false)
   const [valid, setValid] = useState(false)
+  const [open, setOpen] = useState(false)
+
     const [profile, setProfile] = useState({
         userRole: {
           value: ''
@@ -96,6 +99,10 @@ export default function Profile() {
       } finally {
         setLoading(false)
       }
+    }
+
+    const handleClose = () => {
+      setOpen(false)
     }
 
     const init = async () => {
@@ -187,6 +194,18 @@ export default function Profile() {
               </CardActions>
             </Card>
           </Stack>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogContent>
+                <DialogContentText sx={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+                    <SaveIcon color='error' sx={{ fontSize: 72 }}></SaveIcon>
+                    <Typography variant='h6' gutterBottom component="div">บันทึกข้อมูลเสร็จสิ้น</Typography>
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions sx={{display: 'flex', justifyContent: 'center'}}>
+              <Button variant="contained" color="secondary" onClick={handleClose}>ยกเลิก</Button>
+              <Button variant="contained" color="success" onClick={handleClose}>ยืนยัน</Button>
+            </DialogActions>
+          </Dialog>
         </Container>
     </Slide>
   )

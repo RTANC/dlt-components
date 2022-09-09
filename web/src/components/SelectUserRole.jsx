@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export default function SelectUserRole(props) {
     const [userRoles, setUserRoles] = useState([{id: 0, name: 'ผู้ดูแลระบบ'}, {id: 1, name: 'กลุ่มผู้ใช้ระดับกรม'}, {id: 2, name: 'กลุ่มผู้ใช้ระดับสถานี'}, {id: 3, name: 'กลุ่มผู้ใช้ระดับผู้ประกอบการ'}])
   return (
-    <FormControl fullWidth error={props.error !== false} disabled={props.disabled}>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} readOnly={props.readOnly}>
       <InputLabel>กลุ่มผู้ใช้</InputLabel>
       <Select onChange={props.onChange} value={props.value} name={props.name}>
           {userRoles.map((v, i) => (
@@ -24,5 +24,6 @@ SelectUserRole.propTypes = {
   SelectUserRole.defaultProps = {
     required: false,
     error: false,
-    disabled: false
+    disabled: false,
+    readOnly: false
   }

@@ -1,102 +1,59 @@
 import { CardHeader, Container, Slide, Grid, Card, Typography, Box, CardContent, FormControl, FormGroup, FormControlLabel, Checkbox, CardActions, Stack, Divider } from '@mui/material'
 import React, { useState } from 'react'
-import SearchIcon from '@mui/icons-material/Search'
 import DltTextField from '../components/DltTextField'
 import SelectTitle from '../components/SelectTitle'
-import { LoadingButton } from '@mui/lab'
-import SaveIcon from '@mui/icons-material/Save'
-import CancelIcon from '@mui/icons-material/Cancel'
 import formValidator, {validator} from '../services/validator'
-import {passwordValidator, emailValidator} from '../services/utils'
-import AccountCircle from '@mui/icons-material/AccountCircle'
-import ContactsIcon from '@mui/icons-material/Contacts'
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
-import KeyIcon from '@mui/icons-material/Key'
-import CallIcon from '@mui/icons-material/Call'
+import {passwordValidator, emailValidator, hashMD5} from '../services/utils'
 import DltPasswordTextField from '../components/DltPasswordTextField'
 import BtnSave from '../components/BtnSave'
+import { useEffect } from 'react'
+import { getUserProfile, updateUserProfile } from '../services/profiles'
+import SelectUserRole from '../components/SelectUserRole'
 
 export default function Profile() {
   const [loading, setLoading] = useState(false)
   const [valid, setValid] = useState(false)
     const [profile, setProfile] = useState({
         userRole: {
-          value: 'กลุ่มผู้ใช้ระดับผู้ประกอบการ'
+          value: ''
         },
         title: {
-          value: 1
+          value: ''
         },
         firstname: {
-          value: 'admin',
+          value: '',
           rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         lastname: {
-          value: 'gcs',
+          value: '',
           rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         },
         username: {
-          value: 'admin',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
-          error: false
+          value: ''
         },
         newPassword: {
           value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => (!!v) ? passwordValidator(v) : true || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         confirmPassword: {
           value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => (!!v) ? passwordValidator(v) : true || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         email: {
-          value: 'warawit8@gmail.com',
+          value: '',
           rules: [(v) => !!v || '*ข้อมูลจำเป็น',  (v) => emailValidator(v) || '*รูปแบบ email ไม่ถูกต้อง'],
           error: false
         },
         tel: {
-          value: '0804224893',
+          value: '',
           rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
           error: false
         }
     })
-
-    const handleFirstName = (e) => {
-      profile.firstname.value = e.target.value
-      setProfile({...profile, firstname: {...profile.firstname}})
-    }
-
-    const handleLastName = (e) => {
-      profile.lastname.value = e.target.value
-      setProfile({...profile, lastname: {...profile.lastname}})
-    }
-
-    const handleUsername = (e) => {
-      profile.username.value = e.target.value
-      setProfile({...profile})
-    }
-
-    const handleNewPassword = (e) => {
-      profile.newPassword.value = e.target.value
-      setProfile({...profile})
-    }
-
-    const handleConfirmPassword = (e) => {
-      profile.confirmPassword.value = e.target.value
-      setProfile({...profile})
-    }
-
-    const handleEmail = (e) => {
-      profile.email.value = e.target.value
-      setProfile({...profile})
-    }
-
-    const handleTel = (e) => {
-      profile.tel.value = e.target.value
-      setProfile({...profile})
-    }
 
     const handleValueChange = (e) => {
       profile[e.target.name].value = e.target.value
@@ -120,11 +77,20 @@ export default function Profile() {
       }
     }
 
-    const submit = async (e) => {
+    const save = async (e) => {
       try {
         setLoading(true)
-
-        console.log(profile)
+        const userForm = {
+          TitleID: profile.title.value,
+          FirstName: profile.firstname.value,
+          LastName: profile.lastname.value,
+          PhoneNo: profile.tel.value,
+          EmailAddress: profile.email.value
+        }
+        if (profile.newPassword.value !== '') {
+          userForm.LoginPassword = hashMD5(profile.newPassword.value)
+        }
+        await updateUserProfile(88, userForm)
       } catch (error) {
         console.log(error)
       } finally {
@@ -132,10 +98,23 @@ export default function Profile() {
       }
     }
 
-    const cancel = () => {
-
+    const init = async () => {
+      const { UserID, RoleID, TitleID, LoginName, FirstName, LastName, PhoneNo, EmailAddress } = (await getUserProfile(88)).data
+      profile.userRole.value = RoleID
+      profile.title.value = TitleID
+      profile.firstname.value = FirstName
+      profile.lastname.value = LastName
+      profile.tel.value = PhoneNo
+      profile.email.value = EmailAddress
+      profile.username.value = LoginName
+      setProfile({...profile})
+      setValid(formValidator(profile, setProfile))
     }
 
+    useEffect(() => {
+      init()
+    }, [])
+    
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
@@ -151,7 +130,7 @@ export default function Profile() {
 
                     >
                       <Grid item xs={12}>
-                        <DltTextField value={profile.userRole.value} name='userRole' disabled label='กลุ่มผู้ใช้งาน'></DltTextField>
+                        <SelectUserRole  value={profile.userRole.value} name='userRole' disabled label='กลุ่มผู้ใช้งาน'></SelectUserRole>
                       </Grid>
                       <Grid item xs={12}>
                         <Divider></Divider>
@@ -178,7 +157,7 @@ export default function Profile() {
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}>
-                    <DltTextField name='username' label='User Name' value={profile.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.username.error} required></DltTextField>
+                    <DltTextField name='username' label='User Name' value={profile.username.value} onChange={handleValueChange} readOnly required></DltTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider></Divider>
@@ -203,7 +182,7 @@ export default function Profile() {
             <Card>
               <CardActions>
                 <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                  <BtnSave loading={loading}></BtnSave>
+                  <BtnSave loading={loading} disabled={!valid} onClick={save}></BtnSave>
                 </Box>
               </CardActions>
             </Card>

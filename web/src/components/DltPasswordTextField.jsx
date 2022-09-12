@@ -12,7 +12,7 @@ export default function DltPasswordTextField(props) {
   return (
     <FormControl fullWidth>
       <InputLabel>{props.label}</InputLabel>
-        <OutlinedInput onKeyUp={props.onKeyUp} type={visible ? 'text' : 'password'} label={props.label} value={props.value} onChange={props.onChange} error={props.error !== false} name={props.name} disabled={props.disabled} endAdornment={<InputAdornment position="end"><IconButton onClick={toggleVisible}>{visible ? <VisibilityIcon/> : <VisibilityOffIcon/>}</IconButton></InputAdornment>}/>
+        <OutlinedInput onKeyUp={props.onKeyUp} type={visible ? 'text' : 'password'} label={props.label} value={props.value} onChange={props.onChange} error={props.error !== false} name={props.name} disabled={props.disabled} autoComplete={props.autoComplete} endAdornment={<InputAdornment position="end"><IconButton onClick={toggleVisible}>{visible ? <VisibilityIcon/> : <VisibilityOffIcon/>}</IconButton></InputAdornment>}/>
         {(props.required && !(props.disabled) && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
         {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>
@@ -23,13 +23,15 @@ DltPasswordTextField.propTypes = {
     required: PropTypes.bool,
     disabled: PropTypes.bool,
     type: PropTypes.string,
-    onKeyUp: PropTypes.func
+    onKeyUp: PropTypes.func,
+    autoComplete: PropTypes.string
   }
   
   DltPasswordTextField.defaultProps = {
     required: false,
     error: false,
     disabled: false,
+    autoComplete: "current-password",
     type: 'text',
     onKeyUp: (e) => {}
   }

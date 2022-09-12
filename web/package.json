@@ -24,6 +24,7 @@
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.28.0",
+    "jsonwebtoken": "^8.5.1",
     "mdi-material-ui": "^7.3.0",
     "moment": "^2.29.3",
     "prop-types": "^15.8.1",

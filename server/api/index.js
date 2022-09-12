@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
+const loginRoutes = require('./logins')
 const stationRoutes = require('./stations')
 const companyRoutes = require('./company')
 const transportRoutes = require('./transports')
@@ -18,6 +19,7 @@ router.get('/systems', (req, res, next) => {
     })
 })
 
+router.use('/logins', loginRoutes)
 router.use('/stations', stationRoutes)
 router.use('/company', companyRoutes)
 router.use('/transports', transportRoutes)

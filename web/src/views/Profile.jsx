@@ -94,6 +94,7 @@ export default function Profile() {
           userForm.LoginPassword = hashMD5(profile.newPassword.value)
         }
         await updateUserProfile(88, userForm)
+        setOpen(true)
       } catch (error) {
         console.log(error)
       } finally {
@@ -197,7 +198,7 @@ export default function Profile() {
           <Dialog open={open} onClose={handleClose}>
             <DialogContent>
                 <DialogContentText sx={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-                    <SaveIcon color='error' sx={{ fontSize: 72 }}></SaveIcon>
+                    <SaveIcon color='success' sx={{ fontSize: 72 }}></SaveIcon>
                     <Typography variant='h6' gutterBottom component="div">บันทึกข้อมูลเสร็จสิ้น</Typography>
                 </DialogContentText>
             </DialogContent>

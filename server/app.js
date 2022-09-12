@@ -32,9 +32,7 @@ app.use('/api', api)
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500).send({
-        error: {
-            message: err.message
-        }
+        message: err.message
     })
 })
 module.exports = app

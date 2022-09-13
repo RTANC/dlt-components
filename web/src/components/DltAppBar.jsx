@@ -12,6 +12,7 @@ import FindInPageRoundedIcon from '@mui/icons-material/FindInPageRounded'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import Cookies from 'js-cookie'
 import { DatabaseCog, InformationOutline } from 'mdi-material-ui'
 
 import {useSelector, useDispatch} from 'react-redux'
@@ -88,6 +89,10 @@ export default function DltAppBar() {
     }
 
     const handleLogout = () => {
+      Cookies.remove('UserID')
+      Cookies.remove('RoleID')
+      Cookies.remove('LoginName')
+      Cookies.remove('token')
       dispatch(logout())
       toggleDrawer(false)
       navigate('/')

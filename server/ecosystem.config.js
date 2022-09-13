@@ -12,6 +12,7 @@ module.exports = {
         ignore_watch : ["public"],
         env_development: {
           NODE_ENV: "development",
+          JWT_KEY: 'gcs.dlt.co.th',
           PORT: 3001
         },
         env_production: {

@@ -10,7 +10,7 @@ exports.login = async (req, res, next) => {
         }
         const user = await sequelize.query(`select UserID, RoleID, LoginName
         from GCSUser
-        where LoginPassword = '${password}' and LoginName = '${username}'`, { type: QueryTypes.SELECT })
+        where LoginPassword = '${password}' and LoginName = '${username}' and IsActive = 1`, { type: QueryTypes.SELECT })
         if (user.length < 1) {
             throw Error('ชื่อผู้ใช้งาน หรือ รหัสผ่าน ผิด')
         } else if (user.length === 1) {

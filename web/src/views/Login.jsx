@@ -8,21 +8,28 @@ import DltTextField from '../components/DltTextField'
 import { useState } from 'react'
 import { logins } from '../services/logins'
 import Swal from 'sweetalert2'
-import { hashMD5 } from '../services/utils'
+import { hashMD5, passwordValidator } from '../services/utils'
 import Cookies from 'js-cookie'
 import { useEffect } from 'react'
+import formValidator from '../services/validator'
 
 export default function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [data, setData] = useState({
-      username: '',
-      password: ''
+      username: {
+        value: ''
+      },
+      password: {
+        value: '',
+        rules: [(v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+        error: false
+      }
     })
     const [stay, setStay] = useState(false)
 
     const handleChange = (e) => {
-      data[e.target.name] = e.target.value
+      data[e.target.name].value = e.target.value
       setData({...data})
     }
 
@@ -30,18 +37,22 @@ export default function Login() {
       setStay(e.target.checked)
     }
 
+    const handleValidatePassword = (e) => {
+      formValidator(data, setData)
+    }
+
     const handleSubmit = async () => {   
       try {
         const { UserID, RoleID, LoginName, token } = (await logins({
-          username: data.username,
-          password: hashMD5(data.password)
+          username: data.username.value,
+          password: hashMD5(data.password.value)
         })).data
         if (stay) {
           Cookies.set('UserID', UserID, { expires: 7 })
           Cookies.set('RoleID', RoleID, { expires: 7 })
           Cookies.set('LoginName', LoginName, { expires: 7 })
-          Cookies.set('token', token, { expires: 7 })
         }
+        Cookies.set('token', token, { expires: 7 })
         navigate('/home')
         dispatch(login())
       } catch (error) {
@@ -59,7 +70,8 @@ export default function Login() {
     }
 
     useEffect(() => {
-      if (Cookies.get('token')) {
+      console.log(Cookies.get())
+      if (Cookies.get('LoginName')) {
         navigate('/home')
         dispatch(login())
       }
@@ -83,8 +95,8 @@ export default function Login() {
                 Gate Control System
             </Typography>
           </Box>
-          <DltTextField value={data.username} label="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
-          <DltPasswordTextField value={data.password} label="รหัสผ่าน" name="password" autoComplete="current-password" onChange={handleChange}></DltPasswordTextField>
+          <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
+          <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" autoComplete="current-password" onChange={handleChange} onKeyUp={handleValidatePassword} error={data.password.error} ></DltPasswordTextField>
           <FormControlLabel
             control={<Checkbox value={stay} color="primary" onChange={handleCheck}/>}
             label="คงสถานะการเข้าสู่ระบบ"

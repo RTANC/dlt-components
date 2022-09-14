@@ -1,9 +1,9 @@
 import { api } from './api'
 
-export function getUserProfile(userId) {
-    return api.get('/profiles/' + userId)
+export function getUserProfile() {
+    return api.get('/profiles/')
 }
 
-export function updateUserProfile(userId, user) {
-    return api.patch('/profiles/' + userId, user)
+export function updateUserProfile(user) {
+    return api.patch('/profiles/', user)
 }

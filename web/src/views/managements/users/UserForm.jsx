@@ -50,12 +50,12 @@ export default function UserForm() {
         },
         newPassword: {
           value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => (!!v) ? passwordValidator(v) : true || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         confirmPassword: {
           value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น', (v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => (!!v) ? passwordValidator(v) : true || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         email: {
@@ -120,7 +120,6 @@ export default function UserForm() {
         user.tel.value = userData.tel
         user.isActive.value = userData.isActive
         setUser({...user})
-        console.log(user)
         setValid(formValidator(user, setUser))
       } catch (error) {
         console.log(error)
@@ -131,7 +130,12 @@ export default function UserForm() {
         try {
           setLoading(true)
           const tmp = getKeyValue(user)
-          tmp.newPassword = hashMD5(tmp.newPassword)
+          if (tmp.newPassword !== '') {
+            tmp.newPassword = hashMD5(tmp.newPassword)
+          } else {
+            delete tmp.newPassword
+          }
+          
           if (!editMode) {
             await createUser(tmp)
           } else {

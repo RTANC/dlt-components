@@ -93,7 +93,7 @@ export default function Profile() {
         if (profile.newPassword.value !== '') {
           userForm.LoginPassword = hashMD5(profile.newPassword.value)
         }
-        await updateUserProfile(88, userForm)
+        await updateUserProfile(userForm)
         setOpen(true)
       } catch (error) {
         console.log(error)
@@ -107,7 +107,7 @@ export default function Profile() {
     }
 
     const init = async () => {
-      const { UserID, RoleID, TitleID, LoginName, FirstName, LastName, PhoneNo, EmailAddress } = (await getUserProfile(88)).data
+      const { UserID, RoleID, TitleID, LoginName, FirstName, LastName, PhoneNo, EmailAddress } = (await getUserProfile()).data
       profile.userRole.value = RoleID
       profile.title.value = TitleID
       profile.firstname.value = FirstName

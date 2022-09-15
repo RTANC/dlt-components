@@ -12,6 +12,7 @@ import { hashMD5, passwordValidator } from '../services/utils'
 import Cookies from 'js-cookie'
 import { useEffect } from 'react'
 import formValidator from '../services/validator'
+import { api } from '../services/api'
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -38,11 +39,14 @@ export default function Login() {
     }
 
     const handleValidatePassword = (e) => {
-      formValidator(data, setData)
+      if (e.key === 'Enter') {
+        handleSubmit()
+      }
     }
 
     const handleSubmit = async () => {   
       try {
+        formValidator(data, setData)
         const { UserID, RoleID, LoginName, token } = (await logins({
           username: data.username.value,
           password: hashMD5(data.password.value)
@@ -51,10 +55,16 @@ export default function Login() {
           Cookies.set('UserID', UserID, { expires: 7 })
           Cookies.set('RoleID', RoleID, { expires: 7 })
           Cookies.set('LoginName', LoginName, { expires: 7 })
+          Cookies.set('token', token, { expires: 7 })
         }
-        Cookies.set('token', token, { expires: 7 })
+        api.defaults.headers.common['Authorization'] = "Bearer " + token
         navigate('/home')
-        dispatch(login())
+        dispatch(login({
+          UserID: UserID,
+          RoleID: RoleID,
+          LoginName: LoginName,
+          token: token
+        }))
       } catch (error) {
         console.log(error.response.data.message)
         if (typeof error.response.data.message!== 'undefined') {
@@ -70,10 +80,16 @@ export default function Login() {
     }
 
     useEffect(() => {
-      console.log(Cookies.get())
-      if (Cookies.get('LoginName')) {
+      if (Cookies.get('token')) {
+        const { UserID, RoleID, LoginName, token } = Cookies.get()
+        api.defaults.headers.common['Authorization'] = "Bearer " + token
         navigate('/home')
-        dispatch(login())
+        dispatch(login({
+          UserID: UserID,
+          RoleID: RoleID,
+          LoginName: LoginName,
+          token: token
+        }))
       }
     }, [])
     
@@ -95,7 +111,7 @@ export default function Login() {
                 Gate Control System
             </Typography>
           </Box>
-          <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
+          <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange} onKeyUp={handleValidatePassword}></DltTextField>
           <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" autoComplete="current-password" onChange={handleChange} onKeyUp={handleValidatePassword} error={data.password.error} ></DltPasswordTextField>
           <FormControlLabel
             control={<Checkbox value={stay} color="primary" onChange={handleCheck}/>}

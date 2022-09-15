@@ -31,7 +31,7 @@ DltPasswordTextField.propTypes = {
     required: false,
     error: false,
     disabled: false,
-    autoComplete: "current-password",
+    autoComplete: false,
     type: 'text',
     onKeyUp: (e) => {}
   }

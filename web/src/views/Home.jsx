@@ -19,6 +19,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
 import BtnSave from '../components/BtnSave'
 import BtnClear from '../components/BtnClear'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
 
@@ -169,8 +170,9 @@ export default function Home() {
     }
   }
 
+  const usr = useSelector((state) => state.login)
   const cancel = () => {
-
+    console.log(usr)
   }
 
   return (

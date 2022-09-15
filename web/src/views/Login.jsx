@@ -46,36 +46,43 @@ export default function Login() {
 
     const handleSubmit = async () => {   
       try {
-        formValidator(data, setData)
-        const { UserID, RoleID, LoginName, token } = (await logins({
-          username: data.username.value,
-          password: hashMD5(data.password.value)
-        })).data
-        if (stay) {
-          Cookies.set('UserID', UserID, { expires: 7 })
-          Cookies.set('RoleID', RoleID, { expires: 7 })
-          Cookies.set('LoginName', LoginName, { expires: 7 })
-          Cookies.set('token', token, { expires: 7 })
+        if (formValidator(data, setData)) {
+          const { UserID, RoleID, LoginName, token } = (await logins({
+            username: data.username.value,
+            password: hashMD5(data.password.value)
+          })).data
+          if (stay) {
+            Cookies.set('UserID', UserID, { expires: 7 })
+            Cookies.set('RoleID', RoleID, { expires: 7 })
+            Cookies.set('LoginName', LoginName, { expires: 7 })
+            Cookies.set('token', token, { expires: 7 })
+          }
+          api.defaults.headers.common['Authorization'] = "Bearer " + token
+          navigate('/home')
+          dispatch(login({
+            UserID: UserID,
+            RoleID: RoleID,
+            LoginName: LoginName,
+            token: token
+          }))
+        } else {
+          throw new Error('บัญชีผู้ใช้ หรือ รหัสผ่าน ไม่เป็นไปตามรูปแบบที่กำหนด')
         }
-        api.defaults.headers.common['Authorization'] = "Bearer " + token
-        navigate('/home')
-        dispatch(login({
-          UserID: UserID,
-          RoleID: RoleID,
-          LoginName: LoginName,
-          token: token
-        }))
       } catch (error) {
-        console.log(error.response.data.message)
-        if (typeof error.response.data.message!== 'undefined') {
+        // console.log(error.response.data.message)
+        if (typeof error.response !== 'undefined') {
           Swal.fire({
             icon: 'error',
             title: 'ผิดพลาด',
             text: error.response.data.message
           })
         } else {
-          console.log(error)
-        }
+          Swal.fire({
+            icon: 'error',
+            title: 'ผิดพลาด',
+            text: error.message
+          })
+        }        
       }
     }
 
@@ -111,8 +118,8 @@ export default function Login() {
                 Gate Control System
             </Typography>
           </Box>
-          <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange} onKeyUp={handleValidatePassword}></DltTextField>
-          <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" autoComplete="current-password" onChange={handleChange} onKeyUp={handleValidatePassword} error={data.password.error} ></DltPasswordTextField>
+          <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
+          <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" onChange={handleChange}></DltPasswordTextField>
           <FormControlLabel
             control={<Checkbox value={stay} color="primary" onChange={handleCheck}/>}
             label="คงสถานะการเข้าสู่ระบบ"

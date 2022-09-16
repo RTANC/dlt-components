@@ -126,11 +126,11 @@ exports.getVehicleOut = async (req, res, next) => {
         if (typeof req.query.isConfirm !== 'undefined') {
             extWhere += `and IsConfirmed = ${req.query.isConfirm === 'true' ? 1 : 0}`
         }
-        const vehicles = await sequelize.query(`select *
+        const vehicles = await sequelize.query(`select VehicleOut.VehicleOutID as GlobalID, Transport.TransportID, VehicleOut.StationID, TimeStampTx, CompanyID, UserID, ObjectiveID, SrcProvinceID, SrcGoods, DstProvinceID, DstGoods, F1M, F1MPID, R1M, R1MPID, F1A, F1APID, R1A, R1APID, F2A, F2APID, R2A, R2APID, Transport.VehicleGroupID, Transport.VehicleClassID, VehicleOut.GrossWt, Transport.NoLoadWt, LoadWt, Transport.MaxWt, OverWt, IsConfirmed, VehicleIn.LaneID as VehInLaneID, VehicleIn.ImageRef as VehInImageRef, VehicleOut.LaneID as VehOutLaneID, VehicleOut.ImageRef as VehOutImageRef
         from VehicleOut
         inner join Transport on Transport.VehicleOutID = VehicleOut.VehicleOutID
         inner join VehicleIn on VehicleIn.VehicleInID = VehicleOut.VehicleInID
-        where VehicleOut.StationID = ${req.query.station} and (VehicleOut.TimeStampOut between '2021-08-17T00:00:00' and '2021-08-17T23:59:00') ${extWhere}`, { type: QueryTypes.SELECT })
+        where VehicleOut.StationID = ${req.query.station} and (VehicleOut.TimeStampOut between '${req.query.startDateTime}' and '${req.query.endDateTime}') ${extWhere}`, { type: QueryTypes.SELECT })
         res.status(200).send(vehicles)
     } catch (error) {
         next(error)

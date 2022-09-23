@@ -69,7 +69,7 @@ export default function UserForm() {
           error: false
         },
         isActive: {
-          value: true
+          value: 'true'
         }
     })
 

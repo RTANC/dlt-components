@@ -3,18 +3,17 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { getLicensePlates } from '../services/transports'
 import moment from 'moment'
+import { dateTimeFormatter, getImageURL, null2empty } from '../services/utils';
 
 export default function AutoCompleteSearchLP(props) {
-    const [value, setValue] = useState('')
     const [options, setOptions] = useState([])
     const [loading, setLoading] = useState(false)
 
-    const fetchLicenseplates = async (e, v) => {
+    const fetchLicenseplates = async (e, v, r) => {
       try {
         setLoading(true)
         if (v !== '') {
           const data = (await getLicensePlates(props.station, v)).data
-          console.log(v)
           setOptions(data)
         }
         
@@ -41,18 +40,18 @@ export default function AutoCompleteSearchLP(props) {
           filterSelectedOptions
           getOptionLabel={(option) => ''}
           renderOption={(props, option) => (
-            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} key={option.TransportID}>
+            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} key={option.VehicleInID}>
               <img
                 loading="lazy"
                 width="100"
-                src='https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=100&h=100&fit=crop&auto=format'
+                src={getImageURL(option.StationID, option.LaneID, option.TimeStampIn, option.ImageRef, 0)}
               />
               <img
                 loading="lazy"
                 width="100"
-                src='https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=100&h=100&fit=crop&auto=format'
+                src={getImageURL(option.StationID, option.LaneID, option.TimeStampIn, option.ImageRef, 1)}
               />
-              วัน และ เวลาเข้า: {moment(option.TimeStampIn).format('DD/MM/YYYY HH:mm:ss')} <br /> หน้า: {option.F1M + ' ' + option.F1MPNAME} <br /> หลัง: {option.R1M + ' ' + option.R1MPNAME}
+              วัน และ เวลาเข้า: {dateTimeFormatter(option.TimeStampIn)} <br /> หน้า: {null2empty(option.F1A)+ ' ' + null2empty(option.F1APName)} <br /> หลัง: {null2empty(option.R1A) + ' ' + null2empty(option.R1APName)}
             </Box>
           )}
           renderInput={(params) => (

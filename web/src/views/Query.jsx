@@ -14,13 +14,15 @@ import BtnClear from '../components/BtnClear'
 import DltTextField from '../components/DltTextField'
 import moment from 'moment'
 import { DataGrid } from '@mui/x-data-grid'
-import { dateTimeFormatter } from '../services/utils'
-import { getVehicleOut } from '../services/query'
+import { dateTimeFormatter, null2empty, timeStayIn } from '../services/utils'
+import { getTransport, getVehicleIn, getVehicleOut } from '../services/query'
 import { SquareEditOutline } from 'mdi-material-ui'
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined'
+import { useNavigate } from 'react-router-dom'
 
 export default function Query() {
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
   const [params, setParams] = useState({
     queryId: 1,
     station: 1,
@@ -71,33 +73,33 @@ export default function Query() {
     { field: 'VehicleGroupName', headerName: 'กลุ่มรถ', flex: 1 },
     { field: 'F1M', headerName: 'ทะเบียนหน้าขาเข้า', flex: 1, valueGetter: (params) => {
       try {
-        return params.value + ' ' + params.row.F1MPName
+        return null2empty(params.value) + ' ' + null2empty(params.row.F1MPName)
       } catch (error) {
         return ''
       }
     }},
     { field: 'R1M', headerName: 'ทะเบียนหลังขาเข้า', flex: 1, valueGetter: (params) => {
       try {
-        return params.value + ' ' + params.row.R1MPName
+        return null2empty(params.value) + ' ' + null2empty(params.row.R1MPName)
       } catch (error) {
         return ''
       }
     }},
     { field: 'F2A', headerName: 'ทะเบียนหน้าขาออก', flex: 1, valueGetter: (params) => {
       try {
-        return params.value + ' ' + params.row.F2APName
+        return null2empty(params.value) + ' ' + null2empty(params.row.F2APName)
       } catch (error) {
         return ''
       }
     }},
     { field: 'R2A', headerName: 'ทะเบียนหลังขาออก', flex: 1, valueGetter: (params) => {
       try {
-        return params.value + ' ' + params.row.R2APName
+        return null2empty(params.value) + ' ' + null2empty(params.row.R2APName)
       } catch (error) {
         return ''
       }
     }},
-    { field: 'ObjectiveName', headerName: 'วัตถุประสงค์', flex: 1, valueFormatter: (params) => {
+    { field: 'ObjectiveName', headerName: 'วัตถุประสงค์', flex: 1, hide: true , valueFormatter: (params) => {
       try {
         if (params.value !== '') {
           return params.value
@@ -130,9 +132,9 @@ export default function Query() {
         return ''
       }
     } },
-    { field: 'NoLoadWt', headerName: 'นน.รถเปล่า', flex: 0.3 },
-    { field: 'LoadWt', headerName: 'นน.พิกัด', flex: 0.3 },
-    { field: 'OverWt', headerName: 'นน.เกิน', flex: 0.3, valueFormatter: (params) => {
+    { field: 'NoLoadWt', headerName: 'นน.รถเปล่า', flex: 0.3, hide: true },
+    { field: 'LoadWt', headerName: 'นน.พิกัด', flex: 0.3, hide: true },
+    { field: 'OverWt', headerName: 'นน.เกิน', flex: 0.3, hide: true, valueFormatter: (params) => {
       try {
         if (params.value !== '' || params.value !== 'null') {
           if (params.value === 0) {
@@ -147,7 +149,7 @@ export default function Query() {
         return ''
       }
     }},
-    { field: 'IsConfirmed', headerName: 'ยืนยัน', flex: 0.3, valueFormatter: (params) => {
+    { field: 'IsConfirmed', headerName: 'ยืนยัน', flex: 0.3, hide: true , valueFormatter: (params) => {
       try {
         if (params.value !== '' || params.value !== 'null') {
           if (params.value === 0) {
@@ -162,15 +164,15 @@ export default function Query() {
         return ''
       }
     }},
-    { field: 'TimeUse', headerName: 'เวลาที่ใช้', flex: 0.3, valueGetter: (params) => {
+    { field: 'TimeUse', headerName: 'เวลาที่ใช้', flex: 1, valueGetter: (params) => {
       try {
-        return ''
+        return timeStayIn(params.row.TimeStampIn, params.row.TimeStampOut)
       } catch (error) {
         return ''
       }
     }},
-    { field: 'edit', headerName: 'แก้ไข', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/g1Vehicle/')}}><SquareEditOutline/></IconButton>)},
-    { field: 'print', headerName: 'พิมพ์', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/g1Vehicle/')}}><PrintOutlinedIcon/></IconButton>)},
+    { field: 'edit', headerName: 'แก้ไข', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/home')}}><SquareEditOutline/></IconButton>)},
+    { field: 'print', headerName: 'พิมพ์', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/home')}}><PrintOutlinedIcon/></IconButton>)},
     
   ]
 
@@ -179,8 +181,24 @@ export default function Query() {
   const search = async (e) => {
     try {
       setLoading(true)
-      const resp = (await getVehicleOut(params)).data
-      console.log(params)
+      let resp = []
+      if (params.queryId === 1) {
+        resp = (await getTransport(params)).data
+      } else if (params.queryId === 2) {
+        resp = (await getVehicleIn(params)).data
+      } else if (params.queryId === 3) {
+        resp = (await getVehicleOut(params)).data
+      }
+      switch (parseInt(params.queryId)) {
+        case 1: resp = (await getTransport(params)).data
+          break;
+        case 2: resp = (await getVehicleIn(params)).data
+          break;
+        case 3: resp = (await getVehicleOut(params)).data
+          break;
+        default: resp = []
+          break;
+      }
       setRows(resp)
     } catch (error) {
       console.log(error)

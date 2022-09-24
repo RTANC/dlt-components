@@ -1,6 +1,5 @@
-const { QueryTypes } = require('sequelize');
+const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
-const moment = require('moment-timezone')
 exports.getProvinces = async (req, res, next) => {
     try {
         const provinces = await sequelize.query("SELECT * FROM TxProvince where ProvinceID > 0", { type: QueryTypes.SELECT })
@@ -12,9 +11,9 @@ exports.getProvinces = async (req, res, next) => {
 
 exports.getLicensePlates = async (req, res, next) => {
     try {
-        const sql = `select TransportID, TimeStampIn, F1M, F1MPID, (select ProvinceName from LPProvince where ProvinceID = F1MPID) as F1MPNAME, R1M, R1MPID, (select ProvinceName from LPProvince where ProvinceID = R1MPID) as R1MPNAME
-        from Transport
-        where StationID = ${req.query.station} and (F1M like '${req.query.LPnumber}%' or R1M like '${req.query.LPnumber}%') and YEAR(TimeStampIn) = 2021 and MONTH(TimeStampIn) = 6`
+        const sql = `select TOP (1000) VehicleInID, StationID, TimeStampIn, LaneID, F1A, F1APID, (select ProvinceName from LPProvince where ProvinceID = F1APID) as F1APName, R1A, R1APID, (select ProvinceName from LPProvince where ProvinceID = R1APID) as R1APName, ImageRef
+        from VehicleIn
+        where StationID = ${req.query.station} and (F1A like '${req.query.LPnumber}%' or R1A like '${req.query.LPnumber}%') and (TimeStampIn between '2021-06-01' and '2021-06-30')`
 
         const licenseplates = await sequelize.query(sql, { type: QueryTypes.SELECT })
         res.status(200).send(licenseplates)

@@ -20,6 +20,7 @@ import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
 import BtnSave from '../components/BtnSave'
 import BtnClear from '../components/BtnClear'
 import { useSelector } from 'react-redux'
+import { removeSQLTz } from '../services/utils'
 
 export default function Home() {
 
@@ -37,22 +38,22 @@ export default function Home() {
     },
     isManualAddLPR: false,
     editLPR: false,
-    f1m: {
+    f1a: {
       value: '',
       error: false,
       rules: []
     },
-    f1mpId: {
+    f1apId: {
       value: '',
       error: false,
       rules: []
     },
-    r1m: {
+    r1a: {
       value: '',
       error: false,
       rules: []
     },
-    r1mpId: {
+    r1apId: {
       value: '',
       error: false,
       rules: []
@@ -100,13 +101,13 @@ export default function Home() {
   }
 
   const handleLPSearch = (e, v) => {
-    // transport.lpNumber.value = v.TransportID
-    transport.f1m.value = v.F1M
-    transport.f1mpId.value = v.F1MPID
-    transport.r1m.value = v.R1M
-    transport.r1mpId.value = v.R1MPID
-    transport.timeStampIn.value = v.TimeStampIn
-    console.log(v)
+    console.log(v.TimeStampIn.replace('.000Z', ''))
+    transport.f1a.value = v.F1A
+    transport.f1apId.value = v.F1APID
+    transport.r1a.value = v.R1A
+    transport.r1apId.value = v.R1APID
+    transport.timeStampIn.value = removeSQLTz(v.TimeStampIn)
+    
     setTransport({...transport})
   }
 
@@ -220,10 +221,10 @@ export default function Home() {
               <Grid item xs={12}>
                 <Divider></Divider>
               </Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' value={transport.f1m.value} readOnly></DltTextField></Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' value={transport.r1m.value} readOnly></DltTextField></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1mpId' value={transport.f1mpId.value} onChange={handleChangeValue} required error={transport.f1mpId.error}></SelectLPProvince></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1mpId' value={transport.r1mpId.value} onChange={handleChangeValue} required error={transport.r1mpId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' value={transport.f1a.value} readOnly></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' value={transport.r1a.value} readOnly></DltTextField></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={12}>
                 <ImageListLP></ImageListLP>
               </Grid>

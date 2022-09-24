@@ -67,7 +67,7 @@ export function timeStayIn (timeStampIn, timeStampOut) {
             const now = moment().utc()
             const hours = now.diff(timeStampIn, 'hours')
             const minuts = now.diff(timeStampIn, 'minutes')
-        return  hours.toString() + ' ชม. ' +  (minuts - (hours * 60)).toString()  + ' นาที' 
+            return  hours.toString() + ' ชม. ' +  (minuts - (hours * 60)).toString()  + ' นาที' 
         } else {
             return '-'
         }
@@ -78,6 +78,14 @@ export function SQLDateTimeFormatter(dateTime) {
     return moment(dateTime).format('YYYY-MM-DDTHH:mm:ss')
 }
 
+export function removeSQLTz (dtStr) {
+    return dtStr.replace('.000Z', '')
+}
+
 export function str2bool (str) {
     return str === 'true' ? true : false
+}
+
+export function null2empty (str) {
+    return str !== null ? str : ''
 }

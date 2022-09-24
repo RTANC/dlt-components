@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { getUsers, getUser, createUser, updateUser, getCompanies, getCompany, getG1Vehicles, getG1Vehicle, createG1Vehicle, updateG1Vehicle, getG2Vehicles, getG2Vehicle, createG2Vehicle, updateG2Vehicle, getG2VehicleRules, getG2VehicleRule, updateG2VehicleRule, getG2Rules, getIncidents, getIncident, createIncident, updateIncident, deleteIncident } = require('./managements.controller')
+const { getUsers, getUser, createUser, updateUser, getCompanies, getCompany, updateCompany, getG1Vehicles, getG1Vehicle, createG1Vehicle, updateG1Vehicle, getG2Vehicles, getG2Vehicle, createG2Vehicle, updateG2Vehicle, getG2VehicleRules, getG2VehicleRule, updateG2VehicleRule, getG2Rules, getIncidents, getIncident, createIncident, updateIncident, deleteIncident } = require('./managements.controller')
 
 router.get('/users', getUsers)
 router.get('/users/:uid', getUser)
@@ -10,6 +10,7 @@ router.patch('/users/:id', updateUser)
 
 router.get('/company', getCompanies)
 router.get('/company/:companyId', getCompany)
+router.patch('/company/:companyId', updateCompany)
 
 router.get('/G1/vehicles', getG1Vehicles)
 router.get('/G1/vehicles/:id', getG1Vehicle)

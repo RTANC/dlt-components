@@ -42,6 +42,8 @@ export default function Company() {
         switch (params.value) {
           case 1: return 'ไม่ประจำทาง'
           break
+          case 2: return 'ส่วนบุคคล'
+          break
         }
       }
     } },
@@ -49,6 +51,10 @@ export default function Company() {
       if (!!params.value) {
         switch (params.value) {
           case 1: return 'ในประเทศ' 
+          break
+          case 2: return 'ระหว่างประเทศ'
+          break
+          case 3: return 'ในประเทศ/ระหว่างประเทศ'
           break
         }
       }

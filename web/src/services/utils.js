@@ -73,3 +73,11 @@ export function timeStayIn (timeStampIn, timeStampOut) {
         }
     }
 }
+
+export function SQLDateTimeFormatter(dateTime) {
+    return moment(dateTime).format('YYYY-MM-DDTHH:mm:ss')
+}
+
+export function str2bool (str) {
+    return str === 'true' ? true : false
+}

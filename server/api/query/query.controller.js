@@ -111,26 +111,29 @@ exports.getVehicleOut = async (req, res, next) => {
             const bitpower = Math.pow(2, parseInt(req.query.goodCategory) - 1)
             extWhere += ` and (((SrcGoods & ${bitpower}) = ${bitpower}) or ((DstGoods & ${bitpower}) = ${bitpower}))`
         }
-        if (typeof req.query.lp !== 'undefined') {
+        if (req.query.lp !== '') {
             extWhere += ` and ((F1M like '%${req.query.lp}%') or (R1M like '%${req.query.lp}%'))`
         }
-        if (req.query.isVehicleInStation === 'true') {
+        if (req.query.isVehicleInStation == true) {
             extWhere += ` and TimeStampOut IS NULL`
         }
-        if (req.query.isOverWeight === 'true') {
+        if (req.query.isOverWeight == true) {
             extWhere += ` and OverWt > 0`
         }
         if (parseInt(req.query.vehicleGroup) > 0) {
             extWhere += `and VehicleGroupID = ${req.query.vehicleGroup}`
         }
-        if (typeof req.query.isConfirm !== 'undefined') {
-            extWhere += `and IsConfirmed = ${req.query.isConfirm === 'true' ? 1 : 0}`
+        if (req.query.isConfirm !== '') {
+            extWhere += ` and IsConfirmed = ${req.query.isConfirm === 'true' ? 1 : 0}`
         }
-        const vehicles = await sequelize.query(`select VehicleOut.VehicleOutID as GlobalID, Transport.TransportID, VehicleOut.StationID, TimeStampTx, CompanyID, UserID, ObjectiveID, SrcProvinceID, SrcGoods, DstProvinceID, DstGoods, F1M, F1MPID, R1M, R1MPID, F1A, F1APID, R1A, R1APID, F2A, F2APID, R2A, R2APID, Transport.VehicleGroupID, Transport.VehicleClassID, VehicleOut.GrossWt, Transport.NoLoadWt, LoadWt, Transport.MaxWt, OverWt, IsConfirmed, VehicleIn.LaneID as VehInLaneID, VehicleIn.ImageRef as VehInImageRef, VehicleOut.LaneID as VehOutLaneID, VehicleOut.ImageRef as VehOutImageRef
+        
+        const vehicles = await sequelize.query(`select VehicleOut.VehicleOutID as id, Transport.TransportID, TimeStampTx, VehicleIn.TimeStampIn, VehicleOut.TimeStampOut, (select CompanyName from Company where CompanyID = Transport.CompanyID) as CompanyName, (select Description from VehicleClass where VehicleClassID = Transport.VehicleClassID) as VehicleClassName, (select Description from VehicleGroup where VehicleGroupID = Transport.VehicleGroupID) as VehicleGroupName, (select ObjectiveDescription from Objective where ObjectiveID = Transport.ObjectiveID) as ObjectiveName, (select ProvinceName from TxProvince where ProvinceID = SrcProvinceID) as SrcProvinceName, (select ProvinceName from TxProvince where ProvinceID = DstProvinceID) as DstProvinceName, F1M, (select ProvinceName from LPProvince where ProvinceID = F1MPID) as F1MPName, R1M, (select ProvinceName from LPProvince where ProvinceID = R1MPID) as R1MPName, F2A, (select ProvinceName from LPProvince where ProvinceID = F2APID) as F2APName, R2A, (select ProvinceName from LPProvince where ProvinceID = R2APID) as R2APName, VehicleOut.GrossWt, Transport.NoLoadWt, LoadWt, Transport.MaxWt, OverWt, IsConfirmed, VehicleIn.LaneID as VehInLaneID, VehicleIn.ImageRef as VehInImageRef, VehicleOut.LaneID as VehOutLaneID, VehicleOut.ImageRef as VehOutImageRef
         from VehicleOut
         inner join Transport on Transport.VehicleOutID = VehicleOut.VehicleOutID
         inner join VehicleIn on VehicleIn.VehicleInID = VehicleOut.VehicleInID
         where VehicleOut.StationID = ${req.query.station} and (VehicleOut.TimeStampOut between '${req.query.startDateTime}' and '${req.query.endDateTime}') ${extWhere}`, { type: QueryTypes.SELECT })
+        
+        console.log(req.query.isConfirm);
         res.status(200).send(vehicles)
     } catch (error) {
         next(error)

@@ -69,7 +69,7 @@ export default function UserForm() {
           error: false
         },
         isActive: {
-          value: 'true'
+          value: true
         }
     })
 
@@ -83,6 +83,13 @@ export default function UserForm() {
               break;
             case 3: user['agency'].value = 194
               break;
+          }
+        }
+        if (e.target.name === 'isActive') {
+          if (e.target.value === 'true') {
+            user[e.target.name].value = true
+          } else {
+            user[e.target.name].value = false
           }
         }
         setUser({...user})

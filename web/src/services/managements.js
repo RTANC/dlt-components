@@ -32,6 +32,10 @@ export function getCompany (id) {
     return api.get('/managements/company/' + id)
 }
 
+export function updateCompany (id, company) {
+    return api.patch('/managements/company/' + id, company)
+}
+
 export function getG1Vehicles (stationId, companyId, text) {
     let query = ''
     if (!!companyId) {

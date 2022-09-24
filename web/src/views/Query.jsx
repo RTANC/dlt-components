@@ -1,4 +1,4 @@
-import { Container, Grid, Slide, Card, CardContent, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CardActions, Box, Stack, CardHeader } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CardActions, Box, Stack, CardHeader, IconButton } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -15,6 +15,9 @@ import DltTextField from '../components/DltTextField'
 import moment from 'moment'
 import { DataGrid } from '@mui/x-data-grid'
 import { dateTimeFormatter } from '../services/utils'
+import { getVehicleOut } from '../services/query'
+import { SquareEditOutline } from 'mdi-material-ui'
+import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined'
 
 export default function Query() {
   const [loading, setLoading] = useState(false)
@@ -36,8 +39,7 @@ export default function Query() {
   })
 
   const columns = [
-    { field: 'id', headerName: 'ID', flex: 0.3 },
-    { field: 'timeStemp', headerName: 'วัน-เวลา บันทึกข้อมูล', sortable: true, flex: 1, valueFormatter: (params) => {
+    { field: 'TimeStampTx', headerName: 'วัน-เวลา บันทึกข้อมูล', sortable: true, flex: 1, valueFormatter: (params) => {
       try {
         if (!!params.value) {
           return dateTimeFormatter(params.value)
@@ -46,7 +48,7 @@ export default function Query() {
         return ''
       }
     } },
-    { field: 'InTimeStemp', headerName: 'วัน-เวลา เข้า', sortable: true, flex: 1, valueFormatter: (params) => {
+    { field: 'TimeStampIn', headerName: 'วัน-เวลา เข้า', sortable: true, flex: 1, valueFormatter: (params) => {
       try {
         if (!!params.value) {
           return dateTimeFormatter(params.value)
@@ -55,7 +57,7 @@ export default function Query() {
         return ''
       }
     } },
-    { field: 'OutTimeStemp', headerName: 'วัน-เวลา ออก', sortable: true, flex: 1, valueFormatter: (params) => {
+    { field: 'TimeStampOut', headerName: 'วัน-เวลา ออก', sortable: true, flex: 1, valueFormatter: (params) => {
       try {
         if (!!params.value) {
           return dateTimeFormatter(params.value)
@@ -65,9 +67,111 @@ export default function Query() {
       }
     } },
     { field: 'CompanyName', headerName: 'ผู้ประกอบการ', flex: 1 },
-    { field: 'vehicleClass', headerName: 'ประเภทรถ', flex: 1 },
-    { field: 'vehicleGroup', headerName: 'กลุ่มรถ', flex: 1 },
-    { field: 'f1In', headerName: 'ทะเบียนหน้าขาเข้า', flex: 1 }
+    { field: 'VehicleClassName', headerName: 'ประเภทรถ', flex: 1 },
+    { field: 'VehicleGroupName', headerName: 'กลุ่มรถ', flex: 1 },
+    { field: 'F1M', headerName: 'ทะเบียนหน้าขาเข้า', flex: 1, valueGetter: (params) => {
+      try {
+        return params.value + ' ' + params.row.F1MPName
+      } catch (error) {
+        return ''
+      }
+    }},
+    { field: 'R1M', headerName: 'ทะเบียนหลังขาเข้า', flex: 1, valueGetter: (params) => {
+      try {
+        return params.value + ' ' + params.row.R1MPName
+      } catch (error) {
+        return ''
+      }
+    }},
+    { field: 'F2A', headerName: 'ทะเบียนหน้าขาออก', flex: 1, valueGetter: (params) => {
+      try {
+        return params.value + ' ' + params.row.F2APName
+      } catch (error) {
+        return ''
+      }
+    }},
+    { field: 'R2A', headerName: 'ทะเบียนหลังขาออก', flex: 1, valueGetter: (params) => {
+      try {
+        return params.value + ' ' + params.row.R2APName
+      } catch (error) {
+        return ''
+      }
+    }},
+    { field: 'ObjectiveName', headerName: 'วัตถุประสงค์', flex: 1, valueFormatter: (params) => {
+      try {
+        if (params.value !== '') {
+          return params.value
+        } else {
+          return 'อื่นๆ'
+        }
+      } catch (error) {
+        return ''
+      }
+    } },
+    { field: 'SrcProvinceName', headerName: 'จังหวัดต้นทาง', valueFormatter: (params) => {
+      try {
+        if (params.value !== '' || params.value !== 'null') {
+          return params.value
+        } else {
+          return ''
+        }
+      } catch (error) {
+        return ''
+      }
+    } },
+    { field: 'DstProvinceName', headerName: 'จังหวัดปลายทาง', valueFormatter: (params) => {
+      try {
+        if (params.value !== '' || params.value !== 'null') {
+          return params.value
+        } else {
+          return ''
+        }
+      } catch (error) {
+        return ''
+      }
+    } },
+    { field: 'NoLoadWt', headerName: 'นน.รถเปล่า', flex: 0.3 },
+    { field: 'LoadWt', headerName: 'นน.พิกัด', flex: 0.3 },
+    { field: 'OverWt', headerName: 'นน.เกิน', flex: 0.3, valueFormatter: (params) => {
+      try {
+        if (params.value !== '' || params.value !== 'null') {
+          if (params.value === 0) {
+            return 'ไม่'
+          } else {
+            return 'ใช่'
+          }
+        } else {
+          return ''
+        }
+      } catch (error) {
+        return ''
+      }
+    }},
+    { field: 'IsConfirmed', headerName: 'ยืนยัน', flex: 0.3, valueFormatter: (params) => {
+      try {
+        if (params.value !== '' || params.value !== 'null') {
+          if (params.value === 0) {
+            return 'ไม่'
+          } else {
+            return 'ใช่'
+          }
+        } else {
+          return ''
+        }
+      } catch (error) {
+        return ''
+      }
+    }},
+    { field: 'TimeUse', headerName: 'เวลาที่ใช้', flex: 0.3, valueGetter: (params) => {
+      try {
+        return ''
+      } catch (error) {
+        return ''
+      }
+    }},
+    { field: 'edit', headerName: 'แก้ไข', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/g1Vehicle/')}}><SquareEditOutline/></IconButton>)},
+    { field: 'print', headerName: 'พิมพ์', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/g1Vehicle/')}}><PrintOutlinedIcon/></IconButton>)},
+    
   ]
 
   const [rows, setRows] = useState([])
@@ -75,8 +179,9 @@ export default function Query() {
   const search = async (e) => {
     try {
       setLoading(true)
-      
-      // console.log(err)      
+      const resp = (await getVehicleOut(params)).data
+      console.log(params)
+      setRows(resp)
     } catch (error) {
       console.log(error)
     } finally {
@@ -89,8 +194,8 @@ export default function Query() {
       queryId: 1,
       station: 1,
       company: '',
-      startDateTime: moment(),
-      endDateTime: moment().add(1, 'day'),
+      startDateTime: moment().startOf('day'),
+      endDateTime: moment().endOf('day'),
       inProvince: '',
       outProvince: '',
       vehicleClass: '',
@@ -107,6 +212,7 @@ export default function Query() {
     params[e.target.name] = e.target.value
     setParams({...params})
   }
+
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
       <Container>
@@ -129,10 +235,10 @@ export default function Query() {
                   <SelectStation value={params.station} name='station' onChange={handleChange} required></SelectStation>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <DltDateTimePicker value={params.startDateTime} label='วันเวลา-เริ่มต้น' name='startDateTime' onChange={handleChange} required maxDateTime={new Date(params.endDateTime)}></DltDateTimePicker>
+                  <DltDateTimePicker value={params.startDateTime} label='วันเวลา-เริ่มต้น' name='startDateTime' onChange={e => {params.startDateTime = e;setParams({...params})}} required maxDateTime={new Date(params.endDateTime)}></DltDateTimePicker>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <DltDateTimePicker value={params.endDateTime} label='วันเวลา-สิ้นสุด' name='endDateTime' onChange={handleChange} required minDateTime={new Date(params.startDateTime)}></DltDateTimePicker>
+                  <DltDateTimePicker value={params.endDateTime} label='วันเวลา-สิ้นสุด' name='endDateTime' onChange={e => {params.endDateTime = e;setParams({...params})}} required minDateTime={new Date(params.startDateTime)}></DltDateTimePicker>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <SelectCompany value={params.company} name='company' onChange={handleChange} station={params.station}></SelectCompany>
@@ -144,19 +250,19 @@ export default function Query() {
                   <SelectProvince value={params.outProvince} label='จังหวัดปลายทาง' name='outProvince' onChange={handleChange}></SelectProvince>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectVehicleClass value={params.vehicleClass} label='ประเภทรถ' onChange={handleChange}></SelectVehicleClass>
+                  <SelectVehicleClass value={params.vehicleClass} name='vehicleClass' label='ประเภทรถ' onChange={handleChange}></SelectVehicleClass>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectGoodCategory value={params.goodCategory} label='ประเภทสินค้า' onChange={handleChange}></SelectGoodCategory>
+                  <SelectGoodCategory value={params.goodCategory} name='goodCategory' label='ประเภทสินค้า' onChange={handleChange}></SelectGoodCategory>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectVehicleGroup value={params.vehicleGroup} label='กลุ่มรถ' onChange={handleChange}></SelectVehicleGroup>
+                  <SelectVehicleGroup value={params.vehicleGroup} name='vehicleGroup' label='กลุ่มรถ' onChange={handleChange}></SelectVehicleGroup>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectIsConfirm value={params.isConfirm} label='ยืนยันรายการ' onChange={handleChange}></SelectIsConfirm>
+                  <SelectIsConfirm value={params.isConfirm} name='isConfirm' label='ยืนยันรายการ' onChange={handleChange}></SelectIsConfirm>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <DltTextField label='ทะเบียนรถ' value={params.lp} onChange={handleChange}></DltTextField>
+                  <DltTextField label='ทะเบียนรถ' value={params.lp} name='lp' onChange={handleChange}></DltTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <CheckBoxVehicleStatus isVehicleInStation={params.isVehicleInStation} isOverWeight={params.isOverWeight} onChange={(e) => {setParams({...params, [e.target.name]: e.target.checked})}}></CheckBoxVehicleStatus>

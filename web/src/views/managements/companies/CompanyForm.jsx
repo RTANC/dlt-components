@@ -6,14 +6,18 @@ import SelectStation from '../../../components/SelectStation'
 import DltTextField from '../../../components/DltTextField'
 import { LoadingButton } from '@mui/lab'
 import { useParams, useNavigate } from 'react-router-dom'
-import { validator } from '../../../services/validator'
+import formValidator, { validator } from '../../../services/validator'
 import RadioBoxIsActiveUser from '../../../components/RadioBoxIsActiveUser'
 import SelectTransportType from '../../../components/SelectTransportType'
 import SelectTransportScope from '../../../components/SelectTransportScope'
-import { getCompany } from '../../../services/managements'
+import { getCompany, updateCompany } from '../../../services/managements'
+import BtnBack from '../../../components/BtnBack'
+import BtnSave from '../../../components/BtnSave'
+import { getKeyValue } from '../../../services/utils'
 
 export default function CompanyForm() {
     const [loading, setLoading] = useState(false)
+    const [valid, setValid] = useState(false)
     const [editMode, setEditMode] = useState(false)
     const { companyId } = useParams()
     const navigate = useNavigate()
@@ -41,22 +45,30 @@ export default function CompanyForm() {
         },
         transportLicense: {
             value: '',
-            rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
+            rules: [(v) => (v.trim() !== '') || '*ข้อมูลจำเป็น'],
             error: false
         },
         isActive: {
-            value: false
+            value: 'false'
         }
     })
 
     const handleValueChange = (e) => {
         company[e.target.name].value = e.target.value
+        if (e.target.name === 'isActive') {
+            if (e.target.value === 'true') {
+                company[e.target.name].value = true
+            } else {
+                company[e.target.name].value = false
+            }
+        }
         setCompany({...company})
     }
 
     const handleValidateValue = (e) => {
-        company[e.target.name].error = validator(e.target.value, company[e.target.name].rules)
-        setCompany({...company})
+        // company[e.target.name].error = validator(e.target.value, company[e.target.name].rules)
+        // setCompany({...company})
+        setValid(formValidator(company, setCompany))
     }
 
     const init = async () => {
@@ -74,6 +86,7 @@ export default function CompanyForm() {
             company.transportLicense.value = data.TransportLicenseID
             company.isActive.value = data.IsActive
             setCompany({...company})
+            setValid(formValidator(company, setCompany))
         } catch (error) {
           console.log(error)
         }
@@ -81,7 +94,8 @@ export default function CompanyForm() {
 
     const save  = async () => {
         try {
-
+            await updateCompany(companyId, getKeyValue(company))
+            navigate(-1)
         } catch (error) {
             console.log(error)
         }
@@ -137,8 +151,8 @@ export default function CompanyForm() {
                 <Card>
                   <CardActions>
                     <Box sx={{width: '100%', display:'flex', justifyContent:'center', alignContent: 'center'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel} startIcon={<CancelIcon/>}>ย้อนกลับ</LoadingButton>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='success' variant='contained' onClick={save} startIcon={<SaveIcon/>}>บันทึกข้อมูล</LoadingButton>
+                        <BtnBack loading={loading} onClick={cancel}></BtnBack>
+                        <BtnSave loading={loading} disabled={!valid} onClick={save}></BtnSave>
                     </Box>
                   </CardActions>
                 </Card>

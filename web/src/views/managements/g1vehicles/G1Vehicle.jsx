@@ -53,7 +53,7 @@ export default function G1Vehicle() {
       const columns = [
         { field: 'id', headerName: 'ที่', flex: 0.3 },
         { field: 'IsActive', headerName: 'สถานะ', flex: 0.5, valueFormatter: (params) => {
-          if (params.value === 1) {
+          if (params.value) {
             return 'เปิดใช้งาน'
           } else {
             return 'ปิดการใช้งาน'

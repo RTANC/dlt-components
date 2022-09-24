@@ -14,7 +14,7 @@ import { createG1Vehicle, getG1Vehicle, updateG1Vehicle } from '../../../service
 import BtnSave from '../../../components/BtnSave'
 import BtnClear from '../../../components/BtnClear'
 import formValidator from '../../../services/validator'
-import { getKeyValue } from '../../../services/utils'
+import { getKeyValue, str2bool } from '../../../services/utils'
 
 export default function G1VehicleForm() {
     const navigate = useNavigate()
@@ -57,12 +57,15 @@ export default function G1VehicleForm() {
           rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         isActive: {
-          value: true
+          value: 'true'
         }
     })
 
     const handleValueChange = (e) => {
         g1Vehicle[e.target.name].value = e.target.value
+        if (e.target.name === 'isActive') {
+          g1Vehicle[e.target.name].value = str2bool(e.target.value)
+        }
         setG1Vehicle({...g1Vehicle})
         setValid(formValidator(g1Vehicle, setG1Vehicle))
     }

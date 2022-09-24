@@ -38,7 +38,7 @@ export default function Login() {
       setStay(e.target.checked)
     }
 
-    const handleValidatePassword = (e) => {
+    const handleEnterKey = (e) => {
       if (e.key === 'Enter') {
         handleSubmit()
       }
@@ -119,7 +119,7 @@ export default function Login() {
             </Typography>
           </Box>
           <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
-          <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" onChange={handleChange}></DltPasswordTextField>
+          <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" onChange={handleChange} onKeyUp={handleEnterKey}></DltPasswordTextField>
           <FormControlLabel
             control={<Checkbox value={stay} color="primary" onChange={handleCheck}/>}
             label="คงสถานะการเข้าสู่ระบบ"

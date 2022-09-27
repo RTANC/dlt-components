@@ -2,7 +2,6 @@ import { Autocomplete, CircularProgress, FormControl, FormHelperText, InputLabel
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { getLicensePlates } from '../services/transports'
-import moment from 'moment'
 import { dateTimeFormatter, getImageURL, null2empty } from '../services/utils';
 
 export default function AutoCompleteSearchLP(props) {

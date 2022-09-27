@@ -20,11 +20,11 @@ import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
 import BtnSave from '../components/BtnSave'
 import BtnClear from '../components/BtnClear'
 import { useSelector } from 'react-redux'
-import { removeSQLTz } from '../services/utils'
+import { getImageURL, removeSQLTz } from '../services/utils'
 
 export default function Home() {
-
   const [loading, setLoading] = useState(false)
+  const [images, setImages] = useState(['/static/Image_Mock.png','/static/Image_Mock.png','/static/Image_Mock.png','/static/Image_Mock.png'])
   const [transport, setTransport] = useState({
     station: {
       value: 1,
@@ -88,7 +88,9 @@ export default function Home() {
       other: '',
       rules: [],
       error: false
-    }
+    },
+    transportId: null,
+    vehicleInId: null
   })
 
   switch (transport.mode) {
@@ -101,14 +103,23 @@ export default function Home() {
   }
 
   const handleLPSearch = (e, v) => {
-    console.log(v.TimeStampIn.replace('.000Z', ''))
+    console.log(v)
     transport.f1a.value = v.F1A
     transport.f1apId.value = v.F1APID
     transport.r1a.value = v.R1A
     transport.r1apId.value = v.R1APID
     transport.timeStampIn.value = removeSQLTz(v.TimeStampIn)
-    
+    transport.transportId = v.TransportID
+    transport.vehicleInId = v.VehicleInID
+
+    setImages([getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 0),
+      getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 1),
+      getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 2),
+      getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 3)])
+
+
     setTransport({...transport})
+    console.log(transport)
   }
 
   const handleChangeValue = (e) => {
@@ -226,7 +237,7 @@ export default function Home() {
               <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={12}>
-                <ImageListLP></ImageListLP>
+                <ImageListLP images={images}></ImageListLP>
               </Grid>
               <Grid item xs={12}>
                 <Divider></Divider>

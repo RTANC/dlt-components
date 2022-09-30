@@ -34,8 +34,8 @@ export default function CheckBoxGoodCategory(props) {
                     <FormControlLabel control={<Checkbox name='13' checked={props.value[13]} onChange={props.onChange}></Checkbox>} label='สินค้าอุตสาหกรรม (อุปกรณ์คอมพิวเตอร์)'></FormControlLabel>
                     <FormControlLabel control={<Checkbox name='14' checked={props.value[14]} onChange={props.onChange}></Checkbox>} label='สินค้าอื่นๆ'></FormControlLabel>
                     <TextField name='0' value={props.value[0]} onChange={props.onChange} placeholder='โปรดระบุ' disabled={props.value[14] ? false : true}></TextField>
-                    {(props.value[14] && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
-                    {(props.value[14] && props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
+                    {(!(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
+                    {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
                   </Stack>
                 </Grid>
               </Grid>

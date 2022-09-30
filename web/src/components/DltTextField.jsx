@@ -29,7 +29,7 @@ DltTextField.defaultProps = {
   disabled: false,
   readOnly: false,
   autoFocus: false,
-  focused: true,
+  focused: false,
   type: 'text',
   onKeyUp: (e) => {}
 }

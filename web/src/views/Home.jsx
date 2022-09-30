@@ -21,6 +21,7 @@ import BtnSave from '../components/BtnSave'
 import BtnClear from '../components/BtnClear'
 import { useSelector } from 'react-redux'
 import { getImageURL, removeSQLTz } from '../services/utils'
+import { createTransport, getTransport } from '../services/transports'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -75,34 +76,45 @@ export default function Home() {
     },
     isVehicleOut: false,
     mode: 1,
-    rx: {
-      province: '',
-      goods: ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      other: '',
-      rules: [],
+    srcProvince: {
+      value: ''
+    },
+    srcGoods: {
+      value: ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      get rules () {
+        if (!(this.value.every(v => !v))) {
+          this.error = false
+        } else {
+          this.error = '*ข้อมูลจำเป็น'
+        }
+      },
       error: false
     },
-    tx: {
-      province: '',
-      goods: ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      other: '',
-      rules: [],
-      error: false
+    srcGoodsOther: {
+      value: ''
+    },
+    dstProvince: {
+      value: ''
+    },
+    dstGoods: {
+      value: ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      error: false,
+      get rules () {
+        if (!(this.value.every(v => !v))) {
+          this.error = false
+        } else {
+          this.error = '*ข้อมูลจำเป็น'
+        }
+      }
+    },
+    dstGoodsOther: {
+      value: ''
     },
     transportId: null,
     vehicleInId: null
   })
 
-  switch (transport.mode) {
-    case 1: transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
-    break
-    case 2: transport.tx.rules = [!(transport.tx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
-    break
-    default: transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
-    transport.tx.rules = [!(transport.tx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
-  }
-
-  const handleLPSearch = (e, v) => {
+  const handleLPSearch = async (e, v) => {
     console.log(v)
     transport.f1a.value = v.F1A
     transport.f1apId.value = v.F1APID
@@ -111,15 +123,17 @@ export default function Home() {
     transport.timeStampIn.value = removeSQLTz(v.TimeStampIn)
     transport.transportId = v.TransportID
     transport.vehicleInId = v.VehicleInID
+    transport.station.value = v.StationID
 
     setImages([getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 0),
       getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 1),
       getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 2),
       getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 3)])
 
-
+    if (v.TransportID !== null) {
+      (await getTransport(transport.transportId)).data
+    }
     setTransport({...transport})
-    console.log(transport)
   }
 
   const handleChangeValue = (e) => {
@@ -129,42 +143,31 @@ export default function Home() {
 
   const handleRxGoodCategory = (e) => {
     if (parseInt(e.target.name) === 0) {
-      transport.rx.goods[0] = e.target.value
+      transport.srcGoods.value[0] = e.target.value
     } else {
-      transport.rx.goods[parseInt(e.target.name)] = e.target.checked
+      transport.srcGoods.value[parseInt(e.target.name)] = e.target.checked
     }
 
-    if (transport.rx.goods[14] === false) {
-      transport.rx.goods[0] = ''
+    if (transport.srcGoods.value[14] === false) {
+      transport.srcGoods.value[0] = ''
     }
 
-    if (transport.mode !== 2) {
-      transport.rx.rules = [!(transport.rx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
-    } else {
-      transport.rx.rules = []
-      transport.rx.error = false
-    }
-    setTransport({...transport, rx: {...transport.rx}})
+
+    setTransport({...transport})
   }
 
   const handleTxGoodCategory = (e) => {
     if (parseInt(e.target.name) === 0) {
-      transport.tx.goods[0] = e.target.value
+      transport.dstGoods.value[0] = e.target.value
     } else {
-      transport.tx.goods[parseInt(e.target.name)] = e.target.checked
+      transport.dstGoods.value[parseInt(e.target.name)] = e.target.checked
     }
 
-    if (transport.tx.goods[14] === false) {
-      transport.tx.goods[0] = ''
+    if (transport.dstGoods.value[14] === false) {
+      transport.dstGoods.value[0] = ''
     }
 
-    if (transport.mode !== 1) {
-      transport.tx.rules = [!(transport.tx.goods.every(v => !v)) || '*ข้อมูลจำเป็น']
-    } else {
-      transport.tx.rules = []
-      transport.tx.error = false
-    }
-    setTransport({...transport, tx: {...transport.tx}})
+    setTransport({...transport})
   }
 
   const save = async (e) => {
@@ -172,7 +175,25 @@ export default function Home() {
       e.preventDefault()
       setLoading(true)
       if (formValidator(transport, setTransport)) {
-
+        const payload = { StationID: transport.station.value,
+          CompanyID: transport.company.value,
+          ObjectiveID: transport.objective.value,
+          SrcProvinceID: transport.srcProvince.value,
+          SrcGoods: 0,
+          SrcGoodsOther: '',
+          DstProvinceID: transport.dstProvince.value,
+          DstGoods: 0,
+          DstGoodsOther: '',
+          VehicleInID: transport.vehicleInId,
+          TimeStampIn: transport.timeStampIn.value,
+          F1M: transport.f1a.value,
+          F1MPID: transport.f1apId.value,
+          R1M: transport.r1a.value,
+          R1MPID: transport.r1apId.value,
+          VehicleClassID: transport.vehicleClass.value }
+        if (transport.transportId === null) {
+          await createTransport(payload)
+        }
       }
       console.log(transport)
     } catch (error) {
@@ -269,13 +290,13 @@ export default function Home() {
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}><Typography variant='h5'>ส่งสินค้าเข้าสถานนี</Typography></Grid>
                   <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
-                    <SelectProvince value={transport.rx.province} name='rxProvince' label='จังหวัดต้นทาง' onChange={(e) => {setTransport({...transport, rx: {...transport.rx, province: e.target.value}})}}></SelectProvince>
+                    <SelectProvince value={transport.srcProvince.value} name='srcProvince' label='จังหวัดต้นทาง' onChange={handleChangeValue}></SelectProvince>
                   </Grid>
                   <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
                     <SelectStation value={transport.station.value} readonly></SelectStation>
                   </Grid>
                   <Grid item xs={12}>
-                    <CheckBoxGoodCategory value={transport.rx.goods} onChange={handleRxGoodCategory} required error={transport.rx.error} xs={(transport.mode !== 3) ? 6 : 12}></CheckBoxGoodCategory>
+                    <CheckBoxGoodCategory value={transport.srcGoods.value} onChange={handleRxGoodCategory} required error={transport.srcGoods.error} xs={(transport.mode !== 3) ? 6 : 12}></CheckBoxGoodCategory>
                   </Grid>
                 </Grid>
               </Grid>}
@@ -286,10 +307,10 @@ export default function Home() {
                     <SelectStation value={transport.station.value} readonly></SelectStation>
                   </Grid>
                   <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
-                  <SelectProvince value={transport.tx.province} name='txProvince' label='จังหวัดปลายทาง' onChange={(e) => {setTransport({...transport, tx: {...transport.tx, province: e.target.value}})}}></SelectProvince>
+                  <SelectProvince value={transport.dstProvince.value} name='dstProvince' label='จังหวัดปลายทาง' onChange={handleChangeValue}></SelectProvince>
                   </Grid>
                   <Grid item xs={12}>
-                    <CheckBoxGoodCategory value={transport.tx.goods} onChange={handleTxGoodCategory} required error={transport.tx.error} xs={(transport.mode !== 3) ? 6 : 12}></CheckBoxGoodCategory>
+                    <CheckBoxGoodCategory value={transport.dstGoods.value} onChange={handleTxGoodCategory} required error={transport.dstGoods.error} xs={(transport.mode !== 3) ? 6 : 12}></CheckBoxGoodCategory>
                   </Grid>
                 </Grid>
               </Grid>}

@@ -18,7 +18,7 @@ export default function SelectVehicleClass(props) {
         fetchVehicleClasses()
       }, [])
   return (
-    <FormControl fullWidth error={props.error !== false} focused color='warning'>
+    <FormControl fullWidth error={props.error !== false} color='warning'>
       <InputLabel>ประเภทรถ</InputLabel>
       <Select onChange={props.onChange} value={props.value} name={props.name} label='ประเภทรถ'>
           {vehicleClasses.map((v, i) => (

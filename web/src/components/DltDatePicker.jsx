@@ -24,7 +24,7 @@ export default function DltDatePicker(props) {
             maxDateTime={props.maxDateTime}
             disabled={props.disabled}
             readOnly={props.readOnly}
-            renderInput={(params) => {params.inputProps.value =  moment(moment(params.inputProps.value).format('MM/DD/YYYY')).isValid() ? moment(params.inputProps.value).add(543, 'y').format('DD/MM/YYYY') : ''; return <TextField {...params} focused color={(props.error !== false) ? 'error' : 'warning'}/>}}
+            renderInput={(params) => {params.inputProps.value =  moment(moment(params.inputProps.value).format('MM/DD/YYYY')).isValid() ? moment(params.inputProps.value).add(543, 'y').format('DD/MM/YYYY') : ''; return <TextField {...params} color={(props.error !== false) ? 'error' : 'warning'}/>}}
           />
           {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
           {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}

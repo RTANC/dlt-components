@@ -19,7 +19,7 @@ export default function SelectG2VehicleRules(props) {
       fetchRules()
     }, [])
   return (
-    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} focused color='warning'>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} color='warning'>
       <InputLabel>เกณฑ์</InputLabel>
       <Select onChange={props.onChange} value={props.value} name={props.name} inputProps={{ readOnly: props.readonly }} label='เกณฑ์'>
           {rules.map((v, i) => (

@@ -22,7 +22,7 @@ export default function SelectCompany(props) {
     
     
   return (
-    <FormControl fullWidth error={props.error !== false} focused color='warning'>
+    <FormControl fullWidth error={props.error !== false} color='warning'>
       <InputLabel>ผู้ประกอบการ</InputLabel>
       <Select onChange={props.onChange} value={props.value} name={props.name} label='ผู้ประกอบการ'>
           {company.map((v, i) => (

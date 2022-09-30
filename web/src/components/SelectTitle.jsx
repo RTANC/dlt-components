@@ -5,7 +5,7 @@ import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/
 export default function SelectTitle(props) {
     const [titles, setTitles] = useState([{ id: 1, name: 'นาย' }, { id: 2, name: 'นาง' }, { id: 3, name: 'นางสาว' }, { id: 4, name: 'Mr' }, { id: 5, name: 'Mrs' }, { id: 6, name: 'Miss' }])
   return (
-      <FormControl fullWidth  focused color='warning'>
+      <FormControl fullWidth  color='warning'>
         <InputLabel>คำนำหน้า</InputLabel>
         <Select onChange={props.onChange} value={props.value} name={props.name}  label='คำนำหน้า'>
           {titles.map((v, i) => (

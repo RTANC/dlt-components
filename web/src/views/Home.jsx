@@ -26,6 +26,7 @@ import { createTransport, getTransport } from '../services/transports'
 export default function Home() {
   const [loading, setLoading] = useState(false)
   const [images, setImages] = useState(['/static/Image_Mock.png','/static/Image_Mock.png','/static/Image_Mock.png','/static/Image_Mock.png'])
+  const [edit, setEdit] = useState(false)
   const [transport, setTransport] = useState({
     station: {
       value: 1,
@@ -208,6 +209,10 @@ export default function Home() {
     console.log(usr)
   }
 
+  const toggleEdit = () => {
+    setEdit(!edit)
+  }
+
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
     <Container>
@@ -245,7 +250,7 @@ export default function Home() {
                 <Typography variant="h5">ข้อมูลรถบรรทุก</Typography>
               </Grid>
               <Grid item xs={6} sx={{display: 'flex', justifyContent: 'end'}}>
-                <Button variant='contained' startIcon={<SquareEditOutline/>}>แก้ไขข้อมูล</Button>
+                <Button variant='contained' startIcon={<SquareEditOutline/>} onClick={toggleEdit}>แก้ไขข้อมูล</Button>
               </Grid>
               <Grid item xs={12}>
                 <DltDateTimePicker value={transport.timeStampIn.value} label='วัน เวลา ที่รถเข้า' name='timeStampIn' onChange={(v) => {transport.timeStampIn.value = v; setTransport({...transport})}} required error={transport.timeStampIn.error}></DltDateTimePicker>
@@ -253,8 +258,8 @@ export default function Home() {
               <Grid item xs={12}>
                 <Divider></Divider>
               </Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' value={transport.f1a.value} readOnly></DltTextField></Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' value={transport.r1a.value} readOnly></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='f1a' value={transport.f1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='r1a' value={transport.r1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
               <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={12}>

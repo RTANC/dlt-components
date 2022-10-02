@@ -19,6 +19,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import {logout} from '../redux/loginSlice'
 import { useNavigate } from 'react-router-dom'
 
+import '../styles/DltAppBar.css'
+
 const reportLinks = [{link: '/report/GCS01', text: 'GCS01 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายสถานี'},
 {link: '/report/GCS02', text: 'GCS02 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามประเภทรถ'},
 {link: '/report/GCS03', text: 'GCS03 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามชื่อผู้ประกอบการ'},
@@ -101,11 +103,9 @@ export default function DltAppBar() {
 
   return (
     <React.Fragment>
-    <AppBar position="static" sx={{mb: 2}}>
+    <AppBar position="static" className='dlt-app-bar-bg'>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="h6" component="div">
-            GCS
-          </Typography>
+          <img src="../../static/logo_dlt_header.png"/>
           {auth && (
             <IconButton
               size="large"

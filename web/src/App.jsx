@@ -37,15 +37,13 @@ import ReportGCS17 from './views/reports/GCS17'
 import ReportGCS18 from './views/reports/GCS18'
 
 
-// import './App.css'
-import { useSelector } from 'react-redux'
+import './styles/App.css'
 
 function App() {
-  const showAppBar = useSelector((state) => state.login.isLogin)
   return (
     <div className="App">
       <BrowserRouter>
-      {showAppBar && <DltAppBar></DltAppBar>}
+      <DltAppBar></DltAppBar>
       <Routes>
         <Route path='/' element={<Login></Login>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>

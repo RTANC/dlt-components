@@ -5,6 +5,7 @@ import './index.css'
 import { store } from './redux/store'
 import { Provider} from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { deepPurple } from '@mui/material/colors'
 // import moment from 'moment-timezone'
 // moment.tz.setDefault('UTC')
 // moment.tz.setDefault('Asia/Bangkok')
@@ -14,6 +15,12 @@ const theme = createTheme({
     secondary: {
       main: '#bdbdbd',
       contrastText: '#000000',
+      dark: '#ffffff',
+      light: '#000000'
+    },
+    appBar: {
+      main: '#0a1043',
+      contrastText: '#ffffff',
       dark: '#ffffff',
       light: '#000000'
     }

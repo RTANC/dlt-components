@@ -1,5 +1,7 @@
 .App {
-  background-image: url('../../static/BG.jpg');
+  /* background-image: url('../../static/BG.jpg'); */
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), linear-gradient(111.34deg, #0859B8 0%, #9324A5 100%);
+  background-blend-mode: overlay, normal;
   height: 100%; 
   background-position: center;
   background-repeat: no-repeat;

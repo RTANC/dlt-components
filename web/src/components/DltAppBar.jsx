@@ -13,6 +13,7 @@ import BarChartIcon from '@mui/icons-material/BarChart'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import Cookies from 'js-cookie'
+
 import { DatabaseCog, InformationOutline } from 'mdi-material-ui'
 
 import {useSelector, useDispatch} from 'react-redux'
@@ -103,7 +104,7 @@ export default function DltAppBar() {
 
   return (
     <React.Fragment>
-    <AppBar position="static" className='dlt-app-bar-bg'>
+    <AppBar position="static" color='appBar'>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <img src="../../static/logo_dlt_header.png"/>
           {auth && (

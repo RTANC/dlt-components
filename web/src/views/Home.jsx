@@ -22,7 +22,7 @@ import BtnClear from '../components/BtnClear'
 import { useSelector } from 'react-redux'
 import { getImageURL, removeSQLTz } from '../services/utils'
 import { createTransport, getTransport } from '../services/transports'
-
+import '../styles/Home.css'
 export default function Home() {
   const [loading, setLoading] = useState(false)
   const [images, setImages] = useState(['/static/Image_Mock.png','/static/Image_Mock.png','/static/Image_Mock.png','/static/Image_Mock.png'])
@@ -217,8 +217,13 @@ export default function Home() {
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
     <Container>
       <Stack spacing={2}>
+        <div className='dlt-page-title'>
+          <div className='dlt-page-title-text'>บันทึกข้อมูลรับส่งสินค้า</div>
+          <div className='dlt-page-title-line'></div>
+        </div>
+        
         <Card>
-          <CardHeader title="บันทึกข้อมูลรับส่งสินค้า" titleTypographyProps={{variant: 'h5', align: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
+          <CardHeader title="บันทึกข้อมูลรับส่งสินค้า" titleTypographyProps={{variant: 'h5', align: 'center'}} sx={{backgroundColor: '#ffffff'}}></CardHeader>
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12} sm={6} md={6}>

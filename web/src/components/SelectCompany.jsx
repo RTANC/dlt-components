@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { getCompany } from '../services/company'
 import PropTypes from 'prop-types'
 
+import { DltSelect } from "./DltSelect"
+
 export default function SelectCompany(props) {
     // const [stations, setStations] = useState(['พุทธมณฑล', 'คลองหลวง', 'ร่มเกล้า'])
     const [company, setCompany] = useState([])
@@ -22,13 +24,13 @@ export default function SelectCompany(props) {
     
     
   return (
-    <FormControl fullWidth error={props.error !== false} color='warning'>
-      <InputLabel>ผู้ประกอบการ</InputLabel>
-      <Select onChange={props.onChange} value={props.value} name={props.name} label='ผู้ประกอบการ'>
+    <FormControl fullWidth error={props.error !== false} color='warning' focused>
+      <InputLabel sx={{fontSize: 20}} shrink>ผู้ประกอบการ</InputLabel>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
           {company.map((v, i) => (
             <MenuItem value={v.CompanyID} key={i}>{v.CompanyName}</MenuItem>
           ))}
-      </Select>
+      </DltSelect>
       {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
       {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>

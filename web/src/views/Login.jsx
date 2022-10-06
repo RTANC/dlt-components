@@ -110,7 +110,7 @@ export default function Login() {
           <Box sx={{ marginTop: '25vh' }} className='login-panel'>
             <Stack spacing={2}>
               <img src="/static/gcs-login-title.png"/>
-              <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
+              <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" placeholder="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
               <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" onChange={handleChange} onKeyUp={handleEnterKey}></DltPasswordTextField>
               <FormControlLabel
                 control={<Checkbox value={stay} color="primary" onChange={handleCheck}/>}

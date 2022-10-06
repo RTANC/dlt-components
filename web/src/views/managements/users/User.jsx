@@ -87,8 +87,11 @@ export default function User() {
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>ข้อมูลผู้ใช้งาน</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-                <CardHeader title='ข้อมูลผู้ใช้งาน' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
                 <CardContent>
                   <Grid container spacing={2} direction='row' wrap="wrap">
                     <Grid item xs={12}>

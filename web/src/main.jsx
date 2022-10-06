@@ -6,6 +6,7 @@ import { store } from './redux/store'
 import { Provider} from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { deepPurple } from '@mui/material/colors'
+import StyledEngineProvider from "@mui/material/StyledEngineProvider"
 // import moment from 'moment-timezone'
 // moment.tz.setDefault('UTC')
 // moment.tz.setDefault('Asia/Bangkok')
@@ -31,7 +32,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <App />
+        <StyledEngineProvider injectFirst>
+          <App />
+        </StyledEngineProvider>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>

@@ -84,8 +84,11 @@ export default function G1Vehicle() {
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
           <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>รายการรถของผู้ประกอบการ</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-              <CardHeader title='รายการรถของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} md={4}>

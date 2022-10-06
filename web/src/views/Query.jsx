@@ -235,8 +235,11 @@ export default function Query() {
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
       <Container>
         <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>สืบค้นข้อมูล</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
           <Card>
-            <CardHeader title="สืบค้นข้อมูล" titleTypographyProps={{variant: 'h5', align: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
             <CardContent>
               <Grid container spacing={2} direction='row' wrap='wrap'>
                 <Grid item xs={12}>

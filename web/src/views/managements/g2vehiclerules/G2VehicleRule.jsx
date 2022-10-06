@@ -72,8 +72,11 @@ export default function G2VehicleRule() {
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
           <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>เกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-              <CardHeader title='เกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}>
@@ -83,7 +86,7 @@ export default function G2VehicleRule() {
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         disableSelectionOnClick
-                        sx={{height: 400, width: '100%'}}
+                        sx={{minHeight: '500px', width: '100%'}}
                       />
                   </Grid>
                 </Grid>

@@ -94,8 +94,11 @@ export default function Company() {
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
           <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>รายชื่อผู้ประกอบการ</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-              <CardHeader title='รายชื่อผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}>

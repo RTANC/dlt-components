@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import formValidator from '../services/validator'
 import { api } from '../services/api'
 import '../styles/Login.css'
+import { grey } from '@mui/material/colors'
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -107,13 +108,13 @@ export default function Login() {
         {/* <CssBaseline /> */}
         <Grid container direction='row' wrap='wrap' sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <Grid item xs={6}>
-          <Box sx={{ marginTop: '25vh' }} className='login-panel'>
-            <Stack spacing={2}>
+          <Box sx={{ marginTop: '15vh' }} className='login-panel'>
+            <Stack spacing={3}>
               <img src="/static/gcs-login-title.png"/>
               <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" placeholder="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
               <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" onChange={handleChange} onKeyUp={handleEnterKey}></DltPasswordTextField>
               <FormControlLabel
-                control={<Checkbox value={stay} color="primary" onChange={handleCheck}/>}
+                control={<Checkbox sx={{color: grey[400]}} value={stay} onChange={handleCheck}/>}
                 label="คงสถานะการเข้าสู่ระบบ"
               />
               <Button fullWidth variant="contained" onClick={handleSubmit}>เข้าสู่ระบบ</Button>

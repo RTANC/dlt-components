@@ -1,8 +1,24 @@
-import { FormControl, FormHelperText, TextField, InputAdornment, InputLabel, OutlinedInput, IconButton } from '@mui/material'
+import { FormControl, FormHelperText, InputAdornment, InputLabel, OutlinedInput, IconButton } from '@mui/material'
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+
+import { styled } from "@mui/material/styles"
+
+const DltPassOutlinedInput= styled(OutlinedInput)(({ theme }) => ({
+  'label + &': {
+    marginTop: theme.spacing(3)
+  },
+  '& .MuiOutlinedInput-input': {
+    backgroundColor: 'white',
+    borderRadius: 4,
+    border: '2px solid #ed6c02'
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: '0px',
+  }
+}))
 
 export default function DltPasswordTextField(props) {
     const [visible, setVisible] = useState(false)
@@ -10,9 +26,9 @@ export default function DltPasswordTextField(props) {
         setVisible(!visible)
     }
   return (
-    <FormControl fullWidth>
-      <InputLabel>{props.label}</InputLabel>
-        <OutlinedInput onKeyUp={props.onKeyUp} type={visible ? 'text' : 'password'} label={props.label} value={props.value} onChange={props.onChange} error={props.error !== false} name={props.name} disabled={props.disabled} endAdornment={<InputAdornment position="end"><IconButton onClick={toggleVisible}>{visible ? <VisibilityIcon/> : <VisibilityOffIcon/>}</IconButton></InputAdornment>} autoComplete="off"/>
+    <FormControl fullWidth color='warning'>
+      <InputLabel shrink sx={{fontSize: 20, color: '#ed6c02'}}>{props.label}</InputLabel>
+        <DltPassOutlinedInput onKeyUp={props.onKeyUp} type={visible ? 'text' : 'password'} label={props.label} value={props.value} onChange={props.onChange} error={props.error !== false} name={props.name} disabled={props.disabled} endAdornment={<InputAdornment  position="end"><IconButton color='warning' edge="end" onClick={toggleVisible}>{visible ? <VisibilityIcon/> : <VisibilityOffIcon/>}</IconButton></InputAdornment>} autoComplete="off" placeholder={props.label}/>
         {(props.required && !(props.disabled) && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
         {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>

@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardActions, Container, Slide, Box, CardContent, Grid, Stack, IconButton, Divider } from '@mui/material'
+import { Card, CardActions, Container, Slide, Box, CardContent, Grid, Stack } from '@mui/material'
 import React from 'react'
 import SelectStation from '../../../components/SelectStation'
 import { useState } from 'react'
@@ -54,10 +54,13 @@ export default function G2VehicleRuleForm() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container>
+        <Container sx={{height: '100vh'}}>
           <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>แก้ไขเกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-              <CardHeader title='แก้ไขเกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12}>
@@ -72,7 +75,7 @@ export default function G2VehicleRuleForm() {
 
             <Card>
               <CardActions>
-                <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', py: 2}}>
                   <BtnBack loading={loading}></BtnBack>
                   <BtnSave loading={loading} onClick={save}></BtnSave>
                 </Box>

@@ -1,4 +1,4 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, Stack, IconButton } from '@mui/material'
+import { Card, Container, Slide, Box, CardContent, Grid, Stack, IconButton } from '@mui/material'
 import React from 'react'
 import SelectStation from '../../../components/SelectStation'
 import { useState } from 'react'
@@ -10,6 +10,8 @@ import SelectCompany from '../../../components/SelectCompany'
 import DltTextField from '../../../components/DltTextField'
 import { getG1Vehicles } from '../../../services/managements'
 import { dateTimeFormatter } from '../../../services/utils'
+import BtnClear from '../../../components/BtnClear'
+import BtnSearch from '../../../components/BtnSearch'
 
 export default function G1Vehicle() {
     const navigate = useNavigate()
@@ -88,7 +90,7 @@ export default function G1Vehicle() {
               <div className='dlt-page-title-text'>รายการรถของผู้ประกอบการ</div>
               <div className='dlt-page-title-line'></div>
             </div>
-            <Card>
+            <Card sx={{py: 3}}>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} md={4}>
@@ -102,13 +104,13 @@ export default function G1Vehicle() {
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel}>ล้างข้อมูล</LoadingButton>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={search}>ค้นหา</LoadingButton>
+                      <BtnClear loading={loading} disabled={loading} onClick={cancel}></BtnClear>
+                      <BtnSearch loading={loading} disabled={loading} onClick={search}></BtnSearch>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'end'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/g1Vehicle/0')}}>เพิ่มรถ</LoadingButton>
+                      <LoadingButton loading={loading} disabled={loading} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3, color: 'white', mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/g1Vehicle/0')}}>เพิ่มรถ</LoadingButton>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
@@ -118,7 +120,7 @@ export default function G1Vehicle() {
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         disableSelectionOnClick
-                        sx={{height: 400, width: '100%'}}
+                        sx={{height: 400, width: '100%', color: 'white'}}
                       />
                   </Grid>
                 </Grid>

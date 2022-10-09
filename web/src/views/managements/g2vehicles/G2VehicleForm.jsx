@@ -1,8 +1,7 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, Stack, IconButton, Divider } from '@mui/material'
+import { Card, Container, Slide, Box, CardContent, Grid, Stack, Divider } from '@mui/material'
 import React from 'react'
 import SelectStation from '../../../components/SelectStation'
 import { useState } from 'react'
-import { LoadingButton } from '@mui/lab'
 import { useNavigate, useParams } from 'react-router-dom'
 import SelectCompany from '../../../components/SelectCompany'
 import DltTextField from '../../../components/DltTextField'
@@ -15,7 +14,6 @@ import { createG2Vehicle, getG2Vehicle, updateG2Vehicle } from '../../../service
 import BtnSave from '../../../components/BtnSave'
 import BtnClear from '../../../components/BtnClear'
 import formValidator from '../../../services/validator'
-import G2Vehicle from './G2Vehicle'
 import { getKeyValue, str2bool } from '../../../services/utils'
 
 export default function G2VehicleForm() {
@@ -122,10 +120,13 @@ export default function G2VehicleForm() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container>
+        <Container sx={{height: '100vh'}}>
           <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>แก้ไขรายการรถลูกค้าของผู้ประกอบการ</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-              <CardHeader title='แก้ไขรายการรถลูกค้าของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} md={6}>

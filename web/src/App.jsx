@@ -36,7 +36,6 @@ import ReportGCS16 from './views/reports/GCS16'
 import ReportGCS17 from './views/reports/GCS17'
 import ReportGCS18 from './views/reports/GCS18'
 
-
 import './styles/App.css'
 
 function App() {

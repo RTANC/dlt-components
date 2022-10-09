@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, MenuItem, Select, InputLabel } from '@mui/material'
+import { FormControl, FormHelperText, MenuItem, InputLabel } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { getStations } from '../services/stations'
 import PropTypes from 'prop-types'
@@ -33,7 +33,7 @@ export default function SelectStation(props) {
     
     
   return (
-    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} color='warning' focused>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} color='warning' focused sx={{'label.Mui-disabled': {color: '#ed6c02'}}}>
       <InputLabel sx={{fontSize: 20}} shrink>สถานี</InputLabel>
       <DltSelect onChange={props.onChange} value={props.value} name={props.name} inputProps={{ readOnly: props.readOnly }}>
           {stations.map((v, i) => (

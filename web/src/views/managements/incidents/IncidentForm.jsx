@@ -117,8 +117,11 @@ export default function IncidentForm() {
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
           <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>เพิ่มข้อมูลเหตุการณ์</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-              <CardHeader title='เพิ่มข้อมูลเหตุการณ์' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
@@ -154,7 +157,7 @@ export default function IncidentForm() {
             </Card>
             <Card>
               <CardActions>
-                <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', py: 2}}>
                   <BtnBack loading={loading}></BtnBack>
                   <BtnSave loading={loading} onClick={save} disabled={!valid}></BtnSave>
                 </Box>

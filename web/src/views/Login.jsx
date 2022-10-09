@@ -15,6 +15,17 @@ import formValidator from '../services/validator'
 import { api } from '../services/api'
 import '../styles/Login.css'
 import { grey } from '@mui/material/colors'
+import { styled } from "@mui/material/styles"
+
+const LoginButton = styled(Button)(({ theme }) => ({
+  fontFamily: 'Kanit',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  fontSize: 24,
+  background: 'linear-gradient(105.67deg, #9D29F8 0%, #2283F3 78.09%)',
+  borderRadius: 12,
+  height: 48
+}))
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -114,10 +125,10 @@ export default function Login() {
               <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" placeholder="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
               <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" onChange={handleChange} onKeyUp={handleEnterKey}></DltPasswordTextField>
               <FormControlLabel
-                control={<Checkbox sx={{color: grey[400]}} value={stay} onChange={handleCheck}/>}
+                control={<Checkbox value={stay} onChange={handleCheck}/>}
                 label="คงสถานะการเข้าสู่ระบบ"
               />
-              <Button fullWidth variant="contained" onClick={handleSubmit}>เข้าสู่ระบบ</Button>
+              <LoginButton fullWidth variant="contained" onClick={handleSubmit}>เข้าสู่ระบบ</LoginButton>
             </Stack>
           </Box>
           </Grid>

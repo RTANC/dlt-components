@@ -4,7 +4,7 @@ import { Button } from '@mui/material'
 
 export default function BtnAdd(props) {
   return (
-    <Button variant="contained" color="warning" onClick={props.onClick}>
+    <Button variant="contained" color="warning" onClick={props.onClick} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3, color: 'white'}}>
       {props.label}
     </Button>
   )

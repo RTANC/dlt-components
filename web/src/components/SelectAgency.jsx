@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { getAgencies } from '../services/agencies'
 import PropTypes from 'prop-types'
 
+import { DltSelect } from "./DltSelect"
+
 export default function SelectAgency(props) {
     const [agencies, setAgencies] = useState([])
 
@@ -20,14 +22,14 @@ export default function SelectAgency(props) {
     }, [props.stationId])
 
   return (
-    <FormControl fullWidth error={props.error !== false} disabled={props.disabled}>
-      <InputLabel>หน่วยงาน</InputLabel>
-      <Select onChange={props.onChange} value={props.value} name={props.name}>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} color='warning' focused>
+      <InputLabel sx={{fontSize: 20}} shrink>หน่วยงาน</InputLabel>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
         {!(props.required) && <MenuItem value=""><em>-</em></MenuItem>}
           {agencies.map((v, i) => (
             <MenuItem value={v.CompanyID} key={i}>{v.CompanyName}</MenuItem>
           ))}
-      </Select>
+      </DltSelect>
       {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
       {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>

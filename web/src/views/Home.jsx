@@ -8,7 +8,6 @@ import SelectVehicleClass from '../components/SelectVehicleClass'
 import SelectObjective from '../components/SelectObjective'
 import SelectProvince from '../components/SelectProvince'
 import SelectLPProvince from '../components/SelectLPProvince'
-import moment from 'moment'
 import ImageListLP from '../components/ImageListLP'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
@@ -22,15 +21,6 @@ import BtnClear from '../components/BtnClear'
 import { useSelector } from 'react-redux'
 import { getImageURL, removeSQLTz } from '../services/utils'
 import { createTransport, getTransport } from '../services/transports'
-import '../styles/Home.css'
-
-// import { styled } from "@mui/material/styles"
-
-// const DltCard = styled(Card)({
-//   '&.MuiCard-root': {
-//     backgroundColor: 'red'
-//   }
-// })
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -249,7 +239,7 @@ export default function Home() {
                 <AutoCompleteSearchLP station={2} name='lpNumber' onChange={handleLPSearch}></AutoCompleteSearchLP>
               </Grid>
               <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                <Button variant='contained' color='warning'>กรอกข้อมูลด้วยตนเอง</Button>
+                <Button variant='contained' color='warning' sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3}}>กรอกข้อมูลด้วยตนเอง</Button>
               </Grid>
               <Grid item xs={12}>
                 <Divider></Divider>
@@ -259,10 +249,10 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={6}>
-                <Typography variant="h5">ข้อมูลรถบรรทุก</Typography>
+                <Typography variant="h5" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 36, color: 'white'}}>ข้อมูลรถบรรทุก</Typography>
               </Grid>
               <Grid item xs={6} sx={{display: 'flex', justifyContent: 'end'}}>
-                <Button variant='contained' startIcon={<SquareEditOutline/>} onClick={toggleEdit}>แก้ไขข้อมูล</Button>
+                <Button variant='contained' startIcon={<SquareEditOutline/>} onClick={toggleEdit} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #2283F3 0%, #184C88 98.65%)', borderRadius: 3}}>แก้ไขข้อมูล</Button>
               </Grid>
               <Grid item xs={12}>
                 <DltDateTimePicker value={transport.timeStampIn.value} label='วัน เวลา ที่รถเข้า' name='timeStampIn' onChange={(v) => {transport.timeStampIn.value = v; setTransport({...transport})}} required error={transport.timeStampIn.error}></DltDateTimePicker>
@@ -286,7 +276,7 @@ export default function Home() {
                 <Divider></Divider>
               </Grid>
               <Grid item xs={12}  sx={{display: 'flex', justifyContent: 'center'}}>
-                <Button variant="contained" color="error" endIcon={<LocalShippingIcon/>}>
+                <Button variant="contained" color="error" endIcon={<LocalShippingIcon/>} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F15353 0%, #A31212 98.65%)', borderRadius: 3}}>
                   รถออกจากสถานนี
                 </Button>
               </Grid>
@@ -305,7 +295,7 @@ export default function Home() {
               </Grid>
               {transport.mode !== 2 && <Grid item xs={12} sm={12} md={transport.mode === 1 ? 12 : 6 }>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
-                  <Grid item xs={12}><Typography variant='h5'>ส่งสินค้าเข้าสถานนี</Typography></Grid>
+                  <Grid item xs={12}><Typography variant='h5' sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 36, color: 'white'}}>ส่งสินค้าเข้าสถานนี</Typography></Grid>
                   <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
                     <SelectProvince value={transport.srcProvince.value} name='srcProvince' label='จังหวัดต้นทาง' onChange={handleChangeValue}></SelectProvince>
                   </Grid>
@@ -319,7 +309,7 @@ export default function Home() {
               </Grid>}
               {(transport.mode !== 1) && <Grid item xs={12} sm={12} md={transport.mode === 2 ? 12 : 6 }>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
-                  <Grid item xs={12}><Typography variant='h5'>รับสินค้าออกจากสถานี</Typography></Grid>
+                  <Grid item xs={12}><Typography variant='h5' sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 36, color: 'white'}}>รับสินค้าออกจากสถานี</Typography></Grid>
                   <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
                     <SelectStation value={transport.station.value} readonly></SelectStation>
                   </Grid>
@@ -335,7 +325,7 @@ export default function Home() {
           </CardContent>
         </Card>
         <Card>
-          <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
+          <CardActions sx={{display: 'flex', justifyContent: 'center', py: 2}}>
             <BtnClear loading={loading} onClick={cancel}></BtnClear>
             <BtnSave loading={loading} onClick={save}></BtnSave>
           </CardActions>

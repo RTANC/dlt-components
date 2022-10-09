@@ -110,7 +110,7 @@ export default function User() {
                       <DltTextField label='ชื่อ/นามสกุล/UserName' value={query.text} onChange={(e) => {setQuery({...query, text: e.target.value})}}></DltTextField>
                     </Grid>
                     <Grid item xs={12}>
-                      <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                      <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', py: 2}}>
                         <BtnClear loading={loading} onClick={clear}></BtnClear>
                         <BtnSearch loading={loading} onClick={search}></BtnSearch>
                       </Box>
@@ -127,7 +127,7 @@ export default function User() {
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         disableSelectionOnClick
-                        sx={{height: 400, width: '100%'}}
+                        sx={{height: 400, width: '100%', color: 'white'}}
                       />
                     </Grid>
                   </Grid>

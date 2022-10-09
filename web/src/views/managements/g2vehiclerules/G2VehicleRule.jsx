@@ -70,7 +70,7 @@ export default function G2VehicleRule() {
       
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container>
+        <Container sx={{height: '100vh'}}>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
               <div className='dlt-page-title-text'>เกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</div>
@@ -86,7 +86,7 @@ export default function G2VehicleRule() {
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         disableSelectionOnClick
-                        sx={{minHeight: '500px', width: '100%'}}
+                        sx={{minHeight: '500px', width: '100%', color: 'white'}}
                       />
                   </Grid>
                 </Grid>

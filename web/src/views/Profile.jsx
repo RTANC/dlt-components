@@ -174,7 +174,7 @@ export default function Profile() {
                     <Divider></Divider>
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography variant="h6" color="initial">เปลี่ยนรหัสผ่าน</Typography>
+                    <Typography variant="h6" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 600, fontSize: 24, color: 'white'}}>เปลี่ยนรหัสผ่าน</Typography>
                   </Grid>
                   <Grid item xs={6} md={6}>
                     <DltPasswordTextField name='newPassword' label='Password ใหม่' value={profile.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidatePassword} error={profile.newPassword.error} required></DltPasswordTextField>
@@ -184,7 +184,8 @@ export default function Profile() {
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                      <Typography variant="caption" color="initial">* Password ต้องมีความยาวอย่างน้อย 8 ตัวอักษร โดยเป็นตัวอักษร ผสมกับตัวเลข</Typography>
+                      <Typography variant="caption" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 14, color: '#F15353'}}>*</Typography>
+                      <Typography variant="caption" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 300, fontSize: 16, color: '#D4D4D4'}}>&nbsp; Password ต้องมีความยาวอย่างน้อย 8 ตัวอักษร โดยเป็นตัวอักษร ผสมกับตัวเลข</Typography>
                     </Box>
                   </Grid>
                 </Grid>

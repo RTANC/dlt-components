@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom'
 import { SquareEditOutline } from 'mdi-material-ui'
 import { DataGrid } from '@mui/x-data-grid'
 import { getCompanies } from '../../../services/managements'
+import BtnClear from '../../../components/BtnClear'
+import BtnSearch from '../../../components/BtnSearch'
 
 export default function Company() {
   const navigate = useNavigate()
@@ -106,8 +108,8 @@ export default function Company() {
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel}>ล้างข้อมูล</LoadingButton>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={search}>ค้นหา</LoadingButton>
+                      <BtnClear loading={loading} disabled={loading} onClick={cancel}></BtnClear>
+                      <BtnSearch loading={loading} disabled={loading} onClick={search}></BtnSearch>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
@@ -117,7 +119,7 @@ export default function Company() {
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         disableSelectionOnClick
-                        sx={{height: 400, width: '100%'}}
+                        sx={{height: '55vh', width: '100%', color: 'white'}}
                       />
                   </Grid>
                 </Grid>

@@ -10,6 +10,8 @@ import SelectCompany from '../../../components/SelectCompany'
 import DltTextField from '../../../components/DltTextField'
 import moment from 'moment'
 import { getG2Vehicles } from '../../../services/managements'
+import BtnClear from '../../../components/BtnClear'
+import BtnSearch from '../../../components/BtnSearch'
 
 export default function G2Vehicle() {
     const navigate = useNavigate()
@@ -81,7 +83,7 @@ export default function G2Vehicle() {
       ]
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container>
+        <Container sx={{height: '100vh'}}>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
               <div className='dlt-page-title-text'>รายการรถลูกค้าของผู้ประกอบการ</div>
@@ -101,13 +103,13 @@ export default function G2Vehicle() {
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={cancel}>ล้างข้อมูล</LoadingButton>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='primary' variant='contained' onClick={search}>ค้นหา</LoadingButton>
+                      <BtnClear loading={loading} disabled={loading} onClick={cancel}></BtnClear>
+                      <BtnSearch loading={loading} disabled={loading} onClick={search}></BtnSearch>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'end'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/g2Vehicle/0')}}>เพิ่มรถ</LoadingButton>
+                      <LoadingButton loading={loading} disabled={loading} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3, color: 'white', mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/g2Vehicle/0')}}>เพิ่มรถ</LoadingButton>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
@@ -117,7 +119,7 @@ export default function G2Vehicle() {
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         disableSelectionOnClick
-                        sx={{height: 400, width: '100%'}}
+                        sx={{height: 400, width: '100%', color: 'white'}}
                       />
                   </Grid>
                 </Grid>

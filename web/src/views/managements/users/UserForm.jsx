@@ -169,9 +169,12 @@ export default function UserForm() {
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
+          <div className='dlt-page-title'>
+            <div className='dlt-page-title-text'>{editMode ? 'แก้ไขข้อมูลผู้ใช้งาน' : 'เพิ่มข้อมูลผู้ใช้งาน'}</div>
+            <div className='dlt-page-title-line'></div>
+          </div>
           <Stack spacing={2}>
           <Card>
-              <CardHeader title={editMode ? 'แก้ไขข้อมูลผู้ใช้งาน' : 'เพิ่มข้อมูลผู้ใช้งาน'} titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap="wrap">
                   <Grid item xs={12}>
@@ -184,7 +187,7 @@ export default function UserForm() {
                     <SelectAgency name='agency' value={user.agency.value} onChange={handleValueChange} stationId={user.station.value} required disabled={editMode} error={user.agency.error}></SelectAgency>
                   </Grid>
                   <Grid item xs={12}>
-                    <Divider></Divider>
+                    <Divider variant="middle"></Divider>
                   </Grid>
                   <Grid item xs={4} sm={4} md={2} lg={2}>
                     <SelectTitle value={user.title.value} onChange={handleValueChange}></SelectTitle>
@@ -214,10 +217,10 @@ export default function UserForm() {
                   <RadioBoxIsActiveUser name='isActive' value={user.isActive.value} onChange={handleValueChange}></RadioBoxIsActiveUser>
                 </Grid>
                 <Grid item xs={12}>
-                  <Divider></Divider>
+                  <Divider variant="middle"></Divider>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="h6" color="initial">{editMode ? 'เปลี่ยนรหัสผ่าน' : 'ตั้งรหัสผ่าน'}</Typography>
+                  <Typography sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 600, fontSize: 24, color: 'white'}}>{editMode ? 'เปลี่ยนรหัสผ่าน' : 'ตั้งรหัสผ่าน'}</Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <DltPasswordTextField label='รหัสผ่าน' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidatePassword} required error={user.newPassword.error}></DltPasswordTextField>
@@ -227,7 +230,8 @@ export default function UserForm() {
                 </Grid>
                 <Grid item xs={12}>
                   <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                    <Typography variant="caption" color="initial">* Password ต้องมีความยาวอย่างน้อย 8 ตัวอักษร โดยเป็นตัวอักษร ผสมกับตัวเลข</Typography>
+                    <Typography variant="caption" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 14, color: '#F15353'}}>*</Typography>
+                    <Typography variant="caption" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 300, fontSize: 16, color: '#D4D4D4'}}>&nbsp; Password ต้องมีความยาวอย่างน้อย 8 ตัวอักษร โดยเป็นตัวอักษร ผสมกับตัวเลข</Typography>
                   </Box>
                 </Grid>
               </Grid>

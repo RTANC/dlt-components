@@ -1,8 +1,9 @@
-import { Autocomplete, CircularProgress, FormControl, FormHelperText, InputLabel, TextField, Box } from '@mui/material';
-import React, { useState, useEffect } from 'react'
+import { Autocomplete, CircularProgress, FormControl, FormHelperText, TextField, Box } from '@mui/material';
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { getLicensePlates } from '../services/transports'
 import { dateTimeFormatter, getImageURL, null2empty } from '../services/utils';
+
 
 export default function AutoCompleteSearchLP(props) {
     const [options, setOptions] = useState([])
@@ -55,8 +56,10 @@ export default function AutoCompleteSearchLP(props) {
           )}
           renderInput={(params) => (
             <TextField {...params}
-            label='ค้นหาจากเลขทะเบียน'
+            placeholder='ค้นหาจากเลขทะเบียน'
+            color='warning'
             fullWidth
+            focused
             InputProps={{
               ...params.InputProps,
               endAdornment: (

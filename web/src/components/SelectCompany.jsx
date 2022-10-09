@@ -21,8 +21,7 @@ export default function SelectCompany(props) {
     useEffect(() => {
       fetchCompany()
     }, [props.station])
-    
-    
+   
   return (
     <FormControl fullWidth error={props.error !== false} color='warning' focused>
       <InputLabel sx={{fontSize: 20}} shrink>ผู้ประกอบการ</InputLabel>

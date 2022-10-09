@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { getGoodCategory } from '../services/goods'
 import PropTypes from 'prop-types'
 
+import { DltSelect } from "./DltSelect"
+
 export default function SelectGoodCategory(props) {
 
     const [goodCategory, setGoodCategory] = useState([])
@@ -20,13 +22,13 @@ export default function SelectGoodCategory(props) {
         fetchGoodCategory()
       }, [])
   return (
-    <FormControl fullWidth error={props.error !== false}>
-      <InputLabel>ประเภทสินค้า</InputLabel>
-      <Select onChange={props.onChange} value={props.value} name="goodCategory">
+    <FormControl fullWidth error={props.error !== false} color='warning' focused>
+      <InputLabel sx={{fontSize: 20}} shrink>ประเภทสินค้า</InputLabel>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
           {goodCategory.map((v, i) => (
             <MenuItem value={v.CategoryID} key={i}>{v.CategoryName}</MenuItem>
           ))}
-      </Select>
+      </DltSelect>
       {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
       {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>

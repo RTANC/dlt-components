@@ -1,4 +1,4 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, Stack, Divider } from '@mui/material'
+import { Card, Container, Slide, Box, CardContent, Grid, Stack, Divider } from '@mui/material'
 import React from 'react'
 import SelectStation from '../../../components/SelectStation'
 import { useState } from 'react'
@@ -119,10 +119,13 @@ export default function G1VehicleForm() {
       
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container>
+        <Container sx={{height: '100vh'}}>
           <Stack spacing={2}>
-            <Card>
-              <CardHeader title='แก้ไขรายการรถของผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>แก้ไขรายการรถของผู้ประกอบการ</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
+            <Card sx={{py: 3}}>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} md={6}>

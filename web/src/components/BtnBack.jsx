@@ -9,7 +9,7 @@ export default function BtnBack(props) {
         navigate(-1)
       }
   return (
-    <LoadingButton loading={props.loading} disabled={props.loading} sx={{mx: 1}} color='secondary' variant='contained' onClick={goBack}>ย้อนกลับ</LoadingButton>
+    <LoadingButton loading={props.loading} disabled={props.loading} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #808285 0%, #333333 98.65%)', borderRadius: 3, color: 'white', mx: 1}} color='secondary' variant='contained' onClick={goBack}>ย้อนกลับ</LoadingButton>
   )
 }
 

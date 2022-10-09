@@ -1,0 +1,43 @@
+.MuiCard-root {
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 50px 10px rgba(255, 255, 255, 0.23);
+    backdrop-filter: blur(7.5px);
+  
+    border-radius: 8px;
+}
+
+.MuiAutocomplete-inputRoot {
+    background: white;
+}
+
+.MuiTextField-root {
+    background: white;
+    border-radius: 4px;
+}
+
+.MuiFormControlLabel-label {
+    font-family: 'Kanit';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    color: white;
+}
+
+.MuiCheckbox-root {
+    color: #D4D4D4;
+}
+
+.MuiRadio-root {
+    color: #D4D4D4;
+}
+
+.MuiDivider-root {
+    background: #808285;
+}
+
+.MuiFormHelperText-root {
+    font-family: 'Kanit';
+    font-style: normal;
+    color: white;
+}

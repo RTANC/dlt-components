@@ -111,7 +111,7 @@ export default function Incident() {
               <div className='dlt-page-title-text'>ข้อมูลเหตุการณ์</div>
               <div className='dlt-page-title-line'></div>
             </div>
-            <Card>
+            <Card sx={{py: 3}}>
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                     <Grid item xs={4}>
@@ -141,7 +141,7 @@ export default function Incident() {
                           pageSize={5}
                           rowsPerPageOptions={[5]}
                           disableSelectionOnClick
-                          sx={{height: 400, width: '100%'}}
+                          sx={{height: 400, width: '100%', color: 'white'}}
                         />
                     </Grid>
                 </Grid>

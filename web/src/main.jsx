@@ -11,6 +11,8 @@ import StyledEngineProvider from "@mui/material/StyledEngineProvider"
 // moment.tz.setDefault('UTC')
 // moment.tz.setDefault('Asia/Bangkok')
 
+import './styles/Global.css'
+
 const theme = createTheme({
   palette: {
     secondary: {

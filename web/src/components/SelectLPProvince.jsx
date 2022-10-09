@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { getProvinces } from '../services/licenseplates'
 import PropTypes from 'prop-types'
 
+import { DltSelect } from "./DltSelect"
+
 export default function SelectLPProvince(props) {
     const [provinces, setProvinces] = useState([])
     const fetchProvinces = async () => {
@@ -18,13 +20,13 @@ export default function SelectLPProvince(props) {
         fetchProvinces()
       }, [])
   return (
-    <FormControl fullWidth error={props.error !== false}>
-      <InputLabel>{props.label}</InputLabel>
-      <Select onChange={props.onChange} value={props.value} name={props.name}>
+    <FormControl fullWidth error={props.error !== false} color='warning' focused>
+      <InputLabel sx={{fontSize: 20}} shrink>{props.label}</InputLabel>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
           {provinces.map((v, i) => (
             <MenuItem value={v.ProvinceID} key={i}>{v.ProvinceName}</MenuItem>
           ))}
-      </Select>
+      </DltSelect>
       {(props.required && !(props.error !== false)) && <FormHelperText>*จำเป็น</FormHelperText>}
       {(props.error !== false) && <FormHelperText>{props.error}</FormHelperText>}
     </FormControl>

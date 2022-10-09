@@ -243,7 +243,7 @@ export default function Query() {
             <CardContent>
               <Grid container spacing={2} direction='row' wrap='wrap'>
                 <Grid item xs={12}>
-                  <FormControl>
+                  <FormControl color='warning'>
                     <FormLabel sx={{display: 'flex', alignContent: 'flex-start'}}>เลือกข้อมูล</FormLabel>
                     <RadioGroup row value={params.queryId} name='queryId' onChange={handleChange}>
                       <FormControlLabel value={1} control={<Radio />} label="รถที่มีรายการรับส่งสินค้า"></FormControlLabel>
@@ -290,14 +290,14 @@ export default function Query() {
                 </Grid>
               </Grid>
             </CardContent>
-            <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
+            <CardActions sx={{display: 'flex', justifyContent: 'center', py:3}}>
               <BtnClear loading={loading} onClick={clear}></BtnClear>
               <BtnSearch loading={loading} onClick={search}></BtnSearch>
             </CardActions>
           </Card>
           <Card>
             <CardContent>
-              <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} disableSelectionOnClick sx={{height: 400}}/>
+              <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} disableSelectionOnClick sx={{height: 400, color: 'white'}}/>
             </CardContent>
           </Card>
         </Stack>

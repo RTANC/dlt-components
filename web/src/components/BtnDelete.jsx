@@ -31,7 +31,7 @@ BtnDelete.defaultProps = {
 }
   return (
     <React.Fragment>
-        <LoadingButton loading={props.loading} disabled={props.loading} sx={{mx: 1}} color='error' variant='contained' onClick={handleClickOpen} startIcon={<DeleteIcon />}>{props.label}</LoadingButton>
+        <LoadingButton loading={props.loading} disabled={props.loading} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F15353 0%, #A31212 98.65%)', borderRadius: 3, color: 'white'}} color='error' variant='contained' onClick={handleClickOpen} startIcon={<DeleteIcon />}>{props.label}</LoadingButton>
         <Dialog
         open={open}
         onClose={handleClose}

@@ -1,4 +1,4 @@
-import { Container, Grid, Slide, Card, CardContent, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CardActions, Box, Stack, CardHeader, IconButton } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CardActions, Stack, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, TablePagination } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -22,6 +22,8 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Query() {
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const navigate = useNavigate()
   const [params, setParams] = useState({
     queryId: 1,
@@ -40,69 +42,78 @@ export default function Query() {
     isOverWeight: false
   })
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  }
+
   const columns = [
-    { field: 'TimeStampTx', headerName: 'วัน-เวลา บันทึกข้อมูล', sortable: true, flex: 1, valueFormatter: (params) => {
+    { id: 'TimeStampTx', label: 'วัน-เวลา บันทึกข้อมูล', align: 'center', minWidth: 100, format: (value) => {
       try {
-        if (!!params.value) {
-          return dateTimeFormatter(params.value)
+        if (!!value) {
+          return dateTimeFormatter(value)
         }
       } catch (error) {
         return ''
       }
     } },
-    { field: 'TimeStampIn', headerName: 'วัน-เวลา เข้า', sortable: true, flex: 1, valueFormatter: (params) => {
+    { id: 'TimeStampIn', label: 'วัน-เวลา เข้า', align: 'center', minWidth: 100, format: (value) => {
       try {
-        if (!!params.value) {
-          return dateTimeFormatter(params.value)
+        if (!!value) {
+          return dateTimeFormatter(value)
         }
       } catch (error) {
         return ''
       }
     } },
-    { field: 'TimeStampOut', headerName: 'วัน-เวลา ออก', sortable: true, flex: 1, valueFormatter: (params) => {
+    { id: 'TimeStampOut', label: 'วัน-เวลา ออก', align: 'center', minWidth: 100, format: (value) => {
       try {
-        if (!!params.value) {
-          return dateTimeFormatter(params.value)
+        if (!!value) {
+          return dateTimeFormatter(value)
         }
       } catch (error) {
         return ''
       }
     } },
-    { field: 'CompanyName', headerName: 'ผู้ประกอบการ', flex: 1 },
-    { field: 'VehicleClassName', headerName: 'ประเภทรถ', flex: 1 },
-    { field: 'VehicleGroupName', headerName: 'กลุ่มรถ', flex: 1 },
-    { field: 'F1M', headerName: 'ทะเบียนหน้าขาเข้า', flex: 1, valueGetter: (params) => {
+    { id: 'CompanyName', label: 'ผู้ประกอบการ', align: 'center', minWidth: 250 },
+    { id: 'VehicleClassName', label: 'ประเภทรถ', align: 'center', minWidth: 100 },
+    { id: 'VehicleGroupName', label: 'กลุ่มรถ', align: 'center', minWidth: 100 },
+    { id: 'F1M', label: 'ทะเบียนหน้าขาเข้า', align: 'center', minWidth: 150, format: (value) => {
       try {
-        return null2empty(params.value) + ' ' + null2empty(params.row.F1MPName)
+        return null2empty(value) + ' ' + null2empty(value.row.F1MPName)
       } catch (error) {
         return ''
       }
     }},
-    { field: 'R1M', headerName: 'ทะเบียนหลังขาเข้า', flex: 1, valueGetter: (params) => {
+    { id: 'R1M', label: 'ทะเบียนหลังขาเข้า', align: 'center', minWidth: 150, format: (value) => {
       try {
-        return null2empty(params.value) + ' ' + null2empty(params.row.R1MPName)
+        return null2empty(value) + ' ' + null2empty(value.row.R1MPName)
       } catch (error) {
         return ''
       }
     }},
-    { field: 'F2A', headerName: 'ทะเบียนหน้าขาออก', flex: 1, valueGetter: (params) => {
+    { id: 'F2A', label: 'ทะเบียนหน้าขาออก', align: 'center', minWidth: 150, format: (value) => {
       try {
-        return null2empty(params.value) + ' ' + null2empty(params.row.F2APName)
+        return null2empty(value) + ' ' + null2empty(value.row.F2APName)
       } catch (error) {
         return ''
       }
     }},
-    { field: 'R2A', headerName: 'ทะเบียนหลังขาออก', flex: 1, valueGetter: (params) => {
+    { id: 'R2A', label: 'ทะเบียนหลังขาออก', align: 'center', minWidth: 150, format: (value) => {
       try {
-        return null2empty(params.value) + ' ' + null2empty(params.row.R2APName)
+        return null2empty(value) + ' ' + null2empty(value.row.R2APName)
       } catch (error) {
         return ''
       }
     }},
-    { field: 'ObjectiveName', headerName: 'วัตถุประสงค์', flex: 1, hide: true , valueFormatter: (params) => {
+    { id: 'ObjectiveName', label: 'วัตถุประสงค์', align: 'center', minWidth: 150, format: (value) => {
       try {
-        if (params.value !== '') {
-          return params.value
+        if (value !== '') {
+          return value
         } else {
           return 'อื่นๆ'
         }
@@ -110,10 +121,10 @@ export default function Query() {
         return ''
       }
     } },
-    { field: 'SrcProvinceName', headerName: 'จังหวัดต้นทาง', valueFormatter: (params) => {
+    { id: 'SrcProvinceName', label: 'จังหวัดต้นทาง', align: 'center', minWidth: 150, format: (value) => {
       try {
-        if (params.value !== '' || params.value !== 'null') {
-          return params.value
+        if (value !== '' || value !== 'null') {
+          return value
         } else {
           return ''
         }
@@ -121,10 +132,10 @@ export default function Query() {
         return ''
       }
     } },
-    { field: 'DstProvinceName', headerName: 'จังหวัดปลายทาง', valueFormatter: (params) => {
+    { id: 'DstProvinceName', label: 'จังหวัดปลายทาง', align: 'center', minWidth: 150, format: (value) => {
       try {
-        if (params.value !== '' || params.value !== 'null') {
-          return params.value
+        if (value !== '' || value !== 'null') {
+          return value
         } else {
           return ''
         }
@@ -132,12 +143,12 @@ export default function Query() {
         return ''
       }
     } },
-    { field: 'NoLoadWt', headerName: 'นน.รถเปล่า', flex: 0.3, hide: true },
-    { field: 'LoadWt', headerName: 'นน.พิกัด', flex: 0.3, hide: true },
-    { field: 'OverWt', headerName: 'นน.เกิน', flex: 0.3, hide: true, valueFormatter: (params) => {
+    { id: 'NoLoadWt', label: 'นน.รถเปล่า', align: 'center', minWidth: 80 },
+    { id: 'LoadWt', label: 'นน.พิกัด', align: 'center', minWidth: 80 },
+    { id: 'OverWt', label: 'นน.เกิน', align: 'center', minWidth: 50, format: (value) => {
       try {
-        if (params.value !== '' || params.value !== 'null') {
-          if (params.value === 0) {
+        if (value !== '' || value !== 'null') {
+          if (value === 0) {
             return 'ไม่'
           } else {
             return 'ใช่'
@@ -149,10 +160,10 @@ export default function Query() {
         return ''
       }
     }},
-    { field: 'IsConfirmed', headerName: 'ยืนยัน', flex: 0.3, hide: true , valueFormatter: (params) => {
+    { id: 'IsConfirmed', label: 'ยืนยัน', align: 'center', minWidth: 50 , format: (value) => {
       try {
-        if (params.value !== '' || params.value !== 'null') {
-          if (params.value === 0) {
+        if (value !== '' || value !== 'null') {
+          if (value === 0) {
             return 'ไม่'
           } else {
             return 'ใช่'
@@ -164,15 +175,15 @@ export default function Query() {
         return ''
       }
     }},
-    { field: 'TimeUse', headerName: 'เวลาที่ใช้', flex: 1, valueGetter: (params) => {
+    { id: 'TimeUse', label: 'เวลาที่ใช้', align: 'center', minWidth: 100, format: (value) => {
       try {
-        return timeStayIn(params.row.TimeStampIn, params.row.TimeStampOut)
+        return timeStayIn(value.row.TimeStampIn, value.row.TimeStampOut)
       } catch (error) {
         return ''
       }
     }},
-    { field: 'edit', headerName: 'แก้ไข', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/home')}}><SquareEditOutline/></IconButton>)},
-    { field: 'print', headerName: 'พิมพ์', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/home')}}><PrintOutlinedIcon/></IconButton>)},
+    // { id: 'edit', label: 'แก้ไข', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/home')}}><SquareEditOutline/></IconButton>)},
+    // { id: 'print', label: 'พิมพ์', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/home')}}><PrintOutlinedIcon/></IconButton>)},
     
   ]
 
@@ -295,9 +306,57 @@ export default function Query() {
               <BtnSearch loading={loading} onClick={search}></BtnSearch>
             </CardActions>
           </Card>
-          <Card>
+          {/* <Card>
             <CardContent>
               <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} disableSelectionOnClick sx={{height: 400, color: 'white'}}/>
+            </CardContent>
+          </Card> */}
+          <Card>
+            <CardContent>
+              <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                <TableContainer sx={{ maxHeight: 440, color: 'white' }}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow>
+                        {columns.map((column) => (
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth }}
+                          >
+                            {column.label}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {rows.map((row) => {
+                          return (
+                            <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                              {columns.map((column) => {
+                                const value = row[column.id]
+                                return (
+                                  <TableCell key={column.id} align={column.align}>
+                                    {typeof column.format !== 'undefined' ? column.format(value) : value}
+                                  </TableCell>
+                                )
+                              })}
+                            </TableRow>
+                          )
+                        })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[10, 25, 100]}
+                  component="div"
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </Paper>
             </CardContent>
           </Card>
         </Stack>

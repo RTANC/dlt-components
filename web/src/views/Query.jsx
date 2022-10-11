@@ -1,4 +1,4 @@
-import { Container, Grid, Slide, Card, CardContent, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CardActions, Stack, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, TablePagination } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CardActions, Stack, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, TablePagination, IconButton } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -58,7 +58,7 @@ export default function Query() {
           return dateTimeFormatter(value)
         }
       } catch (error) {
-        return ''
+        return '-'
       }
     } },
     { id: 'TimeStampIn', label: 'วัน-เวลา เข้า', align: 'center', minWidth: 100, format: (value) => {
@@ -82,30 +82,30 @@ export default function Query() {
     { id: 'CompanyName', label: 'ผู้ประกอบการ', align: 'center', minWidth: 250 },
     { id: 'VehicleClassName', label: 'ประเภทรถ', align: 'center', minWidth: 100 },
     { id: 'VehicleGroupName', label: 'กลุ่มรถ', align: 'center', minWidth: 100 },
-    { id: 'F1M', label: 'ทะเบียนหน้าขาเข้า', align: 'center', minWidth: 150, format: (value) => {
+    { id: 'F1M', label: 'ทะเบียนหน้าขาเข้า', align: 'center', minWidth: 150, format: (F1M, F1MPName) => {
       try {
-        return null2empty(value) + ' ' + null2empty(value.row.F1MPName)
+        return null2empty(F1M) + ' ' + null2empty(F1MPName)
       } catch (error) {
         return ''
       }
     }},
-    { id: 'R1M', label: 'ทะเบียนหลังขาเข้า', align: 'center', minWidth: 150, format: (value) => {
+    { id: 'R1M', label: 'ทะเบียนหลังขาเข้า', align: 'center', minWidth: 150, format: (R1M, R1MPName) => {
       try {
-        return null2empty(value) + ' ' + null2empty(value.row.R1MPName)
+        return null2empty(R1M) + ' ' + null2empty(R1MPName)
       } catch (error) {
         return ''
       }
     }},
-    { id: 'F2A', label: 'ทะเบียนหน้าขาออก', align: 'center', minWidth: 150, format: (value) => {
+    { id: 'F2A', label: 'ทะเบียนหน้าขาออก', align: 'center', minWidth: 150, format: (F2A, F2APName) => {
       try {
-        return null2empty(value) + ' ' + null2empty(value.row.F2APName)
+        return null2empty(F2A) + ' ' + null2empty(F2APName)
       } catch (error) {
         return ''
       }
     }},
-    { id: 'R2A', label: 'ทะเบียนหลังขาออก', align: 'center', minWidth: 150, format: (value) => {
+    { id: 'R2A', label: 'ทะเบียนหลังขาออก', align: 'center', minWidth: 150, format: (R2A, R2APName) => {
       try {
-        return null2empty(value) + ' ' + null2empty(value.row.R2APName)
+        return null2empty(R2A) + ' ' + null2empty(R2APName)
       } catch (error) {
         return ''
       }
@@ -175,16 +175,15 @@ export default function Query() {
         return ''
       }
     }},
-    { id: 'TimeUse', label: 'เวลาที่ใช้', align: 'center', minWidth: 100, format: (value) => {
+    { id: 'TimeUse', label: 'เวลาที่ใช้', align: 'center', minWidth: 100, format: (TimeStampIn, TimeStampOut) => {
       try {
-        return timeStayIn(value.row.TimeStampIn, value.row.TimeStampOut)
+        return timeStayIn(TimeStampIn, TimeStampOut)
       } catch (error) {
         return ''
       }
     }},
-    // { id: 'edit', label: 'แก้ไข', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/home')}}><SquareEditOutline/></IconButton>)},
-    // { id: 'print', label: 'พิมพ์', flex: 0.4, sortable: false, type: 'actions', renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/home')}}><PrintOutlinedIcon/></IconButton>)},
-    
+    { id: 'edit', label: 'แก้ไข'},
+    { id: 'print', label: 'พิมพ์'},
   ]
 
   const [rows, setRows] = useState([])
@@ -333,14 +332,34 @@ export default function Query() {
                       {rows.map((row) => {
                           return (
                             <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                              {columns.map((column) => {
+                              <TableCell align={columns[0].align}>{columns[0].format(row.TimeStampTx)}</TableCell>
+                              <TableCell align={columns[1].align}>{columns[1].format(row.TimeStampIn)}</TableCell>
+                              <TableCell align={columns[2].align}>{columns[2].format(row.TimeStampOut)}</TableCell>
+                              <TableCell align={columns[3].align}>{row.CompanyName}</TableCell>
+                              <TableCell align={columns[4].align}>{row.VehicleClassName}</TableCell>
+                              <TableCell align={columns[5].align}>{row.VehicleGroupName}</TableCell>
+                              <TableCell align={columns[6].align}>{columns[6].format(row.F1M, row.F1MPName)}</TableCell>
+                              <TableCell align={columns[7].align}>{columns[7].format(row.R1M, row.R1MPName)}</TableCell>
+                              <TableCell align={columns[8].align}>{columns[8].format(row.F2A, row.F2APName)}</TableCell>
+                              <TableCell align={columns[9].align}>{columns[9].format(row.R2A, row.R2APName)}</TableCell>
+                              <TableCell align={columns[10].align}>{columns[10].format(row.ObjectiveName)}</TableCell>
+                              <TableCell align={columns[11].align}>{columns[11].format(row.SrcProvinceName)}</TableCell>
+                              <TableCell align={columns[12].align}>{columns[12].format(row.DstProvinceName)}</TableCell>
+                              <TableCell align={columns[13].align}>{row.NoLoadWt}</TableCell>
+                              <TableCell align={columns[14].align}>{row.LoadWt}</TableCell>
+                              <TableCell align={columns[15].align}>{columns[15].format(row.OverWt)}</TableCell>
+                              <TableCell align={columns[16].align}>{columns[16].format(row.IsConfirmed)}</TableCell>
+                              <TableCell align={columns[17].align}>{columns[17].format(row.TimeStampIn, row.TimeStampOut)}</TableCell>
+                              <TableCell align='center'><IconButton color="warning" onClick={() => {navigate('/home')}}><SquareEditOutline/></IconButton></TableCell>
+                              <TableCell align='center'><IconButton color="warning" onClick={() => {navigate('/home')}}><PrintOutlinedIcon/></IconButton></TableCell>
+                              {/* {columns.map((column) => {
                                 const value = row[column.id]
                                 return (
                                   <TableCell key={column.id} align={column.align}>
                                     {typeof column.format !== 'undefined' ? column.format(value) : value}
                                   </TableCell>
                                 )
-                              })}
+                              })} */}
                             </TableRow>
                           )
                         })}

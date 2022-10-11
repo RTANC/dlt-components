@@ -47,8 +47,8 @@ export default function Query() {
   }
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+    setRowsPerPage(+event.target.value)
+    setPage(0)
   }
 
   const columns = [
@@ -329,7 +329,7 @@ export default function Query() {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {rows.map((row) => {
+                      {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                           return (
                             <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                               <TableCell align={columns[0].align}>{columns[0].format(row.TimeStampTx)}</TableCell>

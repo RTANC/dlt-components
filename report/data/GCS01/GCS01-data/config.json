@@ -1,0 +1,14 @@
+{
+    "name": "GCS01-data",
+    "shortid": "Wee926A8M",
+    "creationDate": {
+        "$$date": 1665661769198
+    },
+    "modificationDate": {
+        "$$date": 1665674951855
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "DwRs3aYLZBJLUYoY",
+    "$entitySet": "data"
+}

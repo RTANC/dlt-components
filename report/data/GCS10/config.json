@@ -1,0 +1,14 @@
+{
+    "name": "GCS10",
+    "creationDate": {
+        "$$date": 1665661216915
+    },
+    "modificationDate": {
+        "$$date": 1665661216915
+    },
+    "shortid": "ILP_Axt",
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "uoGz0GX58jDOlH7J",
+    "$entitySet": "folders"
+}

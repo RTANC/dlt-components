@@ -1,0 +1,14 @@
+{
+    "name": "GCS03",
+    "creationDate": {
+        "$$date": 1665661161628
+    },
+    "modificationDate": {
+        "$$date": 1665661161628
+    },
+    "shortid": "1JRc_nx",
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "lxmYfYh0QyrRP0Cs",
+    "$entitySet": "folders"
+}

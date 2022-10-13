@@ -87,17 +87,14 @@ export default function DltAppBar() {
       setReportMenu(false)
     }
 
-    const gotoProfile = () => {
-      
-    }
-
     const handleLogout = () => {
       Cookies.remove('UserID')
       Cookies.remove('RoleID')
       Cookies.remove('LoginName')
       Cookies.remove('token')
+      // toggleDrawer(false)
+      setState(false)
       dispatch(logout())
-      toggleDrawer(false)
       navigate('/')
     }
 

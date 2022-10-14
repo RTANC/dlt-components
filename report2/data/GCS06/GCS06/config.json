@@ -1,0 +1,22 @@
+{
+    "name": "GCS06",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "YfZKFzrHJ"
+    },
+    "shortid": "nIqn2H_1Dm",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1665712851223
+    },
+    "modificationDate": {
+        "$$date": 1665712851223
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "w78AelWBHm8mftsT",
+    "$entitySet": "templates"
+}

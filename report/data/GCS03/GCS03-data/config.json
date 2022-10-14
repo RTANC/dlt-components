@@ -1,0 +1,14 @@
+{
+    "name": "GCS03-data",
+    "shortid": "HgQsOBB_6",
+    "creationDate": {
+        "$$date": 1665744664351
+    },
+    "modificationDate": {
+        "$$date": 1665750922601
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "g0nvmsQvr9lyf43A",
+    "$entitySet": "data"
+}

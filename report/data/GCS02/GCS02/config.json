@@ -1,0 +1,27 @@
+{
+    "name": "GCS02",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "wYLwcbju7"
+    },
+    "shortid": "lldYmhM5F3",
+    "chrome": {
+        "printBackground": false,
+        "format": "A4",
+        "landscape": true,
+        "width": "",
+        "height": "",
+        "mediaType": "screen"
+    },
+    "creationDate": {
+        "$$date": 1665711916292
+    },
+    "modificationDate": {
+        "$$date": 1665744121747
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "4OhAENiK6UqpHVB4",
+    "$entitySet": "templates"
+}

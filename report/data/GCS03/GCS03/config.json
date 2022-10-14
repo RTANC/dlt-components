@@ -1,0 +1,25 @@
+{
+    "name": "GCS03",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "HgQsOBB_6"
+    },
+    "shortid": "pGINYt4mWL",
+    "chrome": {
+        "printBackground": true,
+        "landscape": true,
+        "format": "A4",
+        "mediaType": "screen"
+    },
+    "creationDate": {
+        "$$date": 1665744663132
+    },
+    "modificationDate": {
+        "$$date": 1665751096416
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "BAgXyC60zskOFQuW",
+    "$entitySet": "templates"
+}

@@ -1,0 +1,230 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GCS01</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>{#asset /GCS03/GCS03.css @encoding=utf8}</style>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row my-2">
+        <div class="col-2 d-flex align-items-center">
+          <img
+            src="{{asset 'dlt-logo.png' 'dataURI'}}"
+            style="width:130px; height: 130px;"
+          />
+        </div>
+        <div class="col-6 d-flex align-items-center border-bottom">
+          กรมการขนส่งทางบก Department of Land Transport
+          <br />
+          ระบบควบคุมประตูอัตโนมัติ Gate Control System - GCS
+        </div>
+        <div
+          class="col-4 d-flex align-items-center border-bottom justify-content-end"
+        >
+          Page: 1 of 3
+          <br />
+          วัน-เวลา ที่พิมพ์ 13/10/2565 : 18:14
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">รายงาน GCS03 - จำนวนรถและปริมาณสินค้าเข้า-ออกสถานี  ตามชื่อผู้ประกอบการ</div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">ข้อมูลระหว่าง 14 ต.ค. 2565 00:00 น. - 14 ต.ค. 2565 23:59 น.</div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">สถานีพุทธมณฑล</div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2">
+                  <div>ผู้ประกอบการ</div>
+                </th>
+                <th rowspan="2">
+                  <div style="width: 100px">ปริมาณรถรับส่งสินค้าทั้งหมดผ่านสถานี (คัน)</div>
+                </th>
+                <th rowspan="2">
+                  <div style="width: 100px">ปริมาณการขนถ่ายสินค้าทั้งหมดผ่านสถานี (ตัน)</div>
+                </th>
+                <th colspan="5">
+                  <div>จำนวนรถรับส่งสินค้า (คัน)</div>
+                </th>
+                <th colspan="5">
+                  <div>ปริมาณสินค้า (ตัน)</div>
+                </th>
+                <th rowspan="2">
+                  <div style="width: 80px">จำนวนรถตรวจสภาพ</div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <div style="width: 65px">ส่งสินค้า</div>
+                </th>
+                <th>
+                  <div style="width: 65px">รับสินค้า</div>
+                </th>
+                <th>
+                  <div style="width: 80px">รับและส่งสินค้า</div>
+                </th>
+                <th>
+                  <div style="width: 50px">อื่นๆ</div>
+                </th>
+                <th>
+                  <div style="width: 50px">รวม</div>
+                </th>
+                <th>
+                  <div style="width: 65px">ส่งสินค้า</div>
+                </th>
+                <th>
+                  <div style="width: 65px">รับสินค้า</div>
+                </th>
+                <th>
+                  <div style="width: 80px">รับและส่งสินค้า</div>
+                </th>
+                <th>
+                  <div style="width: 50px">อื่นๆ</div>
+                </th>
+                <th>
+                  <div style="width: 50px">รวม</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start">ห้างหุ้นส่วนจำกัด (ติ่ง) ขนส่งชลบุรี</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">0</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p style="page-break-before: always;"></p>
+    <div class="container-fluid">
+      <div class="row my-2">
+        <div class="col-2 d-flex align-items-center">
+          <img
+            src="{{asset 'dlt-logo.png' 'dataURI'}}"
+            style="width:130px; height: 130px;"
+          />
+        </div>
+        <div class="col-6 d-flex align-items-center border-bottom">
+          กรมการขนส่งทางบก Department of Land Transport
+          <br />
+          ระบบควบคุมประตูอัตโนมัติ Gate Control System - GCS
+        </div>
+        <div
+          class="col-4 d-flex align-items-center border-bottom justify-content-end"
+        >
+          Page: 2 of 3
+          <br />
+          วัน-เวลา ที่พิมพ์ 13/10/2565 : 18:14
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">รายงาน GCS03 - จำนวนรถและปริมาณสินค้าเข้า-ออกสถานี  ตามชื่อผู้ประกอบการ</div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">ข้อมูลระหว่าง 14 ต.ค. 2565 00:00 น. - 14 ต.ค. 2565 23:59 น.</div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">สถานีพุทธมณฑล</div>
+      </div>
+      <div class="row my-3 mx-2 d-flex justify-content-center">
+        <div class="col-12 graph-panel d-flex justify-content-center align-items-center">
+          <div id="chart1"></div>
+        </div>
+      </div>
+    </div>
+    <p style="page-break-before: always;"></p>
+    <div class="container-fluid">
+      <div class="row my-2">
+        <div class="col-2 d-flex align-items-center">
+          <img
+            src="{{asset 'dlt-logo.png' 'dataURI'}}"
+            style="width:130px; height: 130px;"
+          />
+        </div>
+        <div class="col-6 d-flex align-items-center border-bottom">
+          กรมการขนส่งทางบก Department of Land Transport
+          <br />
+          ระบบควบคุมประตูอัตโนมัติ Gate Control System - GCS
+        </div>
+        <div
+          class="col-4 d-flex align-items-center border-bottom justify-content-end"
+        >
+          Page: 3 of 3
+          <br />
+          วัน-เวลา ที่พิมพ์ 13/10/2565 : 18:14
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">รายงาน GCS03 - จำนวนรถและปริมาณสินค้าเข้า-ออกสถานี  ตามชื่อผู้ประกอบการ</div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">ข้อมูลระหว่าง 14 ต.ค. 2565 00:00 น. - 14 ต.ค. 2565 23:59 น.</div>
+      </div>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">สถานีพุทธมณฑล</div>
+      </div>
+      <div class="row my-3 mx-2 d-flex justify-content-center">
+        <div class="col-12 graph-panel d-flex justify-content-center align-items-center">
+          <div id="chart2"></div>
+        </div>
+      </div>
+    </div>
+    {#asset /GCS03/GCS03-chart.js @encoding=utf8}
+  </body>
+</html>

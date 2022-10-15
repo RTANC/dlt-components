@@ -1,0 +1,40 @@
+{
+    "name": "GCS12",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "P-gEx0n0a"
+    },
+    "shortid": "fkq4q6ZFQE",
+    "chrome": {
+        "printBackground": true,
+        "landscape": true,
+        "format": "A4",
+        "mediaType": "screen",
+        "marginTop": "",
+        "marginBottom": ""
+    },
+    "creationDate": {
+        "$$date": 1665840866097
+    },
+    "modificationDate": {
+        "$$date": 1665841262565
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "6S1Ie1AUHnoj4FOk",
+    "$entitySet": "templates",
+    "localization": {
+        "language": "th"
+    },
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "templateShortid": "E_OM6Ja",
+            "mergeWholeDocument": true
+        }
+    ],
+    "pdfPassword": {
+        "password": "123456789"
+    }
+}

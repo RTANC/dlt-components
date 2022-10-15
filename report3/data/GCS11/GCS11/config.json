@@ -1,0 +1,39 @@
+{
+    "name": "GCS11",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "VHGgax7ky"
+    },
+    "shortid": "lmeMkheHI",
+    "chrome": {
+        "printBackground": true,
+        "viewportHeight": null,
+        "format": "A4",
+        "landscape": true,
+        "mediaType": "screen",
+        "marginTop": "0",
+        "marginBottom": "0",
+        "displayHeaderFooter": false,
+        "marginRight": "0",
+        "marginLeft": "0"
+    },
+    "creationDate": {
+        "$$date": 1665832418620
+    },
+    "modificationDate": {
+        "$$date": 1665840817478
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "4QFOX96QwnPBQ893",
+    "$entitySet": "templates",
+    "pdfPassword": null,
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "templateShortid": "6kCwSiR",
+            "mergeWholeDocument": true
+        }
+    ]
+}

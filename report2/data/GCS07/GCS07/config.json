@@ -1,25 +1,25 @@
 {
-    "name": "GCS06",
+    "name": "GCS07",
     "engine": "handlebars",
     "recipe": "chrome-pdf",
     "data": {
-        "shortid": "YfZKFzrHJ"
+        "shortid": "wrD0gOkyw"
     },
-    "shortid": "nIqn2H_1Dm",
+    "shortid": "ibfh9dkO9b",
     "chrome": {
         "printBackground": true,
+        "landscape": true,
         "format": "A4",
-        "mediaType": "screen",
-        "landscape": true
+        "mediaType": "screen"
     },
     "creationDate": {
-        "$$date": 1665712851223
+        "$$date": 1665807078201
     },
     "modificationDate": {
-        "$$date": 1665805927848
+        "$$date": 1665807486210
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
-    "_id": "w78AelWBHm8mftsT",
+    "_id": "PCwLXvOQQ0BUzQYp",
     "$entitySet": "templates"
 }

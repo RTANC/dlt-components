@@ -1,0 +1,27 @@
+{
+    "name": "Header",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "creationDate": {
+        "$$date": 1665832724705
+    },
+    "modificationDate": {
+        "$$date": 1665840466554
+    },
+    "shortid": "6kCwSiR",
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "eGAuQKZmCckkXqmz",
+    "$entitySet": "templates",
+    "chrome": {
+        "landscape": true,
+        "format": "A4",
+        "mediaType": "screen"
+    },
+    "data": {
+        "shortid": "VHGgax7ky"
+    },
+    "localization": {
+        "language": "th"
+    }
+}

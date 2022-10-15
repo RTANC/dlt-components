@@ -1,0 +1,28 @@
+{
+    "name": "GCS08",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "-soucdUf_"
+    },
+    "shortid": "d5bHOOHrT",
+    "chrome": {
+        "printBackground": true,
+        "format": "A4",
+        "landscape": true,
+        "mediaType": "screen"
+    },
+    "creationDate": {
+        "$$date": 1665815744314
+    },
+    "modificationDate": {
+        "$$date": 1665815850363
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "LW8hd9mMvT7BVmiQ",
+    "$entitySet": "templates",
+    "localization": {
+        "language": "th"
+    }
+}

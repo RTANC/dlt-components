@@ -1,0 +1,40 @@
+{
+    "name": "GCS13",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "uZ3wyc11p"
+    },
+    "shortid": "cgwMColChR",
+    "chrome": {
+        "printBackground": true,
+        "marginTop": "",
+        "marginBottom": "",
+        "format": "A4",
+        "mediaType": "screen",
+        "landscape": true
+    },
+    "creationDate": {
+        "$$date": 1665842152974
+    },
+    "modificationDate": {
+        "$$date": 1665842909024
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "45m98knR36QycFTn",
+    "$entitySet": "templates",
+    "localization": {
+        "language": "th"
+    },
+    "pdfPassword": {
+        "password": "123456789"
+    },
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "templateShortid": "BPJZQIP",
+            "mergeWholeDocument": true
+        }
+    ]
+}

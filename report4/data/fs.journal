@@ -1,0 +1,2 @@
+
+{"operation":"insert","timestamp":{"$$date":1666688580887},"version":8,"doc":{"key":"sample-created","value":"true","creationDate":{"$$date":1666688580882},"modificationDate":{"$$date":1666688580883},"shortid":"pO4dJxD","_id":"uutvqsRUWquPE5ZP","$entitySet":"settings","$$etag":1666688580886}}

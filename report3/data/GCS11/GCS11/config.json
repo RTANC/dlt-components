@@ -22,7 +22,7 @@
         "$$date": 1665832418620
     },
     "modificationDate": {
-        "$$date": 1665840817478
+        "$$date": 1666686981121
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
@@ -35,5 +35,8 @@
             "templateShortid": "6kCwSiR",
             "mergeWholeDocument": true
         }
-    ]
+    ],
+    "localization": {
+        "language": "th"
+    }
 }

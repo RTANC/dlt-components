@@ -18,7 +18,7 @@
         "$$date": 1665842152974
     },
     "modificationDate": {
-        "$$date": 1665842909024
+        "$$date": 1666685394831
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
@@ -27,9 +27,7 @@
     "localization": {
         "language": "th"
     },
-    "pdfPassword": {
-        "password": "123456789"
-    },
+    "pdfPassword": null,
     "pdfOperations": [
         {
             "type": "merge",

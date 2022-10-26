@@ -1,0 +1,32 @@
+{
+    "name": "GCS15",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "t9Knn8-ll"
+    },
+    "shortid": "D3B-iDkJvW",
+    "chrome": {
+        "printBackground": true,
+        "format": "A4",
+        "landscape": true,
+        "mediaType": "screen"
+    },
+    "creationDate": {
+        "$$date": 1666774710324
+    },
+    "modificationDate": {
+        "$$date": 1666775911796
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "LHCJhlmFIL4z3SvH",
+    "$entitySet": "templates",
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "mergeWholeDocument": true,
+            "templateShortid": "8-KLWoq"
+        }
+    ]
+}

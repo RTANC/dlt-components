@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <style>
+          @font-face {
+           font-family: 'Sarabun-Regular';
+           src: url({#asset ../report/data/font/Sarabun-Regular.ttf @encoding=dataURI});
+           format('truetype');
+          }
+
+          .header {
+              display: flex;
+              justify-content: flex-start;
+              width: 100%;
+              font-family: 'Sarabun-Regular';
+              font-size: 12pt;
+          }
+          .header-logo {
+            width: 150px;
+          }
+          .header-title {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid black;
+            width: 100%;
+          }
+          .header-dept-title, .header-print-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .header-report {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            text-justify: auto;
+            margin-top: 20px;
+          }
+          .header-report-item {
+            padding: 5px 0px 5px 0px;
+            font-family: 'Sarabun-Regular';
+            font-size: 12pt;
+          }
+        </style>
+    </head>
+    <body>
+        {{#each $pdf.pages}}
+          {{#if @index}}
+            <div style="page-break-before: always;"></div>
+          {{/if}}
+          <main class="main"> 
+            <header>
+              <div class="header">
+                <div class="header-logo">
+                  <img src="{{asset 'dlt-logo.png' 'dataURI'}}" style="width:130px; height: 130px;"/>
+                </div>
+                <div class="header-title">
+                  <div class="header-dept-title">
+                    กรมการขนส่งทางบก Department of Land Transport
+                    <br />
+                    ระบบควบคุมประตูอัตโนมัติ Gate Control System - GCS
+                  </div>
+                  <div class="header-print-title">
+                    Page: {{getPageNumber @index}} of {{getTotalPages ../$pdf.pages}}
+                    <br />
+                    วัน-เวลา ที่พิมพ์ 13/10/2565 : 18:14
+                  </div>
+                </div>
+              </div>
+              <div class="header-report">
+                <div class="header-report-item">รายงาน GCS14 - ปริมาณข้อมูลที่ถูกบันทึกโดยผู้ประกอบการ</div>
+                <div class="header-report-item">ข้อมูลระหว่าง 26 ต.ค. 2565 00:00 น. - 26 ต.ค. 2565 23:59 น.</div>
+                <div class="header-report-item">{{../station}}</div>
+              </div>
+            </header>
+          </main>
+        {{/each}}
+    </body>
+</html>

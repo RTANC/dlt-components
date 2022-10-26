@@ -1,0 +1,34 @@
+{
+    "name": "GCS14",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "data": {
+        "shortid": "9XkB7yzuh"
+    },
+    "shortid": "GNVVZrUvf3",
+    "chrome": {
+        "printBackground": true,
+        "marginTop": "",
+        "marginBottom": "",
+        "landscape": true,
+        "format": "A4",
+        "mediaType": "screen"
+    },
+    "creationDate": {
+        "$$date": 1666770782160
+    },
+    "modificationDate": {
+        "$$date": 1666774119765
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "iOCY5H9tzBhAKOBz",
+    "$entitySet": "templates",
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "templateShortid": "8-KLWoq",
+            "mergeWholeDocument": true
+        }
+    ]
+}

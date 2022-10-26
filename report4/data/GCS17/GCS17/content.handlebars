@@ -1,0 +1,148 @@
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GCS01</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>{#asset GCS.css @encoding=utf8}</style>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 table-panel">
+          <p>กรณีไม่มีโครงการ</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 table-panel d-flex justify-content-center">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 40%;">
+                  <div>ประเภทรถ</div>
+                </th>
+                <th style="width: 15%;">
+                  <div>ปริมาณรถ (คัน)</div>
+                </th>
+                <th style="width: 15%;">
+                  <div>ระยะทางเฉลี่ย (กม.)</div>
+                </th>
+                <th style="width: 15%;">
+                  <div>ต้นทุนการขนส่ง (บาท/กม.)</div>
+                </th>
+                <th style="width: 15%;">
+                  <div>ต้นทุนการขนส่ง (บาท)</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2">รถบรรทุก 4 ล้อ</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">990</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">492</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">5.79</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">2,820,193.20</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <div class="d-flex justify-content-end pr-2">รวมต้นทุนกรณีไม่มีโครงการ (บาท)</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">2,820,193.20</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12 table-panel">
+          <p>กรณีมีโครงการ</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 table-panel">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <div>ประเภทรถ</div>
+                </th>
+                <th>
+                  <div>วัตถุประสงค์</div>
+                </th>
+                <th>
+                  <div>ปริมาณรถ (คัน)</div>
+                </th>
+                <th>
+                  <div>ระยะทางเฉลี่ย (กม.)</div>
+                </th>
+                <th>
+                  <div>ต้นทุนการขนส่ง (บาท/กม.)</div>
+                </th>
+                <th>
+                  <div>ต้นทุนการขนส่ง (บาท)</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2">รถบรรทุก 4 ล้อ</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-center">ส่งสินค้า</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">990</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">40</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">5.79</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">229,284.00</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <div class="d-flex justify-content-end pr-2">รวมต้นทุนกรณีมีโครงการ (บาท)</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">7,848,819.12</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <div class="d-flex justify-content-end pr-2">ต้นทุนการขนส่งที่ลดลงได้ (บาท)</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">(5,028,625.92)</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

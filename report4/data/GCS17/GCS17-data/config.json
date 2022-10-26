@@ -1,0 +1,14 @@
+{
+    "name": "GCS17-data",
+    "shortid": "PUNs9hgdt",
+    "creationDate": {
+        "$$date": 1666792954451
+    },
+    "modificationDate": {
+        "$$date": 1666792992459
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "EFrd6x8p0RGptpP1",
+    "$entitySet": "data"
+}

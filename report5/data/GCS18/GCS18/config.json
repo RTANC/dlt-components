@@ -1,27 +1,26 @@
 {
-    "name": "GCS01",
+    "name": "GCS18",
     "engine": "handlebars",
     "recipe": "chrome-pdf",
     "data": {
-        "shortid": "Wee926A8M"
+        "shortid": "CgVLXQs76"
     },
-    "shortid": "flVqqvqsFa",
+    "shortid": "JF7MKzyJlb",
     "chrome": {
         "printBackground": true,
-        "format": "A4",
-        "displayHeaderFooter": false,
         "landscape": true,
+        "format": "A4",
         "mediaType": "screen"
     },
     "creationDate": {
-        "$$date": 1665661747555
+        "$$date": 1666877784014
     },
     "modificationDate": {
-        "$$date": 1666858956229
+        "$$date": 1666879793055
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
-    "_id": "f4umV7PSE4CmF4kt",
+    "_id": "mYGtizxEL5AIsSbY",
     "$entitySet": "templates",
     "localization": {
         "language": "th"
@@ -30,7 +29,7 @@
         {
             "type": "merge",
             "mergeWholeDocument": true,
-            "templateShortid": "3BxGSwoWD"
+            "templateShortid": "L8IYXizSI"
         }
     ]
 }

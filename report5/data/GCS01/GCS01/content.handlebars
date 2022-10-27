@@ -10,13 +10,12 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    {{!-- <style>{#asset /GCS01/GCS01.css @encoding=utf8}</style> --}}
-    <style>{#asset GCS.css @encoding=utf8}</style>
+    <style>{#asset /GCS01/GCS01.css @encoding=utf8}</style>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row my-2">
+      <div class="row mt-5 mb-3">
         <div class="col-12 table-panel d-flex justify-content-center">
           <table>
             <tbody>
@@ -122,18 +121,13 @@
         <div
           class="col-5 graph-panel mr-3 d-flex justify-content-center align-items-center"
         >
-          <div id="myChart"></div>
+          <div id="myChart1"></div>
         </div>
-        <div class="col-5 graph-panel ml-3 d-flex justify-content-center align-items-center"></div>
+        <div class="col-5 graph-panel ml-3 d-flex justify-content-center align-items-center">
+            <div id="myChart2"></div>
+        </div>
       </div>
     </div>
-    <script>
-      var options = { title: { text: 'จำนวนรถรับส่งสินค้า (คัน)', align:
-      'center', margin: 10 }, series:
-      {{{toJSON ddata}}}, chart: { width: 500, type: 'pie', animations: { enabled:
-      false } }, labels: ['ส่งสินค้า', 'รับสินค้า', 'รับและส่งสินค้า', 'อื่นๆ',
-      'รวม'] }; var chart = new ApexCharts(document.querySelector("#myChart"),
-      options); chart.render();
-    </script>
+    {#asset /GCS01/GCS01-chart.js @encoding=utf8}
   </body>
 </html>

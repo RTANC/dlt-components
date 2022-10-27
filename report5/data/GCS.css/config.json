@@ -1,15 +1,15 @@
 {
-    "name": "GCS01.css",
+    "name": "GCS.css",
     "sharedHelpersScope": null,
     "creationDate": {
-        "$$date": 1665662651140
+        "$$date": 1666878057318
     },
     "modificationDate": {
-        "$$date": 1666859869543
+        "$$date": 1666878077454
     },
-    "shortid": "2ReyYTP",
+    "shortid": "rv_p-ie",
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
-    "_id": "iOd4yGZa4IgZ1hvi",
+    "_id": "2lAAo65OqsUPPVMT",
     "$entitySet": "assets"
 }

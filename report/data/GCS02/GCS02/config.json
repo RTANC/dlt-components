@@ -7,7 +7,7 @@
     },
     "shortid": "lldYmhM5F3",
     "chrome": {
-        "printBackground": false,
+        "printBackground": true,
         "format": "A4",
         "landscape": true,
         "width": "",
@@ -18,10 +18,20 @@
         "$$date": 1665711916292
     },
     "modificationDate": {
-        "$$date": 1665744121747
+        "$$date": 1666859944432
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
     "_id": "4OhAENiK6UqpHVB4",
-    "$entitySet": "templates"
+    "$entitySet": "templates",
+    "localization": {
+        "language": "th"
+    },
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "mergeWholeDocument": true,
+            "templateShortid": "3BxGSwoWD"
+        }
+    ]
 }

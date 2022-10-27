@@ -16,10 +16,20 @@
         "$$date": 1665753376325
     },
     "modificationDate": {
-        "$$date": 1665757398588
+        "$$date": 1666861580070
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
     "_id": "Srwwhl5b0Yv5Mods",
-    "$entitySet": "templates"
+    "$entitySet": "templates",
+    "localization": {
+        "language": "th"
+    },
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "mergeWholeDocument": true,
+            "templateShortid": "3BxGSwoWD"
+        }
+    ]
 }

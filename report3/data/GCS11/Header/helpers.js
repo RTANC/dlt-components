@@ -1,3 +1,7 @@
+function getDateTimePrint () {
+    return new Date().toLocaleString('th-TH')
+}
+
 function getPageNumber (pageIndex) {
     if (pageIndex == null) {
         return ''

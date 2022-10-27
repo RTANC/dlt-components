@@ -1,14 +1,14 @@
 {
     "name": "GCS10-data",
-    "shortid": "Dd3q3KRJ4",
+    "shortid": "_DBiyCbD1",
     "creationDate": {
-        "$$date": 1665819220927
+        "$$date": 1666844841734
     },
     "modificationDate": {
-        "$$date": 1665820700971
+        "$$date": 1666844987535
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
-    "_id": "gDdlmKhpqNu8fCzv",
+    "_id": "2lDd8IskS7Xr1BGO",
     "$entitySet": "data"
 }

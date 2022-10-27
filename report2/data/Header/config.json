@@ -2,26 +2,24 @@
     "name": "Header",
     "engine": "handlebars",
     "recipe": "chrome-pdf",
-    "creationDate": {
-        "$$date": 1665842231275
-    },
-    "modificationDate": {
-        "$$date": 1665842337653
-    },
-    "shortid": "BPJZQIP",
-    "inheritedReadPermissions": [],
-    "inheritedEditPermissions": [],
-    "_id": "FR0yLInaDytqvqvz",
-    "$entitySet": "templates",
-    "localization": {
-        "language": "th"
-    },
+    "shortid": "LE_6eczBb",
     "chrome": {
+        "printBackground": true,
         "landscape": true,
         "format": "A4",
         "mediaType": "screen"
     },
-    "data": {
-        "shortid": "uZ3wyc11p"
+    "creationDate": {
+        "$$date": 1666852356927
+    },
+    "modificationDate": {
+        "$$date": 1666853586410
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "2RqrYSwRdg9ITYdy",
+    "$entitySet": "templates",
+    "localization": {
+        "language": "th"
     }
 }

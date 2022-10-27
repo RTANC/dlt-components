@@ -1,15 +1,15 @@
 {
-    "name": "GCS01.css",
+    "name": "GCS10-chart.js",
     "sharedHelpersScope": null,
     "creationDate": {
-        "$$date": 1665662651140
+        "$$date": 1666845070224
     },
     "modificationDate": {
-        "$$date": 1666859869543
+        "$$date": 1666845076274
     },
-    "shortid": "2ReyYTP",
+    "shortid": "o2RPhgP",
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
-    "_id": "iOd4yGZa4IgZ1hvi",
+    "_id": "zhJ6uyHf7SySQfTp",
     "$entitySet": "assets"
 }

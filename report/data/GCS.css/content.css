@@ -12,7 +12,7 @@
 
 body {
     font-family: 'Sarabun-Regular';
-    font-size: 14pt;
+    font-size: 12pt;
 }
 
 table, td, th {
@@ -28,14 +28,16 @@ table > tbody > tr > td {
 }
 
 table {
+  font-family: 'Sarabun-Regular';
   width: 100%;
   border-collapse: collapse;
+  font-size: 12pt;
 }
 
 th > div {
   display: flex;
   justify-content: center;
-  height: 50px;
+  height: 40px;
   align-items: center;
   padding-left: 2px;
   padding-right: 2px;

@@ -9,16 +9,28 @@
     "chrome": {
         "printBackground": true,
         "format": "A4",
-        "displayHeaderFooter": false
+        "displayHeaderFooter": false,
+        "landscape": true,
+        "mediaType": "screen"
     },
     "creationDate": {
         "$$date": 1665661747555
     },
     "modificationDate": {
-        "$$date": 1665676605820
+        "$$date": 1666858956229
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
     "_id": "f4umV7PSE4CmF4kt",
-    "$entitySet": "templates"
+    "$entitySet": "templates",
+    "localization": {
+        "language": "th"
+    },
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "mergeWholeDocument": true,
+            "templateShortid": "3BxGSwoWD"
+        }
+    ]
 }

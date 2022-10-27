@@ -3,26 +3,33 @@
     "engine": "handlebars",
     "recipe": "chrome-pdf",
     "data": {
-        "shortid": "Dd3q3KRJ4"
+        "shortid": "_DBiyCbD1"
     },
-    "shortid": "C8fPwuxKHd",
+    "shortid": "VWfwYFJGWl",
     "chrome": {
         "printBackground": true,
         "format": "A4",
-        "landscape": true,
-        "mediaType": "screen"
+        "mediaType": "screen",
+        "landscape": true
     },
     "creationDate": {
-        "$$date": 1665819219155
+        "$$date": 1666844808782
     },
     "modificationDate": {
-        "$$date": 1665820417427
+        "$$date": 1666846487484
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
-    "_id": "PArJ7LMdnf49WpgE",
+    "_id": "gXTLf7rK6op7xQTX",
     "$entitySet": "templates",
     "localization": {
         "language": "th"
-    }
+    },
+    "pdfOperations": [
+        {
+            "type": "merge",
+            "mergeWholeDocument": true,
+            "templateShortid": "6kCwSiR"
+        }
+    ]
 }

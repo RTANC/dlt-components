@@ -57,10 +57,13 @@ export default function GCS16() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container>
+        <Container sx={{height: '100vh'}}>
           <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text' style={{fontSize: 32}}>GCS16 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามรายจังหวัด ต้นทาง-ปลายทาง</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-                <CardHeader title='GCS16 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามรายจังหวัด ต้นทาง-ปลายทาง' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
                 <CardContent>
                   <Grid container spacing={2} direction='row' wrap='wrap'>
                         <Grid item xs={6}>

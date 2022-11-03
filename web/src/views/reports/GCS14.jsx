@@ -52,10 +52,13 @@ export default function GCS14() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container>
+        <Container sx={{height: '100vh'}}>
           <Stack spacing={2}>
+            <div className='dlt-page-title'>
+              <div className='dlt-page-title-text'>GCS14 ปริมาณข้อมูลที่ถูกบันทึกโดยผู้ประกอบการ</div>
+              <div className='dlt-page-title-line'></div>
+            </div>
             <Card>
-                <CardHeader title='GCS14 ปริมาณข้อมูลที่ถูกบันทึกโดยผู้ประกอบการ' titleTypographyProps={{variant: 'h5', display: 'flex', justifyContent: 'center'}} sx={{backgroundColor: '#eeeeee'}}></CardHeader>
                 <CardContent>
                   <Grid container spacing={2} direction='row' wrap='wrap'>
                         <Grid item xs={12}>

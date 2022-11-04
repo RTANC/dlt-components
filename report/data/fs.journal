@@ -1,4 +1,1 @@
-{"operation":"remove","timestamp":{"$$date":1666879929146},"version":1898,"doc":{"_id":"f4umV7PSE4CmF4kt","$entitySet":"templates"}}
-{"operation":"remove","timestamp":{"$$date":1666879929154},"version":1899,"doc":{"_id":"DwRs3aYLZBJLUYoY","$entitySet":"data"}}
-{"operation":"remove","timestamp":{"$$date":1666879929160},"version":1900,"doc":{"_id":"iOd4yGZa4IgZ1hvi","$entitySet":"assets"}}
-{"operation":"remove","timestamp":{"$$date":1666879929163},"version":1901,"doc":{"_id":"5J1gACHHWrlshopF","$entitySet":"folders"}}
+

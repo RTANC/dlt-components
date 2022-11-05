@@ -1,4 +1,4 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, Stack, Divider } from '@mui/material'
+import { Card, Container, Slide, Box, CardContent, Grid, Stack } from '@mui/material'
 import React from 'react'
 import { useState } from 'react'
 import SelectStation from '../../components/SelectStation'
@@ -7,6 +7,9 @@ import DltDateTimePicker from '../../components/DltDateTimePicker'
 import BtnClear from '../../components/BtnClear'
 import BtnSearch from '../../components/BtnSearch'
 import moment from 'moment'
+import jsreport from '@jsreport/browser-client'
+jsreport.headers['Authorization'] = 'Basic ' + btoa(import.meta.env.VITE_JSREPORT_USERNAME + ':' + import.meta.env.VITE_JSREPORT_PASSWORD)
+jsreport.serverUrl = import.meta.env.VITE_JSREPORT_URL + ':5488'
 
 export default function GCS03() {
   const [loading, setLoading] = useState(false)
@@ -33,6 +36,9 @@ export default function GCS03() {
     const search = async () => {
         try {
           setLoading(true)
+          // const report = await jsreport.render({ template: { shortid: 'stkaBVCjZ_' }, data: this.info })
+          const report = await jsreport.render({ template: { shortid: 'pGINYt4mWL' } })
+          report.openInWindow({ title: 'GCS03', filename: 'GCS03.pdf' })
         } catch (error) {
           console.log(error)
         } finally {

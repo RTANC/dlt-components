@@ -20,7 +20,7 @@ import BtnSave from '../components/BtnSave'
 import BtnClear from '../components/BtnClear'
 import { useSelector } from 'react-redux'
 import { getImageURL, removeSQLTz } from '../services/utils'
-import { createTransport, getTransport } from '../services/transports'
+import { createTransport, getTransport, updateTransport } from '../services/transports'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -193,6 +193,8 @@ export default function Home() {
           VehicleClassID: transport.vehicleClass.value }
         if (transport.transportId === null) {
           await createTransport(payload)
+        } else {
+          await updateTransport(transport.transportId, payload)
         }
       }
       console.log(transport)

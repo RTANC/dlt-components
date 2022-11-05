@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@jsreport/browser-client": "^3.1.0",
     "@date-io/date-fns": "^2.14.0",
     "@date-io/moment": "^2.14.0",
     "@emotion/react": "^11.9.0",
@@ -26,6 +27,7 @@
     "date-fns": "^2.28.0",
     "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
+    "js-base64": "^2.5.1",
     "mdi-material-ui": "^7.3.0",
     "moment": "^2.29.3",
     "prop-types": "^15.8.1",

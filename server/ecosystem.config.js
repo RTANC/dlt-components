@@ -17,7 +17,8 @@ module.exports = {
         },
         env_production: {
           NODE_ENV: "production",
-          PORT: 80
+          JWT_KEY: 'gcs.dlt.co.th',
+          PORT: 3001
         }
       }
     ]

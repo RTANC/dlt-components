@@ -57,8 +57,9 @@
           },
   title: {
     text: 'ประเภทรถ',
-          }
-        },
+    offsetY: 220
+    }
+  },
   yaxis: {
     axisBorder: {
     show: true
@@ -150,6 +151,7 @@
           },
   title: {
     text: 'ประเภทรถ',
+    offsetY: 220
           }
         },
   yaxis: {
@@ -243,6 +245,7 @@
           },
   title: {
     text: 'ประเภทรถ',
+    offsetY: 220
           }
         },
   yaxis: {

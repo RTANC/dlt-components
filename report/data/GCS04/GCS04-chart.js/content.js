@@ -61,6 +61,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'ภูมิภาค',
+    offsetY: 90
           }
         },
   yaxis: {
@@ -154,6 +155,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'ภูมิภาค',
+    offsetY: 90
           }
         },
   yaxis: {

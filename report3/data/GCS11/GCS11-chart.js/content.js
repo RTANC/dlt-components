@@ -57,6 +57,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'ผู้ประกอบการ',
+    offsetY: 220
           }
         },
   yaxis: {

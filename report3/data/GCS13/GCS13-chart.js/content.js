@@ -57,6 +57,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'ประเภทรถ',
+    offsetY: 220
           }
         },
   yaxis: {
@@ -146,6 +147,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'ประเภทรถ',
+    offsetY: 220
           }
         },
   yaxis: {

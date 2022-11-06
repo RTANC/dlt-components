@@ -57,6 +57,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'เดือน',
+    offsetY: 100
           }
         },
   yaxis: {
@@ -147,6 +148,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'เดือน',
+    offsetY: 100
           }
         },
   yaxis: {
@@ -236,6 +238,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'เดือน',
+    offsetY: 100
           }
         },
   yaxis: {
@@ -329,6 +332,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'เดือน',
+    offsetY: 100
           }
         },
   yaxis: {
@@ -422,6 +426,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'เดือน',
+    offsetY: 100
           }
         },
   yaxis: {

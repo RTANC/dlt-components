@@ -103,7 +103,7 @@ export default function DltAppBar() {
     <React.Fragment>
     <AppBar position="static" color='appBar'>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <img src="../../static/logo_dlt_header.png"/>
+          <img src="logo_dlt_header.png"/>
           {auth && (
             <IconButton
               size="large"

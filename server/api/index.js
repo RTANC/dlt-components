@@ -13,6 +13,7 @@ const agenciesRoutes = require('./agencies')
 const managementsRoutes = require('./managements')
 const queryRoutes = require('./query')
 const profileRoutes = require('./profiles')
+const reportRoutes = require('./reports')
 
 router.get('/systems', (req, res, next) => {
     res.status(200).send({
@@ -32,5 +33,6 @@ router.use('/agencies', agenciesRoutes)
 router.use('/managements', managementsRoutes)
 router.use('/query', queryRoutes)
 router.use('/profiles', profileRoutes)
+router.use('/reports', reportRoutes)
 
 module.exports = router

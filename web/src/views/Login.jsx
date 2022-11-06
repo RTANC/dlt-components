@@ -121,7 +121,7 @@ export default function Login() {
           <Grid item xs={6}>
           <Box sx={{ marginTop: '15vh' }} className='login-panel'>
             <Stack spacing={3}>
-              <img src="/static/gcs-login-title.png"/>
+              <img src="gcs-login-title.png"/>
               <DltTextField value={data.username.value} label="ชื่อผู้ใช้งาน" placeholder="ชื่อผู้ใช้งาน" name="username" autoFocus focused={false} onChange={handleChange}></DltTextField>
               <DltPasswordTextField value={data.password.value} label="รหัสผ่าน" name="password" onChange={handleChange} onKeyUp={handleEnterKey}></DltPasswordTextField>
               <FormControlLabel

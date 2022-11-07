@@ -7,10 +7,8 @@ import DltDateTimePicker from '../../components/DltDateTimePicker'
 import BtnClear from '../../components/BtnClear'
 import BtnSearch from '../../components/BtnSearch'
 import moment from 'moment'
-import jsreport from '@jsreport/browser-client'
 import { getReports } from '../../services/reports'
-jsreport.headers['Authorization'] = 'Basic ' + btoa(import.meta.env.VITE_JSREPORT_USERNAME + ':' + import.meta.env.VITE_JSREPORT_PASSWORD)
-jsreport.serverUrl = import.meta.env.VITE_JSREPORT_URL + ':5492'
+
 
 export default function GCS01() {
     const [loading, setLoading] = useState(false)
@@ -39,12 +37,7 @@ export default function GCS01() {
     const search = async () => {
         try {
           setLoading(true)
-          // const report = await jsreport.render({ template: { shortid: 'stkaBVCjZ_' }, data: this.info })
-          // const report = await jsreport.render({ template: { shortid: 'H7UaSVeTxQ' } })
-          // report.openInWindow({ title: 'GCS01', filename: 'GCS01.pdf' })
-          const resp = await getReports('01')
-          const myBlob = new Blob([(resp.data)], {type: 'application/pdf'})
-          var fileURL = URL.createObjectURL(myBlob)
+          const fileURL = await getReports('01')
           window.open(fileURL)
         } catch (error) {
           console.log(error)

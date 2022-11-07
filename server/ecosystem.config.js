@@ -13,12 +13,18 @@ module.exports = {
         env_development: {
           NODE_ENV: "development",
           JWT_KEY: 'gcs.dlt.co.th',
-          PORT: 3001
+          PORT: 3001,
+          JSREPORT_URL: 'http://localhost',
+          JSREPORT_USERNAME: 'admin',
+          JSREPORT_PASSWORD: '123456789',
         },
         env_production: {
           NODE_ENV: "production",
           JWT_KEY: 'gcs.dlt.co.th',
-          PORT: 3001
+          PORT: 3001,
+          JSREPORT_URL: 'http://localhost',
+          JSREPORT_USERNAME: 'admin',
+          JSREPORT_PASSWORD: '123456789',
         }
       }
     ]

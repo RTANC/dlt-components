@@ -24,7 +24,7 @@ import { createTransport, getTransport, updateTransport } from '../services/tran
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
-  const [images, setImages] = useState(['/static/Image_Mock.png','/static/Image_Mock.png','/static/Image_Mock.png','/static/Image_Mock.png'])
+  const [images, setImages] = useState(['/Image_Mock.png','/Image_Mock.png','/Image_Mock.png','/Image_Mock.png'])
   const [edit, setEdit] = useState(false)
   const [transport, setTransport] = useState({
     station: {

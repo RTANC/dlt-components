@@ -26,9 +26,7 @@ export default function GCS01() {
             value: moment().endOf('day')
         }
     })
-
-    const [pdf, setPdf] = useState('')
-
+    
     const handleChangeValue = (e) => {
         query[e.target.name].value = e.target.value
         setQuery({...query})

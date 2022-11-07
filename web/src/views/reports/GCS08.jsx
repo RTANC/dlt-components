@@ -7,9 +7,7 @@ import BtnClear from '../../components/BtnClear'
 import BtnSearch from '../../components/BtnSearch'
 import moment from 'moment'
 import DltYearPicker from '../../components/DltYearPicker'
-import jsreport from '@jsreport/browser-client'
-jsreport.headers['Authorization'] = 'Basic ' + btoa(import.meta.env.VITE_JSREPORT_USERNAME + ':' + import.meta.env.VITE_JSREPORT_PASSWORD)
-jsreport.serverUrl = import.meta.env.VITE_JSREPORT_URL + ':5489'
+import { getReports } from '../../services/reports'
 
 export default function GCS08() {
   const [loading, setLoading] = useState(false)
@@ -36,9 +34,8 @@ export default function GCS08() {
     const search = async () => {
         try {
           setLoading(true)
-          // const report = await jsreport.render({ template: { shortid: 'stkaBVCjZ_' }, data: this.info })
-          const report = await jsreport.render({ template: { shortid: 'd5bHOOHrT' } })
-          report.openInWindow({ title: 'GCS08', filename: 'GCS08.pdf' })
+          const fileURL = await getReports('08')
+          window.open(fileURL)
         } catch (error) {
           console.log(error)
         } finally {

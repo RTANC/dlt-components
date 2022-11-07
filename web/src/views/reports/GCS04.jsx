@@ -7,9 +7,7 @@ import DltDateTimePicker from '../../components/DltDateTimePicker'
 import BtnClear from '../../components/BtnClear'
 import BtnSearch from '../../components/BtnSearch'
 import moment from 'moment'
-import jsreport from '@jsreport/browser-client'
-jsreport.headers['Authorization'] = 'Basic ' + btoa(import.meta.env.VITE_JSREPORT_USERNAME + ':' + import.meta.env.VITE_JSREPORT_PASSWORD)
-jsreport.serverUrl = import.meta.env.VITE_JSREPORT_URL + ':5488'
+import { getReports } from '../../services/reports'
 
 export default function GCS04() {
   const [loading, setLoading] = useState(false)
@@ -36,9 +34,8 @@ export default function GCS04() {
     const search = async () => {
         try {
           setLoading(true)
-          // const report = await jsreport.render({ template: { shortid: 'stkaBVCjZ_' }, data: this.info })
-          const report = await jsreport.render({ template: { shortid: 'H-Uyo4wBRX' } })
-          report.openInWindow({ title: 'GCS04', filename: 'GCS04.pdf' })
+          const fileURL = await getReports('04')
+          window.open(fileURL)
         } catch (error) {
           console.log(error)
         } finally {

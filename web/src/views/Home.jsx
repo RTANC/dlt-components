@@ -1,4 +1,4 @@
-import { Container, Grid, Slide, Card, CardContent, Typography, Box, ToggleButtonGroup, ToggleButton, CardActions, CardHeader, Stack, Button, Divider } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, Typography, CardActions, Stack, Button, Divider } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -9,8 +9,6 @@ import SelectObjective from '../components/SelectObjective'
 import SelectProvince from '../components/SelectProvince'
 import SelectLPProvince from '../components/SelectLPProvince'
 import ImageListLP from '../components/ImageListLP'
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown'
 import CheckBoxGoodCategory from '../components/CheckBoxGoodCategory'
 import formValidator from '../services/validator'
 import { SquareEditOutline } from 'mdi-material-ui'
@@ -170,6 +168,11 @@ export default function Home() {
     setTransport({...transport})
   }
 
+  const toggleMode = (m) => {
+    transport.mode = m
+    setTransport({...transport})
+  }
+
   const save = async (e) => {
     try {
       e.preventDefault()
@@ -288,12 +291,14 @@ export default function Home() {
         <Card>
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
-              <Grid item xs={12}>
-                <ToggleButtonGroup color='primary' value={transport.mode} exclusive onChange={(e, val) => { setTransport({...transport, 'mode': val}) }} fullWidth>
-                  <ToggleButton value={1}><ArrowCircleDownIcon sx={{mr: 1}}/> ส่งสินค้าเข้า</ToggleButton>
-                  <ToggleButton value={3}><ArrowCircleDownIcon/> <ArrowCircleUpIcon sx={{mr: 1}}/> ส่งและรับสินค้า</ToggleButton>
-                  <ToggleButton value={2}><ArrowCircleUpIcon sx={{mr: 1}}/> รับสินค้าออก</ToggleButton>
-                </ToggleButtonGroup>
+              <Grid item xs={4}>
+                <Button onClick={() => toggleMode(1)} fullWidth sx={{backgroundImage: 'url(Button-Transit-In.png);', height: 135, borderRadius: '12px'}}></Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button onClick={() => toggleMode(3)} fullWidth sx={{backgroundImage: 'url(Button-Transit-2-Way.png);', height: 135, borderRadius: '12px'}}></Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button onClick={() => toggleMode(2)} fullWidth sx={{backgroundImage: 'url(Button-Transit-Out.png);', height: 135, borderRadius: '12px'}}></Button>
               </Grid>
               {transport.mode !== 2 && <Grid item xs={12} sm={12} md={transport.mode === 1 ? 12 : 6 }>
                 <Grid container spacing={2} direction='row' wrap='wrap'>

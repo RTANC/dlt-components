@@ -14,7 +14,7 @@ exports.getLicensePlates = async (req, res, next) => {
     try {
         const sql = `select TOP (10) VehicleInID, StationID, TimeStampIn, LaneID, F1A, F1APID, (select ProvinceName from LPProvince where ProvinceID = F1APID) as F1APName, R1A, R1APID, (select ProvinceName from LPProvince where ProvinceID = R1APID) as R1APName, ImageRef, TransportID
         from VehicleIn
-        where StationID = ${req.query.station} and (F1A like '${req.query.LPnumber}%' or R1A like '${req.query.LPnumber}%') and (TimeStampIn between '2021-06-01' and '2021-06-30')`
+        where StationID = ${req.query.station} and (F1A like '${req.query.LPnumber}%' or R1A like '${req.query.LPnumber}%') and (TimeStampIn between '2021-06-01' and '2021-06-30')` //ช่วงเวลา TimeStampIn ใช้สำหรับการ demo เท่านั้น
 
         const licenseplates = await sequelize.query(sql, { type: QueryTypes.SELECT })
         res.status(200).send(licenseplates)

@@ -22,7 +22,7 @@ export default function SelectLPProvince(props) {
   return (
     <FormControl fullWidth error={props.error !== false} color='warning' focused>
       <InputLabel sx={{fontSize: 20}} shrink>{props.label}</InputLabel>
-      <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name} readOnly={props.readOnly} disabled={props.disabled}>
           {provinces.map((v, i) => (
             <MenuItem value={v.ProvinceID} key={i}>{v.ProvinceName}</MenuItem>
           ))}
@@ -34,10 +34,14 @@ export default function SelectLPProvince(props) {
 }
 
 SelectLPProvince.propTypes = {
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    readOnly: PropTypes.bool,
+    disabled: PropTypes.bool
   }
   
 SelectLPProvince.defaultProps = {
   required: false,
-  error: false
+  error: false,
+  readOnly: false,
+  disabled: false
 }

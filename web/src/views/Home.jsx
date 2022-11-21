@@ -36,7 +36,6 @@ export default function Home() {
       rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
     isManualAddLPR: false,
-    editLPR: false,
     f1a: {
       value: '',
       error: false,
@@ -265,10 +264,10 @@ export default function Home() {
               <Grid item xs={12}>
                 <Divider></Divider>
               </Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='f1a' value={transport.f1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='r1a' value={transport.r1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='f1a' value={transport.f1a.value} disabled={!edit} onChange={handleChangeValue}></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='r1a' value={transport.r1a.value} disabled={!edit} onChange={handleChangeValue}></DltTextField></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} disabled={!edit} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} disabled={!edit} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={12}>
                 <ImageListLP images={images}></ImageListLP>
               </Grid>

@@ -10,6 +10,7 @@ export const DltSelect = styled(Select)(({ theme }) => ({
   },
   '& .Mui-disabled': {
     backgroundColor: '#0a061f',
-    color: 'gray'
+    color: 'gray',
+    '-webkit-text-fill-color': 'gray'
   }
 }))

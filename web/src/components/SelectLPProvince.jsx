@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, MenuItem, Select, InputLabel } from '@mui/material'
+import { FormControl, FormHelperText, MenuItem, InputLabel } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { getProvinces } from '../services/licenseplates'
 import PropTypes from 'prop-types'

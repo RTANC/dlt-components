@@ -56,6 +56,11 @@ export default function G2VehicleForm() {
           error: false,
           rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
+        rfid: {
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
+        },
         isActive: {
           value: 'true'
         }
@@ -151,10 +156,13 @@ export default function G2VehicleForm() {
                     <DltTextField label='ทะเบียนหลัง' value={g2Vehicle.rearLP.value} name='rearLP' onChange={handleValueChange} onKeyUp={e => setValid(formValidator(g2Vehicle, setG2Vehicle))} placeholder='XX-XXXXX' required error={g2Vehicle.rearLP.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectLPProvince label='จังหวัด' value={g2Vehicle.frontLPProvince.value} name='frontLPProvince' onChange={handleValueChange} required></SelectLPProvince>
+                    <SelectLPProvince label='จังหวัด' value={g2Vehicle.frontLPProvince.value} name='frontLPProvince' onChange={handleValueChange} required error={g2Vehicle.frontLPProvince.error}></SelectLPProvince>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectLPProvince label='จังหวัด' value={g2Vehicle.rearLPProvince.value} name='rearLPProvince' onChange={handleValueChange} required></SelectLPProvince>
+                    <SelectLPProvince label='จังหวัด' value={g2Vehicle.rearLPProvince.value} name='rearLPProvince' onChange={handleValueChange} required error={g2Vehicle.rearLPProvince.error}></SelectLPProvince>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <DltTextField label='RFID' value={g2Vehicle.rfid.value} name='rfid' onChange={handleValueChange} required error={g2Vehicle.rfid.error}></DltTextField>
                   </Grid>
                   {editMode && <Grid item xs={12}>
                     <ImageListLP></ImageListLP>

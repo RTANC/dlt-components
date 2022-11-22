@@ -56,6 +56,11 @@ export default function G1VehicleForm() {
           error: false,
           rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
+        rfid: {
+          value: '',
+          error: false,
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
+        },
         isActive: {
           value: 'true'
         }
@@ -154,6 +159,9 @@ export default function G1VehicleForm() {
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <SelectLPProvince label='จังหวัด' value={g1Vehicle.rearLPProvince.value} name='rearLPProvince' onChange={handleValueChange} required error={g1Vehicle.rearLPProvince.error}></SelectLPProvince>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <DltTextField label='RFID' value={g1Vehicle.rfid.value} name='rfid' onChange={handleValueChange} required error={g1Vehicle.rfid.error}></DltTextField>
                   </Grid>
                   {editMode && <Grid item xs={12}>
                     <ImageListLP></ImageListLP>

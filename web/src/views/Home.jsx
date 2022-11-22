@@ -266,7 +266,7 @@ export default function Home() {
               </Grid>
               <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='f1a' value={transport.f1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
               <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='r1a' value={transport.r1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} readOnly={!edit} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} disabled={!edit} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} disabled={!edit} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={12}>
                 <ImageListLP images={images}></ImageListLP>
@@ -301,7 +301,7 @@ export default function Home() {
               </Grid>
               {transport.mode !== 2 && <Grid item xs={12} sm={12} md={transport.mode === 1 ? 12 : 6 }>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
-                  <Grid item xs={12}><Typography variant='h5' sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 36, color: 'white'}}>ส่งสินค้าเข้าสถานนี</Typography></Grid>
+                  <Grid item xs={12}><Typography variant='h5' sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 36, color: 'white'}}>ส่งสินค้าเข้าสถานี</Typography></Grid>
                   <Grid item xs={(transport.mode !== 3) ? 6 : 12}>
                     <SelectProvince value={transport.srcProvince.value} name='srcProvince' label='จังหวัดต้นทาง' onChange={handleChangeValue}></SelectProvince>
                   </Grid>

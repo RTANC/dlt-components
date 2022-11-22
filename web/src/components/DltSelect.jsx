@@ -7,5 +7,9 @@ export const DltSelect = styled(Select)(({ theme }) => ({
   },
   '& .MuiInputBase-input': {
     backgroundColor: 'white'
+  },
+  '& .Mui-disabled': {
+    backgroundColor: '#0a061f',
+    color: 'gray'
   }
 }))

@@ -256,7 +256,7 @@ export default function Home() {
                 <Typography variant="h5" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 36, color: 'white'}}>ข้อมูลรถบรรทุก</Typography>
               </Grid>
               <Grid item xs={6} sx={{display: 'flex', justifyContent: 'end'}}>
-                <Button variant='contained' startIcon={<SquareEditOutline/>} onClick={toggleEdit} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #2283F3 0%, #184C88 98.65%)', borderRadius: 3}}>แก้ไขข้อมูล</Button>
+                <Button variant='contained' startIcon={<SquareEditOutline/>} onClick={toggleEdit} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #2283F3 0%, #184C88 98.65%)', borderRadius: 3}}>บันทึกเอง</Button>
               </Grid>
               <Grid item xs={12}>
                 <DltDateTimePicker value={transport.timeStampIn.value} label='วัน เวลา ที่รถเข้า' name='timeStampIn' onChange={(v) => {transport.timeStampIn.value = v; setTransport({...transport})}} required error={transport.timeStampIn.error}></DltDateTimePicker>
@@ -264,9 +264,9 @@ export default function Home() {
               <Grid item xs={12}>
                 <Divider></Divider>
               </Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='f1a' value={transport.f1a.value} disabled={!edit} onChange={handleChangeValue}></DltTextField></Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='r1a' value={transport.r1a.value} disabled={!edit} onChange={handleChangeValue}></DltTextField></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} disabled={!edit} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='f1a' value={transport.f1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='r1a' value={transport.r1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} readOnly={!edit} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} disabled={!edit} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={12}>
                 <ImageListLP images={images}></ImageListLP>
@@ -281,7 +281,7 @@ export default function Home() {
               </Grid>
               <Grid item xs={12}  sx={{display: 'flex', justifyContent: 'center'}}>
                 <Button variant="contained" color="error" endIcon={<LocalShippingIcon/>} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F15353 0%, #A31212 98.65%)', borderRadius: 3}}>
-                  รถออกจากสถานนี
+                  รถออกจากสถานี
                 </Button>
               </Grid>
             </Grid>

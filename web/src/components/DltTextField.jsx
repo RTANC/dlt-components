@@ -13,6 +13,12 @@ const DltOutlinedInput= styled(OutlinedInput)(({ theme }) => ({
     borderRadius: 4,
     border: '2px solid #ed6c02'
   },
+  '& .MuiOutlinedInput-input:read-only': {
+    backgroundColor: '#0a061f',
+    borderRadius: 4,
+    border: '0px',
+    color: 'gray'
+  },
   '& .MuiOutlinedInput-notchedOutline': {
     border: '0px',
   }

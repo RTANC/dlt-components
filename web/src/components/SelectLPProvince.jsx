@@ -22,7 +22,7 @@ export default function SelectLPProvince(props) {
   return (
     <FormControl fullWidth error={props.error !== false} color='warning' focused>
       <InputLabel sx={{fontSize: 20}} shrink>{props.label}</InputLabel>
-      <DltSelect onChange={props.onChange} value={props.value} name={props.name} readOnly={props.readOnly} disabled={props.disabled}>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name} readOnly={props.readOnly} disabled={props.disabled} sx={{'.Mui-disabled': {backgroundColor: '#0a061f', color: 'gray', '-webkit-text-fill-color': 'gray'}}}>
           {provinces.map((v, i) => (
             <MenuItem value={v.ProvinceID} key={i}>{v.ProvinceName}</MenuItem>
           ))}

@@ -112,7 +112,6 @@ export default function Home() {
   })
 
   const handleLPSearch = async (e, v) => {
-    console.log(v)
     transport.f1a.value = v.F1A
     transport.f1apId.value = v.F1APID
     transport.r1a.value = v.R1A

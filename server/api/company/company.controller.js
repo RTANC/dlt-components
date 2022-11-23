@@ -1,4 +1,4 @@
-const { QueryTypes } = require('sequelize');
+const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
 
 exports.getCompany = async (req, res, next) => {

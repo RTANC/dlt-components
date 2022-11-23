@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const loginRoutes = require('./logins')
-const checkAuth = require('./middleware/auth')
+const {webAuth, apiAuth} = require('./middleware/auth')
 const stationRoutes = require('./stations')
 const companyRoutes = require('./company')
 const transportRoutes = require('./transports')
@@ -14,15 +14,14 @@ const managementsRoutes = require('./managements')
 const queryRoutes = require('./query')
 const profileRoutes = require('./profiles')
 const reportRoutes = require('./reports')
+const vehicleRecordRoutes = require('./VehicleRecords')
+const CheckExitConditionRoutes = require('./CheckExitCondition')
+const gcsstationRoutes = require('./gcsstation')
 
-router.get('/systems', (req, res, next) => {
-    res.status(200).send({
-        message: process.env.NODE_ENV
-    })
-})
-
+router.post('/VehicleRecord', apiAuth, vehicleRecordRoutes)
+router.post('/CheckExitCondition', apiAuth, CheckExitConditionRoutes)
 router.use('/logins', loginRoutes)
-router.use(checkAuth)
+router.use(webAuth)
 router.use('/stations', stationRoutes)
 router.use('/company', companyRoutes)
 router.use('/transports', transportRoutes)

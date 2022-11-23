@@ -1,4 +1,4 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, Stack, IconButton } from '@mui/material'
+import { Card, Container, Slide, Box, CardContent, Grid, Stack, IconButton, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, TablePagination } from '@mui/material'
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +16,8 @@ import BtnSearch from '../../../components/BtnSearch'
 export default function Incident() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
+    const [page, setPage] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(10)
     const [rows, setRows] = useState([])
     const [query, setQuery] = useState({
         station: {
@@ -28,6 +30,44 @@ export default function Incident() {
             value: moment().endOf('year')
         }
     })
+
+    const columns = [
+      { id: 'id', label: 'ที่', align: 'center' },
+      { id: 'Title', label: 'หัวเรื่อง', align: 'center'},
+      { id: 'StationName', label: 'สถานี', align: 'center' },
+      { id: 'StartDt', label: 'วัน - เวลา เริ่ม', align: 'center', format: (value) => {
+          try {
+              if (value) {
+                  return dateTimeFormatter(value)
+              } else {
+                  return '-'
+              }
+          } catch (error) {
+            return '-'
+          }
+      }},
+      { id: 'EndDt', label: 'วัน - เวลา สิ้นสุด', align: 'center', format: (value) => {
+          try {
+              if (value) {
+                  return dateTimeFormatter(value)
+              } else {
+                  return '-'
+              }
+          } catch (error) {
+            return '-'
+          }
+      }},
+      { id: 'edit', label: 'แก้ไข'}
+    ]
+
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage)
+    }
+  
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(+event.target.value)
+      setPage(0)
+    }
 
     const handleChangeValue = (e) => {
         query[e.target.name].value = e.target.value
@@ -61,48 +101,6 @@ export default function Incident() {
         }
       }
 
-      const columns = [
-        { field: 'id', headerName: 'ที่', flex: 0.3 },
-        { field: 'Title', headerName: 'หัวเรื่อง', flex: 2, valueGetter: (params) => {
-          try {
-            return params.value
-          } catch (error) {
-            return error
-          }
-        }},
-        { field: 'StationName', headerName: 'สถานี', flex: 1 },
-        { field: 'StartDt', headerName: 'วัน - เวลา เริ่ม', flex: 1, valueFormatter: (params) => {
-            try {
-                if (params.value) {
-                    return dateTimeFormatter(params.value)
-                } else {
-                    return '-'
-                }
-            } catch (error) {
-              return '-'
-            }
-        }},
-        { field: 'EndDt', headerName: 'วัน - เวลา สิ้นสุด', flex: 1, valueFormatter: (params) => {
-            try {
-                if (params.value) {
-                    return dateTimeFormatter(params.value)
-                } else {
-                    return '-'
-                }
-            } catch (error) {
-              return '-'
-            }
-        }},
-        {
-          field: 'ID',
-          headerName: 'แก้ไข',
-          sortable: false,
-          flex: 0.4,
-          type: 'actions',
-          renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/incidents/'+params.value)}}><SquareEditOutline/></IconButton>)
-        }
-      ]
-
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
@@ -135,14 +133,48 @@ export default function Incident() {
                         </Box>
                     </Grid>
                     <Grid item xs={12}>
-                        <DataGrid
-                          rows={rows}
-                          columns={columns}
-                          pageSize={5}
-                          rowsPerPageOptions={[5]}
-                          disableSelectionOnClick
-                          sx={{height: 400, width: '100%', color: 'white'}}
+                      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                        <TableContainer sx={{ minHeight: '40vh', maxHeight: '40vh', color: 'white' }}>
+                          <Table stickyHeader aria-label="sticky table">
+                            <TableHead>
+                              <TableRow>
+                                {columns.map((column) => (
+                                  <TableCell
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth }}
+                                  >
+                                    {column.label}
+                                  </TableCell>
+                                ))}
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                  return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                      <TableCell align={columns[0].align}>{row.id}</TableCell>
+                                      <TableCell align={columns[1].align}>{row.Title}</TableCell>
+                                      <TableCell align={columns[2].align}>{row.StationName}</TableCell>
+                                      <TableCell align={columns[3].align}>{columns[3].format(row.StartDt)}</TableCell>
+                                      <TableCell align={columns[4].align}>{columns[4].format(row.EndDt)}</TableCell>
+                                      <TableCell align='center'><IconButton color="warning" onClick={() => {navigate('/management/incidents/' + row.ID)}}><SquareEditOutline/></IconButton></TableCell>
+                                    </TableRow>
+                                  )
+                                })}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                        <TablePagination
+                          rowsPerPageOptions={[10, 25, 100]}
+                          component="div"
+                          count={rows.length}
+                          rowsPerPage={rowsPerPage}
+                          page={page}
+                          onPageChange={handleChangePage}
+                          onRowsPerPageChange={handleChangeRowsPerPage}
                         />
+                      </Paper>
                     </Grid>
                 </Grid>
               </CardContent>

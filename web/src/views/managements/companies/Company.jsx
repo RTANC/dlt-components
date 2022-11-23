@@ -1,13 +1,9 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, Stack, IconButton } from '@mui/material'
+import { Card, Container, Slide, Box, CardContent, Grid, Stack, IconButton, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, TablePagination } from '@mui/material'
 import React from 'react'
-import SearchIcon from '@mui/icons-material/Search'
-import CancelIcon from '@mui/icons-material/Cancel'
 import SelectStation from '../../../components/SelectStation'
 import { useState } from 'react'
-import { LoadingButton } from '@mui/lab'
 import { useNavigate } from 'react-router-dom'
 import { SquareEditOutline } from 'mdi-material-ui'
-import { DataGrid } from '@mui/x-data-grid'
 import { getCompanies } from '../../../services/managements'
 import BtnClear from '../../../components/BtnClear'
 import BtnSearch from '../../../components/BtnSearch'
@@ -15,6 +11,8 @@ import BtnSearch from '../../../components/BtnSearch'
 export default function Company() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [rows, setRows] = useState([])
   const [company, setCompany] = useState({
     station: {
@@ -23,25 +21,25 @@ export default function Company() {
   })
 
   const columns = [
-    { field: 'id', headerName: 'ที่', flex: 0.3 },
-    { field: 'CompanyCode', headerName: 'รหัส', flex: 0.3, valueFormatter: (params) => {
+    { id: 'id', label: 'ที่', align: 'center' },
+    { id: 'CompanyCode', label: 'รหัส', align: 'center', format: (value) => {
       try {
-        if (!!params.value) {
-          return parseInt(params.value).toLocaleString('en-US', {
+        if (!!value) {
+          return parseInt(value).toLocaleString('en-US', {
             minimumIntegerDigits: 3,
             useGrouping: false
           })
         }
       } catch (error) {
-        return params.value
+        return value
       }
     }},
-    { field: 'StationName', headerName: 'สถานี', flex: 0.8 },
-    { field: 'CompanyName', headerName: 'ผู้ประกอบการ', flex: 2 },
-    { field: 'TransportLicenseID', headerName: 'เลขที่ใบอนุญาต', flex: 1 },
-    { field: 'TransportTypeID', headerName: 'ประเภทการขนส่ง', flex: 1, valueFormatter: (params) => {
-      if (!!params.value) {
-        switch (params.value) {
+    { id: 'StationName', label: 'สถานี', align: 'center' },
+    { id: 'CompanyName', label: 'ผู้ประกอบการ', align: 'center' },
+    { id: 'TransportLicenseID', label: 'เลขที่ใบอนุญาต', align: 'center' },
+    { id: 'TransportTypeID', label: 'ประเภทการขนส่ง', align: 'center', format: (value) => {
+      if (!!value) {
+        switch (value) {
           case 1: return 'ไม่ประจำทาง'
           break
           case 2: return 'ส่วนบุคคล'
@@ -49,9 +47,9 @@ export default function Company() {
         }
       }
     } },
-    { field: 'TransportScopeID', headerName: 'ขอบเขตพื้นที่', flex: 1, valueFormatter: (params) => {
-      if (!!params.value) {
-        switch (params.value) {
+    { id: 'TransportScopeID', label: 'ขอบเขตพื้นที่', align: 'center', format: (value) => {
+      if (!!value) {
+        switch (value) {
           case 1: return 'ในประเทศ' 
           break
           case 2: return 'ระหว่างประเทศ'
@@ -61,15 +59,17 @@ export default function Company() {
         }
       }
     } },
-    {
-      field: 'CompanyID',
-      headerName: 'แก้ไข',
-      sortable: false,
-      flex: 0.4,
-      type: 'actions',
-      renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/company/'+params.value)}}><SquareEditOutline/></IconButton>)
-    }
+    { id: 'edit', label: 'แก้ไข'}
   ]
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value)
+    setPage(0)
+  }
 
   const handleValueChange = (e) => {
     company[e.target.name].value = e.target.value
@@ -113,14 +113,50 @@ export default function Company() {
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
-                      <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
-                        disableSelectionOnClick
-                        sx={{height: '55vh', width: '100%', color: 'white'}}
+                    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                      <TableContainer sx={{ minHeight: '50vh', maxHeight: '50vh', color: 'white' }}>
+                        <Table stickyHeader aria-label="sticky table">
+                          <TableHead>
+                            <TableRow>
+                              {columns.map((column) => (
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                  style={{ minWidth: column.minWidth }}
+                                >
+                                  {column.label}
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                return (
+                                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                    <TableCell align={columns[0].align}>{row.id}</TableCell>
+                                    <TableCell align={columns[1].align}>{columns[1].format(row.CompanyCode)}</TableCell>
+                                    <TableCell align={columns[2].align}>{row.StationName}</TableCell>
+                                    <TableCell align={columns[3].align}>{row.CompanyName}</TableCell>
+                                    <TableCell align={columns[4].align}>{row.TransportLicenseID}</TableCell>
+                                    <TableCell align={columns[5].align}>{columns[5].format(row.TransportTypeID)}</TableCell>
+                                    <TableCell align={columns[6].align}>{columns[6].format(row.TransportScopeID)}</TableCell>
+                                    <TableCell align='center'><IconButton color="warning" onClick={() => {navigate('/management/company/' + row.CompanyID)}}><SquareEditOutline/></IconButton></TableCell>
+                                  </TableRow>
+                                )
+                              })}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                      <TablePagination
+                        rowsPerPageOptions={[10, 25, 100]}
+                        component="div"
+                        count={rows.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
                       />
+                    </Paper>
                   </Grid>
                 </Grid>
               </CardContent>

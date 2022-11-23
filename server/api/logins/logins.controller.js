@@ -1,7 +1,7 @@
 const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
 const jwt = require('jsonwebtoken')
-
+const {getDateTimeNow} = require('../../utils/utils')
 exports.login = async (req, res, next) => {
     try {
         const { username, password } = req.body
@@ -16,6 +16,9 @@ exports.login = async (req, res, next) => {
         } else if (user.length === 1) {
             const token = await jwt.sign(user[0], process.env.JWT_KEY, { expiresIn: "8d" })
             const { UserID, RoleID, LoginName } = user[0]
+            await sequelize.query(`update GCSUser
+            set LastLogInDateTime = '${getDateTimeNow()}'
+            where UserID = ${UserID}`, { type: QueryTypes.UPDATE })
             res.status(200).send({
                 UserID: UserID,
                 RoleID: RoleID,

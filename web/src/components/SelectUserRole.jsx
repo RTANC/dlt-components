@@ -9,7 +9,7 @@ export default function SelectUserRole(props) {
   return (
     <FormControl fullWidth error={props.error !== false} disabled={props.disabled} readOnly={props.readOnly} color='warning' focused sx={{'label.Mui-disabled': {color: '#ed6c02'}}}>
       <InputLabel sx={{fontSize: 20}} shrink>กลุ่มผู้ใช้</InputLabel>
-      <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name} sx={{'.Mui-disabled': {backgroundColor: '#0a061f', color: 'gray', '-webkit-text-fill-color': 'gray'}}}>
           {userRoles.map((v, i) => (
             <MenuItem value={v.id} key={i}>{v.name}</MenuItem>
           ))}

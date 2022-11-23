@@ -1,10 +1,9 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, IconButton, Divider, Button } from '@mui/material'
+import { Card, Container, Slide, Box, CardContent, Grid, IconButton, Divider, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, TablePagination } from '@mui/material'
 import React, { useState } from 'react'
 import SelectUserRole from '../../../components/SelectUserRole'
 import SelectStation from '../../../components/SelectStation'
 import DltTextField from '../../../components/DltTextField'
 import SelectAgency from '../../../components/SelectAgency'
-import { DataGrid } from '@mui/x-data-grid'
 import { getUsers } from '../../../services/managements'
 import { useNavigate } from 'react-router-dom'
 import { SquareEditOutline } from 'mdi-material-ui'
@@ -16,6 +15,8 @@ import { dateTimeFormatter } from '../../../services/utils'
 export default function User() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [query, setQuery] = useState({
     userRole: 3,
     station: 1,
@@ -24,10 +25,9 @@ export default function User() {
   })
 
   const columns = [
-    { field: 'id', headerName: 'ID', flex: 0.3 },
-    { field: 'IsActive', headerName: 'สถานะ', sortable: false, flex: 0.5, valueFormatter: (params) => {
+    { id: 'IsActive', label: 'สถานะ', align: 'center', format: (value) => {
       try {
-        if (params.value) {
+        if (value) {
           return 'Yes'
         } else {
           return 'No'
@@ -36,30 +36,30 @@ export default function User() {
         return ''
       }
     } },
-    { field: 'LoginName', headerName: 'ชื่อผู้ใช้งาน', flex: 1 },
-    { field: 'FullName', headerName: 'ชื่อ - นามสกุล', flex: 1 },
-    { field: 'RoleName', headerName: 'กลุ่มผู้ใช้', flex: 1 },
-    { field: 'CompanyName', headerName: 'หน่วยงาน', flex: 1 },
-    // { field: 'PhoneNo', headerName: 'เบอร์ติดต่อ', flex: 1 },
-    // { field: 'EmailAddress', headerName: 'Email', flex: 1 },
-    { field: 'LastLogInDateTime', headerName: 'ล็อคอินครั้งล่าสุด', sortable: true, flex: 1, valueFormatter: (params) => {
+    { id: 'LoginName', label: 'ชื่อผู้ใช้งาน', align: 'center' },
+    { id: 'FullName', label: 'ชื่อ - นามสกุล', align: 'center' },
+    { id: 'RoleName', label: 'กลุ่มผู้ใช้', align: 'center' },
+    { id: 'CompanyName', label: 'หน่วยงาน', align: 'center' },
+    { id: 'LastLogInDateTime', label: 'ล็อคอินครั้งล่าสุด', align: 'center', format: (value) => {
       try {
-        if (!!params.value) {
-          return dateTimeFormatter(params.value)
+        if (!!value) {
+          return dateTimeFormatter(value)
         }
       } catch (error) {
         return ''
       }
     } },
-    {
-      field: 'UserID',
-      headerName: 'แก้ไข',
-      sortable: false,
-      flex: 0.4,
-      type: 'actions',
-      renderCell: (params) => (<IconButton color="warning" onClick={() => {navigate('/management/user/'+params.value)}}><SquareEditOutline/></IconButton>)
-    }
+    { id: 'edit', label: 'แก้ไข'}
   ]
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value)
+    setPage(0)
+  }
 
   const [rows, setRows] = useState([])
 
@@ -121,14 +121,49 @@ export default function User() {
                       </Box>
                     </Grid>
                     <Grid item xs={12}>
-                      <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
-                        disableSelectionOnClick
-                        sx={{height: 400, width: '100%', color: 'white'}}
-                      />
+                      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                        <TableContainer sx={{ minHeight: 400, maxHeight: 450, color: 'white' }}>
+                          <Table stickyHeader aria-label="sticky table">
+                            <TableHead>
+                              <TableRow>
+                                {columns.map((column) => (
+                                  <TableCell
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth }}
+                                  >
+                                    {column.label}
+                                  </TableCell>
+                                ))}
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                  return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                      <TableCell align={columns[0].align}>{columns[0].format(row.IsActive)}</TableCell>
+                                      <TableCell align={columns[1].align}>{row.LoginName}</TableCell>
+                                      <TableCell align={columns[2].align}>{row.FullName}</TableCell>
+                                      <TableCell align={columns[3].align}>{row.RoleName}</TableCell>
+                                      <TableCell align={columns[4].align}>{row.CompanyName}</TableCell>
+                                      <TableCell align={columns[5].align}>{columns[5].format(row.LastLogInDateTime)}</TableCell>
+                                      <TableCell align='center'><IconButton color="warning" onClick={() => {navigate('/management/user/' + row.UserID)}}><SquareEditOutline/></IconButton></TableCell>
+                                    </TableRow>
+                                  )
+                                })}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                        <TablePagination
+                          rowsPerPageOptions={[10, 25, 100]}
+                          component="div"
+                          count={rows.length}
+                          rowsPerPage={rowsPerPage}
+                          page={page}
+                          onPageChange={handleChangePage}
+                          onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                      </Paper>
                     </Grid>
                   </Grid>
                 </CardContent>

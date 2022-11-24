@@ -17,7 +17,7 @@ import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
 import BtnSave from '../components/BtnSave'
 import BtnClear from '../components/BtnClear'
 import { useSelector } from 'react-redux'
-import { getImageURL, removeSQLTz } from '../services/utils'
+import { getImageURL, handleGoodCategoryCheck, removeSQLTz } from '../services/utils'
 import { createTransport, getTransport, updateTransport } from '../services/transports'
 
 export default function Home() {
@@ -147,8 +147,6 @@ export default function Home() {
     if (transport.srcGoods.value[14] === false) {
       transport.srcGoods.value[0] = ''
     }
-
-
     setTransport({...transport})
   }
 
@@ -167,6 +165,11 @@ export default function Home() {
   }
 
   const toggleMode = (m) => {
+    if (m === 1) { // เคลียร์ chackbox ของ mode ที่ไม่ได้เลือก
+      transport.dstGoods.value = ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+    } else if (m === 2) {
+      transport.srcGoods.value = ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+    }
     transport.mode = m
     setTransport({...transport})
   }
@@ -180,11 +183,11 @@ export default function Home() {
           CompanyID: transport.company.value,
           ObjectiveID: transport.objective.value,
           SrcProvinceID: transport.srcProvince.value,
-          SrcGoods: 0,
-          SrcGoodsOther: '',
+          SrcGoods: handleGoodCategoryCheck(transport.srcGoods.value),
+          SrcGoodsOther: transport.srcGoods.value[0],
           DstProvinceID: transport.dstProvince.value,
-          DstGoods: 0,
-          DstGoodsOther: '',
+          DstGoods: handleGoodCategoryCheck(transport.dstGoods.value),
+          DstGoodsOther: transport.dstGoods.value[0],
           VehicleInID: transport.vehicleInId,
           TimeStampIn: transport.timeStampIn.value,
           F1M: transport.f1a.value,

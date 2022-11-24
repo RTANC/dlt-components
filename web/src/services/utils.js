@@ -89,3 +89,26 @@ export function str2bool (str) {
 export function null2empty (str) {
     return str !== null ? str : ''
 }
+
+export function handleGoodCategoryCheck (values) {
+    let sum = 0
+    for (let i = 1;i < values.length;i++) {
+        if (values[i]) {
+            sum += Math.pow(2, (i-1))
+        }
+    }
+    return sum
+}
+
+export function createQueryStr (obj) {
+    const keys = Object.keys(obj)
+    let queryStr = '?'
+    for (let i = 0;i < keys.length;i++) {
+        if (i === 0) {
+            queryStr += keys[i] + '=' + (moment.isMoment(obj[keys[i]]) ? SQLDateTimeFormatter(obj[keys[i]]) : obj[keys[i]])
+        } else if (i > 0) {
+            queryStr += '&' + keys[i] + '=' + (moment.isMoment(obj[keys[i]]) ? SQLDateTimeFormatter(obj[keys[i]]) : obj[keys[i]])
+        }
+    }
+    return queryStr
+}

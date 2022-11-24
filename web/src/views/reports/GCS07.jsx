@@ -8,6 +8,7 @@ import BtnSearch from '../../components/BtnSearch'
 import moment from 'moment'
 import DltYearPicker from '../../components/DltYearPicker'
 import { getReports } from '../../services/reports'
+import { getKeyValue } from '../../services/utils'
 
 export default function GCS07() {
   const [loading, setLoading] = useState(false)
@@ -31,7 +32,7 @@ export default function GCS07() {
     const search = async () => {
         try {
           setLoading(true)
-          const fileURL = await getReports('07')
+          const fileURL = await getReports('07', getKeyValue(query))
           window.open(fileURL)
         } catch (error) {
           console.log(error)

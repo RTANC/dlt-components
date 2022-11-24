@@ -23,9 +23,7 @@ export default function G2Vehicle() {
             value: 1
         },
         company: {
-            value: '',
-            error: false,
-            rules: [(v) => !!v || '*ข้อมูลจำเป็น']
+            value: ''
         },
         licensePlate: {
             value: ''
@@ -82,7 +80,18 @@ export default function G2Vehicle() {
       }
     
       const cancel = () => {
-        navigate(-1)
+        setG2Vehicle({
+          station: {
+              value: 1
+          },
+          company: {
+              value: ''
+          },
+          licensePlate: {
+              value: ''
+          }
+        })
+        setRows([])
       }
 
   return (

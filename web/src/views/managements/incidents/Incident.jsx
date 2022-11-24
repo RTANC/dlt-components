@@ -94,6 +94,7 @@ export default function Incident() {
           query.startDate.value = moment().startOf('year')
           query.endDate.value = moment().endOf('year')
           setQuery({...query})
+          setRows([])
         } catch (error) {
             console.log(error)
         } finally{

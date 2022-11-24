@@ -41,3 +41,9 @@
     font-style: normal;
     color: white;
 }
+
+.MuiInputLabel-formControl {
+    font-family: 'Kanit';
+    font-style: normal;
+    font-size: 24px;
+}

@@ -8,6 +8,7 @@ import BtnClear from '../../components/BtnClear'
 import BtnSearch from '../../components/BtnSearch'
 import moment from 'moment'
 import { getReports } from '../../services/reports'
+import { getKeyValue } from '../../services/utils'
 
 
 export default function GCS01() {
@@ -35,7 +36,7 @@ export default function GCS01() {
     const search = async () => {
         try {
           setLoading(true)
-          const fileURL = await getReports('01')
+          const fileURL = await getReports('01', getKeyValue(query))
           window.open(fileURL)
         } catch (error) {
           console.log(error)

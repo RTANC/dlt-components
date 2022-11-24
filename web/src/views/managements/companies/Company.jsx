@@ -89,7 +89,7 @@ export default function Company() {
   }
 
   const cancel = () => {
-    navigate(-1)
+    setRows([])
   }
 
   return (

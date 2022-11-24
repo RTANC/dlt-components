@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, Grid, TextField, Stack } from '@mui/material'
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, Grid, TextField, Stack, Typography } from '@mui/material'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -7,7 +7,8 @@ import '../styles/CheckBoxGoodCategory.css'
 export default function CheckBoxGoodCategory(props) {
   return (
       <FormControl fullWidth error={props.error !== false}>
-          <FormLabel sx={{display: 'flex', alignContent: 'start', fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 600, color: 'white', mb: 2, height: 40, alignItems: 'end', fontSize: 24 }} component="legend">ประเภทสินค้า</FormLabel>
+          <Typography variant="h5" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 600, fontSize: 24, color: 'white', mt: 2, height: 30}}>ประเภทสินค้า</Typography>
+          {/* <FormLabel sx={{display: 'flex', alignContent: 'start', fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 600, color: 'white', mb: 2, height: 40, alignItems: 'end', fontSize: 24 }} component="legend">ประเภทสินค้า</FormLabel> */}
           <FormGroup>
               <Grid container spacing={1} direction='row' wrap='wrap'>
                 <Grid item xs={props.xs}>

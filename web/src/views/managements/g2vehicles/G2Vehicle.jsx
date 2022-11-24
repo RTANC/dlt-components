@@ -96,7 +96,7 @@ export default function G2Vehicle() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '120vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
               <div className='dlt-page-title-text'>รายการรถลูกค้าของผู้ประกอบการ</div>

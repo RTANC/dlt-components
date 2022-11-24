@@ -14,7 +14,6 @@ import { useEffect } from 'react'
 import formValidator from '../services/validator'
 import { api } from '../services/api'
 import '../styles/Login.css'
-import { grey } from '@mui/material/colors'
 import { styled } from "@mui/material/styles"
 
 const LoginButton = styled(Button)(({ theme }) => ({
@@ -118,7 +117,7 @@ export default function Login() {
       <Container>
         {/* <CssBaseline /> */}
         <Grid container direction='row' wrap='wrap' sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={12} md={6}>
           <Box sx={{ marginTop: '15vh' }} className='login-panel'>
             <Stack spacing={3}>
               <img src="gcs-login-title.png"/>

@@ -1,6 +1,8 @@
 .bg-img {
-    background-image: url('BG.jpg');
-    height: 100vh;
+    background-image: url('BG.png');
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
 }
 .login-panel {
     padding: 36px; 

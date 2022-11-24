@@ -2,7 +2,9 @@
   /* background-image: url('../../static/BG.jpg'); */
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), linear-gradient(111.34deg, #0859B8 0%, #9324A5 100%);
   background-blend-mode: overlay, normal;
-  min-height: 100%;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
   background-position: center;
   background-size: cover;
 }

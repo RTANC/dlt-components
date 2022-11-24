@@ -3,6 +3,7 @@ import { AppBar, Toolbar, IconButton, Typography, ListItemButton, Box, Button, D
 import DltReportMenu from './DltReportMenu'
 import DltDataManageMenu from './DltDataManageMenu'
 import DltManualMenu from './DltManualMenu'
+import LogoDltHeader from './LogoDltHeader'
 import MenuIcon from '@mui/icons-material/Menu'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LogoutIcon from '@mui/icons-material/Logout'
@@ -103,7 +104,8 @@ export default function DltAppBar() {
     <React.Fragment>
     <AppBar position="static" color='appBar'>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <img src="logo_dlt_header.png"/>
+          {/* <img src="logo_dlt_header.png"/> */}
+          <LogoDltHeader></LogoDltHeader>
           {auth && (
             <IconButton
               size="large"

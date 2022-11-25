@@ -1,4 +1,4 @@
-import { Container, Grid, Slide, Card, CardContent, Typography, CardActions, Stack, Button, Divider } from '@mui/material'
+import { Container, Grid, Slide, Card, CardContent, Typography, CardActions, Stack, Button, Divider, Box } from '@mui/material'
 import React, { useState } from 'react'
 import SelectStation from '../components/SelectStation'
 import SelectCompany from '../components/SelectCompany'
@@ -292,13 +292,13 @@ export default function Home() {
         <Card>
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
-              <Grid item xs={12} sm={12} md={4}>
+              <Grid item xs={12} sm={4} md={4}>
                 <Button onClick={() => toggleMode(1)} fullWidth sx={{backgroundImage: 'url(Button-Transit-In.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
               </Grid>
-              <Grid item xs={12} sm={12} md={4}>
+              <Grid item xs={12} sm={4} md={4}>
                 <Button onClick={() => toggleMode(3)} fullWidth sx={{backgroundImage: 'url(Button-Transit-2-Way.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
               </Grid>
-              <Grid item xs={12} sm={12} md={4}>
+              <Grid item xs={12} sm={4} md={4}>
                 <Button onClick={() => toggleMode(2)} fullWidth sx={{backgroundImage: 'url(Button-Transit-Out.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
               </Grid>
               {transport.mode !== 2 && <Grid item xs={12} sm={12} md={transport.mode === 1 ? 12 : 6 }>
@@ -333,9 +333,11 @@ export default function Home() {
           </CardContent>
         </Card>
         <Card>
-          <CardActions sx={{width: '100%', display:'flex', justifyContent:'center', alignContent: 'center', py: 2}}>
-            <BtnClear loading={loading} onClick={cancel}></BtnClear>
-            <BtnSave loading={loading} onClick={save}></BtnSave>
+          <CardActions>
+            <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', py: 2}}>
+              <BtnClear loading={loading} onClick={cancel}></BtnClear>
+              <BtnSave loading={loading} onClick={save}></BtnSave>
+            </Box>
           </CardActions>
         </Card>
       </Stack>

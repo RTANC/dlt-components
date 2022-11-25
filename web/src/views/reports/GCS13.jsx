@@ -56,10 +56,10 @@ export default function GCS13() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text' style={{fontSize: 30}}>GCS13 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามประเภทรถ (ข้อมูลบันทึกโดยอัตโนมัติ)</div>
+              <div className='dlt-page-title-text-vl'>GCS13 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามประเภทรถ (ข้อมูลบันทึกโดยอัตโนมัติ)</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

@@ -56,10 +56,10 @@ export default function GCS14() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>GCS14 ปริมาณข้อมูลที่ถูกบันทึกโดยผู้ประกอบการ</div>
+              <div className='dlt-page-title-text-m'>GCS14 ปริมาณข้อมูลที่ถูกบันทึกโดยผู้ประกอบการ</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

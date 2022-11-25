@@ -223,7 +223,7 @@ export default function Home() {
     <Container>
       <Stack spacing={2}>
         <div className='dlt-page-title'>
-          <div className='dlt-page-title-text'>บันทึกข้อมูลรับส่งสินค้า</div>
+          <div className='dlt-page-title-text-s'>บันทึกข้อมูลรับส่งสินค้า</div>
           <div className='dlt-page-title-line'></div>
         </div>
         <Card>
@@ -333,7 +333,7 @@ export default function Home() {
           </CardContent>
         </Card>
         <Card>
-          <CardActions sx={{display: 'flex', justifyContent: 'center', py: 2}}>
+          <CardActions sx={{width: '100%', display:'flex', justifyContent:'center', alignContent: 'center', py: 2}}>
             <BtnClear loading={loading} onClick={cancel}></BtnClear>
             <BtnSave loading={loading} onClick={save}></BtnSave>
           </CardActions>

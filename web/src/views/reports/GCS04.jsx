@@ -61,10 +61,10 @@ export default function GCS04() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text' style={{fontSize: 32}}>GCS04 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามภูมิภาค ต้นทาง-ปลายทาง</div>
+              <div className='dlt-page-title-text-vl-3'>GCS04 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามภูมิภาค ต้นทาง-ปลายทาง</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

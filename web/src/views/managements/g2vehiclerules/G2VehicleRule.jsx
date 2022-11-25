@@ -76,7 +76,7 @@ export default function G2VehicleRule() {
         <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>เกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</div>
+              <div className='dlt-page-title-text-l'>เกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

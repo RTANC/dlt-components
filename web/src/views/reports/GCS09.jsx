@@ -61,10 +61,10 @@ export default function GCS09() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>GCS09 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ช่วงกลางวัน-กลางคืน</div>
+              <div className='dlt-page-title-text-vl-3'>GCS09 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ช่วงกลางวัน-กลางคืน</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

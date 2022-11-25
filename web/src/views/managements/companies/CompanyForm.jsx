@@ -115,9 +115,9 @@ export default function CompanyForm() {
       }, [])
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container  sx={{height: '100vh'}}>
+        <Container>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>{editMode ? 'แก้ไขข้อมูลผู้ประกอบการ' : 'เพิ่มข้อมูลผู้ประกอบการ'}</div>
+              <div className='dlt-page-title-text-s'>{editMode ? 'แก้ไขข้อมูลผู้ประกอบการ' : 'เพิ่มข้อมูลผู้ประกอบการ'}</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Stack spacing={2}>

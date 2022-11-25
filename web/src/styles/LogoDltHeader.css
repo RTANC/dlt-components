@@ -3,3 +3,39 @@
     height: 2px;
     background: linear-gradient(105.67deg, #9D29F8 0%, #2283F3 78.09%);
 }
+
+@media only screen and (min-width: 0px) {
+    .dlt-app-bar-title-th {
+        font-family: 'Kanit';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        color: white;
+    }
+
+    .dlt-app-bar-title-en {
+        font-family: 'Kanit';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        color: white;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .dlt-app-bar-title-th {
+        font-family: 'Kanit';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 31px;
+        color: white;
+    }
+
+    .dlt-app-bar-title-en {
+        font-family: 'Kanit';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        color: white;
+    }
+}

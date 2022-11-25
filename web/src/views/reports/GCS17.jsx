@@ -61,10 +61,10 @@ export default function GCS17() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text' style={{fontSize: 32}}>GCS17 รายงานการคำนวณต้นทุนการขนส่งที่ลดลงได้จากการใช้งานสถานีขนส่งสินค้า</div>
+              <div className='dlt-page-title-text-l'>GCS17 รายงานการคำนวณต้นทุนการขนส่งที่ลดลงได้จากการใช้งานสถานีขนส่งสินค้า</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

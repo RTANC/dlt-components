@@ -61,10 +61,10 @@ export default function GCS15() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>GCS15 จำนวนรถรับส่งสินค้า แยกตามประเภทสินค้า</div>
+              <div className='dlt-page-title-text-m'>GCS15 จำนวนรถรับส่งสินค้า แยกตามประเภทสินค้า</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

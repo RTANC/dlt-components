@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 export default function BtnSave(props) {
   return (
-    <LoadingButton loading={props.loading} disabled={(props.loading || props.disabled)} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 22, height: 46, background: 'linear-gradient(102.79deg, #39C571 0%, #1D7C43 97.11%)', borderRadius: 3, color: 'white'}} color='success' variant='contained' onClick={props.onClick} startIcon={<SaveIcon />}>บันทึกข้อมูล</LoadingButton>
+    <LoadingButton loading={props.loading} disabled={(props.loading || props.disabled)} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 20, height: 44, background: 'linear-gradient(102.79deg, #39C571 0%, #1D7C43 97.11%)', borderRadius: 3, color: 'white'}} color='success' variant='contained' onClick={props.onClick} startIcon={<SaveIcon />}>บันทึกข้อมูล</LoadingButton>
   )
 }
 

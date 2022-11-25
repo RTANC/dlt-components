@@ -57,10 +57,10 @@ export default function GCS07() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>GCS07 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายเดือน</div>
+              <div className='dlt-page-title-text-l'>GCS07 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายเดือน</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

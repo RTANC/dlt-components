@@ -99,7 +99,7 @@ export default function G2Vehicle() {
         <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text' style={{fontSize: '3vmax'}}>รายการรถลูกค้าของผู้ประกอบการ</div>
+              <div className='dlt-page-title-text-m'>รายการรถลูกค้าของผู้ประกอบการ</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

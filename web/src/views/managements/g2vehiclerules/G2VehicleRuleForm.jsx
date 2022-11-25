@@ -54,10 +54,10 @@ export default function G2VehicleRuleForm() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>แก้ไขเกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</div>
+              <div className='dlt-page-title-text' style={{fontSize: '2.5vmax'}}>แก้ไขเกณฑ์การเปิดไม้กั้นโดยอัตโนมัติ ของรถลูกค้าของผู้ประกอบการ</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

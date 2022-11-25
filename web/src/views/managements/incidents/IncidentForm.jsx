@@ -125,9 +125,7 @@ export default function IncidentForm() {
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap='wrap'>
                   <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                    <Box sx={{width: '33%'}}>
-                      <SelectStation value={incident.station.value} name='station' onChange={handleChangeValue} required></SelectStation>
-                    </Box>
+                    <SelectStation value={incident.station.value} name='station' onChange={handleChangeValue} required></SelectStation>
                   </Grid>
                   <Grid item xs={6}>
                     <DltDateTimePicker value={incident.startDate.value} name='startDate' label='วันที่เริ่มต้น' onChange={(e) => {incident.startDate.value = e; setIncident({...incident})}} required></DltDateTimePicker>

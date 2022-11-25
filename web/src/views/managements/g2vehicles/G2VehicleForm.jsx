@@ -125,10 +125,10 @@ export default function G2VehicleForm() {
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
-        <Container sx={{height: '100vh'}}>
+        <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>แก้ไขรายการรถลูกค้าของผู้ประกอบการ</div>
+              <div className='dlt-page-title-text' style={{fontSize: '3vmax'}}>แก้ไขรายการรถลูกค้าของผู้ประกอบการ</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

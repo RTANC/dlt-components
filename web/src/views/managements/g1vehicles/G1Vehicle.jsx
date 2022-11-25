@@ -99,7 +99,7 @@ export default function G1Vehicle() {
         <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>รายการรถของผู้ประกอบการ</div>
+              <div className='dlt-page-title-text' style={{fontSize: '3vmax'}}>รายการรถของผู้ประกอบการ</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card sx={{py: 3}}>

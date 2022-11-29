@@ -105,9 +105,9 @@ export function createQueryStr (obj) {
     let queryStr = '?'
     for (let i = 0;i < keys.length;i++) {
         if (i === 0) {
-            queryStr += keys[i] + '=' + (moment.isMoment(obj[keys[i]]) ? SQLDateTimeFormatter(obj[keys[i]]) : obj[keys[i]])
+            queryStr += keys[i] + '=' + (moment.isMoment(obj[keys[i]]) || moment.isDate(obj[keys[i]]) ? SQLDateTimeFormatter(obj[keys[i]]) : obj[keys[i]])
         } else if (i > 0) {
-            queryStr += '&' + keys[i] + '=' + (moment.isMoment(obj[keys[i]]) ? SQLDateTimeFormatter(obj[keys[i]]) : obj[keys[i]])
+            queryStr += '&' + keys[i] + '=' + (moment.isMoment(obj[keys[i]]) || moment.isDate(obj[keys[i]]) ? SQLDateTimeFormatter(obj[keys[i]]) : obj[keys[i]])
         }
     }
     return queryStr

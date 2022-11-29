@@ -5,7 +5,7 @@ var chart = new ApexCharts(document.querySelector("#myChart1"),{
             align: 'center',
             margin: 10
         },
-        series: {{{toJSON ddata}}},
+        series: {{{toJSON TotalCars}}},
         chart: {
             width: 500,
             type: 'pie',
@@ -23,7 +23,7 @@ var chart2 = new ApexCharts(document.querySelector("#myChart2"),{
             align: 'center',
             margin: 10
         },
-        series: {{{toJSON ddata2}}},
+        series: {{{toJSON TotalWeights}}},
         chart: {
             width: 500,
             type: 'pie',

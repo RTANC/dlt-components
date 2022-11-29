@@ -7,12 +7,14 @@ const api = require('./api')
 const morgan = require('morgan')
 const rfs = require('rotating-file-stream')
 const path = require('path')
+const timeout = require('connect-timeout')
 
 moment.tz.setDefault('Asia/Bangkok')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({ limit: '10mb' }))
 app.use(cors())
+app.use(timeout(30000))
 
 morgan.token('id', function getId (req) {
     return typeof req.userData !== 'undefined' ? req.userData._id : '-'

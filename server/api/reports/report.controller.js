@@ -1,6 +1,6 @@
 const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
-
+const { reportDateTimeFormatter, getStationName } = require('../../utils/utils')
 exports.gcs01 = async (req, res, next) => {
     try {
         if (!req.query.station || !req.query.startDate || !req.query.endDate) {
@@ -45,18 +45,21 @@ exports.gcs01 = async (req, res, next) => {
         WHERE CAST(TimeStampIn AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND ObjectiveID=2`
         
         const result = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
-        console.log(result)
+        const stationName = await getStationName(req.query.station)
         const data = {
+            title: 'รายงาน GCS01 - จำนวนรถและปริมาณสินค้าเข้า-ออกสถานี รายสถานี',
+            station: stationName,
+            startDate: reportDateTimeFormatter(req.query.startDate),
+            endDate: reportDateTimeFormatter(req.query.endDate),
             TotalCarIn: result[0].TotalCarIn,
             TotalCarOut: result[1].TotalCarOut,
             TotalCarCheck: result[2].TotalCarCheck,
-            TotalWeight: result[3].TotalWeight,
+            TotalWeight: result[3].TotalWeight || 0,
             TotalCars: [result[4].TotalCarTx, result[5].TotalCarRx, result[6].TotalCarRxTx, result[7].TotalCarEtc, (result[4].TotalCarTx + result[5].TotalCarRx + result[6].TotalCarRxTx + result[7].TotalCarEtc)],
-            TotalWeights: [result[4].TotalWeightTx, result[5].TotalWeightRx, result[6].TotalWeightRxTx, result[7].TotalWeightEtc, (result[4].TotalWeightTx + result[5].TotalWeightRx + result[6].TotalWeightRxTx + result[7].TotalWeightEtc)]
+            TotalWeights: [result[4].TotalWeightTx || 0, result[5].TotalWeightRx || 0, result[6].TotalWeightRxTx || 0, result[7].TotalWeightEtc || 0, (result[4].TotalWeightTx + result[5].TotalWeightRx + result[6].TotalWeightRxTx + result[7].TotalWeightEtc) || 0]
         }
-        console.log(data)
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5492', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'H7UaSVeTxQ' } })
+        const response = await client.render({ template: { shortid: 'H7UaSVeTxQ' }, data: data })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS01.pdf')
         response.pipe(res)
@@ -67,8 +70,127 @@ exports.gcs01 = async (req, res, next) => {
 
 exports.gcs02 = async (req, res, next) => {
     try {
+        if (!req.query.station || !req.query.startDate || !req.query.endDate) {
+            throw Error('stationId, startDate, endDate field is require!')
+        }
+
+        let extWhere = ''
+        if (!!req.query.company) {
+            extWhere += ' and CompanyID = ' + req.query.company
+        }
+
+        const sql_query = `SELECT O.*, T.C_S, T.C_R, T.C_SR, T.C_O, T.C_ALL, T.W_S, T.W_R, T.W_SR, T.W_O, T.W_ALL, T.C_CHECK
+FROM
+(SELECT 
+	V.VehicleClassID, V.Description,
+	SUM(
+		CASE
+			WHEN T.SrcGoods>0 AND T.DstGoods=0 AND ObjectiveID=1 OR ObjectiveID=2 THEN 1
+			ELSE 0
+		END
+	) as C_S,
+	SUM(
+		CASE
+			WHEN T.SrcGoods=0 AND T.DstGoods>0 AND ObjectiveID=1 OR ObjectiveID=2 THEN 1
+			ELSE 0
+		END
+	) as C_R,
+	SUM(
+		CASE
+			WHEN T.SrcGoods>0 AND T.DstGoods>0 AND ObjectiveID=1 OR ObjectiveID=2 THEN 1
+			ELSE 0
+		END
+	) as C_SR,
+	SUM(
+		CASE
+			WHEN ObjectiveID=2 THEN 1
+			ELSE 0
+		END
+	) as C_O,
+	SUM(
+		CASE
+			WHEN ObjectiveID=1 OR ObjectiveID=2 THEN 1
+			ELSE 0
+		END
+	) as C_ALL,
+	CAST(ROUND(SUM(
+		CASE
+			WHEN T.SrcGoods>0 AND T.DstGoods=0 AND ObjectiveID=1 OR ObjectiveID=2 THEN LoadWt
+			ELSE 0
+		END
+	)/1000.0,0) AS int) as W_S,
+	CAST(ROUND(SUM(
+		CASE
+			WHEN T.SrcGoods=0 AND T.DstGoods>0 AND ObjectiveID=1 OR ObjectiveID=2 THEN LoadWt
+			ELSE 0
+		END
+	)/1000.0,0) AS int) as W_R,
+	CAST(ROUND(SUM(
+		CASE
+			WHEN T.SrcGoods>0 AND T.DstGoods>0 AND ObjectiveID=1 OR ObjectiveID=2 THEN LoadWt
+			ELSE 0
+		END
+	)/1000.0,0) AS int) as W_SR,
+	CAST(ROUND(SUM(
+		CASE
+			WHEN ObjectiveID=2 THEN LoadWt
+			ELSE 0
+		END
+	)/1000.0,0) AS int) as W_O,
+	CAST(ROUND(SUM(
+		CASE
+			WHEN ObjectiveID=1 OR ObjectiveID=2 THEN LoadWt
+			ELSE 0
+		END
+	)/1000.0,0) AS int) as W_ALL,
+	SUM(
+		CASE
+			WHEN ObjectiveID=3 THEN 1
+			ELSE 0
+		END
+	) as C_CHECK
+FROM
+	(SELECT TransportID, 
+		(CASE
+			WHEN VehicleClassID IS NULL THEN 1
+			ELSE VehicleClassID
+		END) as VehicleClassID, 
+		SrcGoods,
+		DstGoods,
+		ObjectiveID,
+		CompanyID,
+		LoadWt
+	FROM Transport
+	WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station}) T
+	FULL OUTER JOIN VehicleClass V ON T.VehicleClassID=V.VehicleClassID
+GROUP BY V.VehicleClassID, V.Description) T
+JOIN (
+SELECT V.VehicleClassID, V.Description, COUNT(O.VehicleOutID) as TotalCar, CAST(ROUND(SUM(O.GoodsWt)/1000.0,0) AS int) as TotalWeight
+FROM
+	(
+	SELECT VehicleOutID, 
+		(CASE
+			WHEN VehicleClassID IS NULL THEN 1
+			ELSE VehicleClassID
+		END) as VehicleClassID, 
+		GrossWt,
+		GoodsWt 
+	FROM VehicleOut
+	WHERE CAST(TimeStampOut AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station}
+	) O JOIN VehicleClass V ON O.VehicleClassID=V.VehicleClassID
+GROUP BY V.VehicleClassID, V.Description) O ON O.VehicleClassID=T.VehicleClassID
+ORDER BY O.VehicleClassID`
+        const result = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
+        const stationName = await getStationName(req.query.station)
+        const data = {
+            title: "รายงาน GCS02 - จำนวนรถและปริมาณสินค้าเข้า-ออกสถานี  ตามประเภทรถ",
+            station: stationName,
+            startDate: reportDateTimeFormatter(req.query.startDate),
+            endDate: reportDateTimeFormatter(req.query.endDate),
+            reportData: result
+        }
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5488', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'lldYmhM5F3' } })
+        const response = await client.render({ template: { shortid: 'lldYmhM5F3' }, data: data })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS02.pdf')
         response.pipe(res)

@@ -2,7 +2,7 @@
   var chart = new ApexCharts(document.querySelector("#chart1"), {
     series: [{
     name: 'ปริมาณการขนถ่ายสินค้าทั้งหมดผ่านสถานี',
-    data: {{{toJSON ddata}}}
+    data: {{{getDataChart1 reportData}}}
     }],
     chart: {
     width: 1000,
@@ -97,7 +97,7 @@
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart2series}}},
+    series: {{{getDataChart2 reportData}}},
     chart: {
     width: 1000,
   height: 450,
@@ -191,7 +191,7 @@
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart3series}}},
+    series: {{{getDataChart3 reportData}}},
     chart: {
     width: 1000,
   height: 450,

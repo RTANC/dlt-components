@@ -45,10 +45,6 @@ export function getImageURL(stationId, laneId, dateTime, imageRef, ext) {
         case 3: prefix = 'OUT';
         break;
     }
-    
-    if (!(stationId && laneId && dateTime)) {
-        return ''
-    }
 
     let url = 'http://gcs.dlt.go.th/vehimages/' + stationId.toString() + '/' + laneId.toString() + '/' + (moment(dateTime).utc().format('YYYY/MM/DD')) + '/' + prefix + '/' + prefix + '-' + stationId.toString() + '-' + laneId.toString() + '-' + (moment(dateTime).utc().format('YYYYMMDD')) + '-' + imageRef + '-' + ext + '.jpg'
 

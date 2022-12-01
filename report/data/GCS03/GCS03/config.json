@@ -10,13 +10,13 @@
         "printBackground": true,
         "landscape": true,
         "format": "A4",
-        "mediaType": "screen"
+        "mediaType": "print"
     },
     "creationDate": {
         "$$date": 1665744663132
     },
     "modificationDate": {
-        "$$date": 1666861098965
+        "$$date": 1669871708168
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
@@ -26,7 +26,8 @@
         {
             "type": "merge",
             "mergeWholeDocument": true,
-            "templateShortid": "3BxGSwoWD"
+            "templateShortid": "3BxGSwoWD",
+            "enabled": true
         }
     ]
 }

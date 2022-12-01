@@ -2,7 +2,6 @@ const moment = require('moment')
 const { QueryTypes } = require('sequelize')
 const sequelize = require('../connection')
 const fs = require('fs')
-const glob = require('glob')
 
 exports.bool2bit = (bool) => {
     return bool ? 1 : 0
@@ -29,7 +28,30 @@ exports.getStationName = async (id) => {
     }
 }
 
-exports.saveImage = (body) => {
+exports.dateTimeSQLFormatter = (dt) => {
+    return moment(dt).format('YYYY-MM-DDTHH:mm:ss')
+}
+
+exports.dateSQLFormatter = (dt) => {
+    return moment(dt).format('YYYY-MM-DD')
+} 
+
+exports.getImageRef = async (timeStamp, station, direction) => {
+    try {
+        let count
+        if (direction === 'in') {
+            count = await sequelize.query(`select count (VehicleInID) as num FROM VehicleIn where StationID = ${station} and CAST(TimeStampIn as date) = '${this.dateSQLFormatter(timeStamp)}'`, { type: QueryTypes.SELECT })
+        } else if (direction === 'out') {
+            count = await sequelize.query(`select count (VehicleOutID) as num FROM VehicleOut where StationID = ${station} and CAST(TimeStampOut as date) = '${this.dateSQLFormatter(timeStamp)}'`, { type: QueryTypes.SELECT })
+        }
+        
+        return (moment(timeStamp).format('HHmmss')) + '-' + (new Intl.NumberFormat('us', {minimumIntegerDigits: 5}).format((count[0].num)+1).replace(',', ''))
+    } catch (error) {
+        return null
+    }
+}
+
+exports.saveImage = (body, imageRef) => {
     //ext = 0 = LP front, 1 = LP rear, 2 = front view, 3 = rear view
     let prefix = ''
     switch (body.laneID) {
@@ -43,20 +65,16 @@ exports.saveImage = (body) => {
         break;
     }
 
-    let path = 'public/vehimages/' + body.stationID.toString() + '/' + body.laneID.toString() + '/' + (moment(body.timeStamp).utc().format('YYYY/MM/DD')) + '/'
-    if (!(fs.existsSync(path + '/' + prefix))) {
-        fs.mkdirSync(path + '/' + prefix, { recursive: true })
+    const path = 'public/vehimages/' + body.stationID.toString() + '/' + body.laneID.toString() + '/' + (moment(body.timeStamp).utc().format('YYYY/MM/DD')) + '/' + prefix + '/'
+    if (!(fs.existsSync(path))) {
+        fs.mkdirSync(path, { recursive: true })
     }
-    // calculate image ref before save
-    glob(path + '*/*.jpg', function(error, files) {
-        const count = files.length + 1
-        const imageRef = (moment(body.timeStamp).utc().format('HHmmss')) + '-' + (new Intl.NumberFormat('us', {minimumIntegerDigits: 5}).format(count).replace(',', ''))
-        const imgPath = path + prefix + '/' + prefix + '-' + body.stationID.toString() + '-' + body.laneID.toString() + '-' + (moment(body.timeStamp).utc().format('YYYYMMDD')) + '-' + imageRef
-        
-        fs.writeFile(imgPath + '-' + 0 + '.jpg', body.frontLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
-        fs.writeFile(imgPath + '-' + 1 + '.jpg', body.rearLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
-        fs.writeFile(imgPath + '-' + 2 + '.jpg', body.frontImageBase64 || '', 'base64', err => console.log(err))
-        fs.writeFile(imgPath + '-' + 3 + '.jpg', body.rearImageBase64 || '', 'base64', err => console.log(err))
-    })
+
+    imgPath = path + prefix + '-' + imageRef
+
+    fs.writeFile(imgPath + '-' + 0 + '.jpg', body.frontLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
+    fs.writeFile(imgPath + '-' + 1 + '.jpg', body.rearLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
+    fs.writeFile(imgPath + '-' + 2 + '.jpg', body.frontImageBase64 || '', 'base64', err => console.log(err))
+    fs.writeFile(imgPath + '-' + 3 + '.jpg', body.rearImageBase64 || '', 'base64', err => console.log(err))
     
 }

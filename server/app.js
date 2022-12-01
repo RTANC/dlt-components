@@ -29,7 +29,7 @@ app.use(morgan(':id :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/
     skip: function (req, res) { return res.statusCode < 400 } // EXAMPLE: only log error responses
 }))
 
-app.use('/public', express.static('public'))
+app.use('/public', express.static('D:/public'))
 app.use('/api', api)
 
 app.use((err, req, res, next) => {

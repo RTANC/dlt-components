@@ -65,7 +65,7 @@ exports.saveImage = (body, imageRef) => {
         break;
     }
 
-    const path = 'public/vehimages/' + body.stationID.toString() + '/' + body.laneID.toString() + '/' + (moment(body.timeStamp).utc().format('YYYY/MM/DD')) + '/' + prefix + '/'
+    const path = 'D:/public/vehimages/' + body.stationID.toString() + '/' + body.laneID.toString() + '/' + (moment(body.timeStamp).utc().format('YYYY/MM/DD')) + '/' + prefix + '/'
     if (!(fs.existsSync(path))) {
         fs.mkdirSync(path, { recursive: true })
     }

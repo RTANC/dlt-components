@@ -12,13 +12,14 @@
         "landscape": true,
         "width": "",
         "height": "",
-        "mediaType": "screen"
+        "mediaType": "print",
+        "marginTop": "7cm"
     },
     "creationDate": {
         "$$date": 1665711916292
     },
     "modificationDate": {
-        "$$date": 1669727585466
+        "$$date": 1669953465759
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],

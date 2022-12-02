@@ -18,6 +18,7 @@ module.exports = {
           JSREPORT_URL: 'http://localhost',
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
+          SAVE_PATH: 'C:/public'
         },
         env_production: {
           NODE_ENV: "production",
@@ -27,6 +28,7 @@ module.exports = {
           JSREPORT_URL: 'http://localhost',
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
+          SAVE_PATH: 'C:/public'
         }
       }
     ]

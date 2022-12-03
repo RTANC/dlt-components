@@ -23,7 +23,7 @@
     }
   },
   "trustUserCode": true,
-  "reportTimeout": 60000,
+  "reportTimeout": 600000,
   "workers": {
     "numberOfWorkers": 2
   },

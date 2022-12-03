@@ -14,7 +14,7 @@ moment.tz.setDefault('Asia/Bangkok')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({ limit: '10mb' }))
 app.use(cors())
-app.use(timeout(300000))
+app.use(timeout(60000))
 
 morgan.token('id', function getId (req) {
     return typeof req.userData !== 'undefined' ? req.userData._id : '-'

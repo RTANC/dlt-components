@@ -59,7 +59,7 @@ exports.gcs01 = async (req, res, next) => {
             TotalWeights: [result[4].TotalWeightTx || 0, result[5].TotalWeightRx || 0, result[6].TotalWeightRxTx || 0, result[7].TotalWeightEtc || 0, (result[4].TotalWeightTx + result[5].TotalWeightRx + result[6].TotalWeightRxTx + result[7].TotalWeightEtc) || 0]
         }
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5492', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'H7UaSVeTxQ' }, data: data })
+        const response = await client.render({ template: { shortid: 'H7UaSVeTxQ' }, data: data }, { timeout: 60000 })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS01.pdf')
         response.pipe(res)
@@ -190,7 +190,7 @@ exports.gcs02 = async (req, res, next) => {
             reportData: result
         }
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5488', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'lldYmhM5F3' }, data: data })
+        const response = await client.render({ template: { shortid: 'lldYmhM5F3' }, data: data }, { timeout: 60000 })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS02.pdf')
         response.pipe(res)
@@ -325,7 +325,7 @@ exports.gcs03 = async (req, res, next) => {
             reportData: result
         }
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5488', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'pGINYt4mWL' }, data: data })
+        const response = await client.render({ template: { shortid: 'pGINYt4mWL' }, data: data }, { timeout: 60000 })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS03.pdf')
         response.pipe(res)
@@ -470,7 +470,7 @@ exports.gcs04 = async (req, res, next) => {
             reportData: result
         }
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5488', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'H-Uyo4wBRX' }, data: data })
+        const response = await client.render({ template: { shortid: 'H-Uyo4wBRX' }, data: data }, { timeout: 60000 })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS04.pdf')
         response.pipe(res)

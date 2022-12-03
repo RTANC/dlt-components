@@ -40,6 +40,9 @@
     },
     "sample-template": {
       "createSamples": true
+    },
+    "chrome-pdf": {
+      "timeout": 600000
     }
   }
 }

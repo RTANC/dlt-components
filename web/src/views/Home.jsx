@@ -16,14 +16,14 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
 import BtnSave from '../components/BtnSave'
 import BtnClear from '../components/BtnClear'
-import { useSelector } from 'react-redux'
-import { getImageURL, handleGoodCategoryCheck, removeSQLTz } from '../services/utils'
+// import { useSelector } from 'react-redux'
+import { getImageURL, handleGoodCategoryCheck, removeSQLTz, SQLDateTimeFormatter } from '../services/utils'
 import { createTransport, getTransport, updateTransport } from '../services/transports'
+import Swal from 'sweetalert2'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
   const [images, setImages] = useState(['/Image_Mock.png','/Image_Mock.png','/Image_Mock.png','/Image_Mock.png'])
-  const [edit, setEdit] = useState(false)
   const [transport, setTransport] = useState({
     station: {
       value: 1,
@@ -31,11 +31,11 @@ export default function Home() {
       rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
     company: {
-      value: 189,
+      value: '',
       error: false,
       rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
-    isManualAddLPR: false,
+    manualLP: false,
     f1a: {
       value: '',
       error: false,
@@ -73,6 +73,7 @@ export default function Home() {
     },
     isVehicleOut: false,
     mode: 1,
+    editLP: false,
     srcProvince: {
       value: ''
     },
@@ -120,6 +121,15 @@ export default function Home() {
     transport.transportId = v.TransportID
     transport.vehicleInId = v.VehicleInID
     transport.station.value = v.StationID
+    transport.editLP = false
+    transport.vehicleClass.value = ''
+    transport.mode = 1
+    transport.srcProvince.value = ''
+    transport.srcGoods.value = ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+    transport.srcGoodsOther.value = ''
+    transport.dstProvince.value = ''
+    transport.dstGoods.value = ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+    transport.dstGoodsOther.value = ''
 
     setImages([getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 0),
       getImageURL(v.StationID, v.LaneID, v.TimeStampIn, v.ImageRef, 1),
@@ -176,46 +186,92 @@ export default function Home() {
 
   const save = async (e) => {
     try {
-      e.preventDefault()
+      // e.preventDefault()
       setLoading(true)
       if (formValidator(transport, setTransport)) {
         const payload = { StationID: transport.station.value,
           CompanyID: transport.company.value,
           ObjectiveID: transport.objective.value,
-          SrcProvinceID: transport.srcProvince.value,
+          SrcProvinceID: transport.srcProvince.value || 'NULL',
           SrcGoods: handleGoodCategoryCheck(transport.srcGoods.value),
           SrcGoodsOther: transport.srcGoods.value[0],
-          DstProvinceID: transport.dstProvince.value,
+          DstProvinceID: transport.dstProvince.value || 'NULL',
           DstGoods: handleGoodCategoryCheck(transport.dstGoods.value),
           DstGoodsOther: transport.dstGoods.value[0],
           VehicleInID: transport.vehicleInId,
-          TimeStampIn: transport.timeStampIn.value,
+          TimeStampIn: SQLDateTimeFormatter(transport.timeStampIn.value),
           F1M: transport.f1a.value,
           F1MPID: transport.f1apId.value,
           R1M: transport.r1a.value,
           R1MPID: transport.r1apId.value,
+          manualLP: transport.manualLP,
+          editLP: transport.editLP,
           VehicleClassID: transport.vehicleClass.value }
         if (transport.transportId === null) {
           await createTransport(payload)
         } else {
           await updateTransport(transport.transportId, payload)
         }
+        clear()
+        Swal.fire({
+          icon: 'success',
+          title: 'สำเร็จ',
+          text: 'บันทึกข้อมูลสำเร็จ'
+        })
+      } else {
+        Swal.fire({
+          icon: 'info',
+          title: 'กรอกข้อมูลไม่ครบถ้วน',
+          text: 'กรุณากรอกข้อมูลให้ครบถ้วน แล้วลองใหม่อีกครั้ง'
+        })
       }
-      console.log(transport)
+      // console.log(transport)
     } catch (error) {
       console.log(error)
+      Swal.fire({
+        icon: 'error',
+        title: 'ผิดพลาด',
+        text: error.message
+      })
     } finally {
       setLoading(false)
     }
   }
 
-  const usr = useSelector((state) => state.login)
-  const cancel = () => {
-    console.log(usr)
+  // const usr = useSelector((state) => state.login)
+  const clear = () => {
+    transport.company.value = ''
+    transport.company.error = false
+    transport.manualLP = false
+    transport.f1a.value = ''
+    transport.f1apId.value = ''
+    transport.r1a.value = ''
+    transport.r1apId.value = ''
+    transport.timeStampIn.value = ''
+    transport.vehicleClass.value = ''
+    transport.objective.value = 1
+    transport.mode = 1
+    transport.editLP = false
+    transport.srcProvince.value = ''
+    transport.srcGoods.value = ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+    transport.srcGoodsOther.value = ''
+    transport.dstProvince.value = ''
+    transport.dstGoods.value = ['',false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+    transport.dstGoodsOther.value = ''
+    transport.vehicleInId = null
+    transport.transportId = null
+    setImages(['/Image_Mock.png','/Image_Mock.png','/Image_Mock.png','/Image_Mock.png'])
+    setTransport({...transport})
   }
 
   const toggleEdit = () => {
-    setEdit(!edit)
+    transport.editLP = !transport.editLP
+    setTransport({...transport})
+  }
+
+  const toggleManualLP = () => {
+    transport.manualLP = !transport.manualLP
+    setTransport({...transport})
   }
 
   return (
@@ -242,18 +298,18 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12}>
-                <AutoCompleteSearchLP station={2} name='lpNumber' onChange={handleLPSearch}></AutoCompleteSearchLP>
+                <AutoCompleteSearchLP station={transport.station.value} name='lpNumber' onChange={handleLPSearch}></AutoCompleteSearchLP>
               </Grid>
               <Grid item xs={12} sx={{display: 'flex', justifyContent: 'center'}}>
-                <Button variant='contained' color='warning' sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3}}>กรอกข้อมูลด้วยตนเอง</Button>
-              </Grid>
-              <Grid item xs={12}>
-                <Divider></Divider>
+                <Button onClick={toggleManualLP} variant='contained' color='warning' sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3}}>กรอกข้อมูลด้วยตนเอง</Button>
               </Grid>
             </Grid>
           </CardContent>
-          <CardContent>
+          {(!!transport.vehicleInId || transport.manualLP) && <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
+              <Grid item xs={12}>
+                <Divider></Divider>
+              </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <Typography variant="h5" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 36, color: 'white'}}>ข้อมูลรถบรรทุก</Typography>
               </Grid>
@@ -266,10 +322,10 @@ export default function Home() {
               <Grid item xs={12}>
                 <Divider></Divider>
               </Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='f1a' value={transport.f1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
-              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='r1a' value={transport.r1a.value} readOnly={!edit} onChange={handleChangeValue}></DltTextField></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} disabled={!edit} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
-              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} disabled={!edit} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='f1a' value={transport.f1a.value} readOnly={!transport.editLP} onChange={handleChangeValue}></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='r1a' value={transport.r1a.value} readOnly={!transport.editLP} onChange={handleChangeValue}></DltTextField></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='f1apId' value={transport.f1apId.value} disabled={!transport.editLP} onChange={handleChangeValue} required error={transport.f1apId.error}></SelectLPProvince></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='r1apId' value={transport.r1apId.value} disabled={!transport.editLP} onChange={handleChangeValue} required error={transport.r1apId.error}></SelectLPProvince></Grid>
               <Grid item xs={12}>
                 <ImageListLP images={images}></ImageListLP>
               </Grid>
@@ -287,9 +343,9 @@ export default function Home() {
                 </Button>
               </Grid>
             </Grid>
-          </CardContent>
+          </CardContent>}
         </Card>
-        <Card>
+        {(!!transport.vehicleInId || transport.manualLP) && <Card>
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12} sm={4} md={4}>
@@ -331,15 +387,15 @@ export default function Home() {
               </Grid>}
             </Grid>
           </CardContent>
-        </Card>
-        <Card>
+        </Card>}
+        {(!!transport.vehicleInId || transport.manualLP) && <Card>
           <CardActions>
             <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', py: 2}}>
-              <BtnClear loading={loading} onClick={cancel}></BtnClear>
+              <BtnClear loading={loading} onClick={clear}></BtnClear>
               <BtnSave loading={loading} onClick={save}></BtnSave>
             </Box>
           </CardActions>
-        </Card>
+        </Card>}
       </Stack>
     </Container>
     </Slide>

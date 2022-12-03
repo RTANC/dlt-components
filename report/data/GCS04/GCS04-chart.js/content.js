@@ -7,7 +7,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart1series}}},
+    series: {{{getDataChart1 reportData}}},
     chart: {
     width: 1000,
   height: 450,
@@ -101,7 +101,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart2series}}},
+    series: {{{getDataChart2 reportData}}},
     chart: {
     width: 1000,
   height: 450,

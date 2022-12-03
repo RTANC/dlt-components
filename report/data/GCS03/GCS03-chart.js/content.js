@@ -7,7 +7,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart1series}}},
+    series: {{{getDataChart1 reportData}}},
     chart: {
     width: 1000,
   height: 450,
@@ -37,7 +37,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["บริษัท บลู แอนด์ ไวท์ ดิสทริบิวเตอร์ จำกัด", "ห้างหุ้นส่วนจำกัด (ติ่ง) ขนส่งชลบุรี ", "บริษัท ชวาลกิตขนส่ง จำกัด", "บริษัท นิ่มซี่เส็งขนส่ง 1988 จำกัด", "บริษัท เอ็มเอส นอร์ธสตาร์ โลจิสติกส์ (ไทยแลนด์) จำกัด", "ห้างหุ้นส่วนจำกัด ป.กิติพงศ์ขนส่ง (2001)", "บริษัท พยัคฆ์ขนส่ง จำกัด", "ห้างหุ้นส่วนจำกัด ม่งเส็งบุรีรัมย์ขนส่ง", "ห้างหุ้นส่วนจำกัด ส. เพิ่มกิจขนส่ง", "ห้างหุ้นส่วนจำกัด ฮอเนต ขนส่ง", "บริษัท บลู แอนด์ ไวท์ โลจิสติกส์ จำกัด", "บริษัท สหะสัมพันธ์ทรานสปอร์ต จำกัด"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },
@@ -101,7 +101,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart2series}}},
+    series: {{{getDataChart2 reportData}}},
     chart: {
     width: 1000,
   height: 450,
@@ -131,7 +131,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["บริษัท บลู แอนด์ ไวท์ ดิสทริบิวเตอร์ จำกัด", "ห้างหุ้นส่วนจำกัด (ติ่ง) ขนส่งชลบุรี ", "บริษัท ชวาลกิตขนส่ง จำกัด", "บริษัท นิ่มซี่เส็งขนส่ง 1988 จำกัด", "บริษัท เอ็มเอส นอร์ธสตาร์ โลจิสติกส์ (ไทยแลนด์) จำกัด", "ห้างหุ้นส่วนจำกัด ป.กิติพงศ์ขนส่ง (2001)", "บริษัท พยัคฆ์ขนส่ง จำกัด", "ห้างหุ้นส่วนจำกัด ม่งเส็งบุรีรัมย์ขนส่ง", "ห้างหุ้นส่วนจำกัด ส. เพิ่มกิจขนส่ง", "ห้างหุ้นส่วนจำกัด ฮอเนต ขนส่ง", "บริษัท บลู แอนด์ ไวท์ โลจิสติกส์ จำกัด", "บริษัท สหะสัมพันธ์ทรานสปอร์ต จำกัด"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },

@@ -110,7 +110,5 @@ FROM
 		FROM Transport
 		WHERE CAST(TimeStampTx AS DATE) BETWEEN '2021-01-01' AND '2021-01-31' AND StationID=1 AND SrcGoods>0 AND DstGoods>0
 	) T JOIN TxProvince P ON P.ProvinceID=T.ProvinceID JOIN Region R ON P.RegionID=R.RegionID
---WHERE C.CompanyName like '%อุปกรณ์%'
-
 GROUP BY R.RegionID, R.Description
 ORDER BY R.RegionID

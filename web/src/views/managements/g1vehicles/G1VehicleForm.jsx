@@ -106,6 +106,7 @@ export default function G1VehicleForm() {
           g1Vehicle.rearLP.value = data.RearLP
           g1Vehicle.rearLPProvince.value = data.RearLPPID
           g1Vehicle.isActive.value = data.IsActive
+          g1Vehicle.rfid.value = data.RFID
           setG1Vehicle({...g1Vehicle})
           setValid(formValidator(g1Vehicle, setG1Vehicle))
         } catch (error) {

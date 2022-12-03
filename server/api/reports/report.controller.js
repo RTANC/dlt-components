@@ -7,9 +7,9 @@ exports.gcs01 = async (req, res, next) => {
             throw Error('stationId, startDate, endDate field is require!')
         }
 
-        let extWhere = ''
+        let extWhere = ``
         if (!!req.query.company) {
-            extWhere += ' and CompanyID = ' + req.query.company
+            extWhere = ` AND CompanyID = ${req.query.company}`
         }
 
         const sql_query = `SELECT COUNT(VehicleInID) as TotalCarIn
@@ -22,27 +22,27 @@ exports.gcs01 = async (req, res, next) => {
         
         SELECT COUNT(TransportID) as TotalCarCheck
         FROM Transport
-        WHERE CAST(TimeStampIn AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND ObjectiveID=3
+        WHERE CAST(TimeStampIn AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND ObjectiveID=3 ${extWhere}
         
         SELECT SUM(LoadWt) as TotalWeight
         FROM Transport
-        WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station}
+        WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} ${extWhere}
         
         SELECT COUNT(TransportID) as TotalCarTx, SUM(LoadWt) as TotalWeightTx
         FROM Transport
-        WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods>0 AND DstGoods=0 AND ObjectiveID=1
+        WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods>0 AND DstGoods=0 AND ObjectiveID=1 ${extWhere}
         
         SELECT COUNT(TransportID) as TotalCarRx, SUM(LoadWt) as TotalWeightRx
         FROM Transport
-        WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods=0 AND DstGoods>0 AND ObjectiveID=1
+        WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods=0 AND DstGoods>0 AND ObjectiveID=1 ${extWhere}
         
         SELECT COUNT(TransportID) as TotalCarRxTx, SUM(LoadWt) as TotalWeightRxTx
         FROM Transport
-        WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods>0 AND DstGoods>0 AND ObjectiveID=1
+        WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods>0 AND DstGoods>0 AND ObjectiveID=1 ${extWhere}
         
         SELECT COUNT(TransportID) as TotalCarEtc, SUM(LoadWt) as TotalWeightEtc
         FROM Transport
-        WHERE CAST(TimeStampIn AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND ObjectiveID=2`
+        WHERE CAST(TimeStampIn AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND ObjectiveID=2 ${extWhere}`
         
         const result = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
         const stationName = await getStationName(req.query.station)
@@ -74,9 +74,9 @@ exports.gcs02 = async (req, res, next) => {
             throw Error('stationId, startDate, endDate field is require!')
         }
 
-        let extWhere = ''
+        let extWhere = ``
         if (!!req.query.company) {
-            extWhere += ' and CompanyID = ' + req.query.company
+            extWhere = ` AND CompanyID = ${req.query.company}`
         }
 
         const sql_query = `SELECT O.*, T.C_S, T.C_R, T.C_SR, T.C_O, T.C_ALL, T.W_S, T.W_R, T.W_SR, T.W_O, T.W_ALL, T.C_CHECK
@@ -161,7 +161,7 @@ exports.gcs02 = async (req, res, next) => {
             		CompanyID,
             		LoadWt
             	FROM Transport
-            	WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station}) T
+            	WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} ${extWhere}) T
             	FULL OUTER JOIN VehicleClass V ON T.VehicleClassID=V.VehicleClassID
             GROUP BY V.VehicleClassID, V.Description) T
             JOIN (
@@ -205,9 +205,9 @@ exports.gcs03 = async (req, res, next) => {
             throw Error('stationId, startDate, endDate field is require!')
         }
 
-        let extWhere = ''
+        let extWhere = ``
         if (!!req.query.company) {
-            extWhere += ' and CompanyID = ' + req.query.company
+            extWhere = ` AND CompanyID = ${req.query.company}`
         }
 
         const sql_query = `SELECT O.*, T.C_S, T.C_R, T.C_SR, T.C_O, T.C_ALL, T.W_S, T.W_R, T.W_SR, T.W_O, T.W_ALL, T.C_CHECK
@@ -292,7 +292,7 @@ exports.gcs03 = async (req, res, next) => {
                 CompanyID,
                 LoadWt
             FROM Transport
-            WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station}) T
+            WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} ${extWhere}) T
             FULL OUTER JOIN Company V ON T.CompanyID=V.CompanyID
         GROUP BY V.CompanyID, V.CompanyName) T
         JOIN (
@@ -317,8 +317,15 @@ exports.gcs03 = async (req, res, next) => {
         `
         const result = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
         const stationName = await getStationName(req.query.station)
+        const data = {
+            title: "GCS03 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามชื่อผู้ประกอบการ",
+            station: stationName,
+            startDate: reportDateTimeFormatter(req.query.startDate),
+            endDate: reportDateTimeFormatter(req.query.endDate),
+            reportData: result
+        }
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5488', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'pGINYt4mWL' } })
+        const response = await client.render({ template: { shortid: 'pGINYt4mWL' }, data: data })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS03.pdf')
         response.pipe(res)
@@ -329,8 +336,141 @@ exports.gcs03 = async (req, res, next) => {
 
 exports.gcs04 = async (req, res, next) => {
     try {
+        if (!req.query.station || !req.query.startDate || !req.query.endDate) {
+            throw Error('stationId, startDate, endDate field is require!')
+        }
+
+        let extWhere = ``
+        if (!!req.query.company) {
+            extWhere = ` AND CompanyID = ${req.query.company}`
+        }
+
+        const sql_query = `SELECT 
+        R.RegionID, R.Description,
+        COUNT(T.TransportID) as TotalCar,
+        CAST(ROUND(SUM(T.LoadWt)/1000.0,0) AS int) as TotalWeight,
+        SUM(
+            CASE
+                WHEN T.SrcGoods>0 AND T.DstGoods=0 AND ObjectiveID=1 OR ObjectiveID=2 THEN 1
+                ELSE 0
+            END
+        ) as C_S,
+        SUM(
+            CASE
+                WHEN T.SrcGoods=0 AND T.DstGoods>0 AND ObjectiveID=1 OR ObjectiveID=2 THEN 1
+                ELSE 0
+            END
+        ) as C_R,
+        SUM(
+            CASE
+                WHEN T.SrcGoods>0 AND T.DstGoods>0 AND ObjectiveID=1 OR ObjectiveID=2 THEN 1
+                ELSE 0
+            END
+        ) as C_SR,
+        SUM(
+            CASE
+                WHEN ObjectiveID=2 THEN 1
+                ELSE 0
+            END
+        ) as C_O,
+        SUM(
+            CASE
+                WHEN ObjectiveID=1 OR ObjectiveID=2 THEN 1
+                ELSE 0
+            END
+        ) as C_ALL,
+        CAST(ROUND(SUM(
+            CASE
+                WHEN T.SrcGoods>0 AND T.DstGoods=0 AND ObjectiveID=1 OR ObjectiveID=2 THEN LoadWt
+                ELSE 0
+            END
+        )/1000.0,0) AS int) as W_S,
+        CAST(ROUND(SUM(
+            CASE
+                WHEN T.SrcGoods=0 AND T.DstGoods>0 AND ObjectiveID=1 OR ObjectiveID=2 THEN LoadWt
+                ELSE 0
+            END
+        )/1000.0,0) AS int) as W_R,
+        CAST(ROUND(SUM(
+            CASE
+                WHEN T.SrcGoods>0 AND T.DstGoods>0 AND ObjectiveID=1 OR ObjectiveID=2 THEN LoadWt
+                ELSE 0
+            END
+        )/1000.0,0) AS int) as W_SR,
+        CAST(ROUND(SUM(
+            CASE
+                WHEN ObjectiveID=2 THEN LoadWt
+                ELSE 0
+            END
+        )/1000.0,0) AS int) as W_O,
+        CAST(ROUND(SUM(
+            CASE
+                WHEN ObjectiveID=1 OR ObjectiveID=2 THEN LoadWt
+                ELSE 0
+            END
+        )/1000.0,0) AS int) as W_ALL,
+        SUM(
+            CASE
+                WHEN ObjectiveID=3 THEN 1
+                ELSE 0
+            END
+        ) as C_CHECK
+    FROM
+        (
+            SELECT TransportID,
+                CompanyID,
+                ObjectiveID,
+                SrcProvinceID AS ProvinceID,
+                SrcGoods,
+                DstGoods,
+                LoadWt
+            FROM Transport
+            WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods>0 AND DstGoods=0
+            UNION ALL
+            SELECT TransportID,
+                CompanyID,
+                ObjectiveID,
+                DstProvinceID AS ProvinceID,
+                SrcGoods,
+                DstGoods,
+                LoadWt
+            FROM Transport
+            WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods=0 AND DstGoods>0
+            UNION ALL
+            SELECT TransportID,
+                CompanyID,
+                ObjectiveID,
+                SrcProvinceID AS ProvinceID,
+                SrcGoods,
+                DstGoods,
+                LoadWt
+            FROM Transport
+            WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods>0 AND DstGoods>0
+            UNION ALL
+            SELECT TransportID,
+                CompanyID,
+                ObjectiveID,
+                DstProvinceID AS ProvinceID,
+                SrcGoods,
+                DstGoods,
+                LoadWt
+            FROM Transport
+            WHERE CAST(TimeStampTx AS DATE) BETWEEN '${req.query.startDate}' AND '${req.query.endDate}' AND StationID=${req.query.station} AND SrcGoods>0 AND DstGoods>0
+        ) T JOIN TxProvince P ON P.ProvinceID=T.ProvinceID JOIN Region R ON P.RegionID=R.RegionID    
+    GROUP BY R.RegionID, R.Description
+    ORDER BY R.RegionID
+    `
+        const result = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
+        const stationName = await getStationName(req.query.station)
+        const data = {
+            title: "GCS04 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามภูมิภาค ต้นทาง-ปลายทาง",
+            station: stationName,
+            startDate: reportDateTimeFormatter(req.query.startDate),
+            endDate: reportDateTimeFormatter(req.query.endDate),
+            reportData: result
+        }
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5488', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'H-Uyo4wBRX' } })
+        const response = await client.render({ template: { shortid: 'H-Uyo4wBRX' }, data: data })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS04.pdf')
         response.pipe(res)

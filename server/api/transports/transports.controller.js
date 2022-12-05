@@ -42,8 +42,8 @@ exports.createTransport = async (req, res, next) => {
         const { StationID, CompanyID, ObjectiveID, SrcProvinceID, SrcGoods, SrcGoodsOther, DstProvinceID, DstGoods, DstGoodsOther, VehicleInID, TimeStampIn, F1M, F1MPID, R1M, R1MPID, VehicleClassID, manualLP } = req.body // TimeStampTx เวลาดึงจากฝั่ง backend นี้, UserID ดึงจาก token
         let ext = ''
         if (manualLP) {
-            ext = `insert VehicleIn(StationID, TimeStampIn, LaneID, F1A, F1APID, R1A, R1APID, ImageRef, TransportID)
-            values(${StationID}, '${TimeStampIn}', 0, '${F1M}', ${F1MPID}, '${R1M}', ${R1MPID}, '', scope_identity())`
+            ext = `insert VehicleIn(StationID, TimeStampIn, LaneID, F1A, F1APID, R1A, R1APID, ImageRef, TransportID, CreateBy)
+            values(${StationID}, '${TimeStampIn}', 0, '${F1M}', ${F1MPID}, '${R1M}', ${R1MPID}, '', scope_identity(), 1)`
         } else {
             ext = `update VehicleIn
             set TransportID = scope_identity(), TimeStampIn = '${TimeStampIn}', F1A = '${F1M}', F1APID = ${F1MPID || 'NULL'}, R1A = '${R1M}', R1APID = ${R1MPID || 'NULL'}

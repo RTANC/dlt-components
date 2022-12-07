@@ -12,7 +12,12 @@ export async function getReports(reportId, query) {
         config.dataType = 'blob'
         return config
     }, error => Promise.reject(error))
-    const fileURL =  getObjectURL(await api.get('/reports/GCS/' + reportId + createQueryStr(query)))
-    api.interceptors.request.eject(myInterceptor)
-    return fileURL
+    try {
+        const fileURL =  getObjectURL(await api.get('/reports/GCS/' + reportId + createQueryStr(query)))
+        return fileURL
+    } catch (error) {
+        
+    } finally {
+        api.interceptors.request.eject(myInterceptor)
+    }
 }

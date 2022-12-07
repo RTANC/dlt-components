@@ -211,7 +211,7 @@ export default function UserForm() {
             <CardContent>
               <Grid container spacing={2} direction='row' wrap="wrap">
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField label='ชื่อผู้ใช้งาน' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required disabled={editMode} error={user.username.error}></DltTextField>
+                  <DltTextField label='ชื่อผู้ใช้งาน' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required readOnly={editMode} error={user.username.error}></DltTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <RadioBoxIsActiveUser name='isActive' value={user.isActive.value} onChange={handleValueChange}></RadioBoxIsActiveUser>

@@ -40,9 +40,9 @@ exports.dateSQLFormatter = (dt) => {
 exports.getImageRef = async (timeStamp, station, direction) => {
     try {
         let count
-        if (direction === 'in') {
+        if (direction === 'IN') {
             count = await sequelize.query(`select count (VehicleInID) as num FROM VehicleIn where StationID = ${station} and CAST(TimeStampIn as date) = '${this.dateSQLFormatter(timeStamp)}'`, { type: QueryTypes.SELECT })
-        } else if (direction === 'out') {
+        } else if (direction === 'OUT') {
             count = await sequelize.query(`select count (VehicleOutID) as num FROM VehicleOut where StationID = ${station} and CAST(TimeStampOut as date) = '${this.dateSQLFormatter(timeStamp)}'`, { type: QueryTypes.SELECT })
         }
         

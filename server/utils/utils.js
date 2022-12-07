@@ -2,6 +2,7 @@ const moment = require('moment')
 const { QueryTypes } = require('sequelize')
 const sequelize = require('../connection')
 const fs = require('fs')
+const path = require('path')
 
 exports.bool2bit = (bool) => {
     return bool ? 1 : 0
@@ -65,16 +66,16 @@ exports.saveImage = (body, imageRef) => {
         break;
     }
 
-    const path = process.env.SAVE_PATH + '/vehimages/' + body.stationID.toString() + '/' + body.laneID.toString() + '/' + (moment(body.timeStamp).utc().format('YYYY/MM/DD')) + '/' + prefix + '/'
-    if (!(fs.existsSync(path))) {
-        fs.mkdirSync(path, { recursive: true })
+    const PATH = path.join(process.env.SAVE_PATH, body.stationID.toString(), body.laneID.toString(), (moment(body.timeStamp).utc().format('YYYY/MM/DD')), prefix)
+    if (!(fs.existsSync(PATH))) {
+        fs.mkdirSync(PATH, { recursive: true })
     }
 
-    imgPath = path + prefix + '-' + imageRef
+    imgName = prefix + '-' + imageRef + '-'
 
-    fs.writeFile(imgPath + '-' + 0 + '.jpg', body.frontLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
-    fs.writeFile(imgPath + '-' + 1 + '.jpg', body.rearLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
-    fs.writeFile(imgPath + '-' + 2 + '.jpg', body.frontImageBase64 || '', 'base64', err => console.log(err))
-    fs.writeFile(imgPath + '-' + 3 + '.jpg', body.rearImageBase64 || '', 'base64', err => console.log(err))
+    fs.writeFile(path.join(PATH, (imgName + '0' + '.jpg')), body.frontLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
+    fs.writeFile(path.join(PATH, (imgName + '1' + '.jpg')), body.rearLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
+    fs.writeFile(path.join(PATH, (imgName + '2' + '.jpg')), body.frontImageBase64 || '', 'base64', err => console.log(err))
+    fs.writeFile(path.join(PATH, (imgName + '3' + '.jpg')), body.rearImageBase64 || '', 'base64', err => console.log(err))
     
 }

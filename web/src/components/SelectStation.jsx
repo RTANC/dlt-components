@@ -15,7 +15,6 @@ import { DltSelect } from "./DltSelect"
 // }))
 
 export default function SelectStation(props) {
-    // const [stations, setStations] = useState(['พุทธมณฑล', 'คลองหลวง', 'ร่มเกล้า'])
     const [stations, setStations] = useState([])
 
     const fetchStations = async () => {
@@ -33,9 +32,9 @@ export default function SelectStation(props) {
     
     
   return (
-    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} color='warning' focused sx={{'label.Mui-disabled': {color: '#ed6c02'}}}>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} readOnly={props.readOnly} color='warning' focused sx={{'label.Mui-disabled': {color: '#ed6c02'}}}>
       <InputLabel sx={{fontSize: 20}} shrink>สถานี</InputLabel>
-      <DltSelect onChange={props.onChange} value={props.value} name={props.name} inputProps={{ readOnly: props.readOnly }}>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name} sx={{'.Mui-disabled': {backgroundColor: '#0a061f', color: 'gray', '-webkit-text-fill-color': 'gray'}}}>
           {stations.map((v, i) => (
             <MenuItem value={v.StationID} key={i}>{v.StationName}</MenuItem>
           ))}

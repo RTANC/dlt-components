@@ -1,16 +1,13 @@
-import { Card, CardHeader, Container, Slide, Box, CardContent, Grid, CardActions, Stack, Divider, Typography} from '@mui/material'
+import { Card, Container, Slide, Box, CardContent, Grid, CardActions, Stack } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import SaveIcon from '@mui/icons-material/Save'
-import CancelIcon from '@mui/icons-material/Cancel'
 import SelectStation from '../../../components/SelectStation'
 import DltTextField from '../../../components/DltTextField'
-import { LoadingButton } from '@mui/lab'
 import { useParams, useNavigate } from 'react-router-dom'
 import formValidator, { validator } from '../../../services/validator'
 import RadioBoxIsActiveUser from '../../../components/RadioBoxIsActiveUser'
 import SelectTransportType from '../../../components/SelectTransportType'
 import SelectTransportScope from '../../../components/SelectTransportScope'
-import { getCompany, updateCompany } from '../../../services/managements'
+import { createCompany, getCompany, updateCompany } from '../../../services/managements'
 import BtnBack from '../../../components/BtnBack'
 import BtnSave from '../../../components/BtnSave'
 import { getKeyValue } from '../../../services/utils'
@@ -94,10 +91,17 @@ export default function CompanyForm() {
 
     const save  = async () => {
         try {
-            await updateCompany(companyId, getKeyValue(company))
+            setLoading(true)
+            if (editMode) {
+                await updateCompany(companyId, getKeyValue(company))
+            } else {
+                await createCompany(getKeyValue(company))
+            }
             navigate(-1)
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -128,14 +132,14 @@ export default function CompanyForm() {
                           <SelectStation name='station' value={company.station.value} onChange={handleValueChange} disabled={editMode}></SelectStation>
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <DltTextField name='companyName' value={company.companyName.value} onChange={handleValueChange} label='ชื่อผู้ประกอบการ' disabled={editMode}></DltTextField>
+                            <DltTextField name='companyName' value={company.companyName.value} onChange={handleValueChange} label='ชื่อผู้ประกอบการ' readOnly={editMode}></DltTextField>
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <DltTextField name='taxId' value={company.taxId.value} onChange={handleValueChange} label='เลขประจำตัวผู้เสียภาษี' disabled={editMode}></DltTextField>
+                            <DltTextField name='taxId' value={company.taxId.value} onChange={handleValueChange} label='เลขประจำตัวผู้เสียภาษี' readOnly={editMode}></DltTextField>
                         </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        { editMode && <Grid item xs={12} sm={12} md={6} lg={6}>
                             <DltTextField name='companyId' value={company.companyId} label='รหัส'></DltTextField>
-                        </Grid>
+                        </Grid>}
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <RadioBoxIsActiveUser name='isActive' value={company.isActive.value} onChange={handleValueChange} label='สถานะผู้กระกอบการ'></RadioBoxIsActiveUser>
                         </Grid>

@@ -12,7 +12,7 @@ export default function BtnAdd(props) {
 
 BtnAdd.propTypes = {
     loading: PropTypes.bool
-  }
+}
   
 BtnAdd.defaultProps = {
   loading: false

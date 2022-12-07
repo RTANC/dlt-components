@@ -96,12 +96,23 @@ exports.getCompany = async (req, res, next) => {
     }
 }
 
+exports.createCompany = async (req, res, next) => {
+    try {
+        const { station, companyName, taxId, transportType, transportScope, transportLicense, isActive} = req.body
+        await sequelize.query(`INSERT Company(StationID, CompanyName, TaxID, TransportTypeID, TransportScopeID, TransportLicenseID, IsActive)
+        VALUES(${station}, '${companyName}', '${taxId}', ${transportType || 'NULL'}, ${transportScope || 'NULL'}, '${transportLicense || 'NULL'}', ${bool2bit(isActive)})`, { type: QueryTypes.INSERT })
+        res.sendStatus(201)
+    } catch (error) {
+        next(error)
+    }
+}
+
 exports.updateCompany = async (req, res, next) => {
     try {
         const { transportType, transportScope, transportLicense, isActive } = req.body
         await sequelize.query(`update Company
         set TransportTypeID = ${transportType}, TransportScopeID = ${transportScope}, TransportLicenseID = '${transportLicense}', IsActive = ${bool2bit(isActive)}
-        where CompanyID = ${req.params.companyId}`, { type: QueryTypes.SELECT })
+        where CompanyID = ${req.params.companyId}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {
         next(error)

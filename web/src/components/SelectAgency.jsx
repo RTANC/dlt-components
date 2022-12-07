@@ -22,9 +22,9 @@ export default function SelectAgency(props) {
     }, [props.stationId])
 
   return (
-    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} color='warning' focused>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} readOnly={props.readOnly} color='warning' focused sx={{'label.Mui-disabled': {color: '#ed6c02'}}}>
       <InputLabel sx={{fontSize: 20}} shrink>หน่วยงาน</InputLabel>
-      <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name} sx={{'.Mui-disabled': {backgroundColor: '#0a061f', color: 'gray', '-webkit-text-fill-color': 'gray'}}}>
         {!(props.required) && <MenuItem value=""><em>-</em></MenuItem>}
           {agencies.map((v, i) => (
             <MenuItem value={v.CompanyID} key={i}>{v.CompanyName}</MenuItem>

@@ -32,6 +32,10 @@ export function getCompany (id) {
     return api.get('/managements/company/' + id)
 }
 
+export function createCompany (company) {
+    return api.post('/managements/company/', company)
+}
+
 export function updateCompany (id, company) {
     return api.patch('/managements/company/' + id, company)
 }

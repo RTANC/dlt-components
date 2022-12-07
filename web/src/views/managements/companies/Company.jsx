@@ -3,6 +3,7 @@ import React from 'react'
 import SelectStation from '../../../components/SelectStation'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { LoadingButton } from '@mui/lab'
 import { SquareEditOutline } from 'mdi-material-ui'
 import { getCompanies } from '../../../services/managements'
 import BtnClear from '../../../components/BtnClear'
@@ -110,6 +111,11 @@ export default function Company() {
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                       <BtnClear loading={loading} disabled={loading} onClick={cancel}></BtnClear>
                       <BtnSearch loading={loading} disabled={loading} onClick={search}></BtnSearch>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Box sx={{width: '100%', display: 'flex', justifyContent: 'end'}}>
+                      <LoadingButton loading={loading} disabled={loading} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 22, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3, color: 'white', mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/company/0')}}>เพิ่มรายชื่อผู้ประกอบการ</LoadingButton>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>

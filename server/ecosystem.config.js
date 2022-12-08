@@ -18,7 +18,11 @@ module.exports = {
           JSREPORT_URL: 'http://localhost',
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
-          SAVE_PATH: 'C:/vehimages/'
+          SAVE_PATH: 'C:/vehimages/',
+          DB_NAME: 'GCSDB',
+          DB_USERNAME: 'sa',
+          DB_PASSWORD: 'rtanc1111100000',
+          DB_PORT: 1433
         },
         env_production: {
           NODE_ENV: "production",
@@ -28,7 +32,11 @@ module.exports = {
           JSREPORT_URL: 'http://localhost',
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
-          SAVE_PATH: 'C:/vehimages/'
+          SAVE_PATH: 'C:/vehimages/',
+          DB_NAME: 'GCSDB',
+          DB_USERNAME: 'sa',
+          DB_PASSWORD: 'rtanc1111100000',
+          DB_PORT: 1433
         }
       }
     ]

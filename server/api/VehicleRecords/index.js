@@ -1,12 +1,11 @@
-const moment = require('moment')
 const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
 const { saveImage, getImageRef, dateTimeSQLFormatter } = require("../../utils/utils")
-const fs = require('fs')
+// const fs = require('fs')
 
 module.exports = async (req, res, next) => {
     try {
-        fs.writeFile('api/api_logs/'+Date.now()+'.txt', JSON.stringify(req.body), function(err) {})
+        // fs.writeFile('api/api_logs/'+Date.now()+'.txt', JSON.stringify(req.body), function(err) {})
         const {stationID, timeStamp, laneID, frontLicensePlate, rearLicensePlate, weighingData, RFID} = req.body
         const imageRef = await getImageRef(req.body.timeStamp, req.body.stationID, req.body.direction)
         saveImage(req.body, imageRef)

@@ -48,6 +48,10 @@ exports.getImageRef = async (timeStamp, station, direction) => {
         
         return (moment(timeStamp).format('HHmmss')) + '-' + (new Intl.NumberFormat('us', {minimumIntegerDigits: 5}).format((count[0].num)+1).replace(',', ''))
     } catch (error) {
+        if (!(fs.existsSync('api/err_logs/'))) {
+            fs.mkdirSync('api/err_logs/', { recursive: true })
+        }
+        fs.writeFile('api/err_logs/' + moment().format('YYYY-MM-DD-HH-mm-ss') + '.txt', error.message, err => console.log(err))
         return null
     }
 }
@@ -66,7 +70,7 @@ exports.saveImage = (body, imageRef) => {
         break;
     }
 
-    const PATH = path.join(process.env.SAVE_PATH, body.stationID.toString(), body.laneID.toString(), (moment(body.timeStamp).utc().format('YYYY/MM/DD')), prefix)
+    const PATH = path.join(process.env.SAVE_PATH, body.stationID.toString(), body.laneID.toString(), (moment(body.timeStamp).format('YYYY/MM/DD')), prefix)
     if (!(fs.existsSync(PATH))) {
         fs.mkdirSync(PATH, { recursive: true })
     }

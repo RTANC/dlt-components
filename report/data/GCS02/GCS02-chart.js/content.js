@@ -5,88 +5,117 @@
     data: {{{getDataChart1 reportData}}}
     }],
     chart: {
-    width: 1000,
-  height: 450,
-  type: 'bar',
-  animations: {enabled: false },
-        },
+      width: 1000,
+      height: 480,
+      type: 'bar',
+      animations: {enabled: false },
+      fontFamily: 'THSarabunPSK'
+    },
   plotOptions: {
     bar: {
-    dataLabels: {
-    position: 'top', // top, center, bottom
-            },
-          }
-        },
+      dataLabels: {
+        position: 'top', // top, center, bottom
+      },
+    }
+  },
   dataLabels: {
     enabled: true,
-  formatter: function (val) {
-            return val.toLocaleString('en-US');
-          },
-  offsetY: -20,
-  style: {
-    fontSize: '12px',
-  colors: ["#304758"]
-          }
-        },
-
+    formatter: function (val) {
+      return val.toLocaleString('en-US');
+    },
+    offsetY: -30,
+    style: {
+      fontSize: '16px',
+      fontFamily: 'THSarabunPSK',
+      fontWeight: 'bold',
+      colors: ["#304758"]
+    }
+  },
   xaxis: {
     labels: {
-    rotate: -45
-          },
-  categories: ["รถบรรทุก 4 ล้อ", "รถบรรทุก 6 ล้อ", "รถบรรทุก 10 ล้อ", "รถบรรทุก 12 ล้อ", "รถกึ่งพ่วง 14 ล้อ", "รถกึ่งพ่วง 18 ล้อ", "รถกึ่งพ่วง 20 ล้อ", "รถกึ่งพ่วง มากกว่า 20 ล้อ", "รถพ่วง 14 ล้อ", "รถพ่วง 18 ล้อ", "รถพ่วง 20 ล้อ", "รถพ่วง มากกว่า 20 ล้อ"],
-  axisBorder: {
-    show: false
-          },
-  axisTicks: {
-    show: false
-          },
-  crosshairs: {
-    fill: {
-    type: 'gradient',
-  gradient: {
-    colorFrom: '#D8E3F0',
-  colorTo: '#BED1E6',
-  stops: [0, 100],
-  opacityFrom: 0.4,
-  opacityTo: 0.5,
-              }
-            }
-          },
-  tooltip: {
-    enabled: true,
-          },
-  title: {
-    text: 'ประเภทรถ',
-    offsetY: 220
+      rotate: -45,
+      style: {
+        fontSize:  '18px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  '#263238'
+      }
+    },
+    categories: ["รถบรรทุก 4 ล้อ", "รถบรรทุก 6 ล้อ", "รถบรรทุก 10 ล้อ", "รถบรรทุก 12 ล้อ", "รถกึ่งพ่วง 14 ล้อ", "รถกึ่งพ่วง 18 ล้อ", "รถกึ่งพ่วง 20 ล้อ", "รถกึ่งพ่วง มากกว่า 20 ล้อ", "รถพ่วง 14 ล้อ", "รถพ่วง 18 ล้อ", "รถพ่วง 20 ล้อ", "รถพ่วง มากกว่า 20 ล้อ"],
+    axisBorder: {
+      show: false
+    },
+    axisTicks: {
+      show: false
+    },
+    crosshairs: {
+      fill: {
+        type: 'gradient',
+        gradient: {
+          colorFrom: '#D8E3F0',
+          colorTo: '#BED1E6',
+          stops: [0, 100],
+          opacityFrom: 0.4,
+          opacityTo: 0.5,
+        }
+      }
+    },
+    tooltip: {
+      enabled: true,
+    },
+    title: {
+      text: 'ประเภทรถ',
+      offsetY: 200,
+      style: {
+        fontSize:  '20px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  '#263238'
+      }
     }
   },
   yaxis: {
     axisBorder: {
     show: true
-          },
-  axisTicks: {
-    show: true,
-          },
-  labels: {
-    show: true,
-  formatter: function (val) {
-              return val.toLocaleString('en-US');
-            }
-          },
-  title: {
-    text: 'น้ำหนักรถบรรทุก (ตัน)',
-          }        
-        },
+    },
+    axisTicks: {
+      show: true,
+    },
+    labels: {
+      show: true,
+      formatter: function (val) {
+        return val.toLocaleString('en-US');
+      },
+      style: {
+        fontSize:  '18px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  '#263238'
+      }
+    },
+    title: {
+      text: 'น้ำหนักรถบรรทุก (ตัน)',
+      style: {
+        fontSize:  '20px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  '#263238'
+      }
+    }
+  },
   title: {
     text: 'ปริมาณการขนถ่ายสินค้าทั้งหมดผ่านสถานี (ตัน)',
-  floating: false,
-  offsetY: 0,
-  align: 'center',
-  style: {
-    color: '#444'
-          }
-        }
-        });
+    floating: false,
+    offsetY: 0,
+    align: 'center',
+    style: {
+      fontSize:  '24px',
+      fontWeight:  'bold',
+      fontFamily:  'THSarabunPSK',
+      color:  '#263238'
+    }
+  }
+  });
   chart.render();
 
   var chart2 = new ApexCharts(document.querySelector("#chart2"), {
@@ -95,92 +124,124 @@
       horizontalAlign: 'right',
       labels: {
         useSeriesColors: true
-      }
+      },
+      fontSize: '26px',
+      fontFamily: 'THSarabunPSK',
+      fontWeight:  'bold'
     },
     series: {{{getDataChart2 reportData}}},
     chart: {
-    width: 1000,
-  height: 450,
-  type: 'bar',
-  animations: {enabled: false },
+      width: 1000,
+      height: 480,
+      type: 'bar',
+      animations: {enabled: false },
+      fontFamily: 'THSarabunPSK'
+    },
+    plotOptions: {
+      bar: {
+        dataLabels: {
+          position: 'top', // top, center, bottom
         },
-  plotOptions: {
-    bar: {
+      }
+    },
     dataLabels: {
-    position: 'top', // top, center, bottom
-            },
-          }
-        },
-  dataLabels: {
-    enabled: true,
-  formatter: function (val) {
-            return val.toLocaleString('en-US');
-          },
-  offsetY: -20,
-  style: {
-    fontSize: '12px',
-  colors: ["#304758"]
-          }
-        },
-
-  xaxis: {
-    labels: {
-    rotate: -45
-          },
-  categories: ["รถบรรทุก 4 ล้อ", "รถบรรทุก 6 ล้อ", "รถบรรทุก 10 ล้อ", "รถบรรทุก 12 ล้อ", "รถกึ่งพ่วง 14 ล้อ", "รถกึ่งพ่วง 18 ล้อ", "รถกึ่งพ่วง 20 ล้อ", "รถกึ่งพ่วง มากกว่า 20 ล้อ", "รถพ่วง 14 ล้อ", "รถพ่วง 18 ล้อ", "รถพ่วง 20 ล้อ", "รถพ่วง มากกว่า 20 ล้อ"],
-  axisBorder: {
-    show: false
-          },
-  axisTicks: {
-    show: false
-          },
-  crosshairs: {
-    fill: {
-    type: 'gradient',
-  gradient: {
-    colorFrom: '#D8E3F0',
-  colorTo: '#BED1E6',
-  stops: [0, 100],
-  opacityFrom: 0.4,
-  opacityTo: 0.5,
-              }
-            }
-          },
-  tooltip: {
-    enabled: true,
-          },
-  title: {
-    text: 'ประเภทรถ',
-    offsetY: 220
-          }
-        },
-  yaxis: {
-    axisBorder: {
-    show: true
-          },
-  axisTicks: {
-    show: true,
-          },
-  labels: {
-    show: true,
-  formatter: function (val) {
-              return val.toLocaleString('en-US');
-            }
-          },
-  title: {
-    text: 'จำนวนรถ (คัน)',
-          }        
-        },
-  title: {
-    text: 'จำนวนรถรับส่งสินค้า (คัน)',
-  floating: false,
-  offsetY: 0,
-  align: 'center',
-  style: {
-    color: '#444'
+      enabled: true,
+      formatter: function (val) {
+        return val.toLocaleString('en-US');
+      },
+      offsetY: -30,
+      style: {
+        fontSize: '16px',
+        fontFamily: 'THSarabunPSK',
+        fontWeight: 'bold',
+        colors: ["#304758"]
+      }
+    },
+    xaxis: {
+      labels: {
+        rotate: -45,
+        style: {
+          fontSize:  '18px',
+          fontWeight:  'bold',
+          fontFamily:  'THSarabunPSK',
+          color:  '#263238'
+        }
+      },
+      categories: ["รถบรรทุก 4 ล้อ", "รถบรรทุก 6 ล้อ", "รถบรรทุก 10 ล้อ", "รถบรรทุก 12 ล้อ", "รถกึ่งพ่วง 14 ล้อ", "รถกึ่งพ่วง 18 ล้อ", "รถกึ่งพ่วง 20 ล้อ", "รถกึ่งพ่วง มากกว่า 20 ล้อ", "รถพ่วง 14 ล้อ", "รถพ่วง 18 ล้อ", "รถพ่วง 20 ล้อ", "รถพ่วง มากกว่า 20 ล้อ"],
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      crosshairs: {
+        fill: {
+        type: 'gradient',
+          gradient: {
+            colorFrom: '#D8E3F0',
+            colorTo: '#BED1E6',
+            stops: [0, 100],
+            opacityFrom: 0.4,
+            opacityTo: 0.5,
           }
         }
-        });
+      },
+      tooltip: {
+        enabled: true,
+      },
+      title: {
+        text: 'ประเภทรถ',
+        offsetY: 200,
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          fontFamily:  'THSarabunPSK',
+          color:  '#263238'
+        }
+      }
+    },
+    yaxis: {
+      axisBorder: {
+      show: true
+            },
+      axisTicks: {
+        show: true,
+      },
+      labels: {
+        show: true,
+        formatter: function (val) {
+          return val.toLocaleString('en-US');
+        },
+        style: {
+          fontSize:  '18px',
+          fontWeight:  'bold',
+          fontFamily:  'THSarabunPSK',
+          color:  '#263238'
+        }
+      },
+      title: {
+        text: 'จำนวนรถ (คัน)',
+        style: {
+          fontSize:  '20px',
+          fontWeight:  'bold',
+          fontFamily:  'THSarabunPSK',
+          color:  '#263238'
+        }
+      }        
+    },
+    title: {
+      text: 'จำนวนรถรับส่งสินค้า (คัน)',
+      floating: false,
+      offsetY: 0,
+      align: 'center',
+      style: {
+        fontSize:  '24px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  '#263238'
+      }
+    }
+  });
   chart2.render();
 
   var chart3 = new ApexCharts(document.querySelector("#chart3"), {

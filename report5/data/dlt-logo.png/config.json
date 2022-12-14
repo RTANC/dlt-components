@@ -4,11 +4,12 @@
         "$$date": 1666875365981
     },
     "modificationDate": {
-        "$$date": 1666875365981
+        "$$date": 1670999858638
     },
     "shortid": "IhKOd7L",
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
     "_id": "Iw6yFOO8O0FYghID",
-    "$entitySet": "assets"
+    "$entitySet": "assets",
+    "link": ""
 }

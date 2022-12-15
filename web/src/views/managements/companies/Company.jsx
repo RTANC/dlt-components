@@ -8,6 +8,7 @@ import { SquareEditOutline } from 'mdi-material-ui'
 import { getCompanies } from '../../../services/managements'
 import BtnClear from '../../../components/BtnClear'
 import BtnSearch from '../../../components/BtnSearch'
+import { useEffect } from 'react'
 
 export default function Company() {
   const navigate = useNavigate()
@@ -92,6 +93,11 @@ export default function Company() {
   const cancel = () => {
     setRows([])
   }
+
+  useEffect(() => {
+    search()
+  }, [])
+  
 
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>

@@ -11,6 +11,7 @@ import { getG1Vehicles } from '../../../services/managements'
 import { dateTimeFormatter } from '../../../services/utils'
 import BtnClear from '../../../components/BtnClear'
 import BtnSearch from '../../../components/BtnSearch'
+import { useEffect } from 'react'
 
 export default function G1Vehicle() {
     const navigate = useNavigate()
@@ -94,6 +95,10 @@ export default function G1Vehicle() {
         setRows([])
       }      
 
+      useEffect(() => {
+        search()
+      }, [])
+    
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>

@@ -9,6 +9,14 @@ exports.getUsers = async (req, res, next) => {
             throw Error('roleId field and stationId field is require!')
         }
         let extWhere = ''
+        if (parseInt(req.query.role) < 0) {
+            extWhere += ''
+        } else {
+            if (parseInt(req.query.role) < 2) {
+                req.query.station = 0
+            }
+            extWhere += ` and GCSUser.RoleID = ${req.query.role}`
+        }
         if (!!req.query.company) {
             extWhere += ' and GCSUser.CompanyID = ' + req.query.company
         }
@@ -21,7 +29,7 @@ exports.getUsers = async (req, res, next) => {
         on GCSUser.CompanyID = Company.CompanyID
         inner join UserRole
         on GCSUser.RoleID = UserRole.RoleID
-        where GCSUser.RoleID = ${req.query.role} and StationID = ${req.query.station} ${extWhere}`
+        where StationID = ${req.query.station} ${extWhere}`
         const users = await sequelize.query(sql_query, { type: QueryTypes.SELECT });
         res.status(200).send(users)
     } catch (error) {
@@ -99,8 +107,8 @@ exports.getCompany = async (req, res, next) => {
 exports.createCompany = async (req, res, next) => {
     try {
         const { station, companyName, taxId, transportType, transportScope, transportLicense, isActive} = req.body
-        await sequelize.query(`INSERT Company(StationID, CompanyName, TaxID, TransportTypeID, TransportScopeID, TransportLicenseID, IsActive)
-        VALUES(${station}, '${companyName}', '${taxId}', ${transportType || 'NULL'}, ${transportScope || 'NULL'}, '${transportLicense || 'NULL'}', ${bool2bit(isActive)})`, { type: QueryTypes.INSERT })
+        await sequelize.query(`INSERT Company(StationID, CompanyName, TaxID, TransportTypeID, TransportScopeID, TransportLicenseID, IsActive, CompanyType)
+        VALUES(${station}, '${companyName}', '${taxId}', ${transportType || 'NULL'}, ${transportScope || 'NULL'}, '${transportLicense || 'NULL'}', ${bool2bit(isActive)}, 1)`, { type: QueryTypes.INSERT })
         res.sendStatus(201)
     } catch (error) {
         next(error)
@@ -156,7 +164,7 @@ exports.createG1Vehicle = async (req, res, next) => {
     try {
         const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, rfid, isActive} = req.body
         await sequelize.query(`insert G1Vehicle(StationID, CompanyID, FrontLP, FrontLPPID, RearLP, RearLPPID, VehicleClassID, EntryDate, IsActive, RFID)
-        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${bool2bit(isActive)}, ${rfid})`, { type: QueryTypes.INSERT })
+        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${bool2bit(isActive)}, '${rfid}')`, { type: QueryTypes.INSERT })
         res.sendStatus(201)
     } catch (error) {
         next(error)
@@ -167,7 +175,7 @@ exports.updateG1Vehicle = async (req, res, next) => {
     try {
         const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, rfid, isActive} = req.body
         await sequelize.query(`update G1Vehicle
-        set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass}, IsActive = ${bool2bit(isActive)}, RFID = ${rfid}
+        set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass}, IsActive = ${bool2bit(isActive)}, RFID = '${rfid}'
         where G1VehicleID = ${req.params.id}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {
@@ -213,7 +221,7 @@ exports.createG2Vehicle = async (req, res, next) => {
     try {
         const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, isActive, rfid} = req.body
         await sequelize.query(`insert G2Vehicle(StationID, CompanyID, FrontLP, FrontLPPID, RearLP, RearLPPID, VehicleClassID, EntryDate, IsActive, RFID)
-        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${bool2bit(isActive)}, ${rfid})`, { type: QueryTypes.INSERT })
+        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${bool2bit(isActive)}, '${rfid}')`, { type: QueryTypes.INSERT })
         res.sendStatus(201)
     } catch (error) {
         next(error)
@@ -224,7 +232,7 @@ exports.updateG2Vehicle = async (req, res, next) => {
     try {
         const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, isActive, rfid} = req.body
         await sequelize.query(`update G2Vehicle
-        set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass}, IsActive = ${bool2bit(isActive)}, RFID = ${rfid}
+        set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass}, IsActive = ${bool2bit(isActive)}, RFID = '${rfid}'
         where G2VehicleID = ${req.params.id}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {
@@ -259,7 +267,7 @@ exports.getG2VehicleRule = async (req, res, next) => {
 exports.updateG2VehicleRule = async (req, res, next) => {
     try {
         await sequelize.query(`update G2VehicleRule
-        set RuleID = ${req.body.rule}, UserID = 1, UpdateTimeStamp = '${moment().utc().format('YYYY-MM-DD HH:mm:ss')}'
+        set RuleID = ${req.body.rule}, UserID = 1, UpdateTimeStamp = '${moment().format('YYYY-MM-DD HH:mm:ss')}'
         where StationID = ${req.params.station}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {

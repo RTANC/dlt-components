@@ -11,6 +11,7 @@ import { dateTimeFormatter } from '../../../services/utils'
 import { getG2Vehicles } from '../../../services/managements'
 import BtnClear from '../../../components/BtnClear'
 import BtnSearch from '../../../components/BtnSearch'
+import { useEffect } from 'react'
 
 export default function G2Vehicle() {
     const navigate = useNavigate()
@@ -93,7 +94,10 @@ export default function G2Vehicle() {
         })
         setRows([])
       }
-
+      useEffect(() => {
+        search()
+      }, [])
+      
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>

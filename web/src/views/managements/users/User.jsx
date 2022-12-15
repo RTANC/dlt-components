@@ -11,6 +11,7 @@ import BtnAdd from '../../../components/BtnAdd'
 import BtnClear from '../../../components/BtnClear'
 import BtnSearch from '../../../components/BtnSearch'
 import { dateTimeFormatter } from '../../../services/utils'
+import { useEffect } from 'react'
 
 export default function User() {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ export default function User() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [query, setQuery] = useState({
-    userRole: 3,
+    userRole: -1,
     station: 1,
     agency: '',
     text: ''
@@ -66,6 +67,7 @@ export default function User() {
   const search = async () => {
     try {
       setLoading(true)
+      setPage(0)
       const data = (await getUsers(query.userRole, query.station, query.agency, query.text)).data
       setRows(data)
     } catch (error) {
@@ -77,13 +79,19 @@ export default function User() {
 
   const clear = () => {
     setQuery({
-      userRole: 3,
+      userRole: -1,
       station: 1,
       agency: '',
       text: ''
     })
     setRows([])
   }
+
+  useEffect(() => {
+    search()
+  }, [])
+  
+
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
         <Container>
@@ -130,7 +138,6 @@ export default function User() {
                                   <TableCell
                                     key={column.id}
                                     align={column.align}
-                                    style={{ minWidth: column.minWidth }}
                                   >
                                     {column.label}
                                   </TableCell>

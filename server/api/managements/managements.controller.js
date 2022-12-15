@@ -65,10 +65,6 @@ exports.updateUser = async (req, res, next) => {
     try {
         let ext = ''
         const {title, userRole, agency, firstname, lastname, username, newPassword, email, tel, isActive} = req.body
-        console.log(typeof newPassword)
-        console.log(newPassword)
-        console.log(typeof isActive)
-        console.log(isActive)
         if (typeof newPassword !== 'undefined') {
            ext +=  `, LoginPassword = '${newPassword}'`
         }

@@ -1,6 +1,7 @@
 const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
 const { reportDateTimeFormatter, getStationName } = require('../../utils/utils')
+const moment = require('moment')
 const fs = require('fs')
 exports.gcs01 = async (req, res, next) => {
     try {
@@ -774,11 +775,10 @@ exports.gcs05 = async (req, res, next) => {
         const data = {
             title: "GCS05 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายชั่วโมง",
             station: stationName,
-            startDate: reportDateTimeFormatter(req.query.date),
-            endDate: reportDateTimeFormatter(req.query.date),
+            startDate: reportDateTimeFormatter(moment(req.query.date).startOf('day')),
+            endDate: reportDateTimeFormatter(moment(req.query.date).endOf('day')),
             reportData: result
         }
-        // fs.writeFile('./'+Date.now()+'.txt', JSON.stringify(data), function(err) {})
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5488', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
         const response = await client.render({ template: { shortid: 'YC7Hv2kifI' } })
         res.setHeader('Content-Type', 'application/pdf')
@@ -839,6 +839,53 @@ exports.gcs09 = async (req, res, next) => {
 
 exports.gcs10 = async (req, res, next) => {
     try {
+        const sql_query = `DECLARE @d1 DATETIME2 = '2020-07-15T00:00:00' DECLARE @d2 DATETIME2 = '2020-07-15T23:59:59'
+        SELECT
+            m.VehicleClassID AS VType,
+            m.[Description],
+            COUNT(d.TxnNo) AS NCount,
+            SUM(
+                CASE
+                    WHEN (d.StampIn IS NOT NULL)
+                    AND (d.StampOut IS NOT NULL) THEN DATEDIFF(MINUTE, d.StampIn, d.StampOut)
+                    ELSE 0
+                END
+            ) AS MinUsed
+        FROM
+            dbo.VehicleClass AS m
+            LEFT OUTER JOIN (
+                SELECT
+                    TransportID AS TxnNo,
+                    TimeStampIn AS StampIn,
+                    TimeStampOut AS StampOut,
+                    TimeStampTx AS Stamp,
+                    VehicleClassID AS VType
+                FROM
+                    Transport a
+                    INNER JOIN Company b ON b.CompanyID = a.CompanyID
+                WHERE
+                    a.TimeStampIn >= @d1
+                    AND a.TimeStampIn < @d2
+                    AND b.CompanyID LIKE '%'
+                    AND a.StationID = 1
+                    AND b.IsActive = 1
+                    AND b.CompanyType = 1
+            ) AS d ON d.VType = m.VehicleClassID
+        GROUP BY
+            m.VehicleClassID,
+            m.[Description]
+        ORDER BY
+            m.VehicleClassID`
+        const result = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
+        const stationName = await getStationName(req.query.station)
+        const data = {
+            title: "GCS10 ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี แยกตามประเภทรถ",
+            station: stationName,
+            startDate: reportDateTimeFormatter(req.query.startDate),
+            endDate: reportDateTimeFormatter(req.query.endDate),
+            reportData: result
+        }
+        // fs.writeFile('./'+Date.now()+'.json', JSON.stringify(data), function(err) {})
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5490', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
         const response = await client.render({ template: { shortid: 'VWfwYFJGWl' } })
         res.setHeader('Content-Type', 'application/pdf')

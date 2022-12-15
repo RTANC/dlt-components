@@ -9,14 +9,15 @@
     "chrome": {
         "printBackground": true,
         "format": "A4",
-        "mediaType": "screen",
-        "landscape": true
+        "mediaType": "print",
+        "landscape": true,
+        "marginTop": "6cm"
     },
     "creationDate": {
         "$$date": 1666844808782
     },
     "modificationDate": {
-        "$$date": 1666846487484
+        "$$date": 1671097308714
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
@@ -29,7 +30,7 @@
         {
             "type": "merge",
             "mergeWholeDocument": true,
-            "templateShortid": "6kCwSiR"
+            "templateShortid": "4JxVZnckv"
         }
     ]
 }

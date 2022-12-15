@@ -15,8 +15,8 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row my-3">
-        <div class="col-12 table-panel d-flex justify-content-center">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
           <table style="width: 50%">
             <thead>
               <tr>
@@ -29,6 +29,7 @@
               </tr>
             </thead>
             <tbody>
+              {{#each reportData}}
               <tr>
                 <td>
                   <div class="d-flex justify-content-start pl-2">รถกึ่งพ่วง มากกว่า 20 ล้อ</div>
@@ -37,6 +38,7 @@
                   <div class="d-flex justify-content-end pr-2">0</div>
                 </td>
               </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -44,8 +46,8 @@
     </div>
     <div style="page-break-before: always;"></div>
     <div class="container-fluid">
-      <div class="row my-3 mx-2 d-flex justify-content-center">
-        <div class="col-12 graph-panel d-flex justify-content-center align-items-center">
+      <div class="row mx-2 d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center align-items-center">
           <div id="chart1"></div>
         </div>
       </div>

@@ -1,0 +1,22 @@
+{
+    "name": "Header",
+    "engine": "handlebars",
+    "recipe": "chrome-pdf",
+    "shortid": "4JxVZnckv",
+    "chrome": {
+        "printBackground": true,
+        "landscape": true,
+        "format": "A4",
+        "marginTop": "0.2cm"
+    },
+    "creationDate": {
+        "$$date": 1671091448380
+    },
+    "modificationDate": {
+        "$$date": 1671091744660
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "KwUV5PwxcuMDoP8v",
+    "$entitySet": "templates"
+}

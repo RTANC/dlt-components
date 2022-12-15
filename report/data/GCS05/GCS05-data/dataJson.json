@@ -18,8 +18,8 @@
     }],
     "title": "GCS05 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายชั่วโมง",
   "station": "พุทธมณฑล",
-  "startDate": "15 ธันวาคม 2565 09:59 น.",
-  "endDate": "15 ธันวาคม 2565 09:59 น.",
+  "startDate": "15 ธันวาคม 2565 00:00 น.",
+  "endDate": "15 ธันวาคม 2565 23:59 น.",
   "reportData": [
     {
       "ByDateTime": 0,
@@ -28,12 +28,12 @@
       "WGvwIN": 0,
       "WGvwOUT": "171830",
       "WGoodsWOUT": "88840",
-      "NSend": 0,
-      "NReceive": 0,
-      "NOthers": 0,
-      "WSend": 0,
-      "WReceive": 0,
-      "WOthers": 0
+      "NSend": 10,
+      "NReceive": 10,
+      "NOthers": 10,
+      "WSend": 105,
+      "WReceive": 201,
+      "WOthers": 103
     },
     {
       "ByDateTime": 1,

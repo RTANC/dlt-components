@@ -16,8 +16,47 @@
         "name": "อื่นๆ",
         "data": [1, 1, 2, 14, 28, 48, 55, 62, 44, 41, 52, 55]
     }],
-    "station": "สถานีพุทธมณฑล",
-    "title": "รายงาน GCS10 - ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี  แยกตามประเภทรถ",
-    "reportStart": "15 ต.ค. 2565 00:00 น.",
-    "reportEnd": "15 ต.ค. 2565 23:59 น."
+    "title": "GCS10 ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี แยกตามประเภทรถ",
+  "station": "พุทธมณฑล",
+  "startDate": "15 ธันวาคม 2565 00:00 น.",
+  "endDate": "15 ธันวาคม 2565 23:59 น.",
+  "reportData": [
+    { "VType": 1, "Description": "รถบรรทุก 4 ล้อ", "NCount": 0, "MinUsed": 0 },
+    { "VType": 2, "Description": "รถบรรทุก 6 ล้อ", "NCount": 0, "MinUsed": 0 },
+    { "VType": 3, "Description": "รถบรรทุก 10 ล้อ", "NCount": 0, "MinUsed": 0 },
+    { "VType": 4, "Description": "รถบรรทุก 12 ล้อ", "NCount": 0, "MinUsed": 0 },
+    {
+      "VType": 5,
+      "Description": "รถกึ่งพ่วง 14 ล้อ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "VType": 6,
+      "Description": "รถกึ่งพ่วง 18 ล้อ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "VType": 7,
+      "Description": "รถกึ่งพ่วง 20 ล้อ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "VType": 8,
+      "Description": "รถกึ่งพ่วง มากกว่า 20 ล้อ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    { "VType": 9, "Description": "รถพ่วง 14 ล้อ", "NCount": 0, "MinUsed": 0 },
+    { "VType": 10, "Description": "รถพ่วง 18 ล้อ", "NCount": 0, "MinUsed": 0 },
+    { "VType": 11, "Description": "รถพ่วง 20 ล้อ", "NCount": 0, "MinUsed": 0 },
+    {
+      "VType": 12,
+      "Description": "รถพ่วง มากกว่า 20 ล้อ",
+      "NCount": 0,
+      "MinUsed": 0
+    }
+  ]
 }

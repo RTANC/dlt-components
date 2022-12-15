@@ -1,26 +1,33 @@
 <html>
     <head>
+      <meta charset="UTF-8" />
         <style>
           @font-face {
-           font-family: 'Sarabun-Regular';
-           src: url({#asset ../report/data/font/Sarabun-Regular.ttf @encoding=dataURI});
+           font-family: 'THSarabunPSK';
+           src: url({#asset ./data/font/THSarabunPSK.ttf @encoding=dataURI});
            format('truetype');
+          }
+
+          @font-face {
+            font-family: 'THSarabunPSK-Bold';
+            src: url({#asset ./data/font/THSarabunPSK-Bold.ttf @encoding=dataURI});
+            format('truetype');
           }
 
           .header {
               display: flex;
               justify-content: flex-start;
               width: 100%;
-              font-family: 'Sarabun-Regular';
-              font-size: 12pt;
+              font-family: 'THSarabunPSK';
+              font-size: 16pt;
           }
           .header-logo {
-            width: 150px;
+            width: 130px;
           }
           .header-title {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid dimgray;
             width: 100%;
           }
           .header-dept-title, .header-print-title {
@@ -36,9 +43,8 @@
             margin-top: 20px;
           }
           .header-report-item {
-            padding: 5px 0px 5px 0px;
-            font-family: 'Sarabun-Regular';
-            font-size: 12pt;
+            font-family: 'THSarabunPSK-Bold';
+            font-size: 18pt;
           }
         </style>
     </head>
@@ -51,7 +57,7 @@
             <header>
               <div class="header">
                 <div class="header-logo">
-                  <img src="{{asset 'dlt-logo.png' 'dataURI'}}" style="width:130px; height: 130px;"/>
+                  <img src="{{asset 'dlt-logo.png' 'dataURI'}}" style="width:92px; height: 92px;"/>
                 </div>
                 <div class="header-title">
                   <div class="header-dept-title">
@@ -68,8 +74,8 @@
               </div>
               <div class="header-report">
                 <div class="header-report-item">{{../title}}</div>
-                <div class="header-report-item">ข้อมูลระหว่าง {{../reportStart}}  - {{../reportEnd}}</div>
-                <div class="header-report-item">{{../station}}</div>
+                <div class="header-report-item">ข้อมูลระหว่าง {{../startDate}}  - {{../endDate}}</div>
+                <div class="header-report-item">สถานี {{../station}}</div>
               </div>
             </header>
           </main>

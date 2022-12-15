@@ -50,12 +50,12 @@ export default function UserForm() {
         },
         newPassword: {
           value: '',
-          rules: [(v) => (!!v) ? passwordValidator(v) : true || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         confirmPassword: {
           value: '',
-          rules: [(v) => (!!v) ? passwordValidator(v) : true || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         email: {

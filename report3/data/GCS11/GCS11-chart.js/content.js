@@ -2,7 +2,7 @@
 var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     series: [{
     name: 'จำนวนรถที่เข้า-ออกสถานี (คัน)',
-    data: {{{toJSON ddata1}}}
+    data: {{{getData reportData}}}
     }],
     chart: {
     width: 1000,
@@ -24,16 +24,24 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   offsetY: -20,
   style: {
-    fontSize: '12px',
-  colors: ["#304758"]
-          }
+      fontSize: '10px',
+      fontFamily: 'THSarabunPSK',
+      fontWeight: 'bold',
+      colors: ["#304758"]
+    }
         },
 
   xaxis: {
     labels: {
-    rotate: -45
-          },
-  categories: ["รถบรรทุก 4 ล้อ", "รถบรรทุก 6 ล้อ", "รถบรรทุก 10 ล้อ", "รถบรรทุก 12 ล้อ", "รถกึ่งพ่วง 14 ล้อ", "รถกึ่งพ่วง 18 ล้อ", "รถกึ่งพ่วง 20 ล้อ", "รถกึ่งพ่วง มากกว่า 20 ล้อ", "รถพ่วง 14 ล้อ", "รถพ่วง 18 ล้อ", "รถพ่วง 20 ล้อ", "รถพ่วง มากกว่า 20 ล้อ"],
+      rotate: -90,
+      style: {
+        fontSize:  '8px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  '#263238'
+      }
+    },
+    categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },

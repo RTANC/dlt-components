@@ -16,8 +16,550 @@
         "name": "อื่นๆ",
         "data": [1, 1, 2, 14, 28, 48, 55, 62, 44, 41, 52, 55]
     }],
-    "station": "สถานีพุทธมณฑล",
-    "title": "รายงาน GCS11 - ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี  แยกตามผู้ประกอบการ",
-    "reportStart": "15 ต.ค. 2565 00:00 น.",
-    "reportEnd": "15 ต.ค. 2565 23:59 น."
+    "title": "GCS11 ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี แยกตามผู้ประกอบการ",
+  "station": "พุทธมณฑล",
+  "startDate": "15 ธันวาคม 2565 00:00 น.",
+  "endDate": "15 ธันวาคม 2565 23:59 น.",
+  "reportData": [
+    {
+      "OperatorID": 5,
+      "Operator": "ห้างหุ้นส่วนจำกัด (ติ่ง) ขนส่งชลบุรี ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 6,
+      "Operator": "บริษัท ชวาลกิตขนส่ง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 7,
+      "Operator": "สำนักงานคณะกรรมการอาหารและยา",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 8,
+      "Operator": "บริษัท นิ่มซี่เส็งขนส่ง 1988 จำกัด",
+      "NCount": 1,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 9,
+      "Operator": "บริษัท เอ็มเอส นอร์ธสตาร์ โลจิสติกส์ (ไทยแลนด์) จำกัด",
+      "NCount": 4,
+      "MinUsed": 44936
+    },
+    {
+      "OperatorID": 10,
+      "Operator": "ห้างหุ้นส่วนจำกัด ป.กิติพงศ์ขนส่ง (2001)",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 11,
+      "Operator": "บริษัท พยัคฆ์ขนส่ง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 12,
+      "Operator": "ห้างหุ้นส่วนจำกัด ม่งเส็งบุรีรัมย์ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 14,
+      "Operator": "ห้างหุ้นส่วนจำกัด ฮอเนต ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 15,
+      "Operator": "บริษัท บลู แอนด์ ไวท์ โลจิสติกส์ จำกัด",
+      "NCount": 1,
+      "MinUsed": 5776
+    },
+    {
+      "OperatorID": 18,
+      "Operator": "บริษัท แรพิดัส ทรานส์ จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 19,
+      "Operator": "ห้างหุ้นส่วนจำกัด แสงทวีทรัพย์สิน ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 25,
+      "Operator": "บริษัท อุปกรณ์การเกษตรพัทลุง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 26,
+      "Operator": "ห้างหุ้นส่วนจำกัด บี.เอส.ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 27,
+      "Operator": "ห้างหุ้นส่วนจำกัด โชคบุญมาขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 28,
+      "Operator": "ห้างหุ้นส่วนจำกัด ขนส่งชัยนาทสหพิทักษ์",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 29,
+      "Operator": "ห้างหุ้นส่วนจำกัด มะม่วง ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 30,
+      "Operator": "บริษัท ศุภทัศนา จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 31,
+      "Operator": "ห้างหุ้นส่วนจำกัด ธนาวินขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 32,
+      "Operator": "ห้างหุ้นส่วนจำกัด ตังเซ้งยโสธรขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 33,
+      "Operator": "ห้างหุ้นส่วนจำกัด เอี๋ยวฮงขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 34,
+      "Operator": "บริษัท นวรรณขนส่ง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 36,
+      "Operator": "ห้างหุ้นส่วนจำกัด ข้ามสมุทรขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 37,
+      "Operator": "ห้างหุ้นส่วนจำกัด ภูเก็ตแหลมทองขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 38,
+      "Operator": "ห้างหุ้นส่วนจำกัด พีแอล แอนด์ พีแอล ขนส่งอุปกรณ์เครื่องอะไหล่",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 39,
+      "Operator": "ห้างหุ้นส่วนจำกัด สหลำพูน ขนส่ง(1996)",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 40,
+      "Operator": "ห้างหุ้นส่วนจำกัด บรรทุกรักษ์ ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 42,
+      "Operator": "บริษัท เจริญสินโลจิสติกส์ จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 44,
+      "Operator": "ห้างหุ้นส่วนจำกัด พาณิชย์การขนส่ง เคเอสดี",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 46,
+      "Operator": "นายรัชธนันทร์ ชวลิตรุจิวงษ์",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 47,
+      "Operator": "บริษัท นิ่มเอ็กซ์เพรส จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 48,
+      "Operator": "ห้างหุ้นส่วนจำกัด ศรีสะเกษพนมรุ้งขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 49,
+      "Operator": "ห้างหุ้นส่วนจำกัด จันทบุรียุทธนา",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 50,
+      "Operator": "ห้างหุ้นส่วนจำกัด สิงห์ท่าเรือพัทลุงขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 120,
+      "Operator": "นางสาวเกศราภรณ์ ลีลาชัย",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 121,
+      "Operator": "นางกตัญชลี ตัณฑวุฑโฒ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 123,
+      "Operator": "นางสาวรัชนี ซอสันเทียะ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 124,
+      "Operator": "นางสาวรำไพ ลีลาชัย",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 126,
+      "Operator": "นายเฉลิม เชิงรู้",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 130,
+      "Operator": "บริษัท รัชพล ภาคใต้ จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 134,
+      "Operator": "ห้างหุ้นส่วนจำกัด ส.อุดมสิน ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 135,
+      "Operator": "บริษัท นิวส์แม่สอด ทรานสปอร์ต จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 136,
+      "Operator": "บริษัท สุโขทัยโลจิสติกส์ จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 138,
+      "Operator": "ห้างหุ้นส่วนจำกัด แต้พังเฮงขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 139,
+      "Operator": "ห้างหุ้นส่วนจำกัด อังคณาขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 142,
+      "Operator": "บริษัท ปิยวัฒน์ทรานสปอร์ต จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 143,
+      "Operator": "ห้างหุ้นส่วนจำกัด คงกะพันขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 145,
+      "Operator": "นางสาวหนึ่งฤทัย ชัยขุนพล",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 146,
+      "Operator": "นายณรงค์ ธำรงค์อนันต์สกุล",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 147,
+      "Operator": "จ่าสิบเอกสฤษดิ์ ประเสริฐสังข์",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 148,
+      "Operator": "นายชาญชัย ฟักประไพ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 150,
+      "Operator": "ห้างหุ้นส่วนจำกัด กิจเจริญทรัพย์ชุมแพขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 151,
+      "Operator": "ห้างหุ้นส่วนจำกัด สุเมธ ทรานสปอร์ต",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 154,
+      "Operator": "ห้างหุ้นส่วนจำกัด โชคสถาพรขนส่งพังงา",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 155,
+      "Operator": "บริษัท สงขลาชิปปิ้งขนส่ง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 159,
+      "Operator": "นางจำเริญ สาพันธ์",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 161,
+      "Operator": "ห้างหุ้นส่วนจำกัด ธนามัย",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 162,
+      "Operator": "ห้างหุ้นส่วนจำกัด โคราชพนมรุ้งขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 164,
+      "Operator": "ห้างหุ้นส่วนจำกัด สิงห์เพิ่มพูนทรัพย์ ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 165,
+      "Operator": "ห้างหุ้นส่วนจำกัด ธ.พาวเวอร์ ทรัค",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 166,
+      "Operator": "ห้างหุ้นส่วนจำกัด เชียงรายรัตนา ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 167,
+      "Operator": "บริษัท เกียรตินิยมขนส่ง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 168,
+      "Operator": "ห้างหุ้นส่วนจำกัด แม่สอด ทรัพย์มงคล กิจไพศาล",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 169,
+      "Operator": "ห้างหุ้นส่วนจำกัด ทับสะแกบริการขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 171,
+      "Operator": "นางกตัญชลี ตัณฑวุฑโฒ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 172,
+      "Operator": "นางสาวกิตติพร ลิ่มสกุล",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 173,
+      "Operator": "จ.ส.อ.สฤษดิ์ ประเสริฐสังข์",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 174,
+      "Operator": "นางวิไล แก้วตั๋น",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 176,
+      "Operator": "นายอำพล ฟักประไพ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 177,
+      "Operator": "นายบรรจง จันทร์วาววาม",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 178,
+      "Operator": "นางศิริบุญพา อรุณพงษ์",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 179,
+      "Operator": "นางสาวกิตติมา เพ็ชรขำ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 180,
+      "Operator": "นางปรุงจิตร ฟักประไพ",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 181,
+      "Operator": "นางสาวลัดดาวรรณ ต้นแก้ว",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 186,
+      "Operator": "ห้างหุ้นส่วนจำกัด เชียงรายกิตติทรานสปอร์ต",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 189,
+      "Operator": "กรมการขนส่งทางบก",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 190,
+      "Operator": "สำนักงานขนส่งกรุงเทพมหานครพื้นที่ 5",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 198,
+      "Operator": "บริษัท นิวโชคจิยะชัย ขนส่ง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 202,
+      "Operator": "บริษัท สปีดคิงส์ โลจิสติกส์ จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 208,
+      "Operator": "บริษัท นิ่มซี่เส็ง พาเซ็ล เซอร์วิส จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 209,
+      "Operator": "บริษัท เอนกธัญกิจ จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 212,
+      "Operator": "บริษัท โชคนำทาง ขนส่ง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 213,
+      "Operator": "ห้างหุ้นส่วนจำกัด โชคดีสาลี่ขนส่ง",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 214,
+      "Operator": "บริษัท ช้องทรานสปอร์ต จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 218,
+      "Operator": "บริษัท เอส ที จี เอ็กซ์เพรส แอนด์ โลจิสติกส์ จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 221,
+      "Operator": "บริษัท จันทร์สว่าง ขนส่ง จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 226,
+      "Operator": "บริษัท บีเอส เอ็กซ์เพรส 2020 จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 227,
+      "Operator": "นายบุญจรัส สิงห์ษา",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 228,
+      "Operator": "นายชัยวัฒน์ สุนทราวิรัตน์",
+      "NCount": 0,
+      "MinUsed": 0
+    },
+    {
+      "OperatorID": 230,
+      "Operator": "บริษัท เจริญชัยเอ็กซ์เพรส จำกัด",
+      "NCount": 0,
+      "MinUsed": 0
+    }
+  ]
 }

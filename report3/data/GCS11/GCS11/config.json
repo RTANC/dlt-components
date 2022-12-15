@@ -11,18 +11,18 @@
         "viewportHeight": null,
         "format": "A4",
         "landscape": true,
-        "mediaType": "screen",
-        "marginTop": "0",
-        "marginBottom": "0",
+        "mediaType": "print",
+        "marginTop": "6cm",
+        "marginBottom": "",
         "displayHeaderFooter": false,
-        "marginRight": "0",
-        "marginLeft": "0"
+        "marginRight": "",
+        "marginLeft": ""
     },
     "creationDate": {
         "$$date": 1665832418620
     },
     "modificationDate": {
-        "$$date": 1666686981121
+        "$$date": 1671113303689
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
@@ -32,8 +32,8 @@
     "pdfOperations": [
         {
             "type": "merge",
-            "templateShortid": "6kCwSiR",
-            "mergeWholeDocument": true
+            "mergeWholeDocument": true,
+            "templateShortid": "4JxVZnckv"
         }
     ],
     "localization": {

@@ -483,7 +483,7 @@ exports.gcs04 = async (req, res, next) => {
 
 exports.gcs05 = async (req, res, next) => {
     try {
-        const sql_query = `DECLARE @d1 DATETIME2 = '2020-07-15T00:00:00' DECLARE @d2 DATETIME2 = '2020-07-15T23:59:59' DECLARE @sid INT = 1
+        const sql_query = `DECLARE @d1 DATETIME2 = '2021-01-07T00:00:00' DECLARE @d2 DATETIME2 = '2021-01-07T23:59:59' DECLARE @sid INT = 1
         SELECT
             DATEPART(hour, d.qDt) AS ByDateTime,
             SUM(
@@ -517,10 +517,23 @@ exports.gcs05 = async (req, res, next) => {
             ) AS NReceive,
             SUM(
                 CASE
+                    WHEN d.Objective = 5
+                    OR d.Objective = 4 THEN 1
+                    ELSE 0
+                END
+            ) AS NSendReceive,
+            SUM(
+                CASE
                     WHEN d.Objective = 3 THEN 1
                     ELSE 0
                 END
             ) AS NOthers,
+            SUM(
+                CASE
+                    WHEN d.Objective = 6 THEN 1
+                    ELSE 0
+                END
+            ) AS NVehCHK,
             SUM(
                 CASE
                     WHEN d.Objective = 1
@@ -535,6 +548,13 @@ exports.gcs05 = async (req, res, next) => {
                     ELSE 0
                 END
             ) AS WReceive,
+            SUM(
+                CASE
+                    WHEN d.Objective = 5
+                    OR d.Objective = 4 THEN GoodsW
+                    ELSE 0
+                END
+            ) AS WSendReceive,
             SUM(
                 CASE
                     WHEN d.Objective = 3 THEN GoodsW
@@ -555,148 +575,223 @@ exports.gcs05 = async (req, res, next) => {
                 FROM
                     (
                         SELECT
-                            B.TimeStampTx AS qDt,
+                            B.timestamptx AS qDt,
                             0 AS ID,
-                            B.TransportID AS TxnNo,
-                            B.TimeStampIn AS StampIn,
-                            B.TimeStampOut AS StampOut,
-                            B.TimeStampTx AS Stamp,
-                            B.VehicleClassID AS VType,
-                            B.ObjectiveID AS Objective,
-                            B.CompanyID AS OperatorID,
-                            B.RegionID AS Region,
-                            B.ProvinceName,
-                            B.LoadWt AS GoodsW,
-                            B.GrossWt AS GVW,
+                            B.transportid AS TxnNo,
+                            B.timestampin AS StampIn,
+                            B.timestampout AS StampOut,
+                            B.timestamptx AS Stamp,
+                            B.vehicleclassid AS VType,
+                            B.objectiveid AS Objective,
+                            B.companyid AS OperatorID,
+                            B.regionid AS Region,
+                            B.provincename,
+                            B.loadwt AS GoodsW,
+                            B.grosswt AS GVW,
                             0 AS GoodsWOut,
-                            B.TailStatusID AS TailStatus,
+                            B.tailstatusid AS TailStatus,
                             0 AS TableID
                         FROM
                             (
                                 SELECT
-                                    TransportID,
-                                    ObjectiveID,
-                                    TimeStampIn,
-                                    TimeStampOut,
-                                    VehicleClassID,
-                                    LoadWt,
-                                    GrossWt,
-                                    VehicleInID,
-                                    Z.CompanyID,
-                                    TailStatusID,
-                                    TimeStampTx,
-                                    RegionID,
-                                    ProvinceName
+                                    transportid,
+                                    objectiveid,
+                                    timestampin,
+                                    timestampout,
+                                    vehicleclassid,
+                                    loadwt,
+                                    grosswt,
+                                    vehicleinid,
+                                    Z.companyid,
+                                    tailstatusid,
+                                    timestamptx,
+                                    regionid,
+                                    provincename
                                 FROM
                                     (
                                         SELECT
-                                            TransportID,
-                                            ObjectiveID,
-                                            TimeStampIn,
-                                            TimeStampOut,
-                                            VehicleClassID,
-                                            LoadWt,
-                                            GrossWt,
-                                            VehicleInID,
-                                            T.CompanyID,
-                                            TailStatusID,
-                                            TimeStampTx,
-                                            P.RegionID,
-                                            P.ProvinceName
+                                            transportid,
+                                            objectiveid,
+                                            timestampin,
+                                            timestampout,
+                                            vehicleclassid,
+                                            loadwt,
+                                            grosswt,
+                                            vehicleinid,
+                                            T.companyid,
+                                            tailstatusid,
+                                            timestamptx,
+                                            P.regionid,
+                                            P.provincename
                                         FROM
                                             (
                                                 SELECT
-                                                    TransportID,
+                                                    T.transportid,
                                                     1 AS ObjectiveID,
-                                                    TimeStampIn,
-                                                    TimeStampOut,
-                                                    VehicleClassID,
+                                                    T.timestampin,
+                                                    T.timestampout,
+                                                    T.vehicleclassid,
                                                     CASE
-                                                        WHEN DstGoods > 0 THEN LoadWt / 2
-                                                        ELSE LoadWt
+                                                        WHEN T.dstgoods > 0 THEN T.loadwt / 2
+                                                        ELSE T.loadwt
                                                     END AS LoadWt,
                                                     CASE
-                                                        WHEN DstGoods > 0 THEN GrossWt / 2
-                                                        ELSE GrossWt
+                                                        WHEN T.dstgoods > 0 THEN T.grosswt / 2
+                                                        ELSE T.grosswt
                                                     END AS GrossWt,
-                                                    VehicleInID,
-                                                    CompanyID,
-                                                    TailStatusID,
-                                                    TimeStampTx,
-                                                    SrcProvinceID AS ProvinceID
+                                                    T.vehicleinid,
+                                                    T.companyid,
+                                                    T.tailstatusid,
+                                                    T.timestamptx,
+                                                    T.srcprovinceid AS ProvinceID
                                                 FROM
-                                                    Transport
+                                                    transport AS T
+                                                    LEFT JOIN (
+                                                        SELECT
+                                                            *
+                                                        FROM
+                                                            vehiclein
+                                                        WHERE
+                                                            timestampin BETWEEN @d1
+                                                            AND @d2
+                                                            AND stationid = @sid
+                                                    ) AS VI ON T.vehicleinid = VI.vehicleinid
                                                 WHERE
-                                                    SrcGoods > 0
-                                                    AND ObjectiveID = 1
-                                                    AND StationID = @sid
-                                                    AND TimeStampTx >= @d1
-                                                    AND TimeStampTx <= @d2
+                                                    T.SrcProvinceID > 0
+                                                    AND T.DstProvinceID = 0
+                                                    AND T.objectiveid = 1
+                                                    AND T.stationid = @sid
+                                                    AND T.timestamptx >= @d1
+                                                    AND T.timestamptx <= @d2
                                                 UNION
                                                 ALL
                                                 SELECT
-                                                    TransportID,
+                                                    T.transportid,
                                                     2 AS ObjectiveID,
-                                                    TimeStampIn,
-                                                    TimeStampOut,
-                                                    VehicleClassID,
+                                                    T.timestampin,
+                                                    T.timestampout,
+                                                    T.vehicleclassid,
                                                     CASE
-                                                        WHEN SrcGoods > 0 THEN LoadWt / 2
-                                                        ELSE LoadWt
+                                                        WHEN T.srcgoods > 0 THEN T.loadwt / 2
+                                                        ELSE T.loadwt
                                                     END AS LoadWt,
                                                     CASE
-                                                        WHEN SrcGoods > 0 THEN GrossWt / 2
-                                                        ELSE GrossWt
+                                                        WHEN T.srcgoods > 0 THEN T.grosswt / 2
+                                                        ELSE T.grosswt
                                                     END AS GrossWt,
-                                                    VehicleInID,
-                                                    CompanyID,
-                                                    TailStatusID,
-                                                    TimeStampTx,
-                                                    DstProvinceID AS ProvinceID
+                                                    T.vehicleinid,
+                                                    T.companyid,
+                                                    T.tailstatusid,
+                                                    T.timestamptx,
+                                                    T.dstprovinceid AS ProvinceID
                                                 FROM
-                                                    Transport
+                                                    transport AS T
+                                                    LEFT JOIN (
+                                                        SELECT
+                                                            *
+                                                        FROM
+                                                            vehiclein
+                                                        WHERE
+                                                            timestampin BETWEEN @d1
+                                                            AND @d2
+                                                            AND stationid = @sid
+                                                    ) AS VI ON T.vehicleinid = VI.vehicleinid
                                                 WHERE
-                                                    DstGoods > 0
-                                                    AND ObjectiveID = 1
-                                                    AND StationID = @sid
-                                                    AND TimeStampTx >= @d1
-                                                    AND TimeStampTx <= @d2
+                                                    T.DstProvinceID > 0
+                                                    AND T.SrcProvinceID = 0
+                                                    AND T.objectiveid = 1
+                                                    AND T.stationid = @sid
+                                                    AND T.timestamptx >= @d1
+                                                    AND T.timestamptx <= @d2
                                                 UNION
                                                 ALL
                                                 SELECT
-                                                    TransportID,
-                                                    3 AS ObjectiveID,
-                                                    TimeStampIn,
-                                                    TimeStampOut,
-                                                    VehicleClassID,
-                                                    LoadWt,
-                                                    GrossWt,
-                                                    VehicleInID,
-                                                    CompanyID,
-                                                    TailStatusID,
-                                                    TimeStampTx,
+                                                    T.transportid,
+                                                    5 AS ObjectiveID,
+                                                    T.timestampin,
+                                                    T.timestampout,
+                                                    T.vehicleclassid,
+                                                    CASE
+                                                        WHEN T.srcgoods > 0 THEN T.loadwt / 2
+                                                        ELSE T.loadwt
+                                                    END AS LoadWt,
+                                                    CASE
+                                                        WHEN T.srcgoods > 0 THEN T.grosswt / 2
+                                                        ELSE T.grosswt
+                                                    END AS GrossWt,
+                                                    T.vehicleinid,
+                                                    T.companyid,
+                                                    T.tailstatusid,
+                                                    T.timestamptx,
+                                                    T.dstprovinceid AS ProvinceID
+                                                FROM
+                                                    transport AS T
+                                                    LEFT JOIN (
+                                                        SELECT
+                                                            *
+                                                        FROM
+                                                            vehiclein
+                                                        WHERE
+                                                            timestampin BETWEEN @d1
+                                                            AND @d2
+                                                            AND stationid = @sid
+                                                    ) AS VI ON T.vehicleinid = VI.vehicleinid
+                                                WHERE
+                                                    T.DstProvinceID > 0
+                                                    AND T.SrcProvinceID > 0
+                                                    AND T.objectiveid = 1
+                                                    AND T.stationid = @sid
+                                                    AND T.timestamptx >= @d1
+                                                    AND T.timestamptx <= @d2
+                                                UNION
+                                                ALL
+                                                SELECT
+                                                    T.transportid,
+                                                    case
+                                                        when T.objectiveid = 2 then 3
+                                                        else 6
+                                                    end AS ObjectiveID,
+                                                    T.timestampin,
+                                                    T.timestampout,
+                                                    T.vehicleclassid,
+                                                    T.loadwt,
+                                                    T.grosswt,
+                                                    T.vehicleinid,
+                                                    T.companyid,
+                                                    T.tailstatusid,
+                                                    T.timestamptx,
                                                     0 AS ProvinceID
                                                 FROM
-                                                    Transport
+                                                    transport AS T
+                                                    LEFT JOIN (
+                                                        SELECT
+                                                            *
+                                                        FROM
+                                                            vehiclein
+                                                        WHERE
+                                                            timestampin BETWEEN @d1
+                                                            AND @d2
+                                                            AND stationid = @sid
+                                                    ) AS VI ON T.vehicleinid = VI.vehicleinid
                                                 WHERE
-                                                    ObjectiveID = 2
-                                                    AND StationID = @sid
-                                                    AND TimeStampTx >= @d1
-                                                    AND TimeStampTx <= @d2
+                                                    T.objectiveid in (2, 3)
+                                                    AND T.stationid = @sid
+                                                    AND T.timestamptx >= @d1
+                                                    AND T.timestamptx <= @d2
                                             ) T
-                                            LEFT JOIN TxProvince P ON P.ProvinceID = T.ProvinceID
-                                            INNER JOIN Company C ON C.CompanyID = T.CompanyID
+                                            LEFT JOIN txprovince P ON P.provinceid = T.provinceid
+                                            INNER JOIN company C ON C.companyid = T.companyid
                                         WHERE
-                                            C.CompanyType = 1
+                                            C.companytype = 1
                                     ) Z
                             ) B
                         UNION
                         ALL
                         SELECT
-                            TimeStampIn AS qDt,
-                            VehicleInID AS ID,
-                            TransportID AS TxnNo,
-                            TimeStampIn AS StampIn,
+                            timestampin AS qDt,
+                            vehicleinid AS ID,
+                            transportid AS TxnNo,
+                            timestampin AS StampIn,
                             NULL AS StampOut,
                             NULL AS Stamp,
                             99 AS VType,
@@ -710,28 +805,28 @@ exports.gcs05 = async (req, res, next) => {
                             NULL AS TailStatus,
                             1 AS TableID
                         FROM
-                            VehicleIn
+                            vehiclein
                         WHERE
-                            StationID = @sid
-                            AND TimeStampIn >= @d1
-                            AND TimeStampIn <= @d2
+                            stationid = @sid
+                            AND timestampin >= @d1
+                            AND timestampin <= @d2
                         UNION
                         ALL
                         SELECT
-                            TimeStampOut AS qDt,
-                            VehicleOutID AS ID,
-                            TransportID AS TxnNo,
+                            timestampout AS qDt,
+                            vehicleoutid AS ID,
+                            transportid AS TxnNo,
                             NULL AS StampIn,
-                            TimeStampOut AS StampOut,
+                            timestampout AS StampOut,
                             NULL AS Stamp,
                             (
                                 CASE
-                                    WHEN CONVERT(date, getdate()) = CONVERT(date, @d1)
-                                    AND CONVERT(date, getdate()) = CONVERT(date, @d2) THEN 0
+                                    WHEN CONVERT(DATE, Getdate()) = CONVERT(DATE, @d1)
+                                    AND CONVERT(DATE, Getdate()) = CONVERT(DATE, @d2) THEN 0
                                     ELSE (
                                         CASE
-                                            WHEN VehicleClassID IS NULL THEN 1
-                                            ELSE VehicleClassID
+                                            WHEN vehicleclassid IS NULL THEN 1
+                                            ELSE vehicleclassid
                                         END
                                     )
                                 END
@@ -743,24 +838,24 @@ exports.gcs05 = async (req, res, next) => {
                             0 AS GoodsW,
                             (
                                 CASE
-                                    WHEN GrossWt IS NULL THEN 0
-                                    ELSE GrossWt
+                                    WHEN grosswt IS NULL THEN 0
+                                    ELSE grosswt
                                 END
                             ) AS GVW,
                             (
                                 CASE
-                                    WHEN GoodsWt IS NULL THEN 0
-                                    ELSE GoodsWt
+                                    WHEN goodswt IS NULL THEN 0
+                                    ELSE goodswt
                                 END
                             ) AS GoodsWOut,
                             NULL AS TailStatus,
                             2 AS TableID
                         FROM
-                            VehicleOut
+                            vehicleout
                         WHERE
-                            StationID = @sid
-                            AND TimeStampOut >= @d1
-                            AND TimeStampOut <= @d2
+                            stationid = @sid
+                            AND timestampout >= @d1
+                            AND timestampout <= @d2
                     ) AS g
                 WHERE
                     g.OperatorID LIKE '%'
@@ -779,8 +874,9 @@ exports.gcs05 = async (req, res, next) => {
             endDate: reportDateTimeFormatter(moment(req.query.date).endOf('day')),
             reportData: result
         }
+        fs.writeFile('./'+Date.now()+'.json', JSON.stringify(data), function(err) {})
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5488', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'YC7Hv2kifI' } })
+        const response = await client.render({ template: { shortid: 'YC7Hv2kifI' }, data: data }, { timeout: 600000 })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS05.pdf')
         response.pipe(res)
@@ -839,7 +935,7 @@ exports.gcs09 = async (req, res, next) => {
 
 exports.gcs10 = async (req, res, next) => {
     try {
-        const sql_query = `DECLARE @d1 DATETIME2 = '2020-07-15T00:00:00' DECLARE @d2 DATETIME2 = '2020-07-15T23:59:59'
+        const sql_query = `DECLARE @d1 DATETIME2 = '${req.query.startDate}' DECLARE @d2 DATETIME2 = '${req.query.endDate}'
         SELECT
             m.VehicleClassID AS VType,
             m.[Description],
@@ -867,7 +963,7 @@ exports.gcs10 = async (req, res, next) => {
                     a.TimeStampIn >= @d1
                     AND a.TimeStampIn < @d2
                     AND b.CompanyID LIKE '%'
-                    AND a.StationID = 1
+                    AND a.StationID = ${req.query.station}
                     AND b.IsActive = 1
                     AND b.CompanyType = 1
             ) AS d ON d.VType = m.VehicleClassID
@@ -887,7 +983,7 @@ exports.gcs10 = async (req, res, next) => {
         }
         // fs.writeFile('./'+Date.now()+'.json', JSON.stringify(data), function(err) {})
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5490', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'VWfwYFJGWl' } })
+        const response = await client.render({ template: { shortid: 'VWfwYFJGWl' }, data: data }, { timeout: 600000 })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS10.pdf')
         response.pipe(res)
@@ -898,8 +994,60 @@ exports.gcs10 = async (req, res, next) => {
 
 exports.gcs11 = async (req, res, next) => {
     try {
+        const sql_query = `DECLARE @d1 DATETIME2 = '${req.query.startDate}' DECLARE @d2 DATETIME2 = '${req.query.endDate}' DECLARE @sid INT = ${req.query.station}
+        SELECT
+            m.CompanyID AS OperatorID,
+            m.CompanyName AS Operator,
+            COUNT(d.TxnNo) AS NCount,
+            SUM(
+                CASE
+                    WHEN (d.StampIn IS NOT NULL)
+                    AND (d.StampOut IS NOT NULL) THEN DATEDIFF(MINUTE, d.StampIn, d.StampOut)
+                    ELSE 0
+                END
+            ) AS MinUsed
+        FROM
+            dbo.Company AS m
+            LEFT OUTER JOIN (
+                SELECT
+                    TransportID AS TxnNo,
+                    TimeStampIn AS StampIn,
+                    TimeStampOut AS StampOut,
+                    TimeStampTx AS Stamp,
+                    a.CompanyID AS OperatorID
+                FROM
+                    Transport a
+                    INNER JOIN Company b ON b.CompanyID = a.CompanyID
+                WHERE
+                    a.TimeStampIn >= @d1
+                    AND a.TimeStampIn < @d2
+                    AND b.CompanyID LIKE '%'
+                    AND a.StationID = 1
+                    AND b.IsActive = 1
+                    AND b.CompanyType = 1
+            ) AS d ON d.OperatorID = m.CompanyID
+        WHERE
+            m.CompanyID LIKE '%'
+            AND m.IsActive = 1
+            AND m.CompanyType = 1
+            AND m.StationID = @sid
+        GROUP BY
+            m.CompanyID,
+            m.CompanyName
+        ORDER BY
+            m.CompanyID`
+        const result = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
+        const stationName = await getStationName(req.query.station)
+        const data = {
+            title: "GCS11 ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี แยกตามผู้ประกอบการ",
+            station: stationName,
+            startDate: reportDateTimeFormatter(req.query.startDate),
+            endDate: reportDateTimeFormatter(req.query.endDate),
+            reportData: result
+        }
+        fs.writeFile('./'+Date.now()+'.json', JSON.stringify(data), function(err) {})
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5490', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'lmeMkheHI' } })
+        const response = await client.render({ template: { shortid: 'lmeMkheHI' }, data: data }, { timeout: 600000 })
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS11.pdf')
         response.pipe(res)

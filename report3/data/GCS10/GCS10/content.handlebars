@@ -32,10 +32,10 @@
               {{#each reportData}}
               <tr>
                 <td>
-                  <div class="d-flex justify-content-start pl-2">รถกึ่งพ่วง มากกว่า 20 ล้อ</div>
+                  <div class="d-flex justify-content-start pl-2">{{this.Description}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end pr-2">0</div>
+                  <div class="d-flex justify-content-end pr-2">{{numberFormatter this.NCount this.MinUsed}}</div>
                 </td>
               </tr>
               {{/each}}

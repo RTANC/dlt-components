@@ -113,9 +113,9 @@ export default function Home() {
   })
 
   const handleLPSearch = async (e, v) => {
-    transport.f1a.value = v.F1A
+    transport.f1a.value = v.F1A || ''
     transport.f1apId.value = v.F1APID
-    transport.r1a.value = v.R1A
+    transport.r1a.value = v.R1A || ''
     transport.r1apId.value = v.R1APID
     transport.timeStampIn.value = removeSQLTz(v.TimeStampIn)
     transport.transportId = v.TransportID

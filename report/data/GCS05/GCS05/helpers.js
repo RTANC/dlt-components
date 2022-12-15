@@ -11,6 +11,6 @@ function timeFormatter (time) {
   return time.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ':'
 }
 
-function sum (a, b ,c) {
-  return new Intl.NumberFormat().format((a + b + c))
+function sum (a, b ,c, d) {
+  return new Intl.NumberFormat().format((a + b + c + d))
 }

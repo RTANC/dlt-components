@@ -103,7 +103,7 @@ export default function User() {
                 <CardContent>
                   <Grid container spacing={2} direction='row' wrap="wrap">
                     <Grid item xs={12}>
-                      <SelectUserRole value={query.userRole} onChange={(e) => {setQuery({...query, userRole: e.target.value})}}></SelectUserRole>
+                      <SelectUserRole value={query.userRole} onChange={(e) => {setQuery({...query, userRole: e.target.value})}} forSearch></SelectUserRole>
                     </Grid>
                     <Grid item xs={12}>
                       <Divider></Divider>

@@ -54,7 +54,7 @@ exports.createUser = async (req, res, next) => {
     try {
         const {title, userRole, agency, firstname, lastname, username, newPassword, email, tel, isActive} = req.body
         await sequelize.query(`insert GCSUser(CompanyID, RoleID, LoginName, LoginPassword, TitleID, FirstName, LastName, PhoneNo, EmailAddress, IsActive, IsForceChangePassword, CreatedDateTime)
-        values(${agency}, ${userRole}, '${username}', '${newPassword}', ${title}, '${firstname}', '${lastname}', '${tel}', '${email}', ${isActive ? 1 : 0}, 1, '${moment().format('YYYY-MM-DD HH:mm:ss')}')`, { type: QueryTypes.INSERT })
+        values(${(parseInt(userRole) === 0 || parseInt(userRole) === 1) ? 0 : agency}, ${userRole}, '${username}', '${newPassword}', ${title}, '${firstname}', '${lastname}', '${tel}', '${email}', ${isActive ? 1 : 0}, 1, '${moment().format('YYYY-MM-DD HH:mm:ss')}')`, { type: QueryTypes.INSERT })
         res.sendStatus(201)
     } catch (error) {
         next(error)

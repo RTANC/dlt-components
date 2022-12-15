@@ -38,12 +38,12 @@ export default function Profile() {
         },
         newPassword: {
           value: '',
-          rules: [(v) => (!!v) ? passwordValidator(v) : true || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => ((!!v) ? passwordValidator(v) : true) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         confirmPassword: {
           value: '',
-          rules: [(v) => (!!v) ? passwordValidator(v) : true || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => ((!!v) ? passwordValidator(v) : true) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         email: {
@@ -68,10 +68,10 @@ export default function Profile() {
     }
 
     const handleValidatePassword = (e) => {
-      setValid(formValidator(profile, setProfile))
       if (profile.newPassword.value === profile.confirmPassword.value) {
-        profile.newPassword.error = false
-        profile.confirmPassword.error = false
+        if (formValidator(profile, setProfile)) {
+          setValid(true)
+        }
       } else if (profile.newPassword.value !== profile.confirmPassword.value) {
         profile.newPassword.error = 'Password ไม่ตรงกัน'
         profile.confirmPassword.error = 'Password ไม่ตรงกัน'

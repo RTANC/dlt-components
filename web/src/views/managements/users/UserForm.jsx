@@ -50,12 +50,12 @@ export default function UserForm() {
         },
         newPassword: {
           value: '',
-          rules: [(v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => ((!!v) ? passwordValidator(v) : true) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         confirmPassword: {
           value: '',
-          rules: [(v) => passwordValidator(v) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
+          rules: [(v) => ((!!v) ? passwordValidator(v) : true) || '*รปแบบ Password ไม่เป็นไปตามรูปแบบที่กำหนด'],
           error: false
         },
         email: {
@@ -76,7 +76,7 @@ export default function UserForm() {
     const handleValueChange = (e) => {
         user[e.target.name].value = e.target.value
         if(e.target.name === 'station') {
-          switch (user['station']) {
+          switch (user['station'].value) {
             case 1: user['agency'].value = 189
               break;
             case 2: user['agency'].value = 191

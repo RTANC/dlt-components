@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { DltSelect } from "./DltSelect"
 
 export default function SelectUserRole(props) {
-    const [userRoles, setUserRoles] = useState([{id: -1, name: 'ทั้งหมด'}, {id: 0, name: 'ผู้ดูแลระบบ'}, {id: 1, name: 'กลุ่มผู้ใช้ระดับกรม'}, {id: 2, name: 'กลุ่มผู้ใช้ระดับสถานี'}, {id: 3, name: 'กลุ่มผู้ใช้ระดับผู้ประกอบการ'}])
+    const [userRoles, setUserRoles] = useState(props.forSearch ? [{id: -1, name: 'ทั้งหมด'}, {id: 0, name: 'ผู้ดูแลระบบ'}, {id: 1, name: 'กลุ่มผู้ใช้ระดับกรม'}, {id: 2, name: 'กลุ่มผู้ใช้ระดับสถานี'}, {id: 3, name: 'กลุ่มผู้ใช้ระดับผู้ประกอบการ'}] : [{id: 0, name: 'ผู้ดูแลระบบ'}, {id: 1, name: 'กลุ่มผู้ใช้ระดับกรม'}, {id: 2, name: 'กลุ่มผู้ใช้ระดับสถานี'}, {id: 3, name: 'กลุ่มผู้ใช้ระดับผู้ประกอบการ'}])
   return (
     <FormControl fullWidth error={props.error !== false} disabled={props.disabled} readOnly={props.readOnly} color='warning' focused sx={{'label.Mui-disabled': {color: '#ed6c02'}}}>
       <InputLabel sx={{fontSize: 20}} shrink>กลุ่มผู้ใช้</InputLabel>
@@ -21,12 +21,14 @@ export default function SelectUserRole(props) {
 }
 
 SelectUserRole.propTypes = {
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    forSearch: PropTypes.bool
   }
   
   SelectUserRole.defaultProps = {
     required: false,
     error: false,
     disabled: false,
-    readOnly: false
+    readOnly: false,
+    forSearch: false
   }

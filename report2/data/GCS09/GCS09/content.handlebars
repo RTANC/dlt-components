@@ -76,53 +76,55 @@
               </tr>
             </thead>
             <tbody>
+              {{#each reportData}}
               <tr>
                 <td>
-                  <div class="d-flex justify-content-start">กลางวัน (6:00-18:00)</div>
+                  <div class="d-flex justify-content-start">{{this.ByDateTime}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NVehIN}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NVehOUT}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WGoodsWOUT}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NSend}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NSendReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{sum this.NSend this.NReceive this.NSendReceive this.NOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WSend}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WSendReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{sum2 this.WSend this.WReceive this.WSendReceive this.WOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{this.NVehCHK}}</div>
                 </td>
               </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>

@@ -13,13 +13,14 @@
         "landscape": true,
         "marginTop": "6cm",
         "marginRight": "",
-        "marginLeft": ""
+        "marginLeft": "",
+        "viewportHeight": null
     },
     "creationDate": {
         "$$date": 1665712851223
     },
     "modificationDate": {
-        "$$date": 1671150692204
+        "$$date": 1671212233379
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
@@ -34,5 +35,6 @@
     ],
     "localization": {
         "language": "th"
-    }
+    },
+    "pdfPassword": null
 }

@@ -2,7 +2,7 @@
 var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     series: [{
     name: 'จำนวนรถที่เข้า-ออกสถานี (คัน)',
-    data: {{{toJSON ddata1}}}
+    data: {{{getData reportData}}}
     }],
     chart: {
     width: 1000,
@@ -33,7 +33,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["01:", "03:", "04:", "05:", "06:","07:","08:","09:","10:","11:","12:","13:"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },
@@ -93,7 +93,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   var chart2 = new ApexCharts(document.querySelector("#chart2"), {
     series: [{
     name: 'จำนวนรถบรรทุกที่เข้า-ออกสถานี (คัน)',
-    data: {{{toJSON ddata1}}}
+    data: {{{getData2 reportData}}}
     }],
     chart: {
     width: 1000,
@@ -124,7 +124,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["01:", "03:", "04:", "05:", "06:","07:","08:","09:","10:","11:","12:","13:"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },
@@ -183,7 +183,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   var chart3 = new ApexCharts(document.querySelector("#chart3"), {
     series: [{
     name: 'ปริมาณการขนถ่ายสินค้าทั้งหมดผ่านสถานี (ตัน)',
-    data: {{{toJSON ddata1}}}
+    data: {{{getData3 reportData}}}
     }],
     chart: {
     width: 1000,
@@ -209,32 +209,16 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   colors: ["#304758"]
           }
         },
-
   xaxis: {
     labels: {
     rotate: -45
           },
-  categories: ["01:", "03:", "04:", "05:", "06:","07:","08:","09:","10:","11:","12:","13:"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },
   axisTicks: {
     show: false
-          },
-  crosshairs: {
-    fill: {
-    type: 'gradient',
-  gradient: {
-    colorFrom: '#D8E3F0',
-  colorTo: '#BED1E6',
-  stops: [0, 100],
-  opacityFrom: 0.4,
-  opacityTo: 0.5,
-              }
-            }
-          },
-  tooltip: {
-    enabled: true,
           },
   title: {
     text: 'ปี',
@@ -278,7 +262,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart4series}}},
+    series: {{{getData4 reportData}}},
     chart: {
     width: 1000,
   height: 450,
@@ -308,7 +292,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["01:", "03:", "04:", "05:", "06:","07:","08:","09:","10:","11:","12:","13:"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },
@@ -372,7 +356,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart4series}}},
+    series: {{{getData5 reportData}}},
     chart: {
     width: 1000,
   height: 450,
@@ -389,7 +373,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   dataLabels: {
     enabled: true,
   formatter: function (val) {
-            return val.toLocaleString('en-US');
+            return Math.round(val).toLocaleString('en-US');
           },
   offsetY: -20,
   style: {
@@ -402,7 +386,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["01:", "03:", "04:", "05:", "06:","07:","08:","09:","10:","11:","12:","13:"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },

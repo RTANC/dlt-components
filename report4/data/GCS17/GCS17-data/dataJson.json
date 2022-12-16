@@ -16,8 +16,232 @@
         "name": "อื่นๆ",
         "data": [1, 1, 2, 14, 28, 48, 55, 62, 44, 41, 52, 55]
     }],
-    "station": "สถานีคลองหลวง",
-    "title": "รายงาน GCS17 - รายงานการคำนวณต้นทุนการขนส่งที่ลดลงได้จากการใช้งานสถานีขนส่งสินค้า",
-    "reportStart": "13 ต.ค. 2565 00:00 น.",
-    "reportEnd": "13 ต.ค. 2565 23:59 น."
+    "title": "GCS17 รายงานการคำนวณต้นทุนการขนส่งที่ลดลงได้จากการใช้งานสถานีขนส่งสินค้า",
+  "station": "พุทธมณฑล",
+  "startDate": "1 มกราคม 2564 00:00 น.",
+  "endDate": "31 มกราคม 2564 23:59 น.",
+  "reportData": [
+    {
+      "NVehIN": 121988,
+      "NVehOUT": 100089,
+      "WGvwIN": 0,
+      "WGvwOUT": "457882085",
+      "NSend": 4974,
+      "NReceive": 1940,
+      "NOthers": 69,
+      "NVehCHK": 0,
+      "WSend": 2219180,
+      "WReceive": 6326830,
+      "WOthers": 48960
+    },
+    {
+      "VType": 1,
+      "Description": "รถบรรทุก 4 ล้อ",
+      "NSend": 3502,
+      "NReceive": 153,
+      "NOthers": 47,
+      "NVehCHK": 0,
+      "WSend": 880500,
+      "WReceive": 41650,
+      "WOthers": 0
+    },
+    {
+      "VType": 2,
+      "Description": "รถบรรทุก 6 ล้อ",
+      "NSend": 1107,
+      "NReceive": 455,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 871010,
+      "WReceive": 1389420,
+      "WOthers": 0
+    },
+    {
+      "VType": 3,
+      "Description": "รถบรรทุก 10 ล้อ",
+      "NSend": 254,
+      "NReceive": 950,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 299350,
+      "WReceive": 3107500,
+      "WOthers": 0
+    },
+    {
+      "VType": 4,
+      "Description": "รถบรรทุก 12 ล้อ",
+      "NSend": 64,
+      "NReceive": 333,
+      "NOthers": 9,
+      "NVehCHK": 0,
+      "WSend": 64850,
+      "WReceive": 1369600,
+      "WOthers": 17110
+    },
+    {
+      "VType": 5,
+      "Description": "รถกึ่งพ่วง 14 ล้อ",
+      "NSend": 1,
+      "NReceive": 0,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 0,
+      "WOthers": 0
+    },
+    {
+      "VType": 6,
+      "Description": "รถกึ่งพ่วง 18 ล้อ",
+      "NSend": 30,
+      "NReceive": 28,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 91530,
+      "WReceive": 216970,
+      "WOthers": 0
+    },
+    {
+      "VType": 7,
+      "Description": "รถกึ่งพ่วง 20 ล้อ",
+      "NSend": 8,
+      "NReceive": 4,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 11940,
+      "WReceive": 0,
+      "WOthers": 0
+    },
+    {
+      "VType": 8,
+      "Description": "รถกึ่งพ่วง มากกว่า 20 ล้อ",
+      "NSend": 0,
+      "NReceive": 0,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 0,
+      "WOthers": 0
+    },
+    {
+      "VType": 9,
+      "Description": "รถพ่วง 14 ล้อ",
+      "NSend": 0,
+      "NReceive": 0,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 0,
+      "WOthers": 0
+    },
+    {
+      "VType": 10,
+      "Description": "รถพ่วง 18 ล้อ",
+      "NSend": 0,
+      "NReceive": 1,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 24660,
+      "WOthers": 0
+    },
+    {
+      "VType": 11,
+      "Description": "รถพ่วง 20 ล้อ",
+      "NSend": 0,
+      "NReceive": 1,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 0,
+      "WOthers": 0
+    },
+    {
+      "VType": 12,
+      "Description": "รถพ่วง มากกว่า 20 ล้อ",
+      "NSend": 8,
+      "NReceive": 15,
+      "NOthers": 13,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 177030,
+      "WOthers": 31850
+    },
+    {
+      "Region": 1,
+      "Description": "กรุงเทพและปริมณฑล",
+      "NSend": 3135,
+      "NReceive": 2,
+      "NOthers": 69,
+      "NVehCHK": 0,
+      "WSend": 1264170,
+      "WReceive": 0,
+      "WOthers": 48960
+    },
+    {
+      "Region": 2,
+      "Description": "ภาคกลาง",
+      "NSend": 1793,
+      "NReceive": 168,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 923610,
+      "WReceive": 607460,
+      "WOthers": 0
+    },
+    {
+      "Region": 3,
+      "Description": "ภาคตะวันออก",
+      "NSend": 0,
+      "NReceive": 57,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 141770,
+      "WOthers": 0
+    },
+    {
+      "Region": 4,
+      "Description": "ภาคตะวันออกเฉียงเหนือ",
+      "NSend": 21,
+      "NReceive": 919,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 4400,
+      "WReceive": 3074740,
+      "WOthers": 0
+    },
+    {
+      "Region": 5,
+      "Description": "ภาคเหนือ",
+      "NSend": 6,
+      "NReceive": 303,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 906180,
+      "WOthers": 0
+    },
+    {
+      "Region": 6,
+      "Description": "ภาคตะวันตก",
+      "NSend": 0,
+      "NReceive": 40,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 0,
+      "WReceive": 171250,
+      "WOthers": 0
+    },
+    {
+      "Region": 7,
+      "Description": "ภาคใต้",
+      "NSend": 19,
+      "NReceive": 451,
+      "NOthers": 0,
+      "NVehCHK": 0,
+      "WSend": 27000,
+      "WReceive": 1425430,
+      "WOthers": 0
+    }
+  ]
 }

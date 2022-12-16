@@ -35,7 +35,27 @@ exports.dateTimeSQLFormatter = (dt) => {
 
 exports.dateSQLFormatter = (dt) => {
     return moment(dt).format('YYYY-MM-DD')
-} 
+}
+
+exports.startBudgetYear = (dt) => {
+    const y = moment(dt).year()
+    return moment().set({'year': (y - 1), 'month': 9, 'date': 1, 'hour': 0, 'minute': 0, 'second': 0})
+}
+
+exports.endBudgetYear = (dt) => {
+    const y = moment(dt).year()
+    return moment().set({'year': y, 'month': 8, 'date': 30, 'hour': 23, 'minute': 59, 'second': 59})
+}
+
+exports.getBudgetYear = (dt) => {
+    const y = moment(dt).year()
+    const m = moment(dt).month()
+    if (m >= 0 && m < 9) {
+      return y + 543
+    } else if (m >= 9 && m <= 11) {
+      return y + 1 + 543
+    }
+}
 
 exports.getImageRef = async (timeStamp, station, direction) => {
     try {

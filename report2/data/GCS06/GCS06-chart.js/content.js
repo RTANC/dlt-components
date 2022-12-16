@@ -56,7 +56,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     enabled: true,
           },
   title: {
-    text: 'วันที่ (ในเดือน ต.ค. 2565)',
+    text: '',
     offsetY: 100
           }
         },
@@ -147,7 +147,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     enabled: true,
           },
   title: {
-    text: 'วันที่ (ในเดือน ต.ค. 2565)',
+    text: '',
     offsetY: 100
           }
         },
@@ -183,7 +183,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   var chart3 = new ApexCharts(document.querySelector("#chart3"), {
     series: [{
     name: 'ปริมาณการขนถ่ายสินค้าทั้งหมดผ่านสถานี (ตัน)',
-    data: {{{toJSON ddata1}}}
+    data: {{{getData3 reportData}}}
     }],
     chart: {
     width: 1000,
@@ -214,7 +214,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["01:", "03:", "04:", "05:", "06:","07:","08:","09:","10:","11:","12:","13:"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },
@@ -237,7 +237,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     enabled: true,
           },
   title: {
-    text: 'วันที่ (ในเดือน ต.ค. 2565)',
+    text: '',
     offsetY: 100
           }
         },
@@ -278,7 +278,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart4series}}},
+    series: {{{getData4 reportData}}},
     chart: {
     width: 1000,
   height: 450,
@@ -308,7 +308,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["01:", "03:", "04:", "05:", "06:","07:","08:","09:","10:","11:","12:","13:"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },
@@ -331,7 +331,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     enabled: true,
           },
   title: {
-    text: 'วันที่ (ในเดือน ต.ค. 2565)',
+    text: '',
     offsetY: 100
           }
         },
@@ -372,7 +372,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
         useSeriesColors: true
       }
     },
-    series: {{{toJSON chart4series}}},
+    series: {{{getData5 reportData}}},
     chart: {
     width: 1000,
   height: 450,
@@ -389,11 +389,11 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   dataLabels: {
     enabled: true,
   formatter: function (val) {
-            return val.toLocaleString('en-US');
+            return Math.round(val).toLocaleString('en-US');
           },
   offsetY: -20,
   style: {
-    fontSize: '12px',
+    fontSize: '10px',
   colors: ["#304758"]
           }
         },
@@ -402,7 +402,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     labels: {
     rotate: -45
           },
-  categories: ["01:", "03:", "04:", "05:", "06:","07:","08:","09:","10:","11:","12:","13:"],
+  categories: {{{getCategories reportData}}},
   axisBorder: {
     show: false
           },
@@ -425,7 +425,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     enabled: true,
           },
   title: {
-    text: 'วันที่ (ในเดือน ต.ค. 2565)',
+    text: '',
     offsetY: 100
           }
         },

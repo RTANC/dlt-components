@@ -16,8 +16,44 @@
         "name": "อื่นๆ",
         "data": [1, 1, 2, 14, 28, 48, 55, 62, 44, 41, 52, 55]
     }],
-    "station": "สถานีพุทธมณฑล",
-    "title": "รายงาน GCS09 - จำนวนรถและปริมาณสินค้าเข้า-ออกสถานี  ช่วงเวลากลางวัน-กลางคืน",
-    "reportStart": "20 ต.ค. 2565 00:00 น.",
-    "reportEnd": "27 ต.ค. 2565 23:59 น."
+    "title": "GCS09 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ช่วงกลางวัน-กลางคืน",
+  "station": "พุทธมณฑล",
+  "startDate": "16 ธันวาคม 2565 00:00 น.",
+  "endDate": "16 ธันวาคม 2565 23:59 น.",
+  "reportData": [
+    {
+      "ByDateTime": "DAY",
+      "NVehIN": 115813,
+      "NVehOUT": 88270,
+      "WGvwIN": 0,
+      "WGvwOUT": "367202135",
+      "WGoodsWOUT": "133747870",
+      "NSend": 4841,
+      "NReceive": 1829,
+      "NSendReceive": 3214,
+      "NOthers": 58,
+      "NVehCHK": 0,
+      "WSend": 2061090,
+      "WReceive": 6274830,
+      "WSendReceive": 1285305,
+      "WOthers": 48960
+    },
+    {
+      "ByDateTime": "NIGNT",
+      "NVehIN": 6175,
+      "NVehOUT": 11819,
+      "WGvwIN": 0,
+      "WGvwOUT": "90679950",
+      "WGoodsWOUT": "47030060",
+      "NSend": 133,
+      "NReceive": 111,
+      "NSendReceive": 220,
+      "NOthers": 11,
+      "NVehCHK": 0,
+      "WSend": 158090,
+      "WReceive": 52000,
+      "WSendReceive": 55615,
+      "WOthers": 0
+    }
+  ]
 }

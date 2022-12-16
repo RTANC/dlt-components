@@ -10,7 +10,8 @@
         "printBackground": true,
         "format": "A4",
         "mediaType": "screen",
-        "landscape": true
+        "landscape": true,
+        "marginRight": "0.1cm"
     },
     "localization": {
         "language": "th"
@@ -19,7 +20,7 @@
         "$$date": 1665817783496
     },
     "modificationDate": {
-        "$$date": 1666853406316
+        "$$date": 1671210353223
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],

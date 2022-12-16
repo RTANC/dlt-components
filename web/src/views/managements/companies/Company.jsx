@@ -9,6 +9,7 @@ import { getCompanies } from '../../../services/managements'
 import BtnClear from '../../../components/BtnClear'
 import BtnSearch from '../../../components/BtnSearch'
 import { useEffect } from 'react'
+import DltSearchBar from '../../../components/DltSearchBar'
 
 export default function Company() {
   const navigate = useNavigate()
@@ -16,6 +17,8 @@ export default function Company() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [rows, setRows] = useState([])
+  const [oriRows, setOriRows] = useState([])
+  const [searched, setSearched] = useState('')
   const [company, setCompany] = useState({
     station: {
       value: 1
@@ -78,11 +81,22 @@ export default function Company() {
     setCompany({...company})
   }
 
+  const requestSearch = (e) => {
+    setSearched(e.target.value)
+    setPage(0)
+    const filteredRows = oriRows.filter((row) => {
+      return row.CompanyName.toLowerCase().includes(e.target.value.toLowerCase()) || row.TransportLicenseID.toLowerCase().includes(e.target.value.toLowerCase())
+    })
+    setRows(filteredRows)
+  }
+
   const search = async () => {
     try {
       setLoading(true)
       const data = (await getCompanies(company.station.value)).data
       setRows(data)
+      setOriRows(data)
+      setPage(0)
     } catch (error) {
       console.log(error)
     } finally {
@@ -91,6 +105,7 @@ export default function Company() {
   }
 
   const cancel = () => {
+    setPage(0)
     setRows([])
   }
 
@@ -125,7 +140,17 @@ export default function Company() {
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
+                    <Paper elevation={2}>
+                      <DltSearchBar value={searched} onChange={requestSearch}></DltSearchBar>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12}>
                     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                    {/* <SearchBar
+                      value={searched}
+                      onChange={(searchVal) => requestSearch(searchVal)}
+                      onCancelSearch={() => cancelSearch()}
+                    /> */}
                       <TableContainer sx={{ minHeight: '50vh', maxHeight: '50vh', color: 'white' }}>
                         <Table stickyHeader aria-label="sticky table">
                           <TableHead>

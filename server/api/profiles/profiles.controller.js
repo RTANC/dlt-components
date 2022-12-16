@@ -17,7 +17,7 @@ exports.updateUserProfile = async (req, res, next) => {
     try {
         let ext = ''
         if (typeof req.body.LoginPassword !== 'undefined') {
-            `, LoginPassword = '${req.body.LoginPassword}'`
+            ext += `, LoginPassword = '${req.body.LoginPassword}'`
         }
         await sequelize.query(`update GCSUser
         set TitleID = ${req.body.TitleID}, FirstName = '${req.body.FirstName}', LastName = '${req.body.LastName}', PhoneNo = '${req.body.PhoneNo}', EmailAddress = '${req.body.EmailAddress}', UpdatedDateTime = '${moment().format('YYYY-MM-DD HH:mm:ss')}' ${ext}

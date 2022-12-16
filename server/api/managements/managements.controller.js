@@ -11,6 +11,7 @@ exports.getUsers = async (req, res, next) => {
         let extWhere = ''
         if (parseInt(req.query.role) < 0) {
             extWhere += ''
+            req.query.station = 0
         } else {
             if (parseInt(req.query.role) < 2) {
                 req.query.station = 0

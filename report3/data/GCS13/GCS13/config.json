@@ -11,7 +11,7 @@
         "marginTop": "6cm",
         "marginBottom": "",
         "format": "A4",
-        "mediaType": "screen",
+        "mediaType": "print",
         "landscape": true,
         "viewportHeight": null
     },
@@ -19,7 +19,7 @@
         "$$date": 1665842152974
     },
     "modificationDate": {
-        "$$date": 1671114323226
+        "$$date": 1671130814095
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],

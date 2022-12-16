@@ -15,22 +15,22 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row my-2">
-        <div class="col-12 table-panel">
-          <table>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <table style="width: 95%">
             <thead>
               <tr>
                 <th rowspan="2">
                   <div>วันที่</div>
                 </th>
                 <th rowspan="2">
-                  <div style="width: 100px">จำนวนรถที่เข้า-ออกสถานี (คัน)</div>
+                  <div>จำนวนรถที่เข้า-ออกสถานี (คัน)</div>
                 </th>
                 <th rowspan="2">
-                  <div style="width: 100px">จำนวนรถบรรทุกที่เข้า-ออกสถานี (คัน)</div>
+                  <div>จำนวนรถบรรทุกที่เข้า-ออกสถานี (คัน)</div>
                 </th>
                 <th rowspan="2">
-                  <div style="width: 100px">ปริมาณการขนถ่ายสินค้าทั้งหมดผ่านสถานี (ตัน)</div>
+                  <div>ปริมาณการขนถ่ายสินค้าทั้งหมดผ่านสถานี (ตัน)</div>
                 </th>
                 <th colspan="5">
                   <div>จำนวนรถรับส่งสินค้า (คัน)</div>
@@ -39,90 +39,92 @@
                   <div>ปริมาณสินค้ารับส่ง (ตัน)</div>
                 </th>
                 <th rowspan="2">
-                  <div style="width: 80px">จำนวนรถตรวจสภาพ</div>
+                  <div>จำนวนรถตรวจสภาพ</div>
                 </th>
               </tr>
               <tr>
                 <th>
-                  <div style="width: 65px">ส่งสินค้า</div>
+                  <div>ส่งสินค้า</div>
                 </th>
                 <th>
-                  <div style="width: 65px">รับสินค้า</div>
+                  <div>รับสินค้า</div>
                 </th>
                 <th>
-                  <div style="width: 80px">รับและส่งสินค้า</div>
+                  <div>รับและส่งสินค้า</div>
                 </th>
                 <th>
-                  <div style="width: 50px">อื่นๆ</div>
+                  <div>อื่นๆ</div>
                 </th>
                 <th>
-                  <div style="width: 50px">รวม</div>
+                  <div>รวม</div>
                 </th>
                 <th>
-                  <div style="width: 65px">ส่งสินค้า</div>
+                  <div>ส่งสินค้า</div>
                 </th>
                 <th>
-                  <div style="width: 65px">รับสินค้า</div>
+                  <div>รับสินค้า</div>
                 </th>
                 <th>
-                  <div style="width: 80px">รับและส่งสินค้า</div>
+                  <div>รับและส่งสินค้า</div>
                 </th>
                 <th>
-                  <div style="width: 50px">อื่นๆ</div>
+                  <div>อื่นๆ</div>
                 </th>
                 <th>
-                  <div style="width: 50px">รวม</div>
+                  <div>รวม</div>
                 </th>
               </tr>
             </thead>
             <tbody>
+              {{#each reportData}}
               <tr>
                 <td>
-                  <div class="d-flex justify-content-start">01/10/2565</div>
+                  <div class="d-flex justify-content-start">{{this.ByDateTime}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NVehIN}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NVehOUT}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WGoodsWOUT}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NSend}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NSendReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{sum this.NSend this.NReceive this.NSendReceive this.NOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WSend}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WSendReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{sum2 this.WSend this.WReceive this.WSendReceive this.WOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">0</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NVehCHK}}</div>
                 </td>
               </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -130,40 +132,40 @@
     </div>
     <div style="page-break-before: always;"></div>
     <div class="container-fluid">
-      <div class="row my-3 mx-2 d-flex justify-content-center">
-        <div class="col-12 graph-panel d-flex justify-content-center align-items-center">
+      <div class="row mx-2 d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center align-items-center">
           <div id="chart1"></div>
         </div>
       </div>
     </div>
     <div style="page-break-before: always;"></div>
     <div class="container-fluid">
-      <div class="row my-3 mx-2 d-flex justify-content-center">
-        <div class="col-12 graph-panel d-flex justify-content-center align-items-center">
+      <div class="row mx-2 d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center align-items-center">
           <div id="chart2"></div>
         </div>
       </div>
     </div>
     <p style="page-break-before: always;"></p>
     <div class="container-fluid">
-      <div class="row my-3 mx-2 d-flex justify-content-center">
-        <div class="col-12 graph-panel d-flex justify-content-center align-items-center">
+      <div class="row mx-2 d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center align-items-center">
           <div id="chart3"></div>
         </div>
       </div>
     </div>
     <div style="page-break-before: always;"></div>
     <div class="container-fluid">
-      <div class="row my-3 mx-2 d-flex justify-content-center">
-        <div class="col-12 graph-panel d-flex justify-content-center align-items-center">
+      <div class="row mx-2 d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center align-items-center">
           <div id="chart4"></div>
         </div>
       </div>
     </div>
     <div style="page-break-before: always;"></div>
     <div class="container-fluid">
-      <div class="row my-3 mx-2 d-flex justify-content-center">
-        <div class="col-12 graph-panel d-flex justify-content-center align-items-center">
+      <div class="row mx-2 d-flex justify-content-center">
+        <div class="col-12 d-flex justify-content-center align-items-center">
           <div id="chart5"></div>
         </div>
       </div>

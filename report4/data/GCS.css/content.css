@@ -1,52 +1,58 @@
 @font-face {
-  font-family: 'Sarabun-Regular';
-  src: url({#asset ../report/data/font/Sarabun-Regular.ttf @encoding=dataURI});
+  font-family: 'THSarabunPSK';
+  src: url({#asset ./data/font/THSarabunPSK.ttf @encoding=dataURI});
   format('truetype');
 }
 
 @font-face {
-  font-family: 'Sarabun-Bold';
-  src: url({#asset ../report/data/font/Sarabun-Bold.ttf @encoding=dataURI});
+  font-family: 'THSarabunPSK-Bold';
+  src: url({#asset ./data/font/THSarabunPSK-Bold.ttf @encoding=dataURI});
   format('truetype');
 }
 
 body {
-    font-family: 'Sarabun-Regular';
-    font-size: 12pt;
+    font-family: 'THSarabunPSK';
+    font-size: 14pt;
 }
 
 table, td, th {
-  border: 1px solid;
-  border-color: #B3b3b3;
+  border: 2px solid;
+  border-color: lightgray;
 }
 
 table > tbody > tr > td {
-  padding-left: 3px;
-  padding-right: 3px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  font-family: 'THSarabunPSK';
+  font-size: 14pt;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 table {
+  font-family: 'THSarabunPSK';
   width: 100%;
   border-collapse: collapse;
-  font-size: 12pt;
+  font-size: 14pt;
+  page-break-inside:auto;
+}
+
+tr {
+  page-break-inside:auto;
 }
 
 th > div {
+  font-family: 'THSarabunPSK-Bold';
+  font-size: 14pt;
   display: flex;
   justify-content: center;
   height: 45px;
   align-items: center;
   padding-left: 2px;
   padding-right: 2px;
-  padding-top: 5px;
-  padding-bottom: 5px;
   text-align: center;
 }
 
 th {
-  background-color: #f5f5f5;
+  background-color: whitesmoke;
 }
 
 .table-panel {
@@ -58,12 +64,14 @@ th {
   position: relative;
   top: 250px;
   border: 2px solid;
-  border-color: #B3b3b3;
+  border-color: lightgray;
   width: 100%;
-  height: 500px;
+  height: 550px;
 }
 
 .border {
   border: 2px solid;
-  border-color: #B3b3b3;
+  border-color: lightgray;
 }
+
+@media print{@page {size: landscape}}

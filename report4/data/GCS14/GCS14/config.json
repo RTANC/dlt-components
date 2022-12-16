@@ -8,17 +8,17 @@
     "shortid": "GNVVZrUvf3",
     "chrome": {
         "printBackground": true,
-        "marginTop": "",
+        "marginTop": "7cm",
         "marginBottom": "",
         "landscape": true,
         "format": "A4",
-        "mediaType": "screen"
+        "mediaType": "print"
     },
     "creationDate": {
         "$$date": 1666770782160
     },
     "modificationDate": {
-        "$$date": 1666774119765
+        "$$date": 1671135983823
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],
@@ -30,5 +30,8 @@
             "templateShortid": "8-KLWoq",
             "mergeWholeDocument": true
         }
-    ]
+    ],
+    "localization": {
+        "language": "th"
+    }
 }

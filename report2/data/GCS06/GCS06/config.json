@@ -9,14 +9,17 @@
     "chrome": {
         "printBackground": true,
         "format": "A4",
-        "mediaType": "screen",
-        "landscape": true
+        "mediaType": "print",
+        "landscape": true,
+        "marginTop": "6cm",
+        "marginRight": "",
+        "marginLeft": ""
     },
     "creationDate": {
         "$$date": 1665712851223
     },
     "modificationDate": {
-        "$$date": 1666856732469
+        "$$date": 1671150692204
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],

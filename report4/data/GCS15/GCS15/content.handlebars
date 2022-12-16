@@ -15,8 +15,8 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row my-3">
-        <div class="col-12 table-panel d-flex justify-content-center">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
           <table style="width: 100%">
             <thead>
               <tr>
@@ -73,46 +73,48 @@
               </tr>
             </thead>
             <tbody>
+              {{#each reportData}}
               <tr>
                 <td>
-                  <div class="d-flex justify-content-start pl-2">26/10/2565</div>
+                  <div class="d-flex justify-content-start pl-2">{{this.Stamp}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">78</div>
+                  <div class="d-flex justify-content-center">{{this.P1}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P2}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P3}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P4}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P5}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P6}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P7}}</div>
                 </td><td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P8}}</div>
                 </td><td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P9}}</div>
                 </td><td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P10}}</div>
                 </td><td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P11}}</div>
                 </td><td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P12}}</div>
                 </td><td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P13}}</div>
                 </td><td>
-                  <div class="d-flex justify-content-center">0</div>
+                  <div class="d-flex justify-content-center">{{this.P14}}</div>
                 </td>
               </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>

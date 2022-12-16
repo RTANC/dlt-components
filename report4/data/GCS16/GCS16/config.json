@@ -10,13 +10,14 @@
         "printBackground": true,
         "format": "A4",
         "landscape": true,
-        "mediaType": "screen"
+        "mediaType": "print",
+        "marginTop": "7cm"
     },
     "creationDate": {
         "$$date": 1666790616948
     },
     "modificationDate": {
-        "$$date": 1666792452431
+        "$$date": 1671138997951
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],

@@ -186,7 +186,6 @@ export default function Home() {
 
   const save = async (e) => {
     try {
-      // e.preventDefault()
       setLoading(true)
       if (formValidator(transport, setTransport)) {
         const payload = { StationID: transport.station.value,

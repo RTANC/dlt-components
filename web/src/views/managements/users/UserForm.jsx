@@ -101,10 +101,10 @@ export default function UserForm() {
     }
 
     const handleValidatePassword = (e) => {
-      setValid(formValidator(user, setUser))
       if (user.newPassword.value === user.confirmPassword.value) {
-        user.newPassword.error = false
-        user.confirmPassword.error = false
+        if (formValidator(user, setUser)) {
+          setValid(true)
+        }
       } else if (user.newPassword.value !== user.confirmPassword.value) {
         user.newPassword.error = 'Password ไม่ตรงกัน'
         user.confirmPassword.error = 'Password ไม่ตรงกัน'

@@ -31,6 +31,7 @@ export default function DltDatePicker(props) {
       <InputLabel shrink sx={{fontSize: 20, color: '#ed6c02'}}>{props.label}</InputLabel>
         <MobileDatePicker
           label={props.label}
+          views={['year', 'month', 'day']}
           inputFormat='MM/dd/yyyy'
           value={props.value}
           onChange={props.onChange}

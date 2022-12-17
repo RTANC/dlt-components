@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DltAppBar from './components/DltAppBar'
 import Login from './views/Login'
@@ -41,10 +41,7 @@ import Cookies from 'js-cookie'
 import { api } from './services/api'
 
 function App() {
-  useEffect(() => { //สำหรับกรณี user refresh หน้า page
-    api.defaults.headers.common['Authorization'] = "Bearer " + Cookies.get('token')
-  }, [])
-  
+  api.defaults.headers.common['Authorization'] = "Bearer " + Cookies.get('token') //สำหรับกรณี user refresh หน้า page
   return (
     <div className="App">
       <BrowserRouter basename='/'>

@@ -9,14 +9,14 @@ exports.getUsers = async (req, res, next) => {
             throw Error('roleId field and stationId field is require!')
         }
         let extWhere = ''
-        if (parseInt(req.query.role) < 0) {
+        if (parseInt(req.query.role) < 0) { // user เลือกทั้งหมด
             extWhere += ''
-            req.query.station = 0
         } else {
-            if (parseInt(req.query.role) < 2) {
-                req.query.station = 0
+            if (parseInt(req.query.role) < 2) { // user เลือก admin, ผู้ดูแลระดับกรม
+                extWhere += `where StationID = 0 and GCSUser.RoleID = ${req.query.role}`
+            } else {
+                extWhere += `where StationID = ${req.query.station} and GCSUser.RoleID = ${req.query.role}`
             }
-            extWhere += ` and GCSUser.RoleID = ${req.query.role}`
         }
         if (!!req.query.company) {
             extWhere += ' and GCSUser.CompanyID = ' + req.query.company
@@ -30,8 +30,8 @@ exports.getUsers = async (req, res, next) => {
         on GCSUser.CompanyID = Company.CompanyID
         inner join UserRole
         on GCSUser.RoleID = UserRole.RoleID
-        where StationID = ${req.query.station} ${extWhere}`
-        const users = await sequelize.query(sql_query, { type: QueryTypes.SELECT });
+        ${extWhere}`
+        const users = await sequelize.query(sql_query, { type: QueryTypes.SELECT })
         res.status(200).send(users)
     } catch (error) {
         next(error)

@@ -73,7 +73,7 @@ export default function Login() {
             // localStorage.setItem('token', token)
             // console.log(Cookies.get('token'))
           }
-          api.defaults.headers.common['Authorization'] = "Bearer " + token
+          api.defaults.headers.common['Authorization'] = "Bearer " + Cookies.get('token')
           navigate('/home')
           dispatch(login({
             UserID: UserID,

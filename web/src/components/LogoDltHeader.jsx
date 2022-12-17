@@ -5,7 +5,7 @@ export default function LogoDltHeader() {
   return (
     <Box component='div' sx={{display: 'flex', alignItems: 'center', height: 112}}>
         <Box component='div'>
-            <img src="logo_dlt.png" width='74' height='74'/>
+            <img src="/logo_dlt.png" width='74' height='74'/>
         </Box>
         <Box component='div' sx={{ml: 2}}>
             <Typography variant="caption" className='dlt-app-bar-title-th'>กรมการขนส่งทางบก</Typography>

@@ -68,6 +68,10 @@ export default function Login() {
             Cookies.set('RoleID', RoleID, { expires: 7 })
             Cookies.set('LoginName', LoginName, { expires: 7 })
             Cookies.set('token', token, { expires: 7 })
+          } else {
+            Cookies.set('token', token, { expires: 7 })
+            // localStorage.setItem('token', token)
+            // console.log(Cookies.get('token'))
           }
           api.defaults.headers.common['Authorization'] = "Bearer " + token
           navigate('/home')
@@ -99,7 +103,7 @@ export default function Login() {
     }
 
     useEffect(() => {
-      if (Cookies.get('token')) {
+      if (Cookies.get('token') && Cookies.get('UserID') && Cookies.get('RoleID') && Cookies.get('LoginName') ) {
         const { UserID, RoleID, LoginName, token } = Cookies.get()
         api.defaults.headers.common['Authorization'] = "Bearer " + token
         navigate('/home')

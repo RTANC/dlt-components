@@ -11,9 +11,11 @@ const timeout = require('connect-timeout')
 
 moment.tz.setDefault('Asia/Bangkok')
 
+app.use(cors())
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({ limit: '10mb' }))
-app.use(cors())
+
 app.use(timeout(600000))
 
 morgan.token('id', function getId (req) {

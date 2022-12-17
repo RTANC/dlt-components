@@ -41,7 +41,7 @@ import './styles/App.css'
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename='/'>
       <DltAppBar></DltAppBar>
       <Routes>
         <Route path='/' element={<Login></Login>}></Route>

@@ -106,7 +106,7 @@ export default function DltAppBar() {
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           {/* <img src="logo_dlt_header.png"/> */}
           <LogoDltHeader></LogoDltHeader>
-          {auth && (
+          {(auth || Cookies.get('token')) && (
             <IconButton
               size="large"
               onClick={toggleDrawer(true)}

@@ -20,6 +20,9 @@ import BtnClear from '../components/BtnClear'
 import { getImageURL, handleGoodCategoryCheck, removeSQLTz, SQLDateTimeFormatter } from '../services/utils'
 import { createTransport, getTransport, updateTransport } from '../services/transports'
 import Swal from 'sweetalert2'
+import { useEffect } from 'react'
+import { api } from '../services/api'
+import Cookies from 'js-cookie'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -273,6 +276,11 @@ export default function Home() {
     setTransport({...transport})
   }
 
+  useEffect(() => {
+    api.defaults.headers.common['Authorization'] = "Bearer " + Cookies.get('token')
+  }, [])
+  
+
   return (
     <Slide direction="left" in={true} mountOnEnter unmountOnExit>
     <Container>
@@ -348,13 +356,13 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12} sm={4} md={4}>
-                <Button onClick={() => toggleMode(1)} fullWidth sx={{backgroundImage: 'url(Button-Transit-In.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
+                <Button onClick={() => toggleMode(1)} fullWidth sx={{backgroundImage: 'url(/Button-Transit-In.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
               </Grid>
               <Grid item xs={12} sm={4} md={4}>
-                <Button onClick={() => toggleMode(3)} fullWidth sx={{backgroundImage: 'url(Button-Transit-2-Way.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
+                <Button onClick={() => toggleMode(3)} fullWidth sx={{backgroundImage: 'url(/Button-Transit-2-Way.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
               </Grid>
               <Grid item xs={12} sm={4} md={4}>
-                <Button onClick={() => toggleMode(2)} fullWidth sx={{backgroundImage: 'url(Button-Transit-Out.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
+                <Button onClick={() => toggleMode(2)} fullWidth sx={{backgroundImage: 'url(/Button-Transit-Out.png);', height: 135, borderRadius: '12px', backgroundSize: '100% 135px'}}></Button>
               </Grid>
               {transport.mode !== 2 && <Grid item xs={12} sm={12} md={transport.mode === 1 ? 12 : 6 }>
                 <Grid container spacing={2} direction='row' wrap='wrap'>

@@ -26,15 +26,17 @@ import Cookies from 'js-cookie'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
+  const [stationEditable, setStationEditable] = useState(parseInt(Cookies.get('RoleID')) > 1 ? false : true)
+  const [companyEditable, setCompanyEditable] = useState(parseInt(Cookies.get('RoleID')) > 2 ? false : true)
   const [images, setImages] = useState(['/Image_Mock.png','/Image_Mock.png','/Image_Mock.png','/Image_Mock.png'])
   const [transport, setTransport] = useState({
     station: {
-      value: 1,
+      value: parseInt(Cookies.get('RoleID')) > 1 ? Cookies.get('StationID') : 1,
       error: false,
       rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
     company: {
-      value: '',
+      value: Cookies.get('CompanyID'),
       error: false,
       rules: [(v) => !!v || '*ข้อมูลจำเป็น']
     },
@@ -293,10 +295,10 @@ export default function Home() {
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12} sm={6} md={6}>
-                <SelectStation value={transport.station.value} name='station' onChange={handleChangeValue} required error={transport.station.error}></SelectStation>
+                <SelectStation value={transport.station.value} name='station' onChange={handleChangeValue} disabled={!stationEditable} required error={transport.station.error}></SelectStation>
               </Grid>
               <Grid item xs={12} sm={6} md={6}>
-                <SelectCompany value={transport.company.value} name='company' onChange={handleChangeValue} station={transport.station.value} required error={transport.company.error}></SelectCompany>
+                <SelectCompany value={transport.company.value} name='company' onChange={handleChangeValue} disabled={!companyEditable} station={transport.station.value} required error={transport.company.error}></SelectCompany>
               </Grid>
             </Grid>
           </CardContent>

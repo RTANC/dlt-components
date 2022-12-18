@@ -75,15 +75,29 @@ export default function UserForm() {
 
     const handleValueChange = (e) => {
         user[e.target.name].value = e.target.value
-        if(e.target.name === 'station') {
-          switch (user['station'].value) {
-            case 1: user['agency'].value = 189
-              break;
-            case 2: user['agency'].value = 191
-              break;
-            case 3: user['agency'].value = 194
-              break;
+        if(e.target.name === 'userRole') {
+          user['station'].value = 1
+          if (user['userRole'].value < 2) {
+            user['agency'].value = 0
+          } else if (user['userRole'].value === 2) {
+            user['agency'].value = user['station'].value
+          } else if (user['userRole'].value === 3) {
+            user['agency'].value = ''
           }
+        }
+        if(e.target.name === 'station' && user.userRole.value === 2) {
+          user['agency'].value = user['station'].value
+        }
+        if(e.target.name === 'station' && user.userRole.value === 3) {
+          // switch (user['station'].value) {
+          //   case 1: user['agency'].value = 189
+          //     break;
+          //   case 2: user['agency'].value = 191
+          //     break;
+          //   case 3: user['agency'].value = 194
+          //     break;
+          // }
+          user['agency'].value = ''
         }
         if (e.target.name === 'isActive') {
           if (e.target.value === 'true') {

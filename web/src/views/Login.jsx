@@ -15,6 +15,7 @@ import formValidator from '../services/validator'
 import { api } from '../services/api'
 import '../styles/Login.css'
 import { styled } from "@mui/material/styles"
+import { getUserProfile } from '../services/profiles'
 
 const LoginButton = styled(Button)(({ theme }) => ({
   fontFamily: 'Kanit',
@@ -63,17 +64,19 @@ export default function Login() {
             username: data.username.value,
             password: hashMD5(data.password.value)
           })).data
+          
           if (stay) {
-            Cookies.set('UserID', UserID, { expires: 7 })
-            Cookies.set('RoleID', RoleID, { expires: 7 })
-            Cookies.set('LoginName', LoginName, { expires: 7 })
-            Cookies.set('token', token, { expires: 7 })
-          } else {
-            Cookies.set('token', token, { expires: 7 })
-            // localStorage.setItem('token', token)
-            // console.log(Cookies.get('token'))
+            Cookies.set('stay', token, { expires: 7 })
           }
+          Cookies.set('UserID', UserID, { expires: 7 })
+          Cookies.set('RoleID', RoleID, { expires: 7 })
+          Cookies.set('LoginName', LoginName, { expires: 7 })
+          Cookies.set('token', token, { expires: 7 })
+
           api.defaults.headers.common['Authorization'] = "Bearer " + Cookies.get('token')
+          const { CompanyID, StationID } = (await getUserProfile()).data
+          Cookies.set('CompanyID', CompanyID, { expires: 7 })
+          Cookies.set('StationID', StationID, { expires: 7 })
           navigate('/home')
           dispatch(login({
             UserID: UserID,
@@ -103,7 +106,7 @@ export default function Login() {
     }
 
     useEffect(() => {
-      if (Cookies.get('token') && Cookies.get('UserID') && Cookies.get('RoleID') && Cookies.get('LoginName') ) {
+      if (Cookies.get('token') && Cookies.get('stay')) {
         const { UserID, RoleID, LoginName, token } = Cookies.get()
         api.defaults.headers.common['Authorization'] = "Bearer " + token
         navigate('/home')

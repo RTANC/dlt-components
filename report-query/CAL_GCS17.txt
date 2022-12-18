@@ -1,0 +1,180 @@
+string sqlText = string.Empty;
+                    sqlText = SqlQuery.GetSQLReport17(date1, date2, companyID, stationID);
+                    DataSet ds = SqlQuery.GetDataSet(sqlText);
+
+
+                    // 1. Avg Distant to Station
+                    int avgDistStation = Int32.Parse(gcs17param.Where(m => m.ParameterName == "ADStation").FirstOrDefault().Vaule1);
+
+                    // 2. Avg Distant to Destination
+                    List<ADDestination> avgDistDestList = new List<ADDestination>();
+
+                    int destIndex = 0;
+                    int totalNumVehicles = 0;
+                    
+                    var paramg3 = gcs17param.Where(m => m.ParameterGroupID == 3).ToList();
+
+                    foreach (var param in paramg3 )
+                    {
+                        totalNumVehicles = 0;
+
+                        ADDestination dest = new ADDestination();
+
+                        foreach (DataRow r in ds.Tables[2].Rows)
+                        {
+                            int numVehicles = (int)r["NReceive"];
+
+                            if ((string)r["Description"] != "กรุงเทพและปริมณฑล")
+                            {                              
+                                totalNumVehicles += numVehicles;
+                            }                           
+
+                            if (param.Vaule1.Contains((string)r["Description"]))
+                            {                                
+                                dest.NumVehicles = numVehicles;                              
+                            }
+                        }
+
+                        dest.ID = destIndex++;
+                        dest.Region = param.Vaule1;
+                        dest.Province = param.Value2;
+                        dest.Distant = Int32.Parse(param.Value3);
+
+                        dest.PercentRatio = totalNumVehicles == 0 ? 0 : (decimal)dest.NumVehicles / (decimal)totalNumVehicles;
+
+                        dest.AvgDistant = (int)(dest.PercentRatio * dest.Distant);
+
+                        avgDistDestList.Add(dest);
+                    }
+
+                    foreach (var item in avgDistDestList)
+                    {
+                        item.TotalAvgDistant = avgDistDestList.Sum(m => m.AvgDistant);
+                    }
+
+                    // 3. Number of Vehicles
+
+                    // 3.1 Total Vehicle From GCS01 (Dataset.Table 0)
+                    int GrandTotalVehOut = (ds.Tables[0].Rows[0]["NVehOUT"] is DBNull) ? 0 : (int)(ds.Tables[0].Rows[0]["NVehOUT"]);
+
+                    int nsend0 = (ds.Tables[0].Rows[0]["NSend"] is DBNull) ? 0 : (int)(ds.Tables[0].Rows[0]["NSend"]);
+                    int nreceive0 = (ds.Tables[0].Rows[0]["NReceive"] is DBNull) ? 0 : (int)(ds.Tables[0].Rows[0]["NReceive"]);
+                    int nothers0 = (ds.Tables[0].Rows[0]["NOthers"] is DBNull) ? 0 : (int)(ds.Tables[0].Rows[0]["NOthers"]);
+
+                    int GrandTotalRecordedVeh = nsend0 + nreceive0 + nothers0;
+
+
+                    // 3.2 Create List of Number-of-Vehicles by VehicleClass From GCS02 (Dataset.Table 1)
+                                       
+                    var paramg1 = gcs17param.Where(m => m.ParameterGroupID == 1).ToList();
+
+                    List<NumberOfVehicles> numOfVehList = new List<NumberOfVehicles>();
+                    
+
+                    foreach (var vtype in paramg1)
+                    {
+                        NumberOfVehicles veh = new NumberOfVehicles();
+                        veh.ID = Int32.Parse(vtype.Vaule1);
+                        veh.VehiceDesc = vtype.Value2;
+                        if (veh.ID == 1)
+                        {
+                            int nsend1 = (ds.Tables[1].Rows[veh.ID - 1]["NSend"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[veh.ID - 1]["NSend"]);
+                            int nreceive1 = (ds.Tables[1].Rows[veh.ID - 1]["NReceive"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[veh.ID - 1]["NReceive"]);
+                            int nothers1 = (ds.Tables[1].Rows[veh.ID - 1]["NOthers"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[veh.ID - 1]["NOthers"]);
+
+                            veh.RecordedVehicles = nsend1;
+                            veh.TotalRecordedVehicles = nsend1 + nreceive1 + nothers1;
+                        }
+                        else if (veh.ID == 5)
+                        {
+                            for (int i = 4; i <= 11; i++)
+                            {
+                                int nsend2 = (ds.Tables[1].Rows[i]["NSend"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[i]["NSend"]);
+                                int nreceive2 = (ds.Tables[1].Rows[i]["NReceive"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[i]["NReceive"]);
+                                int nothers2 = (ds.Tables[1].Rows[i]["NOthers"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[i]["NOthers"]);
+
+                                veh.RecordedVehicles += nsend2;
+                                veh.TotalRecordedVehicles += nsend2 + nreceive2 + nothers2;
+                            }
+                        }
+                        else
+                        {
+                            int nsend3 = (ds.Tables[1].Rows[veh.ID - 1]["NSend"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[veh.ID - 1]["NSend"]);
+                            int nreceive3 = (ds.Tables[1].Rows[veh.ID - 1]["NReceive"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[veh.ID - 1]["NReceive"]);
+                            int nothers3 = (ds.Tables[1].Rows[veh.ID - 1]["NOthers"] is DBNull) ? 0 : (int)(ds.Tables[1].Rows[veh.ID - 1]["NOthers"]);
+
+                            veh.RecordedVehicles = nreceive3;
+                            veh.TotalRecordedVehicles = nsend3 + nreceive3 + nothers3;
+                        }                                               
+                        
+                        veh.PercentRatio = veh.TotalRecordedVehicles == 0 ? 0 : (decimal)veh.RecordedVehicles / (decimal)veh.TotalRecordedVehicles;
+
+                        decimal t1 = (decimal)GrandTotalRecordedVeh * (decimal)GrandTotalVehOut;
+
+                        veh.TotalVehicles = t1 == 0 ? 0 : (int)((decimal)veh.TotalRecordedVehicles / (decimal)GrandTotalRecordedVeh * (decimal)GrandTotalVehOut);
+
+                        veh.ProjectedVehicles = (int)(veh.PercentRatio * (decimal)veh.TotalVehicles);
+
+                        numOfVehList.Add(veh);
+                    }
+
+                    // 4. VOC Tables
+
+                    List<VOCCalculation> vocList0 = new List<VOCCalculation>();
+
+                    List<VOCCalculation> vocList1 = new List<VOCCalculation>();
+
+                    foreach (var veh in numOfVehList)
+                    {
+                        if (veh.ID == 1)
+                        {
+                            // 4-Axles SEND-RECEIVE
+                            VOCCalculation v0 = new VOCCalculation();
+                            v0.ID = veh.ID;
+                            v0.VehiceDesc = veh.VehiceDesc;
+                            v0.Objective = "";
+                            v0.NumVehicles = veh.ProjectedVehicles;
+                            v0.Distant =  avgDistDestList.Sum(m => m.AvgDistant);
+                            v0.VOC = Decimal.Parse(paramg1[veh.ID -1].Value3);
+                            v0.TotalVOC = v0.NumVehicles * v0.Distant * v0.VOC;
+
+                            vocList0.Add(v0);
+
+                            // 4-Axle SEND
+                            VOCCalculation v1 = new VOCCalculation();
+                            v1.ID = veh.ID;
+                            v1.VehiceDesc = veh.VehiceDesc;
+                            v1.Objective = "ส่งสินค้า";
+                            v1.NumVehicles = veh.ProjectedVehicles;
+                            v1.Distant = avgDistStation;
+                            v1.VOC = Decimal.Parse(paramg1[veh.ID - 1].Value3);
+                            v1.TotalVOC = v1.NumVehicles * v1.Distant * v1.VOC;
+
+                            vocList1.Add(v1);
+                        }
+                        else
+                        {
+                            // Other-Axle RECEIVE
+                            VOCCalculation v1 = new VOCCalculation();
+                            v1.ID = veh.ID;
+                            v1.VehiceDesc = veh.VehiceDesc;
+                            v1.Objective = "รับสินค้า";
+                            v1.NumVehicles = veh.ProjectedVehicles;
+                            v1.Distant = avgDistDestList.Sum(m => m.AvgDistant);
+                            v1.VOC = Decimal.Parse(paramg1[veh.ID - 1].Value3);
+                            v1.TotalVOC = v1.NumVehicles * v1.Distant * v1.VOC;
+
+                            vocList1.Add(v1);
+                        }                       
+                    }
+
+                    ReportDataSource rds1 = new ReportDataSource("ADDestination", avgDistDestList);
+                    ReportDataSource rds2 = new ReportDataSource("NumberOfVehicles", numOfVehList);
+                    ReportDataSource rds3 = new ReportDataSource("VOCCalculation0", vocList0);
+                    ReportDataSource rds4 = new ReportDataSource("VOCCalculation1", vocList1);
+
+                    dsList = new List<ReportDataSource>();
+                    dsList.Add(rds1);
+                    dsList.Add(rds2);
+                    dsList.Add(rds3);
+                    dsList.Add(rds4);

@@ -4,8 +4,9 @@ const moment = require('moment')
 
 exports.getUserProfile = async (req, res, next) => {
     try {
-        const user = await sequelize.query(`select UserID, RoleID, TitleID, LoginName, FirstName, LastName, PhoneNo, EmailAddress
+        const user = await sequelize.query(`select UserID, RoleID, TitleID, LoginName, FirstName, LastName, PhoneNo, EmailAddress, GCSUser.CompanyID, StationID
         from GCSUser
+        inner join Company on GCSUser.CompanyID = Company.CompanyID
         where UserID = ${req.userData.UserID}`, { type: QueryTypes.SELECT })
         res.status(200).send(user[0])
     } catch (error) {

@@ -23,9 +23,9 @@ export default function SelectCompany(props) {
     }, [props.station])
    
   return (
-    <FormControl fullWidth error={props.error !== false} color='warning' focused>
+    <FormControl fullWidth error={props.error !== false} disabled={props.disabled} readOnly={props.readOnly} color='warning' focused sx={{'label.Mui-disabled': {color: '#ed6c02'}}}>
       <InputLabel sx={{fontSize: 20}} shrink>ผู้ประกอบการ</InputLabel>
-      <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
+      <DltSelect onChange={props.onChange} value={props.value} name={props.name} sx={{'.Mui-disabled': {backgroundColor: '#0a061f', color: 'gray', '-webkit-text-fill-color': 'gray'}}}>
           {company.map((v, i) => (
             <MenuItem value={v.CompanyID} key={i}>{v.CompanyName}</MenuItem>
           ))}
@@ -42,5 +42,6 @@ SelectCompany.propTypes = {
 
 SelectCompany.defaultProps = {
   required: false,
-  error: false
+  error: false,
+  disabled: false
 }

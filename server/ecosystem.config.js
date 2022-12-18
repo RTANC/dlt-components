@@ -5,7 +5,7 @@ module.exports = {
         script: 'index.js',
   
         // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
-        instances: 1,
+        instances: 4,
         autorestart: true,
         watch: true,
         max_memory_restart: '8G',
@@ -18,7 +18,7 @@ module.exports = {
           JSREPORT_URL: 'http://localhost',
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
-          SAVE_PATH: 'C:/vehimages/',
+          SAVE_PATH: 'D:/vehimages/',
           DB_NAME: 'GCSDB',
           DB_USERNAME: 'sa',
           DB_PASSWORD: 'rtanc1111100000',
@@ -32,7 +32,7 @@ module.exports = {
           JSREPORT_URL: 'http://localhost',
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
-          SAVE_PATH: 'C:/vehimages/',
+          SAVE_PATH: 'D:/vehimages/',
           DB_NAME: 'GCSDB',
           DB_USERNAME: 'sa',
           DB_PASSWORD: 'rtanc1111100000',

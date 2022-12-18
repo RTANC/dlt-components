@@ -44,12 +44,13 @@ const reportLinks = [{link: '/report/GCS01', text: 'GCS01 จำนวนรถ�
 
 export default function DltAppBar() {
     const auth = useSelector((state) => state.login.isLogin)
+    const loginName = useSelector((state) => state.login.userData.LoginName)
+    const roleId = useSelector((state) => state.login.userData.RoleID)
     const dispatch = useDispatch()
     const [state, setState] = useState(false)
     const [reportMenu, setReportMenu] = useState(false)
     const [dataMenu, setDataMenu] = useState(false)
     const [manualMenu, setManualMenu] = useState(false)
-    
     const navigate = useNavigate()
 
 
@@ -93,6 +94,9 @@ export default function DltAppBar() {
       Cookies.remove('RoleID')
       Cookies.remove('LoginName')
       Cookies.remove('token')
+      Cookies.remove('stay')
+      Cookies.remove('CompanyID')
+      Cookies.remove('StationID')
       // toggleDrawer(false)
       setState(false)
       dispatch(logout())
@@ -104,16 +108,17 @@ export default function DltAppBar() {
     <React.Fragment>
     <AppBar position="static" color='appBar'>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          {/* <img src="logo_dlt_header.png"/> */}
           <LogoDltHeader></LogoDltHeader>
-          {(auth || Cookies.get('token')) && (
-            <IconButton
-              size="large"
-              onClick={toggleDrawer(true)}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+          {( window.location.pathname !== '/' && (auth || Cookies.get('token'))) && (
+              <IconButton
+                size="large"
+                onClick={toggleDrawer(true)}
+                color="inherit"
+                edge="end"
+              >
+                <Typography variant="h5" color="white" sx={{paddingX: 2, fontFamily: 'Kanit', fontStyle: 'normal'}}>{loginName || Cookies.get('LoginName')}</Typography>
+                <MenuIcon />
+              </IconButton>
           )}
         </Toolbar>
     </AppBar>
@@ -171,7 +176,8 @@ export default function DltAppBar() {
                 ))}
               </List>
           </Collapse>
-          <ListItem disablePadding>
+          {(roleId === 0 || Cookies.get('RoleID') === '0') && (<React.Fragment>
+            <ListItem disablePadding>
             <ListItemButton onClick={toggleDataMenu}>
               <ListItemIcon><DatabaseCog/></ListItemIcon>
               <ListItemText primary='จัดการข้อมูล'/>
@@ -212,6 +218,7 @@ export default function DltAppBar() {
                 </ListItem>
               </List>
           </Collapse>
+          </React.Fragment>)}
 
           <ListItem disablePadding>
             <ListItemButton onClick={toggleManualMenu}>

@@ -11,13 +11,14 @@
         "landscape": true,
         "format": "A4",
         "mediaType": "print",
-        "marginTop": "6cm"
+        "marginTop": "6cm",
+        "marginBottom": "0.3cm"
     },
     "creationDate": {
         "$$date": 1666877784014
     },
     "modificationDate": {
-        "$$date": 1671214561442
+        "$$date": 1671363375331
     },
     "inheritedReadPermissions": [],
     "inheritedEditPermissions": [],

@@ -15,7 +15,7 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row mt-4">
+      <div class="row">
         <div class="col-12 d-flex justify-content-center">
           <table>
             <thead>
@@ -41,41 +41,31 @@
               </tr>
             </thead>
             <tbody>
+              {{#each (reportDataFormatter reportData)}}
               <tr>
-                <td rowspan="5">
-                  <div class="d-flex justify-content-start pl-2">บริษัท พยัคฆ์ขนส่ง จำกัด</div>
+                <td rowspan="10">
+                  <div class="d-flex justify-content-start pl-2">{{this.CompanyName}}</div>
                   <div>
                       <ul>
-                          <li>ประเภทการขนส่ง ไม่ประจำทาง</li>
-                          <li>เลขที่ใบอนุญาต ในประเทศ 0575540000361</li>
+                          <li>ประเภทการขนส่ง {{this.TransportType}}</li>
+                          <li>เลขที่ใบอนุญาต {{this.TransportScope}} {{this.TransportLicenseID}}</li>
                       </ul>
                   </div>
                 </td>
-                <td rowspan="4">
-                  <div class="d-flex justify-content-start pl-2">กรุงเทพมหานคร</div>
+                <td rowspan="9">
+                  <div class="d-flex justify-content-start pl-2">{{this.SrcProvinceName}}</div>
                 </td>
-                <td rowspan="4">
-                  <div class="d-flex justify-content-start pl-2">เชียงราย</div>
-                </td>
-                <td>
-                  <div class="d-flex justify-content-start pl-2">ผลิตภัณฑ์น้ำมันเชื้อเพลิง</div>
+                <td rowspan="9">
+                  <div class="d-flex justify-content-start pl-2">{{this.DstProvinceName}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end pr-2">0.00</div>
-                </td>
-                <td>
-                  <div class="d-flex justify-content-end pr-2">2</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex justify-content-start pl-2">ผลิตภัณฑ์มันสำปะหลัง</div>
+                  <div class="d-flex justify-content-start pl-2">หิน ดิน ทราย</div>
                 </td>
                 <td>
                   <div class="d-flex justify-content-end pr-2">0.00</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end pr-2">2</div>
+                  <div class="d-flex justify-content-end pr-2">{{this.P1}}</div>
                 </td>
               </tr>
               <tr>
@@ -86,18 +76,84 @@
                   <div class="d-flex justify-content-end pr-2">0.00</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end pr-2">2</div>
+                  <div class="d-flex justify-content-end pr-2">{{this.P2}}</div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <div class="d-flex justify-content-start pl-2">หิน ดิน ทราย</div>
+                  <div class="d-flex justify-content-start pl-2">ซีเมนต์</div>
                 </td>
                 <td>
                   <div class="d-flex justify-content-end pr-2">0.00</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end pr-2">2</div>
+                  <div class="d-flex justify-content-end pr-2">{{this.P3}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2">ข้าว</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">0.00</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">{{this.P4}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2">ผลิตภัณฑ์มันสำปะหลัง</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">0.00</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">{{this.P5}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2">ยางพารา</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">0.00</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">{{this.P6}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2">ผักสด/ผลไม้</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">0.00</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">{{this.P7}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2">อาหารแช่แข็ง</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">0.00</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">{{this.P8}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2">ผลิตภัณฑ์น้ำมันเชื้อเพลิง</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">0.00</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end pr-2">{{this.P9}}</div>
                 </td>
               </tr>
               <tr>
@@ -111,17 +167,7 @@
                   <div class="d-flex justify-content-end pr-2">8</div>
                 </td>
               </tr>
-              {{!-- <tr>
-                <td>
-                  <div></div>
-                </td>
-                <td>
-                  <div></div>
-                </td>
-                <td>
-                  <div></div>
-                </td>
-              </tr> --}}
+              {{/each}}
             </tbody>
           </table>
         </div>

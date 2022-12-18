@@ -9,15 +9,18 @@ import BtnSearch from '../../components/BtnSearch'
 import moment from 'moment'
 import { getReports } from '../../services/reports'
 import { getKeyValue } from '../../services/utils'
+import Cookies from 'js-cookie'
 
 export default function GCS11() {
   const [loading, setLoading] = useState(false)
+  const [stationEditable, setStationEditable] = useState(parseInt(Cookies.get('RoleID')) > 1 ? false : true)
+  const [companyEditable, setCompanyEditable] = useState(parseInt(Cookies.get('RoleID')) > 2 ? false : true)
     const [query, setQuery] = useState({
         station: {
-            value: 1
+            value: parseInt(Cookies.get('RoleID')) > 1 ? Cookies.get('StationID') : 1
         },
         company: {
-            value: ''
+            value: parseInt(Cookies.get('RoleID')) > 1 ? Cookies.get('CompanyID') : ''
         },
         startDate: {
             value: moment().startOf('day')
@@ -71,10 +74,10 @@ export default function GCS11() {
                 <CardContent>
                   <Grid container spacing={2} direction='row' wrap='wrap'>
                         <Grid item xs={6}>
-                            <SelectStation value={query.station.value} name='station' onChange={handleChangeValue} required></SelectStation>
+                            <SelectStation value={query.station.value} name='station' onChange={handleChangeValue} required disabled={!stationEditable}></SelectStation>
                         </Grid>
                         <Grid item xs={6}>
-                            <SelectCompany value={query.company.value} name='company' onChange={handleChangeValue} station={query.station.value}></SelectCompany>
+                            <SelectCompany value={query.company.value} name='company' onChange={handleChangeValue} station={query.station.value} disabled={!companyEditable}></SelectCompany>
                         </Grid>
                         <Grid item xs={6}>
                             <DltDateTimePicker value={query.startDate.value} name='startDate' label='วันที่เริ่มต้น' onChange={(e) => {query.startDate.value = e; setQuery({...query})}} required></DltDateTimePicker>

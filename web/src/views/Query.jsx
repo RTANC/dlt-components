@@ -19,16 +19,19 @@ import { getTransport, getVehicleIn, getVehicleOut } from '../services/query'
 import { SquareEditOutline } from 'mdi-material-ui'
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 export default function Query() {
   const [loading, setLoading] = useState(false)
+  const [stationEditable, setStationEditable] = useState(parseInt(Cookies.get('RoleID')) > 1 ? false : true)
+  const [companyEditable, setCompanyEditable] = useState(parseInt(Cookies.get('RoleID')) > 2 ? false : true)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const navigate = useNavigate()
   const [params, setParams] = useState({
     queryId: 1,
-    station: 1,
-    company: '',
+    station: parseInt(Cookies.get('RoleID')) > 1 ? Cookies.get('StationID') : 1,
+    company: Cookies.get('CompanyID'),
     startDateTime: moment().startOf('day'),
     endDateTime: moment().endOf('day'),
     inProvince: '',
@@ -263,7 +266,7 @@ export default function Query() {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectStation value={params.station} name='station' onChange={handleChange} required></SelectStation>
+                  <SelectStation value={params.station} name='station' disabled={!stationEditable} onChange={handleChange} required></SelectStation>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <DltDateTimePicker value={params.startDateTime} label='วันเวลา-เริ่มต้น' name='startDateTime' onChange={e => {params.startDateTime = e;setParams({...params})}} required maxDateTime={new Date(params.endDateTime)}></DltDateTimePicker>
@@ -272,7 +275,7 @@ export default function Query() {
                   <DltDateTimePicker value={params.endDateTime} label='วันเวลา-สิ้นสุด' name='endDateTime' onChange={e => {params.endDateTime = e;setParams({...params})}} required minDateTime={new Date(params.startDateTime)}></DltDateTimePicker>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectCompany value={params.company} name='company' onChange={handleChange} station={params.station}></SelectCompany>
+                  <SelectCompany value={params.company} name='company' onChange={handleChange} station={params.station} disabled={!companyEditable}></SelectCompany>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <SelectProvince value={params.inProvince} label='จังหวัดต้นทาง' name='inProvince' onChange={handleChange}></SelectProvince>

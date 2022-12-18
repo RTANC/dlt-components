@@ -4301,7 +4301,7 @@ exports.gcs18 = async (req, res, next) => {
             reportData: result
         }
         const client = require("@jsreport/nodejs-client")(process.env.JSREPORT_URL + ':5492', process.env.JSREPORT_USERNAME, process.env.JSREPORT_PASSWORD)
-        const response = await client.render({ template: { shortid: 'JF7MKzyJlb' } })
+        const response = await client.render({ template: { shortid: 'JF7MKzyJlb' }, data: data }, { timeout: 6000000 } )
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename=GCS18.pdf')
         response.pipe(res)

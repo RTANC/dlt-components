@@ -43,7 +43,7 @@
             <tbody>
               {{#each (reportDataFormatter reportData)}}
               <tr>
-                <td rowspan="10">
+                <td rowspan="2">
                   <div class="d-flex justify-content-start pl-2">{{this.CompanyName}}</div>
                   <div>
                       <ul>
@@ -52,11 +52,83 @@
                       </ul>
                   </div>
                 </td>
+                <td>
+                  <ul>
+                    {{#each this.Tx}}
+                      <li class="li-item">{{this.SrcProvinceName}}</li>
+                    {{/each}}
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    {{#each this.Tx}}
+                      <li class="li-item">{{this.DstProvinceName}}</li>
+                    {{/each}}
+                  </ul>
+                </td>
+                <td>
+                  {{#each this.Tx}}
+                  <ul>
+                    {{#if this.P1}}<li class="li-item">หิน ดิน ทราย</li>{{/if}}
+                    {{#if this.P2}}<li class="li-item">วัสดุก่อสร้าง</li>{{/if}}
+                    {{#if this.P3}}<li class="li-item">ซีเมนต์</li>{{/if}}
+                    {{#if this.P4}}<li class="li-item">ข้าว</li>{{/if}}
+                    {{#if this.P5}}<li class="li-item">ผลิตภัณฑ์มันสำปะหลัง</li>{{/if}}
+                    {{#if this.P6}}<li class="li-item">ยางพารา</li>{{/if}}
+                    {{#if this.P7}}<li class="li-item">ผักสด/ผลไม้</li>{{/if}}
+                    {{#if this.P8}}<li class="li-item">อาหารแช่แข็ง</li>{{/if}}
+                    {{#if this.P9}}<li class="li-item">ผลิตภัณฑ์น้ำมันเชื้อเพลิง</li>{{/if}}
+                  </ul>
+                  {{/each}}
+                </td>
+                <td>
+                  {{#each this.Tx}}
+                  <ul>
+                    {{#if this.P1}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                    {{#if this.P2}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                    {{#if this.P3}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                    {{#if this.P4}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                    {{#if this.P5}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                    {{#if this.P6}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                    {{#if this.P7}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                    {{#if this.P8}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                    {{#if this.P9}}<li class="li-item">{{this.GoodsW}}</li>{{/if}}
+                  </ul>
+                  {{/each}}
+                </td>
+                <td>
+                  {{#each this.Tx}}
+                  <ul>
+                    {{#if this.P1}}<li class="li-item">{{this.P1}}</li>{{/if}}
+                    {{#if this.P2}}<li class="li-item">{{this.P2}}</li>{{/if}}
+                    {{#if this.P3}}<li class="li-item">{{this.P3}}</li>{{/if}}
+                    {{#if this.P4}}<li class="li-item">{{this.P4}}</li>{{/if}}
+                    {{#if this.P5}}<li class="li-item">{{this.P5}}</li>{{/if}}
+                    {{#if this.P6}}<li class="li-item">{{this.P6}}</li>{{/if}}
+                    {{#if this.P7}}<li class="li-item">{{this.P7}}</li>{{/if}}
+                    {{#if this.P8}}<li class="li-item">{{this.P8}}</li>{{/if}}
+                    {{#if this.P9}}<li class="li-item">{{this.P9}}</li>{{/if}}
+                  </ul>
+                  {{/each}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <div class="d-flex justify-content-end pr-2">รวมทั้งสิ้น</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">{{this.totalGw}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end">{{totalV}}</div>
+                </td>
+              </tr>
+              {{!-- <tr>
                 <td rowspan="9">
-                  <div class="d-flex justify-content-start pl-2">{{this.SrcProvinceName}}</div>
+                  <div class="d-flex justify-content-start pl-2">-</div>
                 </td>
                 <td rowspan="9">
-                  <div class="d-flex justify-content-start pl-2">{{this.DstProvinceName}}</div>
+                  <div class="d-flex justify-content-start pl-2">-</div>
                 </td>
                 <td>
                   <div class="d-flex justify-content-start pl-2">หิน ดิน ทราย</div>
@@ -166,7 +238,7 @@
                 <td>
                   <div class="d-flex justify-content-end pr-2">8</div>
                 </td>
-              </tr>
+              </tr> --}}
               {{/each}}
             </tbody>
           </table>

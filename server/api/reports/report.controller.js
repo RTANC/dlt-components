@@ -4153,7 +4153,7 @@ exports.gcs17 = async (req, res, next) => {
 
 exports.gcs18 = async (req, res, next) => {
     try {
-        const sql_query = `DECLARE @d1 DATETIME2 = '2021-01-01T00:00:00' DECLARE @d2 DATETIME2 = '2021-01-31T23:59:59' DECLARE @sid INT = 1
+        const sql_query = `DECLARE @d1 DATETIME2 = '${req.query.startDate}' DECLARE @d2 DATETIME2 = '${req.query.endDate}' DECLARE @sid INT = ${req.query.station}
         SELECT
             CompanyID,
             CompanyName,

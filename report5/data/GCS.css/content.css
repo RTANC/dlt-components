@@ -74,4 +74,9 @@ th {
   border-color: lightgray;
 }
 
+.li-item {
+  display: flex;
+  justify-content: end;
+}
+
 @media print{@page {size: landscape}}

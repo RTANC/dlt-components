@@ -23,24 +23,24 @@ import { useNavigate } from 'react-router-dom'
 
 import '../styles/DltAppBar.css'
 
-const reportLinks = [{link: '/report/GCS01', text: 'GCS01 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายสถานี'},
-{link: '/report/GCS02', text: 'GCS02 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามประเภทรถ'},
-{link: '/report/GCS03', text: 'GCS03 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามชื่อผู้ประกอบการ'},
-{link: '/report/GCS04', text: 'GCS04 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามภูมิภาค ต้นทาง-ปลายทาง'},
-{link: '/report/GCS05', text: 'GCS05 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายชั่วโมง'},
-{link: '/report/GCS06', text: 'GCS06 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายวัน'},
-{link: '/report/GCS07', text: 'GCS07 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายเดือน'},
-{link: '/report/GCS08', text: 'GCS08 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายปี'},
-{link: '/report/GCS09', text: 'GCS09 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ช่วงกลางวัน-กลางคืน'},
-{link: '/report/GCS10', text: 'GCS10 ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี แยกตามประเภทรถ'},
-{link: '/report/GCS11', text: 'GCS11 ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี แยกตามผู้ประกอบการ'},
-{link: '/report/GCS12', text: 'GCS12 รายการแก้ไขป้ายทะเบียนโดยผู้บันทึกข้อมูล'},
-{link: '/report/GCS13', text: 'GCS13 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามประเภทรถ (ข้อมูลบันทึกโดยอัตโนมัติ)'},
-{link: '/report/GCS14', text: 'GCS14 ปริมาณข้อมูลที่ถูกบันทึกโดยผู้ประกอบการ'},
-{link: '/report/GCS15', text: 'GCS15 จำนวนรถรับส่งสินค้า แยกตามประเภทสินค้า'},
-{link: '/report/GCS16', text: 'GCS16 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามรายจังหวัด ต้นทาง-ปลายทาง'},
-{link: '/report/GCS17', text: 'GCS17 รายงานการคำนวณต้นทุนการขนส่งที่ลดลงได้จากการใช้งานสถานีขนส่งสินค้า'},
-{link: '/report/GCS18', text: 'GCS18 รายงานการขนส่งสัตว์หรือสิ่งของประเภทการขนส่งไม่ประจำทางและส่วนบุคคล'}] 
+const reportLinks = [{link: '/report/GCS01', roles: [0, 1, 2, 3], text: 'GCS01 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายสถานี'},
+{link: '/report/GCS02', roles: [0, 1, 2, 3], text: 'GCS02 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามประเภทรถ'},
+{link: '/report/GCS03', roles: [0, 1, 2, 3], text: 'GCS03 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามชื่อผู้ประกอบการ'},
+{link: '/report/GCS04', roles: [0, 1, 2, 3], text: 'GCS04 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามภูมิภาค ต้นทาง-ปลายทาง'},
+{link: '/report/GCS05', roles: [0, 1, 2, 3], text: 'GCS05 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายชั่วโมง'},
+{link: '/report/GCS06', roles: [0, 1, 2, 3], text: 'GCS06 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายวัน'},
+{link: '/report/GCS07', roles: [0, 1, 2, 3], text: 'GCS07 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายเดือน'},
+{link: '/report/GCS08', roles: [0, 1, 2, 3], text: 'GCS08 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี รายปี'},
+{link: '/report/GCS09', roles: [0, 1, 2, 3], text: 'GCS09 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ช่วงกลางวัน-กลางคืน'},
+{link: '/report/GCS10', roles: [0, 1, 2, 3], text: 'GCS10 ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี แยกตามประเภทรถ'},
+{link: '/report/GCS11', roles: [0, 1, 2], text: 'GCS11 ระยะเวลาเฉลี่ยที่รถแต่ละคันใช้เวลาอยู่ในสถานี แยกตามผู้ประกอบการ'},
+{link: '/report/GCS12', roles: [0, 1, 2], text: 'GCS12 รายการแก้ไขป้ายทะเบียนโดยผู้บันทึกข้อมูล'},
+{link: '/report/GCS13', roles: [0, 1, 2], text: 'GCS13 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามประเภทรถ (ข้อมูลบันทึกโดยอัตโนมัติ)'},
+{link: '/report/GCS14', roles: [0, 1, 2], text: 'GCS14 ปริมาณข้อมูลที่ถูกบันทึกโดยผู้ประกอบการ'},
+{link: '/report/GCS15', roles: [0, 1, 2], text: 'GCS15 จำนวนรถรับส่งสินค้า แยกตามประเภทสินค้า'},
+{link: '/report/GCS16', roles: [0, 1, 2, 3], text: 'GCS16 จำนวนรถและปริมาณสินค้าที่เข้า-ออกสถานี ตามรายจังหวัด ต้นทาง-ปลายทาง'},
+{link: '/report/GCS17', roles: [0, 1, 2], text: 'GCS17 รายงานการคำนวณต้นทุนการขนส่งที่ลดลงได้จากการใช้งานสถานีขนส่งสินค้า'},
+{link: '/report/GCS18', roles: [0, 1, 2], text: 'GCS18 รายงานการขนส่งสัตว์หรือสิ่งของประเภทการขนส่งไม่ประจำทางและส่วนบุคคล'}] 
 
 export default function DltAppBar() {
     const auth = useSelector((state) => state.login.isLogin)
@@ -98,6 +98,9 @@ export default function DltAppBar() {
       Cookies.remove('CompanyID')
       Cookies.remove('StationID')
       // toggleDrawer(false)
+      setDataMenu(false)
+      setManualMenu(false)
+      setReportMenu(false)
       setState(false)
       dispatch(logout())
       navigate('/')
@@ -168,11 +171,11 @@ export default function DltAppBar() {
           <Collapse in={reportMenu} timeout="auto" unmountOnExit>
               <List>
                 {reportLinks.map((v, i) => (
-                  <ListItem disablePadding key={i}>
+                  (v.roles.includes(parseInt(Cookies.get('RoleID')))) && (<ListItem disablePadding key={i}>
                     <ListItemButton  onClick={() => {setState(false); navigate(v.link)}}>
                       <ListItemText inset primary={v.text}/>
                     </ListItemButton>
-                  </ListItem>
+                  </ListItem>)
                 ))}
               </List>
           </Collapse>

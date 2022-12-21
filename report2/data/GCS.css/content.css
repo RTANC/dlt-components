@@ -74,4 +74,8 @@ th {
   border-color: lightgray;
 }
 
+.sum-row {
+  font-family: 'THSarabunPSK-Bold';
+}
+
 @media print{@page {size: landscape}}

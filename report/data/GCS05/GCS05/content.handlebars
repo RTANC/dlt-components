@@ -88,7 +88,7 @@
                   <div class="d-flex justify-content-end">{{numberFormatter this.NVehOUT}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">{{this.WGoodsWOUT}}</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WGoodsWOUT}}</div>
                 </td>
                 <td>
                   <div class="d-flex justify-content-end">{{numberFormatter this.NSend}}</div>
@@ -106,25 +106,74 @@
                   <div class="d-flex justify-content-end">{{sum this.NSend this.NReceive this.NSendReceive this.NOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">{{numberFormatter this.WSend}}</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WSend}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">{{numberFormatter this.WReceive}}</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">{{numberFormatter this.WSendReceive}}</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WSendReceive}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">{{numberFormatter this.WOthers}}</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter2 this.WOthers}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-end">{{sum this.WSend this.WReceive this.WSendReceive this.WOthers}}</div>
+                  <div class="d-flex justify-content-end">{{sum2 this.WSend this.WReceive this.WSendReceive this.WOthers}}</div>
                 </td>
                 <td>
                   <div class="d-flex justify-content-end">{{numberFormatter this.NVehCHK}}</div>
                 </td>
               </tr>
               {{/each}}
+              {{#with (SUM reportData)}}
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start sum-row">รวม</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{0}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{1}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{2}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{3}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{4}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{5}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{6}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{7}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{8}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{9}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{10}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{11}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{12}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{13}}</div>
+                </td>
+              </tr>
+              {{/with}}
             </tbody>
           </table>
         </div>

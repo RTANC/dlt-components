@@ -23,8 +23,8 @@ table, td, th {
 table > tbody > tr > td {
   font-family: 'THSarabunPSK';
   font-size: 14pt;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 table {
@@ -72,6 +72,10 @@ th {
 .border {
   border: 2px solid;
   border-color: lightgray;
+}
+
+.sum-row {
+  font-family: 'THSarabunPSK-Bold';
 }
 
 @media print{@page {size: landscape}}

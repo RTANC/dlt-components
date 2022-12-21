@@ -1,5 +1,27 @@
-function toJSON(data) {
-  return JSON.stringify(data);
+function SUM(data) {
+  let temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  for (let i = 0;i < data.length;i++) {
+    temp[0] += data[i].NVehIN || 0
+    temp[1] += data[i].NVehOUT || 0
+    temp[2] += (parseInt(data[i].WGoodsWOUT)/1000) || 0
+    temp[3] += data[i].NSend || 0
+    temp[4] += data[i].NReceive || 0
+    temp[5] += data[i].NSendReceive || 0
+    temp[6] += data[i].NOthers || 0
+    temp[7] += (data[i].NSend + data[i].NReceive + data[i].NSendReceive + data[i].NOthers) || 0
+    temp[8] += (data[i].WSend / 1000) || 0
+    temp[9] += (data[i].WReceive / 1000) || 0
+    temp[10] += (data[i].WSendReceive / 1000) || 0
+    temp[11] += (data[i].WOthers / 1000) || 0
+    temp[12] += ((data[i].WSend + data[i].WReceive + data[i].WSendReceive + data[i].WOthers) / 1000) || 0
+    temp[13] += data[i].NVehCHK || 0
+  }
+
+  for (let i = 0;i < temp.length;i++) {
+    temp[i] = numberFormatter(temp[i])
+  }
+  
+  return temp
 }
 
 function numberFormatter (number) {

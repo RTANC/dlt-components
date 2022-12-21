@@ -38,19 +38,35 @@
               {{#each reportData}}
               <tr>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.Description}}</div>
+                  <div class="d-flex justify-content-start">{{this.Description}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.NVehicle}}</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.NVehicle}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.Qty}}</div>
+                  <div class="d-flex justify-content-end">{{numberFormatter this.Qty}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.GoodsW}}</div>
+                  <div class="d-flex justify-content-end">{{numberFormatte2 this.GoodsW}}</div>
                 </td>
               </tr>
               {{/each}}
+              {{#with (SUM reportData)}}
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start sum-row">รวม</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{0}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{1}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{2}}</div>
+                </td>
+              </tr>
+              {{/with}}
             </tbody>
           </table>
         </div>

@@ -58,25 +58,50 @@
                   <div class="d-flex justify-content-start pl-2">{{this.Operator}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.N_YES}}</div>
+                  <div class="d-flex justify-content-center">{{numberFormatter this.N_YES}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.N_UNMATCHED}}</div>
+                  <div class="d-flex justify-content-center">{{sum this.N_MATCHED this.N_UNMATCHED}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.N_MATCHED}}</div>
+                  <div class="d-flex justify-content-center">{{numberFormatter this.N_MATCHED}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.N_UNMATCHED}}</div>
+                  <div class="d-flex justify-content-center">{{numberFormatter this.N_UNMATCHED}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.N_UNMATCHED}}</div>
+                  <div class="d-flex justify-content-center">{{subtract this.N_YES this.N_MATCHED this.N_UNMATCHED}}</div>
                 </td>
                 <td>
-                  <div class="d-flex justify-content-center">{{this.N_OVERLAY}}</div>
+                  <div class="d-flex justify-content-center">{{numberFormatter this.N_OVERDAY}}</div>
                 </td>
               </tr>
               {{/each}}
+              {{#with (SUM reportData)}}
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2 sum-row">รวม</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{0}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{1}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{2}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{3}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{4}}</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{5}}</div>
+                </td>
+              </tr>
+              {{/with}}
             </tbody>
           </table>
         </div>

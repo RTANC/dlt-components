@@ -1,5 +1,18 @@
-function toJSON(data) {
-  return JSON.stringify(data);
+function SUM(data) {
+  let temp = [0];
+  for (let i = 0;i < data.length;i++) {
+    if (data[i].NCount > 0 && data[i].MinUsed >= 0) {
+      temp[0] += (parseInt(data[i].MinUsed/data[i].NCount/60) + ((data[i].MinUsed/data[i].NCount/60) - (parseInt(data[i].MinUsed/data[i].NCount/60))))
+    } else {
+      temp[0] += 0
+    }
+  }
+
+  for (let i = 0;i < temp.length;i++) {
+    temp[i] = new Intl.NumberFormat().format(temp[i])
+  }
+  
+  return temp
 }
 
 function numberFormatter (NCount, MinUsed) {

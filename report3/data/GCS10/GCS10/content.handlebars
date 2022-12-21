@@ -39,6 +39,16 @@
                 </td>
               </tr>
               {{/each}}
+              {{#with (SUM reportData)}}
+              <tr>
+                <td>
+                  <div class="d-flex justify-content-start pl-2 sum-row">เวลาเฉลี่ยรวม</div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end sum-row">{{0}}</div>
+                </td>
+              </tr>
+              {{/with}}
             </tbody>
           </table>
         </div>

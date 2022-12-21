@@ -244,7 +244,6 @@ export default function Home() {
 
   // const usr = useSelector((state) => state.login)
   const clear = () => {
-    transport.company.value = ''
     transport.company.error = false
     transport.manualLP = false
     transport.f1a.value = ''

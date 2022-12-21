@@ -46,7 +46,6 @@ export default function GCS14() {
       const clear = () => {
         try {
           setLoading(true)
-          query.station.value = 1
           query.startDate.value = moment().startOf('day')
           query.endDate.value = moment().endOf('day')
           setQuery({...query})

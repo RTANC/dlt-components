@@ -23,6 +23,7 @@ export default function SelectVehicleClass(props) {
     <FormControl fullWidth error={props.error !== false} color='warning' focused>
       <InputLabel sx={{fontSize: 20}} shrink>ประเภทรถ</InputLabel>
       <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
+        {!props.required && <MenuItem value="">&nbsp;</MenuItem>}
           {vehicleClasses.map((v, i) => (
             <MenuItem value={v.VehicleClassID} key={i}>{v.Description}</MenuItem>
           ))}

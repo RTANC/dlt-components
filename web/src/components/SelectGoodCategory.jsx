@@ -25,6 +25,7 @@ export default function SelectGoodCategory(props) {
     <FormControl fullWidth error={props.error !== false} color='warning' focused>
       <InputLabel sx={{fontSize: 20}} shrink>ประเภทสินค้า</InputLabel>
       <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
+        {!props.required && <MenuItem value="">&nbsp;</MenuItem>}
           {goodCategory.map((v, i) => (
             <MenuItem value={v.CategoryID} key={i}>{v.CategoryName}</MenuItem>
           ))}

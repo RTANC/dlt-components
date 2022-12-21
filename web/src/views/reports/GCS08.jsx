@@ -50,8 +50,6 @@ export default function GCS08() {
       const clear = () => {
         try {
           setLoading(true)
-          query.station.value = 1
-          query.company.value = ''
           query.startYear.value = moment()
           query.endYear.value = moment()
           setQuery({...query})

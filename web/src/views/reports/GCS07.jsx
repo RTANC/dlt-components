@@ -47,8 +47,6 @@ export default function GCS07() {
       const clear = () => {
         try {
           setLoading(true)
-          query.station.value = 1
-          query.company.value = ''
           query.year.value = moment()
           setQuery({...query})
         } catch (error) {

@@ -23,6 +23,7 @@ export default function SelectProvince(props) {
     <FormControl fullWidth error={props.error !== false} color='warning' focused>
       <InputLabel sx={{fontSize: 20}} shrink>{props.label}</InputLabel>
       <DltSelect onChange={props.onChange} value={props.value} name={props.name}>
+        {!props.required && <MenuItem value="">&nbsp;</MenuItem>}
           {provinces.map((v, i) => (
             <MenuItem value={v.ProvinceID} key={i}>{v.ProvinceName}</MenuItem>
           ))}

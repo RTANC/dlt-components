@@ -223,8 +223,6 @@ export default function Query() {
   const clear = () => {
     setParams({
       queryId: 1,
-      station: 1,
-      company: '',
       startDateTime: moment().startOf('day'),
       endDateTime: moment().endOf('day'),
       inProvince: '',

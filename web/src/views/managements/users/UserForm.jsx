@@ -13,11 +13,13 @@ import { passwordValidator, emailValidator, getKeyValue, hashMD5 } from '../../.
 import formValidator, { validator } from '../../../services/validator'
 import RadioBoxIsActiveUser from '../../../components/RadioBoxIsActiveUser'
 import DltPasswordTextField from '../../../components/DltPasswordTextField'
+import Cookies from 'js-cookie'
 
 export default function UserForm() {
     const [loading, setLoading] = useState(false)
     const [valid, setValid] = useState(false)
     const [editMode, setEditMode] = useState(false)
+    const [editFields, setEditFields] = useState([(parseInt(Cookies.get('RoleID')) < 2 ? true : false), (parseInt(Cookies.get('RoleID')) < 2 ? true : false), true, (parseInt(Cookies.get('RoleID')) < 2 ? true : false)])
     const { uid } = useParams()
     const navigate = useNavigate()
     const [user, setUser] = useState({
@@ -192,13 +194,13 @@ export default function UserForm() {
               <CardContent>
                 <Grid container spacing={2} direction='row' wrap="wrap">
                   <Grid item xs={12}>
-                    <SelectUserRole name='userRole' value={user.userRole.value} onChange={handleValueChange} required disabled={editMode}></SelectUserRole>
+                    <SelectUserRole name='userRole' value={user.userRole.value} onChange={handleValueChange} required disabled={!editFields[0]}></SelectUserRole>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <SelectStation name='station' value={user.station.value} onChange={handleValueChange} required disabled={editMode}></SelectStation>
+                    <SelectStation name='station' value={user.station.value} onChange={handleValueChange} required disabled={!editFields[1]}></SelectStation>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <SelectAgency name='agency' value={user.agency.value} onChange={handleValueChange} stationId={user.station.value} required disabled={editMode} error={user.agency.error}></SelectAgency>
+                    <SelectAgency name='agency' value={user.agency.value} onChange={handleValueChange} stationId={user.station.value} required disabled={!editFields[2]} error={user.agency.error}></SelectAgency>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider variant="middle"></Divider>
@@ -225,7 +227,7 @@ export default function UserForm() {
             <CardContent>
               <Grid container spacing={2} direction='row' wrap="wrap">
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltTextField label='ชื่อผู้ใช้งาน' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required readOnly={editMode} error={user.username.error}></DltTextField>
+                  <DltTextField label='ชื่อผู้ใช้งาน' name='username' value={user.username.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required readOnly={!editFields[3]} error={user.username.error}></DltTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                   <RadioBoxIsActiveUser name='isActive' value={user.isActive.value} onChange={handleValueChange}></RadioBoxIsActiveUser>

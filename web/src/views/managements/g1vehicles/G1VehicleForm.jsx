@@ -128,7 +128,7 @@ export default function G1VehicleForm() {
         <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text-m'>แก้ไขรายการรถของผู้ประกอบการ</div>
+              <div className='dlt-page-title-text-m'>{editMode ? 'แก้ไขรายการรถของผู้ประกอบการ' : 'เพิ่มรายการรถของผู้ประกอบการ'}</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card sx={{py: 3}}>

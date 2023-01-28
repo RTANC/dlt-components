@@ -7,5 +7,6 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 5000
   },
-  publicDir: 'static'
+  publicDir: './static',
+  base: '/gcs4/'
 })

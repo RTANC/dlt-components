@@ -118,7 +118,7 @@ export default function IncidentForm() {
         <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text'>เพิ่มข้อมูลเหตุการณ์</div>
+              <div className='dlt-page-title-text'>{editMode ? 'แก้ไขข้อมูลเหตุการณ์' : 'เพิ่มข้อมูลเหตุการณ์'}</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

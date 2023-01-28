@@ -44,43 +44,43 @@ function App() {
   api.defaults.headers.common['Authorization'] = "Bearer " + Cookies.get('token') //สำหรับกรณี user refresh หน้า page
   return (
     <div className="App">
-      <BrowserRouter basename='/'>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
       <DltAppBar></DltAppBar>
       <Routes>
-        <Route path='/' element={<Login></Login>}></Route>
-        <Route path='/home' element={<Home></Home>}></Route>
-        <Route path='/query' element={<Query></Query>}></Route>
-        <Route path='/profile' element={<Profile></Profile>}></Route>
-        <Route path='/management/user' element={<ManagementUser></ManagementUser>}></Route>
-        <Route path='/management/user/:uid' element={<ManagementUserForm></ManagementUserForm>}></Route>
-        <Route path='/management/company' element={<ManagementCompany></ManagementCompany>}></Route>
-        <Route path='/management/company/:companyId' element={<ManagementCompanyForm></ManagementCompanyForm>}></Route>
-        <Route path='/management/g1Vehicle' element={<ManagementG1Vehicle></ManagementG1Vehicle>}></Route>
-        <Route path='/management/g1Vehicle/:gid' element={<ManagementG1VehicleForm></ManagementG1VehicleForm>}></Route>
-        <Route path='/management/g2Vehicle' element={<ManagementG2Vehicle></ManagementG2Vehicle>}></Route>
-        <Route path='/management/g2Vehicle/:gid' element={<ManagementG2VehicleForm></ManagementG2VehicleForm>}></Route>
-        <Route path='/management/g2Vehiclerule' element={<ManagementG2VehicleRule></ManagementG2VehicleRule>}></Route>
-        <Route path='/management/g2Vehiclerule/:stationId' element={<ManagementG2VehicleRuleForm></ManagementG2VehicleRuleForm>}></Route>
-        <Route path='/management/incidents' element={<ManagementIncident></ManagementIncident>}></Route>
-        <Route path='/management/incidents/:incidentId' element={<ManagementIncidentForm></ManagementIncidentForm>}></Route>
-        <Route path='/report/GCS01' element={<ReportGCS01></ReportGCS01>}></Route>
-        <Route path='/report/GCS02' element={<ReportGCS02></ReportGCS02>}></Route>
-        <Route path='/report/GCS03' element={<ReportGCS03></ReportGCS03>}></Route>
-        <Route path='/report/GCS04' element={<ReportGCS04></ReportGCS04>}></Route>
-        <Route path='/report/GCS05' element={<ReportGCS05></ReportGCS05>}></Route>
-        <Route path='/report/GCS06' element={<ReportGCS06></ReportGCS06>}></Route>
-        <Route path='/report/GCS07' element={<ReportGCS07></ReportGCS07>}></Route>
-        <Route path='/report/GCS08' element={<ReportGCS08></ReportGCS08>}></Route>
-        <Route path='/report/GCS09' element={<ReportGCS09></ReportGCS09>}></Route>
-        <Route path='/report/GCS10' element={<ReportGCS10></ReportGCS10>}></Route>
-        <Route path='/report/GCS11' element={<ReportGCS11></ReportGCS11>}></Route>
-        <Route path='/report/GCS12' element={<ReportGCS12></ReportGCS12>}></Route>
-        <Route path='/report/GCS13' element={<ReportGCS13></ReportGCS13>}></Route>
-        <Route path='/report/GCS14' element={<ReportGCS14></ReportGCS14>}></Route>
-        <Route path='/report/GCS15' element={<ReportGCS15></ReportGCS15>}></Route>
-        <Route path='/report/GCS16' element={<ReportGCS16></ReportGCS16>}></Route>
-        <Route path='/report/GCS17' element={<ReportGCS17></ReportGCS17>}></Route>
-        <Route path='/report/GCS18' element={<ReportGCS18></ReportGCS18>}></Route>
+        <Route exact path='/' element={<Login></Login>}></Route>
+        <Route exact path='/home' element={<Home></Home>}></Route>
+        <Route exact path='/query' element={<Query></Query>}></Route>
+        <Route exact path='/profile' element={<Profile></Profile>}></Route>
+        <Route exact path='/management/user' element={<ManagementUser></ManagementUser>}></Route>
+        <Route exact path='/management/user/:uid' element={<ManagementUserForm></ManagementUserForm>}></Route>
+        <Route exact path='/management/company' element={<ManagementCompany></ManagementCompany>}></Route>
+        <Route exact path='/management/company/:companyId' element={<ManagementCompanyForm></ManagementCompanyForm>}></Route>
+        <Route exact path='/management/g1Vehicle' element={<ManagementG1Vehicle></ManagementG1Vehicle>}></Route>
+        <Route exact path='/management/g1Vehicle/:gid' element={<ManagementG1VehicleForm></ManagementG1VehicleForm>}></Route>
+        <Route exact path='/management/g2Vehicle' element={<ManagementG2Vehicle></ManagementG2Vehicle>}></Route>
+        <Route exact path='/management/g2Vehicle/:gid' element={<ManagementG2VehicleForm></ManagementG2VehicleForm>}></Route>
+        <Route exact path='/management/g2Vehiclerule' element={<ManagementG2VehicleRule></ManagementG2VehicleRule>}></Route>
+        <Route exact path='/management/g2Vehiclerule/:stationId' element={<ManagementG2VehicleRuleForm></ManagementG2VehicleRuleForm>}></Route>
+        <Route exact path='/management/incidents' element={<ManagementIncident></ManagementIncident>}></Route>
+        <Route exact path='/management/incidents/:incidentId' element={<ManagementIncidentForm></ManagementIncidentForm>}></Route>
+        <Route exact path='/report/GCS01' element={<ReportGCS01></ReportGCS01>}></Route>
+        <Route exact path='/report/GCS02' element={<ReportGCS02></ReportGCS02>}></Route>
+        <Route exact path='/report/GCS03' element={<ReportGCS03></ReportGCS03>}></Route>
+        <Route exact path='/report/GCS04' element={<ReportGCS04></ReportGCS04>}></Route>
+        <Route exact path='/report/GCS05' element={<ReportGCS05></ReportGCS05>}></Route>
+        <Route exact path='/report/GCS06' element={<ReportGCS06></ReportGCS06>}></Route>
+        <Route exact path='/report/GCS07' element={<ReportGCS07></ReportGCS07>}></Route>
+        <Route exact path='/report/GCS08' element={<ReportGCS08></ReportGCS08>}></Route>
+        <Route exact path='/report/GCS09' element={<ReportGCS09></ReportGCS09>}></Route>
+        <Route exact path='/report/GCS10' element={<ReportGCS10></ReportGCS10>}></Route>
+        <Route exact path='/report/GCS11' element={<ReportGCS11></ReportGCS11>}></Route>
+        <Route exact path='/report/GCS12' element={<ReportGCS12></ReportGCS12>}></Route>
+        <Route exact path='/report/GCS13' element={<ReportGCS13></ReportGCS13>}></Route>
+        <Route exact path='/report/GCS14' element={<ReportGCS14></ReportGCS14>}></Route>
+        <Route exact path='/report/GCS15' element={<ReportGCS15></ReportGCS15>}></Route>
+        <Route exact path='/report/GCS16' element={<ReportGCS16></ReportGCS16>}></Route>
+        <Route exact path='/report/GCS17' element={<ReportGCS17></ReportGCS17>}></Route>
+        <Route exact path='/report/GCS18' element={<ReportGCS18></ReportGCS18>}></Route>
       </Routes>
       {/* <Footer></Footer> */}
       </BrowserRouter>

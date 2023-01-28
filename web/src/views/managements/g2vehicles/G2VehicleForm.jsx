@@ -129,7 +129,7 @@ export default function G2VehicleForm() {
         <Container>
           <Stack spacing={2}>
             <div className='dlt-page-title'>
-              <div className='dlt-page-title-text-m'>แก้ไขรายการรถลูกค้าของผู้ประกอบการ</div>
+              <div className='dlt-page-title-text-m'>{editMode ? 'แก้ไขรายการรถลูกค้าของผู้ประกอบการ' : 'เพิ่มรายการรถลูกค้าของผู้ประกอบการ'}</div>
               <div className='dlt-page-title-line'></div>
             </div>
             <Card>

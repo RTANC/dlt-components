@@ -57,5 +57,5 @@ ImageListLP.propTypes = {
 }
 
 ImageListLP.defaultProps = {
-  images: ['/Image_Mock.png','/Image_Mock.png','/Image_Mock.png','/Image_Mock.png']
+  images: ['./Image_Mock.png','./Image_Mock.png','./Image_Mock.png','./Image_Mock.png']
 }

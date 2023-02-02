@@ -5,7 +5,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, pr
     dialect: 'mssql',
     port: process.env.DB_PORT,
     dialectOptions: {
-        options: { requestTimeout: 600000 }
+        options: { requestTimeout: 600000, encrypt: false }
     }
 })
 

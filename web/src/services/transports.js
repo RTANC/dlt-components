@@ -8,6 +8,10 @@ export function getLicensePlates (station, LPnumber) {
     return api.get('/transports/licenseplates?station=' + station + '&LPnumber=' + LPnumber)
 }
 
+export function getLicensePlatesOut (station, LPnumber, TimeStampIn) {
+    return api.get('/transports/licenseplates?station=' + station + '&LPnumber=' + LPnumber + '&TimeStampIn=' + TimeStampIn)
+}
+
 export function getTransport (id) {
     return api.get('/transports/' + id)
 }

@@ -22,6 +22,15 @@ const VehicleOutForMatchingRoutes = require('./VehicleOutForMatching')
 const GunMatchingRoutes = require('./GunMatching')
 const RFIDInfoRoutes = require('./RFIDInfo')
 
+router.get('/test', async (req,res,next)=>{
+    try{
+        res.status(200).send({
+            message: 'System status On.'
+        })
+    } catch(err) {
+        res.sendStatus(500)
+    }
+})
 router.post('/VehicleRecord', apiAuth, vehicleRecordRoutes)
 router.post('/CheckExitCondition', apiAuth, CheckExitConditionRoutes)
 router.post('/VehicleInForMatching', apiAuth, VehicleInForMatchingRoutes)

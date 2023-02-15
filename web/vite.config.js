@@ -8,5 +8,5 @@ export default defineConfig({
     chunkSizeWarningLimit: 5000
   },
   publicDir: './static',
-  base: '/gcs4/'
+  base: '/gcs2/'
 })

@@ -50,7 +50,7 @@ module.exports = async (req, res, next) => {
         //         stationID: stationID,
         //         laneID: laneID,
         //         seqID: seqID,
-        //         result: 'OK'
+        //         result: 'YES'
         //     })
         // }
     } catch (error) {

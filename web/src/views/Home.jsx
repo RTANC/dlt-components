@@ -14,6 +14,7 @@ import formValidator from '../services/validator'
 import { SquareEditOutline } from 'mdi-material-ui'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import AutoCompleteSearchLP from '../components/AutoCompleteSearchLP'
+import AutoCompleteSearchLPOut from '../components/AutoCompleteSearchLPOut'
 import BtnSave from '../components/BtnSave'
 import BtnClear from '../components/BtnClear'
 // import { useSelector } from 'react-redux'
@@ -114,7 +115,14 @@ export default function Home() {
       value: ''
     },
     transportId: null,
-    vehicleInId: null
+    vehicleInId: null,
+    VehicleOutID: null,
+    F2A: null,
+    F2APID: null,
+    R2A: null,
+    R2APID: null,
+    TimeStampOut: null,
+    isOut: false
   })
 
   const handleLPSearch = async (e, v) => {
@@ -144,6 +152,27 @@ export default function Home() {
     if (v.TransportID !== null) {
       (await getTransport(transport.transportId)).data
     }
+    setTransport({...transport})
+  }
+
+  const handleLPSearchOut = async (e, v) => {
+    transport.VehicleOutID = v.VehicleOutID
+    transport.F2A = v.F2A || ''
+    transport.F2APID = v.F2APID
+    transport.R2A = v.R2A || ''
+    transport.R2APID = v.R2APID
+    transport.TimeStampOut = removeSQLTz(v.TimeStampOut)
+    setTransport({...transport})
+  }
+
+  const toggleCarOut = (e) => {
+    transport.isOut = !transport.isOut
+    transport.VehicleOutID = null
+    transport.F2A = ''
+    transport.F2APID = null
+    transport.R2A = ''
+    transport.R2APID = null
+    transport.TimeStampOut = null
     setTransport({...transport})
   }
 
@@ -210,7 +239,8 @@ export default function Home() {
           R1MPID: transport.r1apId.value,
           manualLP: transport.manualLP,
           editLP: transport.editLP,
-          VehicleClassID: transport.vehicleClass.value }
+          VehicleClassID: transport.vehicleClass.value,
+          VehicleOutID: transport.VehicleOutID }
         if (transport.transportId === null) {
           await createTransport(payload)
         } else {
@@ -263,6 +293,12 @@ export default function Home() {
     transport.dstGoodsOther.value = ''
     transport.vehicleInId = null
     transport.transportId = null
+    transport.VehicleOutID = null
+    transport.F2A = ''
+    transport.F2APID = null
+    transport.R2A = ''
+    transport.R2APID = null
+    transport.TimeStampOut = null
     setImages(['/Image_Mock.png','/Image_Mock.png','/Image_Mock.png','/Image_Mock.png'])
     setTransport({...transport})
   }
@@ -346,10 +382,20 @@ export default function Home() {
                 <Divider></Divider>
               </Grid>
               <Grid item xs={12}  sx={{display: 'flex', justifyContent: 'center'}}>
-                <Button variant="contained" color="error" endIcon={<LocalShippingIcon/>} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F15353 0%, #A31212 98.65%)', borderRadius: 3}}>
+                <Button variant="contained" color="error" onClick={toggleCarOut} endIcon={<LocalShippingIcon/>} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 24, height: 48, background: 'linear-gradient(102.79deg, #F15353 0%, #A31212 98.65%)', borderRadius: 3}}>
                   รถออกจากสถานี
                 </Button>
               </Grid>
+              {transport.isOut && <React.Fragment><Grid item xs={12}>
+                <AutoCompleteSearchLPOut station={transport.station.value} timeStampIn={transport.timeStampIn.value} name='lpNumberOut' onChange={handleLPSearchOut}></AutoCompleteSearchLPOut>
+              </Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='F2A' value={transport.F2A} readOnly></DltTextField></Grid>
+              <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='R2A' value={transport.R2A} readOnly></DltTextField></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='F2APID' value={transport.F2APID} disabled></SelectLPProvince></Grid>
+              <Grid item xs={6}><SelectLPProvince label='จังหวัด' name='R2APID' value={transport.R2APID} disabled></SelectLPProvince></Grid>
+              <Grid item xs={12}>
+                <DltDateTimePicker value={transport.TimeStampOut} label='วัน เวลา ที่รถออก' name='TimeStampOut' readOnly></DltDateTimePicker>
+              </Grid></React.Fragment>}
             </Grid>
           </CardContent>}
         </Card>

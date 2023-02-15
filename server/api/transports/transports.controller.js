@@ -14,11 +14,17 @@ exports.getProvinces = async (req, res, next) => {
 
 exports.getLicensePlates = async (req, res, next) => {
     try {
-        const sql = `select TOP (30) VehicleInID, StationID, TimeStampIn, LaneID, F1A, F1APID, (select ProvinceName from LPProvince where ProvinceID = F1APID) as F1APName, R1A, R1APID, (select ProvinceName from LPProvince where ProvinceID = R1APID) as R1APName, ImageRef, TransportID
-        from VehicleIn
-        where TransportID IS NULL and VehicleOutID IS NULL and StationID = ${req.query.station} and (F1A like '${req.query.LPnumber}%' or R1A like '${req.query.LPnumber}%') and (TimeStampIn between '${dateTimeSQLFormatter(moment().subtract(2, 'days').startOf('day'))}' and '${dateTimeSQLFormatter(moment())}')
-        order by TimeStampIn desc` //ช่วงเวลา TimeStampIn ใช้สำหรับการ demo เท่านั้น
-
+        let sql = ``
+        if (req.query.TimeStampIn) {
+            sql = `select TOP (40) VehicleOutID, StationID, TimeStampOut, LaneID, F2A, F2APID, (select ProvinceName from LPProvince where ProvinceID = F2APID) as F2APName, R2A, R2APID, (select ProvinceName from LPProvince where ProvinceID = R2APID) as R2APName, ImageRef
+            from VehicleOut
+            where VehicleInID IS NULL and StationID = ${req.query.station} and (F2A like '%${req.query.LPnumber}%' or R2A like '%${req.query.LPnumber}%') and (TimeStampOut between '${dateTimeSQLFormatter(moment(req.query.TimeStampIn))}' and '${dateTimeSQLFormatter(moment())}')`
+        } else {
+            sql = `select TOP (40) VehicleInID, StationID, TimeStampIn, LaneID, F1A, F1APID, (select ProvinceName from LPProvince where ProvinceID = F1APID) as F1APName, R1A, R1APID, (select ProvinceName from LPProvince where ProvinceID = R1APID) as R1APName, ImageRef, TransportID
+            from VehicleIn
+            where TransportID IS NULL and VehicleOutID IS NULL and StationID = ${req.query.station} and (F1A like '%${req.query.LPnumber}%' or R1A like '%${req.query.LPnumber}%') and (TimeStampIn between '${dateTimeSQLFormatter(moment().subtract(2, 'days').startOf('day'))}' and '${dateTimeSQLFormatter(moment())}')
+            order by TimeStampIn desc` //ช่วงเวลา TimeStampIn ใช้สำหรับการ demo เท่านั้น
+        }
         const licenseplates = await sequelize.query(sql, { type: QueryTypes.SELECT })
         res.status(200).send(licenseplates)
     } catch (error) {
@@ -41,7 +47,7 @@ exports.getTransport = async (req, res, next) => {
 exports.createTransport = async (req, res, next) => {
     try {
         const userId = req.userData.UserID
-        const { StationID, CompanyID, ObjectiveID, SrcProvinceID, SrcGoods, SrcGoodsOther, DstProvinceID, DstGoods, DstGoodsOther, VehicleInID, TimeStampIn, F1M, F1MPID, R1M, R1MPID, VehicleClassID, manualLP } = req.body // TimeStampTx เวลาดึงจากฝั่ง backend นี้, UserID ดึงจาก token
+        const { StationID, CompanyID, ObjectiveID, SrcProvinceID, SrcGoods, SrcGoodsOther, DstProvinceID, DstGoods, DstGoodsOther, VehicleInID, TimeStampIn, F1M, F1MPID, R1M, R1MPID, VehicleClassID, manualLP, VehicleOutID } = req.body // TimeStampTx เวลาดึงจากฝั่ง backend นี้, UserID ดึงจาก token
         let ext = ''
         if (manualLP) {
             ext = `insert VehicleIn(StationID, TimeStampIn, LaneID, F1A, F1APID, R1A, R1APID, ImageRef, TransportID, CreateBy)
@@ -49,7 +55,11 @@ exports.createTransport = async (req, res, next) => {
         } else {
             ext = `update VehicleIn
             set TransportID = scope_identity(), TimeStampIn = '${TimeStampIn}', F1A = '${F1M}', F1APID = ${F1MPID || 'NULL'}, R1A = '${R1M}', R1APID = ${R1MPID || 'NULL'}
-            where VehicleInID = ${VehicleInID}`
+            where VehicleInID = ${VehicleInID}
+            
+            update VehicleOut
+            set TransportID = scope_identity(), VehicleInID = ${VehicleInID}
+            where VehicleOutID = ${VehicleOutID}`
         }
         await sequelize.query(`insert Transport(StationID, TimeStampTx, CompanyID, UserID, ObjectiveID, SrcProvinceID, SrcGoods, SrcGoodsOther, DstProvinceID, DstGoods, DstGoodsOther, VehicleInID, TimeStampIn, F1M, F1MPID, R1M, R1MPID, VehicleClassID)
         values(${StationID}, '${getDateTimeNow()}', ${CompanyID}, ${userId}, ${ObjectiveID}, ${SrcProvinceID ? SrcProvinceID : 'NULL'}, ${SrcGoods}, '${SrcGoodsOther}', ${DstProvinceID ? DstProvinceID : 'NULL'}, ${DstGoods}, '${DstGoodsOther}', ${VehicleInID}, '${TimeStampIn}', '${F1M}', ${F1MPID}, '${R1M}', ${R1MPID}, ${VehicleClassID} )

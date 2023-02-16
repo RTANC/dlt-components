@@ -34,6 +34,9 @@ export function hashMD5(str) {
 }
 
 export function getImageURL(stationId, laneId, dateTime, imageRef, ext) {
+    if (stationId === null || laneId === null || !moment(dateTime).isValid() || imageRef === null) {
+        return ''
+    }
     let prefix = ''
     switch (laneId) {
         case 0: prefix = 'IN';

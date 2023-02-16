@@ -95,7 +95,7 @@ exports.saveImage = (body, imageRef) => {
         fs.mkdirSync(PATH, { recursive: true })
     }
 
-    imgName = prefix + '-' + imageRef + '-'
+    imgName = prefix + '-' + body.stationID.toString() + '-' + body.laneID.toString() + '-' + (moment(body.timeStamp).format('YYYYMMDD')) + '-' + imageRef + '-'
 
     fs.writeFile(path.join(PATH, (imgName + '0' + '.jpg')), body.frontLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
     fs.writeFile(path.join(PATH, (imgName + '1' + '.jpg')), body.rearLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))

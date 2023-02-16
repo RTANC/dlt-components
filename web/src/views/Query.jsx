@@ -13,8 +13,7 @@ import BtnSearch from '../components/BtnSearch'
 import BtnClear from '../components/BtnClear'
 import DltTextField from '../components/DltTextField'
 import moment from 'moment'
-import { DataGrid } from '@mui/x-data-grid'
-import { dateTimeFormatter, null2empty, timeStayIn } from '../services/utils'
+import { dateTimeFormatter, null2empty, timeStayIn, getImageURL } from '../services/utils'
 import { getTransport, getVehicleIn, getVehicleOut } from '../services/query'
 import { SquareEditOutline } from 'mdi-material-ui'
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined'
@@ -99,6 +98,10 @@ export default function Query() {
         return ''
       }
     }},
+    { id: 'F1MIMG0', label: 'ภาพทะเบียนหน้าขาเข้า', align: 'center', maxWidth: 150 },
+    { id: 'R1MIMG1', label: 'ภาพทะเบียนหลังขาเข้า', align: 'center', maxWidth: 150 },
+    { id: 'F1MIMG2', label: 'ภาพหน้ารถขาเข้า', align: 'center', maxWidth: 150 },
+    { id: 'R1MIMG3', label: 'ภาพหลังรถขาเข้า', align: 'center', maxWidth: 150 },
     { id: 'F2A', label: 'ทะเบียนหน้าขาออก', align: 'center', minWidth: 150, format: (F2A, F2APName) => {
       try {
         return null2empty(F2A) + ' ' + null2empty(F2APName)
@@ -113,6 +116,10 @@ export default function Query() {
         return ''
       }
     }},
+    { id: 'F2AIMG0', label: 'ภาพทะเบียนหน้าขาออก', align: 'center', maxWidth: 150 },
+    { id: 'R2AIMG1', label: 'ภาพทะเบียนหลังขาออก', align: 'center', maxWidth: 150 },
+    { id: 'F2AIMG2', label: 'ภาพหน้ารถขาออก', align: 'center', maxWidth: 150 },
+    { id: 'R2AIMG3', label: 'ภาพหลังรถขาออก', align: 'center', maxWidth: 150 },
     { id: 'ObjectiveName', label: 'วัตถุประสงค์', align: 'center', minWidth: 150, format: (value) => {
       try {
         if (value !== '') {
@@ -341,16 +348,24 @@ export default function Query() {
                               <TableCell align={columns[5].align}>{row.VehicleGroupName}</TableCell>
                               <TableCell align={columns[6].align}>{columns[6].format(row.F1M, row.F1MPName)}</TableCell>
                               <TableCell align={columns[7].align}>{columns[7].format(row.R1M, row.R1MPName)}</TableCell>
-                              <TableCell align={columns[8].align}>{columns[8].format(row.F2A, row.F2APName)}</TableCell>
-                              <TableCell align={columns[9].align}>{columns[9].format(row.R2A, row.R2APName)}</TableCell>
-                              <TableCell align={columns[10].align}>{columns[10].format(row.ObjectiveName)}</TableCell>
-                              <TableCell align={columns[11].align}>{columns[11].format(row.SrcProvinceName)}</TableCell>
-                              <TableCell align={columns[12].align}>{columns[12].format(row.DstProvinceName)}</TableCell>
-                              <TableCell align={columns[13].align}>{row.NoLoadWt}</TableCell>
-                              <TableCell align={columns[14].align}>{row.LoadWt}</TableCell>
-                              <TableCell align={columns[15].align}>{columns[15].format(row.OverWt)}</TableCell>
-                              <TableCell align={columns[16].align}>{columns[16].format(row.IsConfirmed)}</TableCell>
-                              <TableCell align={columns[17].align}>{columns[17].format(row.TimeStampIn, row.TimeStampOut)}</TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '0')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '1')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '2')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '3')} width="100" height="100"/></TableCell>
+                              <TableCell align={columns[12].align}>{columns[12].format(row.F2A, row.F2APName)}</TableCell>
+                              <TableCell align={columns[13].align}>{columns[13].format(row.R2A, row.R2APName)}</TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '0')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '1')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '2')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '3')} width="100" height="100"/></TableCell>
+                              <TableCell align={columns[18].align}>{columns[18].format(row.ObjectiveName)}</TableCell>
+                              <TableCell align={columns[19].align}>{columns[19].format(row.SrcProvinceName)}</TableCell>
+                              <TableCell align={columns[20].align}>{columns[20].format(row.DstProvinceName)}</TableCell>
+                              <TableCell align={columns[21].align}>{row.NoLoadWt}</TableCell>
+                              <TableCell align={columns[22].align}>{row.LoadWt}</TableCell>
+                              <TableCell align={columns[23].align}>{columns[23].format(row.OverWt)}</TableCell>
+                              <TableCell align={columns[24].align}>{columns[24].format(row.IsConfirmed)}</TableCell>
+                              <TableCell align={columns[25].align}>{columns[25].format(row.TimeStampIn, row.TimeStampOut)}</TableCell>
                               <TableCell align='center'><IconButton color="warning" onClick={() => {navigate('/home')}}><SquareEditOutline/></IconButton></TableCell>
                               <TableCell align='center'><IconButton color="warning" onClick={() => {navigate('/home')}}><PrintOutlinedIcon/></IconButton></TableCell>
                               {/* {columns.map((column) => {

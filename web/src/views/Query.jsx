@@ -354,10 +354,10 @@ export default function Query() {
                               <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '3')} width="100" height="100"/></TableCell>
                               <TableCell align={columns[12].align}>{columns[12].format(row.F2A, row.F2APName)}</TableCell>
                               <TableCell align={columns[13].align}>{columns[13].format(row.R2A, row.R2APName)}</TableCell>
-                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '0')} width="100" height="100"/></TableCell>
-                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '1')} width="100" height="100"/></TableCell>
-                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '2')} width="100" height="100"/></TableCell>
-                              <TableCell><img src={getImageURL(row.StationID, row.VehInLaneID, row.TimeStampIn, row.VehInImageRef, '3')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehOutLaneID, row.TimeStampOut, row.VehOutImageRef, '0')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehOutLaneID, row.TimeStampOut, row.VehOutImageRef, '1')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehOutLaneID, row.TimeStampOut, row.VehOutImageRef, '2')} width="100" height="100"/></TableCell>
+                              <TableCell><img src={getImageURL(row.StationID, row.VehOutLaneID, row.TimeStampOut, row.VehOutImageRef, '3')} width="100" height="100"/></TableCell>
                               <TableCell align={columns[18].align}>{columns[18].format(row.ObjectiveName)}</TableCell>
                               <TableCell align={columns[19].align}>{columns[19].format(row.SrcProvinceName)}</TableCell>
                               <TableCell align={columns[20].align}>{columns[20].format(row.DstProvinceName)}</TableCell>

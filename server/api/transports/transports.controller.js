@@ -29,7 +29,7 @@ exports.getLicensePlates = async (req, res, next) => {
         } else {
             sql = `select TOP (40) VehicleInID, StationID, TimeStampIn, LaneID, F1A, F1APID, (select ProvinceName from LPProvince where ProvinceID = F1APID) as F1APName, R1A, R1APID, (select ProvinceName from LPProvince where ProvinceID = R1APID) as R1APName, ImageRef, TransportID
             from VehicleIn
-            where TransportID IS NULL and VehicleOutID IS NULL and StationID = ${req.query.station} and (F1A like '%${req.query.LPnumber}%' or R1A like '%${req.query.LPnumber}%' or RFID like '%${req.query.LPnumber}%') and (TimeStampIn between '${dateTimeSQLFormatter(moment().subtract(10, 'days').startOf('day'))}' and '${dateTimeSQLFormatter(moment())}')
+            where TransportID IS NULL and VehicleOutID IS NULL and StationID = ${req.query.station} and (F1A like '%${req.query.LPnumber}%' or R1A like '%${req.query.LPnumber}%' or RFID like '%${req.query.LPnumber}%') and (TimeStampIn between '${dateTimeSQLFormatter(moment().subtract(30, 'days').startOf('day'))}' and '${dateTimeSQLFormatter(moment())}')
             order by TimeStampIn desc` //ช่วงเวลา TimeStampIn ใช้สำหรับการ demo เท่านั้น
         }
         const licenseplates = await sequelize.query(sql, { type: QueryTypes.SELECT })

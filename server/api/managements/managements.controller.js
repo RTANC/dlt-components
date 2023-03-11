@@ -22,7 +22,7 @@ exports.getUsers = async (req, res, next) => {
             extWhere += ' and GCSUser.CompanyID = ' + req.query.company
         }
         if (!!req.query.text) {
-            extWhere += ` and (FirstName like '%${req.query.text}%' or LastName like  '%${req.query.text}%' or LoginName like  '%${req.query.text}%')`
+            extWhere += ` and (CONCAT(FirstName, LastName) like '%${req.query.text.replace(/^\s+|\s+|\s+$/gm,'')}%' or LoginName like  '%${req.query.text}%')`
         }
         const sql_query = `select id = ROW_NUMBER() OVER (ORDER BY LoginName), UserID, LoginName,CONCAT(FirstName, ' ', LastName) as FullName, UserRole.Description as RoleName, Company.CompanyName, PhoneNo, EmailAddress, LastLogInDateTime, GCSUser.IsActive
         from GCSUser

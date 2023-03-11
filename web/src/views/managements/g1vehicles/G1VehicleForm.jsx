@@ -12,7 +12,8 @@ import { useEffect } from 'react'
 import ImageListLP from '../../../components/ImageListLP'
 import { createG1Vehicle, getG1Vehicle, updateG1Vehicle } from '../../../services/managements'
 import BtnSave from '../../../components/BtnSave'
-import BtnClear from '../../../components/BtnClear'
+// import BtnClear from '../../../components/BtnClear'
+import BtnBack from '../../../components/BtnBack'
 import formValidator from '../../../services/validator'
 import { getKeyValue, str2bool } from '../../../services/utils'
 
@@ -169,7 +170,8 @@ export default function G1VehicleForm() {
                   </Grid>}
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                      <BtnClear loading={loading} onClick={clear}></BtnClear>
+                      {/* <BtnClear loading={loading} onClick={clear}></BtnClear> */}
+                      <BtnBack loading={loading}></BtnBack>
                       <BtnSave loading={loading} onClick={save} disabled={!valid}></BtnSave>
                     </Box>
                   </Grid>

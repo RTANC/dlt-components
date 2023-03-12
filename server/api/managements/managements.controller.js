@@ -9,11 +9,11 @@ exports.getUsers = async (req, res, next) => {
             throw Error('roleId field and stationId field is require!')
         }
         let extWhere = ''
-        if (parseInt(req.query.role) < 0) { // user เลือกทั้งหมด
-            extWhere += ''
+        if (parseInt(req.query.role) < 0) { // user เลือกกลุ่มผู้ใช้เป็นทั้งหมด
+            extWhere += `where StationID = 0 or StationID = ${req.query.station}`
         } else {
             if (parseInt(req.query.role) < 2) { // user เลือก admin, ผู้ดูแลระดับกรม
-                extWhere += `where StationID = 0 and GCSUser.RoleID = ${req.query.role}`
+                extWhere += `where (StationID = 0 or StationID = ${req.query.station}) and GCSUser.RoleID = ${req.query.role}`
             } else {
                 extWhere += `where StationID = ${req.query.station} and GCSUser.RoleID = ${req.query.role}`
             }

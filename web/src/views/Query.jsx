@@ -230,6 +230,8 @@ export default function Query() {
   const clear = () => {
     setParams({
       queryId: 1,
+      station: parseInt(Cookies.get('RoleID')) > 1 ? Cookies.get('StationID') : 1,
+      company: Cookies.get('CompanyID'),
       startDateTime: moment().startOf('day'),
       endDateTime: moment().endOf('day'),
       inProvince: '',

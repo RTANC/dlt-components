@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
         // fs.writeFile('api/api_logs/'+Date.now()+'.txt', JSON.stringify(req.body), function(err) {})
         const {stationID, timeStamp, laneID, frontLicensePlate, rearLicensePlate, weighingData, RFID} = req.body
         const imageRef = await getImageRef(req.body.timeStamp, req.body.stationID, req.body.direction)
-        saveImage(req.body, imageRef)
+        await saveImage(req.body, imageRef)
         if (req.body.direction === 'IN') {
             await sequelize.query(`insert into VehicleIn(StationID, TimeStampIn, LaneID, F1A, F1APID, R1A, R1APID, ImageRef, RFID, CreateBy)
             values(${stationID},'${dateTimeSQLFormatter(timeStamp)}',${laneID},'${frontLicensePlate.plateNumber}',${frontLicensePlate.provinceID},'${rearLicensePlate.plateNumber}',${rearLicensePlate.provinceID},'${imageRef}', '${RFID}', 0)`, { type: QueryTypes.INSERT })

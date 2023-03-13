@@ -3,6 +3,7 @@ const { QueryTypes } = require('sequelize')
 const sequelize = require('../connection')
 const fs = require('fs')
 const path = require('path')
+const sharp = require('sharp')
 
 exports.bool2bit = (bool) => {
     return bool ? 1 : 0
@@ -76,30 +77,43 @@ exports.getImageRef = async (timeStamp, station, direction) => {
     }
 }
 
-exports.saveImage = (body, imageRef) => {
-    //ext = 0 = LP front, 1 = LP rear, 2 = front view, 3 = rear view
-    let prefix = ''
-    switch (body.laneID) {
-        case 0: prefix = 'IN';
-        break;
-        case 1: prefix = 'OUT';
-        break;
-        case 2: prefix = 'IN';
-        break;
-        case 3: prefix = 'OUT';
-        break;
-    }
-
-    const PATH = path.join(process.env.SAVE_PATH, body.stationID.toString(), body.laneID.toString(), (moment(body.timeStamp).format('YYYY/MM/DD')), prefix)
-    if (!(fs.existsSync(PATH))) {
-        fs.mkdirSync(PATH, { recursive: true })
-    }
-
-    imgName = prefix + '-' + body.stationID.toString() + '-' + body.laneID.toString() + '-' + (moment(body.timeStamp).format('YYYYMMDD')) + '-' + imageRef + '-'
-
-    fs.writeFile(path.join(PATH, (imgName + '0' + '.jpg')), body.frontLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
-    fs.writeFile(path.join(PATH, (imgName + '1' + '.jpg')), body.rearLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
-    fs.writeFile(path.join(PATH, (imgName + '2' + '.jpg')), body.frontImageBase64 || '', 'base64', err => console.log(err))
-    fs.writeFile(path.join(PATH, (imgName + '3' + '.jpg')), body.rearImageBase64 || '', 'base64', err => console.log(err))
+exports.saveImage = async (body, imageRef) => {
+    try {
+        //ext = 0 = LP front, 1 = LP rear, 2 = front view, 3 = rear view
+        let prefix = ''
+        switch (body.laneID) {
+            case 0: prefix = 'IN';
+            break;
+            case 1: prefix = 'OUT';
+            break;
+            case 2: prefix = 'IN';
+            break;
+            case 3: prefix = 'OUT';
+            break;
+        }
     
+        const PATH = path.join(process.env.SAVE_PATH, body.stationID.toString(), body.laneID.toString(), (moment(body.timeStamp).format('YYYY/MM/DD')), prefix)
+        if (!(fs.existsSync(PATH))) {
+            fs.mkdirSync(PATH, { recursive: true })
+        }
+    
+        imgName = prefix + '-' + body.stationID.toString() + '-' + body.laneID.toString() + '-' + (moment(body.timeStamp).format('YYYYMMDD')) + '-' + imageRef + '-'
+    
+        const buffFLP = Buffer.from(body.frontLicensePlate.ImageBase64 || '', 'base64')
+        const buffRLP = Buffer.from(body.rearLicensePlate.ImageBase64 || '', 'base64')
+        const buffFimg = Buffer.from(body.frontImageBase64 || '', 'base64')
+        const buffRimg = Buffer.from(body.rearImageBase64 || '', 'base64')
+    
+        await sharp(buffFLP).resize({ width: 768 }).toFile(path.join(PATH, (imgName + '0' + '.jpg')))
+        await sharp(buffRLP).resize({ width: 768 }).toFile(path.join(PATH, (imgName + '1' + '.jpg')))
+        await sharp(buffFimg).resize({ width: 768 }).toFile(path.join(PATH, (imgName + '2' + '.jpg')))
+        await sharp(buffRimg).resize({ width: 768 }).toFile(path.join(PATH, (imgName + '3' + '.jpg')))
+    
+        // fs.writeFile(path.join(PATH, (imgName + '0' + '.jpg')), body.frontLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
+        // fs.writeFile(path.join(PATH, (imgName + '1' + '.jpg')), body.rearLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
+        // fs.writeFile(path.join(PATH, (imgName + '2' + '.jpg')), body.frontImageBase64 || '', 'base64', err => console.log(err))
+        // fs.writeFile(path.join(PATH, (imgName + '3' + '.jpg')), body.rearImageBase64 || '', 'base64', err => console.log(err))
+    } catch (error) {
+        console.log(error)
+    }    
 }

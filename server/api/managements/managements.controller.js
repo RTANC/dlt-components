@@ -10,7 +10,7 @@ exports.getUsers = async (req, res, next) => {
         }
         let extWhere = ''
         if (parseInt(req.query.role) < 0) { // user เลือกกลุ่มผู้ใช้เป็นทั้งหมด
-            extWhere += `where StationID = 0 or StationID = ${req.query.station}`
+            extWhere += `where (StationID = 0 or StationID = ${req.query.station})`
         } else {
             if (parseInt(req.query.role) < 2) { // user เลือก admin, ผู้ดูแลระดับกรม
                 extWhere += `where (StationID = 0 or StationID = ${req.query.station}) and GCSUser.RoleID = ${req.query.role}`

@@ -2,6 +2,7 @@ const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
 const axios = require('axios')
 const { saveImage, getImageRef, dateTimeSQLFormatter } = require("../../utils/utils")
+const moment = require('moment')
 
 exports.GetMissingList = async (req, res, next) => {
     try {
@@ -14,8 +15,9 @@ exports.GetMissingList = async (req, res, next) => {
         }
         const list = (await axios.get(`http://192.168.238.72/gcs/api/gcsstation/GetMissingList${q}`, { headers: { ApiKey: req.query.ApiKey } })).data
         for (let i = 0;i < list.length;i++) {
-            const {stationID, timeStamp, laneID, direction, frontLicensePlate, rearLicensePlate, weighingData, RFID} = list[i]
-            const imageRef = await getImageRef(timeStamp, stationID, direction)
+            const { seqID, stationID, timeStamp, laneID, direction, frontLicensePlate, rearLicensePlate, weighingData, RFID} = list[i]
+            // const imageRef = await getImageRef(timeStamp, stationID, direction)
+            const imageRef = moment(timeStamp).format('HHmmss') + '-' + ((seqID.toString()).substring(6))
             await saveImage(list[i], imageRef)
             if (direction === 'IN') {
                 const rows = await sequelize.query(`update VehicleIn
@@ -45,8 +47,9 @@ exports.GetMissingVehicleRecord = async (req, res, next) => {
     try {
         let q = `?stationID=${req.query.stationID}&laneID=${req.query.laneID}&seqID=${req.query.seqID}`
         const record = (await axios.get(`http://192.168.238.72/gcs/api/gcsstation/GetMissingVehicleRecord${q}`, { headers: { ApiKey: req.query.ApiKey } })).data
-        const {stationID, timeStamp, laneID, direction, frontLicensePlate, rearLicensePlate, weighingData, RFID} = record
-        const imageRef = await getImageRef(timeStamp, stationID, direction)
+        const { seqID, stationID, timeStamp, laneID, direction, frontLicensePlate, rearLicensePlate, weighingData, RFID} = record
+        // const imageRef = await getImageRef(timeStamp, stationID, direction)
+        const imageRef = moment(timeStamp).format('HHmmss') + '-' + ((seqID.toString()).substring(6))
         await saveImage(record, imageRef)
         if (direction === 'IN') {
             const rows = await sequelize.query(`update VehicleIn

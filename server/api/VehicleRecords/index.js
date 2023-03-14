@@ -2,12 +2,14 @@ const { QueryTypes } = require('sequelize')
 const sequelize = require('../../connection')
 const { saveImage, getImageRef, dateTimeSQLFormatter } = require("../../utils/utils")
 // const fs = require('fs')
+const moment = require('moment')
 
 module.exports = async (req, res, next) => {
     try {
         // fs.writeFile('api/api_logs/'+Date.now()+'.txt', JSON.stringify(req.body), function(err) {})
-        const {stationID, timeStamp, laneID, frontLicensePlate, rearLicensePlate, weighingData, RFID} = req.body
-        const imageRef = await getImageRef(req.body.timeStamp, req.body.stationID, req.body.direction)
+        const { seqID, stationID, timeStamp, laneID, frontLicensePlate, rearLicensePlate, weighingData, RFID} = req.body
+        // const imageRef = await getImageRef(req.body.timeStamp, req.body.stationID, req.body.direction)
+        const imageRef = moment(timeStamp).format('HHmmss') + '-' + ((seqID.toString()).substring(6))
         await saveImage(req.body, imageRef)
         if (req.body.direction === 'IN') {
             await sequelize.query(`insert into VehicleIn(StationID, TimeStampIn, LaneID, F1A, F1APID, R1A, R1APID, ImageRef, RFID, CreateBy)

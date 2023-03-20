@@ -240,7 +240,8 @@ export default function Home() {
           manualLP: transport.manualLP,
           editLP: transport.editLP,
           VehicleClassID: transport.vehicleClass.value,
-          VehicleOutID: transport.VehicleOutID }
+          VehicleOutID: transport.VehicleOutID,
+          TimeStampOut: SQLDateTimeFormatter(transport.TimeStampOut) }
         if (transport.transportId === null) {
           await createTransport(payload)
         } else {

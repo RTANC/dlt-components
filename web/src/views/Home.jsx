@@ -242,7 +242,6 @@ export default function Home() {
           VehicleClassID: transport.vehicleClass.value,
           VehicleOutID: transport.VehicleOutID,
           TimeStampOut: SQLDateTimeFormatter(transport.TimeStampOut) }
-          console.log(transport.TimeStampOut)
         if (transport.transportId === null) {
           await createTransport(payload)
         } else {

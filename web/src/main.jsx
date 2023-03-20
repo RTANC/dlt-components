@@ -21,7 +21,7 @@ const theme = createTheme({
       light: '#000000'
     },
     appBar: {
-      main: '#0a1043',
+      main: 'rgba(0, 0, 0, 0.5);',
       contrastText: '#ffffff',
       dark: '#ffffff',
       light: '#000000'

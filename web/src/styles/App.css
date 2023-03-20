@@ -1,6 +1,6 @@
 .App {
   /* background-image: url('../../static/BG.jpg'); */
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), linear-gradient(111.34deg, #0859B8 0%, #9324A5 100%);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), linear-gradient(111.34deg, #448DE3 0%, #E863FE 100%);
   background-blend-mode: overlay, normal;
   width: 100%;
   height: auto;

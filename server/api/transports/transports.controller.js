@@ -66,10 +66,10 @@ exports.createTransport = async (req, res, next) => {
             
             update VehicleOut
             set TransportID = scope_identity(), VehicleInID = ${VehicleInID}
-            where VehicleOutID = ${VehicleOutID}`
+            where VehicleOutID = ${VehicleOutID || 'NULL'}`
         }
         await sequelize.query(`insert Transport(StationID, TimeStampTx, CompanyID, UserID, ObjectiveID, SrcProvinceID, SrcGoods, SrcGoodsOther, DstProvinceID, DstGoods, DstGoodsOther, VehicleInID, TimeStampIn, F1M, F1MPID, R1M, R1MPID, VehicleClassID, VehicleOutID, TimeStampOut)
-        values(${StationID}, '${getDateTimeNow()}', ${CompanyID}, ${userId}, ${ObjectiveID}, ${SrcProvinceID ? SrcProvinceID : 'NULL'}, ${SrcGoods}, '${SrcGoodsOther}', ${DstProvinceID ? DstProvinceID : 'NULL'}, ${DstGoods}, '${DstGoodsOther}', ${VehicleInID}, '${TimeStampIn}', '${F1M}', ${F1MPID}, '${R1M}', ${R1MPID}, ${VehicleClassID}, ${VehicleOutID}, '${TimeStampOut}' )
+        values(${StationID}, '${getDateTimeNow()}', ${CompanyID}, ${userId}, ${ObjectiveID}, ${SrcProvinceID ? SrcProvinceID : 'NULL'}, ${SrcGoods}, '${SrcGoodsOther}', ${DstProvinceID ? DstProvinceID : 'NULL'}, ${DstGoods}, '${DstGoodsOther}', ${VehicleInID}, '${TimeStampIn}', '${F1M}', ${F1MPID}, '${R1M}', ${R1MPID}, ${VehicleClassID}, ${VehicleOutID || 'NULL'}, '${TimeStampOut || 'NULL'}' )
         
         ${ext}`)
         // console.log(transport)

@@ -24,6 +24,7 @@ import Swal from 'sweetalert2'
 import { useEffect } from 'react'
 import { api } from '../services/api'
 import Cookies from 'js-cookie'
+import moment from 'moment'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -241,7 +242,7 @@ export default function Home() {
           editLP: transport.editLP,
           VehicleClassID: transport.vehicleClass.value,
           VehicleOutID: transport.VehicleOutID,
-          TimeStampOut: SQLDateTimeFormatter(transport.TimeStampOut) }
+          TimeStampOut: (moment(transport.TimeStampOut).isValid()) ? SQLDateTimeFormatter(transport.TimeStampOut) : null }
         if (transport.transportId === null) {
           await createTransport(payload)
         } else {

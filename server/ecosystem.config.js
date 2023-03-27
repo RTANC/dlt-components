@@ -19,10 +19,10 @@ module.exports = {
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
           SAVE_PATH: 'D:/vehimages/',
-          DB_URL: 'localhost',
+          DB_URL: '164.115.45.6',
           DB_NAME: 'GCSDB',
           DB_USERNAME: 'sa',
-          DB_PASSWORD: 'rtanc1111100000',
+          DB_PASSWORD: 'rtanc190806+',
           DB_PORT: 1433
         },
         env_production: {

@@ -18,6 +18,11 @@ exports.GetMissingList = async (req, res, next) => {
             const { seqID, stationID, timeStamp, laneID, direction, frontLicensePlate, rearLicensePlate, weighingData, RFID} = list[i]
             // const imageRef = await getImageRef(timeStamp, stationID, direction)
             const imageRef = moment(timeStamp).format('HHmmss') + '-' + ((seqID.toString()).substring(6))
+            const record = (await axios.get(`http://192.168.238.72/gcs/api/gcsstation/GetMissingVehicleRecord?stationID=${req.query.stationID}&laneID=${req.query.laneID}&seqID=${seqID}`, { headers: { ApiKey: req.query.ApiKey } })).data
+            list[i].frontLicensePlate.ImageBase64 = record.frontLicensePlate.ImageBase64
+            list[i].rearLicensePlate.ImageBase64 = record.rearLicensePlate.ImageBase64
+            list[i].frontImageBase64 = record.frontImageBase64
+            list[i].rearImageBase64 = record.rearImageBase64
             await saveImage(list[i], imageRef)
             if (direction === 'IN') {
                 const rows = await sequelize.query(`update VehicleIn

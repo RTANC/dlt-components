@@ -1,4 +1,3 @@
-ecosystem.config.js
 # Logs
 logs
 *.log
@@ -24,3 +23,5 @@ api/api_logs/*
 *.njsproj
 *.sln
 *.sw?
+*.txt
+ecosystem.config.js

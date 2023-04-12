@@ -90,6 +90,8 @@ exports.saveImage = async (body, imageRef) => {
             break;
             case 3: prefix = 'OUT';
             break;
+            case 4: prefix = 'OUT';
+            break;
         }
     
         const PATH = path.join(process.env.SAVE_PATH, body.stationID.toString(), body.laneID.toString(), (moment(body.timeStamp).format('YYYY/MM/DD')), prefix)
@@ -104,10 +106,11 @@ exports.saveImage = async (body, imageRef) => {
         const buffFimg = Buffer.from(body.frontImageBase64 || '', 'base64')
         const buffRimg = Buffer.from(body.rearImageBase64 || '', 'base64')
     
-        await sharp(buffFLP).resize({ width: 768 }).toFile(path.join(PATH, (imgName + '0' + '.jpg')))
-        await sharp(buffRLP).resize({ width: 768 }).toFile(path.join(PATH, (imgName + '1' + '.jpg')))
-        await sharp(buffFimg).resize({ width: 768 }).toFile(path.join(PATH, (imgName + '2' + '.jpg')))
-        await sharp(buffRimg).resize({ width: 768 }).toFile(path.join(PATH, (imgName + '3' + '.jpg')))
+        await sharp(buffFLP).resize({ width: 768 }).jpeg({ quality: 75 }).toFile(path.join(PATH, (imgName + '0' + '.jpg')))
+        await sharp(buffRLP).resize({ width: 768 }).jpeg({ quality: 75 }).toFile(path.join(PATH, (imgName + '1' + '.jpg')))
+        await sharp(buffFimg).resize({ width: 768 }).jpeg({ quality: 75 }).toFile(path.join(PATH, (imgName + '2' + '.jpg')))
+        await sharp(buffRimg).resize({ width: 768 }).jpeg({ quality: 75 }).toFile(path.join(PATH, (imgName + '3' + '.jpg')))
+        await sharp(buffRimg).resize({ width: 768 }).jpeg({ quality: 75 }).toFile(path.join(PATH, (imgName + '4' + '.jpg')))
     
         // fs.writeFile(path.join(PATH, (imgName + '0' + '.jpg')), body.frontLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))
         // fs.writeFile(path.join(PATH, (imgName + '1' + '.jpg')), body.rearLicensePlate.ImageBase64 || '', 'base64', err => console.log(err))

@@ -484,7 +484,7 @@ exports.gcs04 = async (req, res, next) => {
 
 exports.gcs05 = async (req, res, next) => {
     try {
-        const sql_query = `DECLARE @d1 DATETIME2 = '${dateSQLFormatter(moment(req.query.date).startOf('day'))}' DECLARE @d2 DATETIME2 = '${dateSQLFormatter(moment(req.query.date).endOf('day'))}' DECLARE @sid INT = ${req.query.station}
+        const sql_query = `DECLARE @d1 DATETIME2 = '${dateTimeSQLFormatter(moment(req.query.date).startOf('day'))}' DECLARE @d2 DATETIME2 = '${dateTimeSQLFormatter(moment(req.query.date).endOf('day'))}' DECLARE @sid INT = ${req.query.station}
         SELECT
             DATEPART(hour, d.qDt) AS ByDateTime,
             SUM(

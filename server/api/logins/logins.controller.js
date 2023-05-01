@@ -11,7 +11,7 @@ exports.login = async (req, res, next) => {
         const user = await sequelize.query(`select UserID, RoleID, LoginName
         from GCSUser
         where LoginPassword = '${password}' and LoginName = '${username}' and IsActive = 1`, { type: QueryTypes.SELECT })
-        if (user.length < 1) {
+        if (user.length !== 1) {
             throw Error('ชื่อผู้ใช้งาน หรือ รหัสผ่าน ผิด')
         } else if (user.length === 1) {
             const token = await jwt.sign(user[0], process.env.JWT_KEY, { expiresIn: "8d" })

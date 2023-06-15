@@ -71,6 +71,9 @@ export default function G2Vehicle() {
     const search = async () => {
         try {
           setLoading(true)
+          setRows([])
+          setPage(0)
+          setRowsPerPage(10)
           const data = (await getG2Vehicles(g2Vehicle.station.value, g2Vehicle.company.value, g2Vehicle.licensePlate.value)).data
           setRows(data)
         } catch (error) {

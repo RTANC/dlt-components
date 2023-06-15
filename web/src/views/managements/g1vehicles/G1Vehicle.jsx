@@ -71,6 +71,9 @@ export default function G1Vehicle() {
     const search = async () => {
         try {
           setLoading(true)
+          setRows([])
+          setPage(0)
+          setRowsPerPage(10)
           const data = (await getG1Vehicles(g1Vehicle.station.value, g1Vehicle.company.value, g1Vehicle.licensePlate.value)).data
           setRows(data)
         } catch (error) {

@@ -9,13 +9,13 @@ exports.getCompany = async (req, res, next) => {
             FROM company
             where (StationID = ${req.query.station} or StationID = 0) and IsActive = 1
             group by CompanyName
-            order by CompanyID`
+            order by CompanyName`
         } else if (req.userData.RoleID === 2) {
             sql_query = `SELECT min(CompanyID) as CompanyID, CompanyName
             FROM company
             where StationID = ${req.query.station} and IsActive = 1
             group by CompanyName
-            order by CompanyID`
+            order by CompanyName`
         } else if (req.userData.RoleID === 3) {
             sql_query = `SELECT min(CompanyID) as CompanyID, CompanyName
             FROM company

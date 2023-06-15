@@ -106,6 +106,7 @@ export default function Login() {
     }
 
     useEffect(() => {
+      console.log(__APP_VERSION__)
       if (Cookies.get('token') && Cookies.get('stay')) {
         const { UserID, RoleID, LoginName, token } = Cookies.get()
         api.defaults.headers.common['Authorization'] = "Bearer " + token

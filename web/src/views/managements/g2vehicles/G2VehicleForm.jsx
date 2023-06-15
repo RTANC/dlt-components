@@ -33,9 +33,7 @@ export default function G2VehicleForm() {
             rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         vehicleClass: {
-          value: '',
-          error: false,
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
+          value: ''
         },
         frontLP: {
           value: '',
@@ -58,9 +56,7 @@ export default function G2VehicleForm() {
           rules: [(v) => !!v || '*ข้อมูลจำเป็น']
         },
         rfid: {
-          value: '',
-          error: false,
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น']
+          value: ''
         },
         isActive: {
           value: 'true'
@@ -149,7 +145,7 @@ export default function G2VehicleForm() {
                     <SelectCompany value={g2Vehicle.company.value} name='company' onChange={handleValueChange} station={g2Vehicle.station.value} required error={g2Vehicle.company.error}></SelectCompany>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <SelectVehicleClass value={g2Vehicle.vehicleClass.value} name='vehicleClass' onChange={handleValueChange} required error={g2Vehicle.vehicleClass.error}></SelectVehicleClass>
+                    <SelectVehicleClass value={g2Vehicle.vehicleClass.value} name='vehicleClass' onChange={handleValueChange}></SelectVehicleClass>
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <DltTextField label='ทะเบียนหน้า' value={g2Vehicle.frontLP.value} name='frontLP' onChange={handleValueChange} onKeyUp={e => setValid(formValidator(g2Vehicle, setG2Vehicle))} placeholder='XX-XXXXX' required error={g2Vehicle.frontLP.error}></DltTextField>
@@ -164,7 +160,7 @@ export default function G2VehicleForm() {
                     <SelectLPProvince label='จังหวัด' value={g2Vehicle.rearLPProvince.value} name='rearLPProvince' onChange={handleValueChange} required error={g2Vehicle.rearLPProvince.error}></SelectLPProvince>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <DltTextField label='RFID' value={g2Vehicle.rfid.value} name='rfid' onChange={handleValueChange} required error={g2Vehicle.rfid.error}></DltTextField>
+                    <DltTextField label='RFID' value={g2Vehicle.rfid.value} name='rfid' onChange={handleValueChange}></DltTextField>
                   </Grid>
                   {editMode && <Grid item xs={12}>
                     <ImageListLP></ImageListLP>

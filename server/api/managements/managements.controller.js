@@ -133,11 +133,10 @@ exports.getG1Vehicles = async (req, res, next) => {
         if (!!req.query.text) {
             extWhere += ` and (FrontLP like '%${req.query.text}%' or RearLP like  '%${req.query.text}%')`
         }
-        const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G1VehicleID, EntryDate, Company.CompanyName, VehicleClass.Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G1Vehicle.IsActive
+        const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G1VehicleID, EntryDate, Company.CompanyName, (select Description from VehicleClass where VehicleClass.VehicleClassID = G1Vehicle.VehicleClassID) as Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G1Vehicle.IsActive
         FROM G1Vehicle
         inner join Company on G1Vehicle.CompanyID = Company.CompanyID
         inner join LPProvince on G1Vehicle.FrontLPPID = LPProvince.ProvinceID and G1Vehicle.RearLPPID = LPProvince.ProvinceID
-        inner join VehicleClass on G1Vehicle.VehicleClassID = VehicleClass.VehicleClassID
         where G1Vehicle.StationID = ${req.query.station} ${extWhere}
         order by EntryDate desc`, { type: QueryTypes.SELECT })
         res.status(200).send(vehicles)
@@ -161,7 +160,7 @@ exports.createG1Vehicle = async (req, res, next) => {
     try {
         const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, rfid, isActive} = req.body
         await sequelize.query(`insert G1Vehicle(StationID, CompanyID, FrontLP, FrontLPPID, RearLP, RearLPPID, VehicleClassID, EntryDate, IsActive, RFID)
-        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${bool2bit(isActive)}, '${rfid}')`, { type: QueryTypes.INSERT })
+        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass || 'NULL'}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${bool2bit(isActive)}, '${rfid || 'NULL'}')`, { type: QueryTypes.INSERT })
         res.sendStatus(201)
     } catch (error) {
         next(error)
@@ -172,7 +171,7 @@ exports.updateG1Vehicle = async (req, res, next) => {
     try {
         const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, rfid, isActive} = req.body
         await sequelize.query(`update G1Vehicle
-        set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass}, IsActive = ${bool2bit(isActive)}, RFID = '${rfid}'
+        set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass || 'NULL'}, IsActive = ${bool2bit(isActive)}, RFID = '${rfid || 'NULL'}'
         where G1VehicleID = ${req.params.id}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {
@@ -189,11 +188,10 @@ exports.getG2Vehicles = async (req, res, next) => {
         if (!!req.query.text) {
             extWhere += ` and (FrontLP like '%${req.query.text}%' or RearLP like  '%${req.query.text}%')`
         }
-        const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G2VehicleID, EntryDate, Company.CompanyName, VehicleClass.Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G2Vehicle.IsActive
+        const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G2VehicleID, EntryDate, Company.CompanyName, (select Description from VehicleClass where VehicleClass.VehicleClassID = G2Vehicle.VehicleClassID) as Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G2Vehicle.IsActive
         FROM G2Vehicle
         inner join Company on G2Vehicle.CompanyID = Company.CompanyID
         inner join LPProvince on G2Vehicle.FrontLPPID = LPProvince.ProvinceID and G2Vehicle.RearLPPID = LPProvince.ProvinceID
-        inner join VehicleClass on G2Vehicle.VehicleClassID = VehicleClass.VehicleClassID
         where G2Vehicle.StationID = ${req.query.station} ${extWhere}
         order by EntryDate desc`, { type: QueryTypes.SELECT })
         res.status(200).send(vehicles)
@@ -218,7 +216,7 @@ exports.createG2Vehicle = async (req, res, next) => {
     try {
         const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, isActive, rfid} = req.body
         await sequelize.query(`insert G2Vehicle(StationID, CompanyID, FrontLP, FrontLPPID, RearLP, RearLPPID, VehicleClassID, EntryDate, IsActive, RFID)
-        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${bool2bit(isActive)}, '${rfid}')`, { type: QueryTypes.INSERT })
+        values(${station}, ${company}, '${frontLP}', ${frontLPProvince}, '${rearLP}', ${rearLPProvince}, ${vehicleClass || 'NULL'}, '${moment().format('YYYY-MM-DD HH:mm:ss')}', ${bool2bit(isActive)}, '${rfid || 'NULL'}')`, { type: QueryTypes.INSERT })
         res.sendStatus(201)
     } catch (error) {
         next(error)
@@ -229,7 +227,7 @@ exports.updateG2Vehicle = async (req, res, next) => {
     try {
         const {station, company, vehicleClass, frontLP, frontLPProvince, rearLP, rearLPProvince, isActive, rfid} = req.body
         await sequelize.query(`update G2Vehicle
-        set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass}, IsActive = ${bool2bit(isActive)}, RFID = '${rfid}'
+        set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass || 'NULL'}, IsActive = ${bool2bit(isActive)}, RFID = '${rfid || 'NULL'}'
         where G2VehicleID = ${req.params.id}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {

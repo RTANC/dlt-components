@@ -26,12 +26,12 @@ export default function CompanyForm() {
         },
         companyName: {
             value: '',
-            rules: [],
-            error: false
+            error: false,
+            rules: [(v) => (v.trim() !== '') || '*ข้อมูลจำเป็น'],
         },
         taxId: {
             value: '',
-            rules: [],
+            rules: [(v) => (v.trim() !== '') || '*ข้อมูลจำเป็น'],
             error: false
         },
         transportType: {
@@ -41,9 +41,7 @@ export default function CompanyForm() {
             value: 1
         },
         transportLicense: {
-            value: '',
-            rules: [(v) => (v.trim() !== '') || '*ข้อมูลจำเป็น'],
-            error: false
+            value: ''
         },
         isActive: {
             value: 'false'
@@ -60,6 +58,7 @@ export default function CompanyForm() {
             }
         }
         setCompany({...company})
+        setValid(formValidator(company, setCompany))
     }
 
     const handleValidateValue = (e) => {
@@ -132,13 +131,13 @@ export default function CompanyForm() {
                           <SelectStation name='station' value={company.station.value} onChange={handleValueChange} disabled={editMode}></SelectStation>
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <DltTextField name='companyName' value={company.companyName.value} onChange={handleValueChange} label='ชื่อผู้ประกอบการ' readOnly={editMode}></DltTextField>
+                            <DltTextField name='companyName' value={company.companyName.value} onChange={handleValueChange} label='ชื่อผู้ประกอบการ' required error={company.companyName.error}></DltTextField>
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <DltTextField name='taxId' value={company.taxId.value} onChange={handleValueChange} label='เลขประจำตัวผู้เสียภาษี' readOnly={editMode}></DltTextField>
+                            <DltTextField name='taxId' value={company.taxId.value} onChange={handleValueChange} label='เลขประจำตัวผู้เสียภาษี' required error={company.taxId.error}></DltTextField>
                         </Grid>
                         { editMode && <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <DltTextField name='companyId' value={company.companyId} label='รหัส'></DltTextField>
+                            <DltTextField name='companyId' value={company.companyId} label='รหัส' readOnly></DltTextField>
                         </Grid>}
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <RadioBoxIsActiveUser name='isActive' value={company.isActive.value} onChange={handleValueChange} label='สถานะผู้กระกอบการ'></RadioBoxIsActiveUser>
@@ -150,7 +149,7 @@ export default function CompanyForm() {
                             <SelectTransportScope name='transportScope' value={company.transportScope.value} onChange={handleValueChange} required></SelectTransportScope>
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <DltTextField name='transportLicense' value={company.transportLicense.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required label='เลขที่ใบอนุญาต' error={company.transportLicense.error}></DltTextField>
+                            <DltTextField name='transportLicense' value={company.transportLicense.value} onChange={handleValueChange} label='เลขที่ใบอนุญาต'></DltTextField>
                         </Grid>
                       </Grid>
                     </CardContent>

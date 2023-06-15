@@ -264,7 +264,7 @@ export default function Query() {
               <Grid container spacing={2} direction='row' wrap='wrap'>
                 <Grid item xs={12}>
                   <FormControl color='warning'>
-                    <FormLabel sx={{display: 'flex', alignContent: 'flex-start'}}>เลือกข้อมูล</FormLabel>
+                    <FormLabel sx={{display: 'flex', alignContent: 'flex-start', fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 20, color: 'white' }}>เลือกข้อมูล</FormLabel>
                     <RadioGroup row value={params.queryId} name='queryId' onChange={handleChange}>
                       <FormControlLabel value={1} control={<Radio />} label="รถที่มีรายการรับส่งสินค้า"></FormControlLabel>
                       <FormControlLabel value={2} control={<Radio />} label="รถทุกคันที่เข้าสถานีฯ"></FormControlLabel>

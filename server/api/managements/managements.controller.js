@@ -114,9 +114,9 @@ exports.createCompany = async (req, res, next) => {
 
 exports.updateCompany = async (req, res, next) => {
     try {
-        const { transportType, transportScope, transportLicense, isActive } = req.body
+        const { companyName, taxId, transportType, transportScope, transportLicense, isActive } = req.body
         await sequelize.query(`update Company
-        set TransportTypeID = ${transportType}, TransportScopeID = ${transportScope}, TransportLicenseID = '${transportLicense}', IsActive = ${bool2bit(isActive)}
+        set CompanyName = '${companyName}', TaxID = '${taxId}', TransportTypeID = ${transportType}, TransportScopeID = ${transportScope}, TransportLicenseID = '${transportLicense || 'NULL'}', IsActive = ${bool2bit(isActive)}
         where CompanyID = ${req.params.companyId}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {

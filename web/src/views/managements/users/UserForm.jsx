@@ -32,7 +32,7 @@ export default function UserForm() {
         },
         agency: {
           value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
+          rules: [(v) => (v !== '') ? true : false || '*ข้อมูลจำเป็น'],
           error: false
         },
         title: {

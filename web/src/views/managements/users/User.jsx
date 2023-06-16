@@ -67,7 +67,9 @@ export default function User() {
   const search = async () => {
     try {
       setLoading(true)
+      setRows([])
       setPage(0)
+      setRowsPerPage(10)
       const data = (await getUsers(query.userRole, query.station, query.agency, query.text)).data
       setRows(data)
     } catch (error) {

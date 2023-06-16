@@ -48,14 +48,12 @@ export default function Profile() {
         },
         email: {
           value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น',  (v) => emailValidator(v) || '*รูปแบบ email ไม่ถูกต้อง'],
+          rules: [(v) => ((!!v.trim()) ? emailValidator(v) : true) || '*รูปแบบ email ไม่ถูกต้อง'],
           error: false
         },
         tel: {
-          value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
-          error: false
-        }
+          value: ''
+        },
     })
 
     const handleValueChange = (e) => {
@@ -88,9 +86,9 @@ export default function Profile() {
           FirstName: profile.firstname.value,
           LastName: profile.lastname.value,
           PhoneNo: profile.tel.value,
-          EmailAddress: profile.email.value
+          EmailAddress: profile.email.value.trim()
         }
-        if (profile.newPassword.value !== '') {
+        if (profile.newPassword.value.trim() !== '') {
           userForm.LoginPassword = hashMD5(profile.newPassword.value)
         }
         await updateUserProfile(userForm)
@@ -113,7 +111,7 @@ export default function Profile() {
       profile.firstname.value = FirstName
       profile.lastname.value = LastName
       profile.tel.value = PhoneNo
-      profile.email.value = EmailAddress
+      profile.email.value = EmailAddress.trim()
       profile.username.value = LoginName
       setProfile({...profile})
       setValid(formValidator(profile, setProfile))
@@ -156,10 +154,10 @@ export default function Profile() {
                         <DltTextField name='lastname' label='นามสกุล' value={profile.lastname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.lastname.error} required></DltTextField>
                       </Grid>
                       <Grid item xs={6} md={6}>
-                        <DltTextField name='tel' type='number' label='เบอร์โทรติดต่อ' value={profile.tel.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.tel.error} required></DltTextField>
+                        <DltTextField name='tel' type='number' label='เบอร์โทรติดต่อ' value={profile.tel.value} onChange={handleValueChange}></DltTextField>
                       </Grid>
                       <Grid item xs={6} md={6}>
-                        <DltTextField name='email' type='email' label='Email Address' value={profile.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.email.error} required></DltTextField>
+                        <DltTextField name='email' type='email' label='Email Address' value={profile.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={profile.email.error}></DltTextField>
                       </Grid>
                     </Grid>
                 </CardContent>

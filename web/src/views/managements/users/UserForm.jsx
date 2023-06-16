@@ -20,6 +20,7 @@ export default function UserForm() {
     const [valid, setValid] = useState(false)
     const [editMode, setEditMode] = useState(false)
     const [editFields, setEditFields] = useState([(parseInt(Cookies.get('RoleID')) < 2 ? true : false), (parseInt(Cookies.get('RoleID')) < 2 ? true : false), true, (parseInt(Cookies.get('RoleID')) < 2 ? true : false)])
+    const [adminMode, setAdminMode] = useState(false)
     const { uid } = useParams()
     const navigate = useNavigate()
     const [user, setUser] = useState({
@@ -30,7 +31,9 @@ export default function UserForm() {
           value: 1
         },
         agency: {
-          value: 189
+          value: '',
+          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
+          error: false
         },
         title: {
           value: 1
@@ -62,13 +65,11 @@ export default function UserForm() {
         },
         email: {
           value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น',  (v) => emailValidator(v) || '*รูปแบบ email ไม่ถูกต้อง'],
+          rules: [(v) => ((!!v.trim()) ? emailValidator(v) : true) || '*รูปแบบ email ไม่ถูกต้อง'],
           error: false
         },
         tel: {
-          value: '',
-          rules: [(v) => !!v || '*ข้อมูลจำเป็น'],
-          error: false
+          value: ''
         },
         isActive: {
           value: true
@@ -108,12 +109,21 @@ export default function UserForm() {
             user[e.target.name].value = false
           }
         }
-        setUser({...user})
+        // if (e.target.name === 'agency') {
+        //   setValid(formValidator(user, setUser))
+        // }
+        // setUser({...user})
+        setValid(formValidator(user, setUser))
     }
 
     const handleValidateValue = (e) => {
       // user[e.target.name].error = validator(e.target.value, user[e.target.name].rules)
       setValid(formValidator(user, setUser))
+    }
+
+    const handlePasswordChange = (e) => {
+      user[e.target.name].value = e.target.value
+      setUser({...user})
     }
 
     const handleValidatePassword = (e) => {
@@ -142,6 +152,11 @@ export default function UserForm() {
         user.email.value = userData.email
         user.tel.value = userData.tel
         user.isActive.value = userData.isActive
+        if (parseInt(userData.userRole) === 0) {
+          setAdminMode(true)
+        } else {
+          setAdminMode(false)
+        }
         setUser({...user})
         setValid(formValidator(user, setUser))
       } catch (error) {
@@ -153,7 +168,7 @@ export default function UserForm() {
         try {
           setLoading(true)
           const tmp = getKeyValue(user)
-          if (tmp.newPassword !== '') {
+          if (tmp.newPassword.trim() !== '') {
             tmp.newPassword = hashMD5(tmp.newPassword)
           } else {
             delete tmp.newPassword
@@ -178,6 +193,11 @@ export default function UserForm() {
         init()
       } else {
         setEditMode(false)
+        if (parseInt(Cookies.get('RoleID')) === 0) {
+          setAdminMode(true)
+        } else {
+          setAdminMode(false)
+        }
       }
     }, [])
 
@@ -197,7 +217,7 @@ export default function UserForm() {
                     <SelectUserRole name='userRole' value={user.userRole.value} onChange={handleValueChange} required disabled={!editFields[0]}></SelectUserRole>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <SelectStation name='station' value={user.station.value} onChange={handleValueChange} required disabled={!editFields[1]}></SelectStation>
+                    <SelectStation name='station' value={user.station.value} onChange={handleValueChange} required disabled={!editFields[1]} admin={adminMode}></SelectStation>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
                     <SelectAgency name='agency' value={user.agency.value} onChange={handleValueChange} stationId={user.station.value} required disabled={!editFields[2]} error={user.agency.error}></SelectAgency>
@@ -215,10 +235,10 @@ export default function UserForm() {
                     <DltTextField label='นามสกุล' name='lastname' value={user.lastname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.lastname.error}></DltTextField>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <DltTextField label='เบอร์โทรติดต่อ' name='tel' value={user.tel.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.tel.error}></DltTextField>
+                    <DltTextField label='เบอร์โทรติดต่อ' name='tel' value={user.tel.value} onChange={handleValueChange}></DltTextField>
                   </Grid>
                   <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.email.error}></DltTextField>
+                    <DltTextField label='Email Address' name='email' value={user.email.value} onChange={handleValueChange} onKeyUp={handleValidateValue} error={user.email.error}></DltTextField>
                   </Grid>
                 </Grid>
               </CardContent>
@@ -239,10 +259,10 @@ export default function UserForm() {
                   <Typography sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 600, fontSize: 24, color: 'white'}}>{editMode ? 'เปลี่ยนรหัสผ่าน' : 'ตั้งรหัสผ่าน'}</Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltPasswordTextField label='รหัสผ่าน' name='newPassword' value={user.newPassword.value} onChange={handleValueChange} onKeyUp={handleValidatePassword} required error={user.newPassword.error}></DltPasswordTextField>
+                  <DltPasswordTextField label='รหัสผ่าน' name='newPassword' value={user.newPassword.value} onChange={handlePasswordChange} onKeyUp={handleValidatePassword} required error={user.newPassword.error}></DltPasswordTextField>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                  <DltPasswordTextField label='ยืนยันรหัสผ่าน' name='confirmPassword' value={user.confirmPassword.value} onChange={handleValueChange} onKeyUp={handleValidatePassword} required error={user.confirmPassword.error}></DltPasswordTextField>
+                  <DltPasswordTextField label='ยืนยันรหัสผ่าน' name='confirmPassword' value={user.confirmPassword.value} onChange={handlePasswordChange} onKeyUp={handleValidatePassword} required error={user.confirmPassword.error}></DltPasswordTextField>
                 </Grid>
                 <Grid item xs={12}>
                   <Box sx={{display: 'flex', justifyContent: 'center'}}>

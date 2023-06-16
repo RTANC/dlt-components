@@ -21,7 +21,7 @@ exports.updateUserProfile = async (req, res, next) => {
             ext += `, LoginPassword = '${req.body.LoginPassword}'`
         }
         await sequelize.query(`update GCSUser
-        set TitleID = ${req.body.TitleID}, FirstName = '${req.body.FirstName}', LastName = '${req.body.LastName}', PhoneNo = '${req.body.PhoneNo}', EmailAddress = '${req.body.EmailAddress}', UpdatedDateTime = '${moment().format('YYYY-MM-DD HH:mm:ss')}' ${ext}
+        set TitleID = ${req.body.TitleID}, FirstName = '${req.body.FirstName}', LastName = '${req.body.LastName}', PhoneNo = '${req.body.PhoneNo || 'NULL'}', EmailAddress = '${req.body.EmailAddress.trim() || 'NULL'}', UpdatedDateTime = '${moment().format('YYYY-MM-DD HH:mm:ss')}' ${ext}
         where UserID = ${req.userData.UserID}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {

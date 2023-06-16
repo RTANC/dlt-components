@@ -55,7 +55,7 @@ exports.createUser = async (req, res, next) => {
     try {
         const {title, userRole, agency, firstname, lastname, username, newPassword, email, tel, isActive} = req.body
         await sequelize.query(`insert GCSUser(CompanyID, RoleID, LoginName, LoginPassword, TitleID, FirstName, LastName, PhoneNo, EmailAddress, IsActive, IsForceChangePassword, CreatedDateTime)
-        values(${(parseInt(userRole) === 0 || parseInt(userRole) === 1) ? 0 : agency}, ${userRole}, '${username}', '${newPassword}', ${title}, '${firstname}', '${lastname}', '${tel}', '${email}', ${isActive ? 1 : 0}, 1, '${moment().format('YYYY-MM-DD HH:mm:ss')}')`, { type: QueryTypes.INSERT })
+        values(${(parseInt(userRole) === 0 || parseInt(userRole) === 1) ? 0 : agency}, ${userRole}, '${username}', '${newPassword}', ${title}, '${firstname}', '${lastname}', '${tel || 'NULL'}', '${email.trim() || 'NULL'}', ${isActive ? 1 : 0}, 1, '${moment().format('YYYY-MM-DD HH:mm:ss')}')`, { type: QueryTypes.INSERT })
         res.sendStatus(201)
     } catch (error) {
         next(error)
@@ -70,7 +70,7 @@ exports.updateUser = async (req, res, next) => {
            ext +=  `, LoginPassword = '${newPassword}'`
         }
         await sequelize.query(`update GCSUser
-        set CompanyID = ${agency}, RoleID = ${userRole}, LoginName = '${username}', TitleID = ${title}, FirstName = '${firstname}', LastName = '${lastname}', PhoneNo = '${tel}', EmailAddress = '${email}', IsActive = ${isActive ? 1 : 0}, UpdatedDateTime = '${moment().format('YYYY-MM-DD HH:mm:ss')}' ${ext}
+        set CompanyID = ${agency}, RoleID = ${userRole}, LoginName = '${username}', TitleID = ${title}, FirstName = '${firstname}', LastName = '${lastname}', PhoneNo = '${tel || 'NULL'}', EmailAddress = '${email.trim() || 'NULL'}', IsActive = ${isActive ? 1 : 0}, UpdatedDateTime = '${moment().format('YYYY-MM-DD HH:mm:ss')}' ${ext}
         where UserID = ${req.params.id}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
     } catch (error) {

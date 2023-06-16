@@ -20,6 +20,10 @@ export default function SelectStation(props) {
     const fetchStations = async () => {
       try {
         const data = (await getStations()).data
+        data.unshift({
+          StationID: 0,
+          StationName: 'สำนักงานส่วนกลาง'
+        })
         setStations(data)
       } catch (error) {
         console.log(error)
@@ -35,7 +39,7 @@ export default function SelectStation(props) {
     <FormControl fullWidth error={props.error !== false} disabled={props.disabled} readOnly={props.readOnly} color='warning' focused sx={{'label.Mui-disabled': {color: '#ed6c02'}}}>
       <InputLabel sx={{fontSize: 20}} shrink>สถานี</InputLabel>
       <DltSelect onChange={props.onChange} value={props.value} name={props.name} sx={{'.Mui-disabled': {backgroundColor: '#0a061f', color: 'gray', '-webkit-text-fill-color': 'gray'}}}>
-          {stations.map((v, i) => (
+          {stations.map((v, i) => !(props.admin || v.StationID !== 0) || (
             <MenuItem value={v.StationID} key={i}>{v.StationName}</MenuItem>
           ))}
       </DltSelect>
@@ -46,12 +50,14 @@ export default function SelectStation(props) {
 }
 
 SelectStation.propTypes = {
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  admin: PropTypes.bool
 }
 
 SelectStation.defaultProps = {
   required: false,
   error: false,
   disabled: false,
-  readOnly: false
+  readOnly: false,
+  admin: false
 }

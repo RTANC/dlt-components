@@ -91,7 +91,7 @@ export default function UserForm() {
         if(e.target.name === 'station' && user.userRole.value === 2) {
           user['agency'].value = user['station'].value
         }
-        if(e.target.name === 'station' && user.userRole.value === 3) {
+        if(e.target.name === 'station' && user.userRole.value !== 2) {
           // switch (user['station'].value) {
           //   case 1: user['agency'].value = 189
           //     break;

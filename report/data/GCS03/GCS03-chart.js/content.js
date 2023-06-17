@@ -5,7 +5,10 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
       horizontalAlign: 'right',
       labels: {
         useSeriesColors: true
-      }
+      },
+      fontSize: '26px',
+      fontFamily: 'THSarabunPSK',
+      fontWeight:  'bold'
     },
     series: {{{getDataChart1 reportData}}},
     chart: {
@@ -13,6 +16,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   height: 450,
   type: 'bar',
   animations: {enabled: false },
+  fontFamily: 'THSarabunPSK'
         },
   plotOptions: {
     bar: {
@@ -26,16 +30,24 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   formatter: function (val) {
             return val.toLocaleString('en-US');
           },
-  offsetY: -20,
+  offsetY: -30,
   style: {
-    fontSize: '12px',
-  colors: ["#304758"]
-          }
+        fontSize: '16px',
+        fontFamily: 'THSarabunPSK',
+        fontWeight: 'bold',
+        colors: ["#304758"]
+      }
         },
 
   xaxis: {
     labels: {
-    rotate: -45
+    rotate: -45,
+    style: {
+        fontSize: '18px',
+        fontFamily: 'THSarabunPSK',
+        fontWeight: 'bold',
+        colors: '#263238'
+      }
           },
   categories: {{{getCategories reportData}}},
   axisBorder: {
@@ -61,7 +73,13 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'ผู้ประกอบการ',
-    offsetY: 220
+    offsetY: 200,
+    style: {
+        fontSize: '20px',
+        fontFamily: 'THSarabunPSK',
+        fontWeight: 'bold',
+        colors: '#263238'
+      }
           }
         },
   yaxis: {
@@ -75,10 +93,22 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     show: true,
   formatter: function (val) {
               return val.toLocaleString('en-US');
-            }
+            },
+          style: {
+          fontSize:  '18px',
+          fontWeight:  'bold',
+          fontFamily:  'THSarabunPSK',
+          color:  '#263238'
+        }
           },
   title: {
     text: 'จำนวนรถ (คัน)',
+    style: {
+        fontSize: '20px',
+        fontFamily: 'THSarabunPSK',
+        fontWeight: 'bold',
+        colors: '#263238'
+      }
           }        
         },
   title: {
@@ -87,8 +117,11 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   offsetY: 0,
   align: 'center',
   style: {
-    color: '#444'
-          }
+        fontSize: '20px',
+        fontFamily: 'THSarabunPSK',
+        fontWeight: 'bold',
+        colors: '#263238'
+      }
         }
         });
   chart1.render();
@@ -99,7 +132,10 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
       horizontalAlign: 'right',
       labels: {
         useSeriesColors: true
-      }
+      },
+      fontSize: '26px',
+      fontFamily: 'THSarabunPSK',
+      fontWeight:  'bold'
     },
     series: {{{getDataChart2 reportData}}},
     chart: {
@@ -107,6 +143,7 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   height: 450,
   type: 'bar',
   animations: {enabled: false },
+  fontFamily: 'THSarabunPSK'
         },
   plotOptions: {
     bar: {
@@ -120,16 +157,19 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   formatter: function (val) {
             return val.toLocaleString('en-US');
           },
-  offsetY: -20,
+  offsetY: -30,
   style: {
-    fontSize: '12px',
+    fontSize: '16px',
   colors: ["#304758"]
           }
         },
-
   xaxis: {
     labels: {
-    rotate: -45
+    rotate: -45,
+    style: {
+      fontSize: '16px',
+  colors: '#263238'
+    }
           },
   categories: {{{getCategories reportData}}},
   axisBorder: {
@@ -155,7 +195,11 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
           },
   title: {
     text: 'ผู้ประกอบการ',
-    offsetY: 220
+    offsetY: 220,
+    style: {
+      fontSize: '18px',
+  colors: ["#304758"]
+    }
           }
         },
   yaxis: {
@@ -169,10 +213,18 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
     show: true,
   formatter: function (val) {
               return val.toLocaleString('en-US');
-            }
+            },
+            style: {
+      fontSize: '16px',
+  colors: ["#304758"]
+    }
           },
   title: {
     text: 'ปริมาณสินค้า (ตัน)',
+    style: {
+      fontSize: '18px',
+  colors: ["#304758"]
+    }
           }        
         },
   title: {
@@ -181,8 +233,9 @@ var chart1 = new ApexCharts(document.querySelector("#chart1"), {
   offsetY: 0,
   align: 'center',
   style: {
-    color: '#444'
-          }
+      fontSize: '18px',
+  colors: ["#304758"]
+    }
         }
         });
   chart2.render();

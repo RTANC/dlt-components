@@ -5,7 +5,7 @@ module.exports = {
         script: 'index.js',
   
         // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
-        instances: 1,
+        instances: 4,
         autorestart: true,
         watch: true,
         max_memory_restart: '8G',
@@ -18,11 +18,11 @@ module.exports = {
           JSREPORT_URL: 'http://localhost',
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
-          SAVE_PATH: 'D:/vehimages/',
-          DB_URL: '164.115.45.6',
+          SAVE_PATH: 'D:/GCSDATA/IMAGES/',
+          DB_URL: '172.20.254.230',
           DB_NAME: 'GCSDB',
-          DB_USERNAME: 'sa',
-          DB_PASSWORD: 'rtanc190806+',
+          DB_USERNAME: 'gcs2017',
+          DB_PASSWORD: 'dlt20170101',
           DB_PORT: 1433
         },
         env_production: {
@@ -33,7 +33,7 @@ module.exports = {
           JSREPORT_URL: 'http://localhost',
           JSREPORT_USERNAME: 'admin',
           JSREPORT_PASSWORD: '123456789',
-          SAVE_PATH: 'D:/vehimages/',
+          SAVE_PATH: 'D:/GCSDATA/IMAGES/',
           DB_URL: '172.20.254.230',
           DB_NAME: 'GCSDB',
           DB_USERNAME: 'gcs2017',

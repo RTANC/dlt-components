@@ -38,10 +38,10 @@
         fontSize:  '18px',
         fontWeight:  'bold',
         fontFamily:  'THSarabunPSK',
-        color:  '#263238'
+        color:  "#263238"
       }
     },
-    categories: ["รถบรรทุก 4 ล้อ", "รถบรรทุก 6 ล้อ", "รถบรรทุก 10 ล้อ", "รถบรรทุก 12 ล้อ", "รถกึ่งพ่วง 14 ล้อ", "รถกึ่งพ่วง 18 ล้อ", "รถกึ่งพ่วง 20 ล้อ", "รถกึ่งพ่วง มากกว่า 20 ล้อ", "รถพ่วง 14 ล้อ", "รถพ่วง 18 ล้อ", "รถพ่วง 20 ล้อ", "รถพ่วง มากกว่า 20 ล้อ"],
+    categories: {{{getCategoriesChart reportData}}},
     axisBorder: {
       show: false
     },
@@ -87,7 +87,7 @@
         return val.toLocaleString('en-US');
       },
       style: {
-        fontSize:  '18px',
+        fontSize:  '16px',
         fontWeight:  'bold',
         fontFamily:  'THSarabunPSK',
         color:  '#263238'
@@ -167,7 +167,7 @@
           color:  '#263238'
         }
       },
-      categories: ["รถบรรทุก 4 ล้อ", "รถบรรทุก 6 ล้อ", "รถบรรทุก 10 ล้อ", "รถบรรทุก 12 ล้อ", "รถกึ่งพ่วง 14 ล้อ", "รถกึ่งพ่วง 18 ล้อ", "รถกึ่งพ่วง 20 ล้อ", "รถกึ่งพ่วง มากกว่า 20 ล้อ", "รถพ่วง 14 ล้อ", "รถพ่วง 18 ล้อ", "รถพ่วง 20 ล้อ", "รถพ่วง มากกว่า 20 ล้อ"],
+      categories: {{{getCategoriesChart reportData}}},
       axisBorder: {
         show: false
       },
@@ -258,6 +258,7 @@
   height: 450,
   type: 'bar',
   animations: {enabled: false },
+      fontFamily: 'THSarabunPSK'
         },
   plotOptions: {
     bar: {
@@ -271,18 +272,26 @@
   formatter: function (val) {
             return val.toLocaleString('en-US');
           },
-  offsetY: -20,
-  style: {
-    fontSize: '12px',
-  colors: ["#304758"]
-          }
+  offsetY: -30,
+    style: {
+      fontSize: '16px',
+      fontFamily: 'THSarabunPSK',
+      fontWeight: 'bold',
+      colors: ["#304758"]
+    }
         },
 
   xaxis: {
     labels: {
-    rotate: -45
+    rotate: -45,
+    style: {
+        fontSize:  '18px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  "#263238"
+      }
           },
-  categories: ["รถบรรทุก 4 ล้อ", "รถบรรทุก 6 ล้อ", "รถบรรทุก 10 ล้อ", "รถบรรทุก 12 ล้อ", "รถกึ่งพ่วง 14 ล้อ", "รถกึ่งพ่วง 18 ล้อ", "รถกึ่งพ่วง 20 ล้อ", "รถกึ่งพ่วง มากกว่า 20 ล้อ", "รถพ่วง 14 ล้อ", "รถพ่วง 18 ล้อ", "รถพ่วง 20 ล้อ", "รถพ่วง มากกว่า 20 ล้อ"],
+  categories: {{{getCategoriesChart reportData}}},
   axisBorder: {
     show: false
           },
@@ -320,10 +329,22 @@
     show: true,
   formatter: function (val) {
               return val.toLocaleString('en-US');
-            }
+            },
+    style: {
+        fontSize:  '18px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  "#263238"
+      }
           },
   title: {
     text: 'ปริมาณสินค้า (ตัน)',
+    style: {
+        fontSize:  '24px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  "#263238"
+      }
           }        
         },
   title: {
@@ -332,8 +353,11 @@
   offsetY: 0,
   align: 'center',
   style: {
-    color: '#444'
-          }
+        fontSize:  '24px',
+        fontWeight:  'bold',
+        fontFamily:  'THSarabunPSK',
+        color:  "#263238"
+      }
         }
         });
   chart3.render();

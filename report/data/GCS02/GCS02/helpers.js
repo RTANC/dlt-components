@@ -32,6 +32,10 @@ function getDataChart1 (data) {
   return JSON.stringify(data.map(x => x.TotalCar))
 }
 
+function getCategoriesChart (data) {
+  return JSON.stringify(data.map(x => x.Description))
+}
+
 function getDataChart2 (data) {
   const chartData = [{
             "name": "ส่งสินค้า",

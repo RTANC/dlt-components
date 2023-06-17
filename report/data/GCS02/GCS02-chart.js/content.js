@@ -1,4 +1,35 @@
 <script>
+  const legendStyle = {
+    fontSize: '26px',
+    fontFamily: 'THSarabunPSK',
+    fontWeight:  'bold'
+  }
+
+  const dataLabelStyle = {
+      fontSize: '16px',
+      fontWeight: 'bold',
+      colors: ["#304758"]
+  }
+
+  const xyLabelStyle = {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    color: "#263238"
+  }
+
+  const xyTitleStyle = {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#263238'
+  }
+
+  const titleStyle = {
+    fontSize: '20px',
+    fontFamily: 'THSarabunPSK',
+    fontWeight: 'bold',
+    colors: '#263238'
+  }
+
   var chart = new ApexCharts(document.querySelector("#chart1"), {
     series: [{
     name: 'ปริมาณการขนถ่ายสินค้าทั้งหมดผ่านสถานี',
@@ -24,22 +55,12 @@
       return val.toLocaleString('en-US');
     },
     offsetY: -30,
-    style: {
-      fontSize: '16px',
-      fontFamily: 'THSarabunPSK',
-      fontWeight: 'bold',
-      colors: ["#304758"]
-    }
+    style: dataLabelStyle
   },
   xaxis: {
     labels: {
       rotate: -45,
-      style: {
-        fontSize:  '18px',
-        fontWeight:  'bold',
-        fontFamily:  'THSarabunPSK',
-        color:  "#263238"
-      }
+      style: xyLabelStyle
     },
     categories: {{{getCategoriesChart reportData}}},
     axisBorder: {
@@ -66,12 +87,7 @@
     title: {
       text: 'ประเภทรถ',
       offsetY: 200,
-      style: {
-        fontSize:  '20px',
-        fontWeight:  'bold',
-        fontFamily:  'THSarabunPSK',
-        color:  '#263238'
-      }
+      style: xyTitleStyle
     }
   },
   yaxis: {
@@ -86,21 +102,11 @@
       formatter: function (val) {
         return val.toLocaleString('en-US');
       },
-      style: {
-        fontSize:  '16px',
-        fontWeight:  'bold',
-        fontFamily:  'THSarabunPSK',
-        color:  '#263238'
-      }
+      style: xyLabelStyle
     },
     title: {
       text: 'น้ำหนักรถบรรทุก (ตัน)',
-      style: {
-        fontSize:  '20px',
-        fontWeight:  'bold',
-        fontFamily:  'THSarabunPSK',
-        color:  '#263238'
-      }
+      style: xyTitleStyle
     }
   },
   title: {
@@ -108,12 +114,7 @@
     floating: false,
     offsetY: 0,
     align: 'center',
-    style: {
-      fontSize:  '24px',
-      fontWeight:  'bold',
-      fontFamily:  'THSarabunPSK',
-      color:  '#263238'
-    }
+    style: titleStyle
   }
   });
   chart.render();
@@ -125,9 +126,9 @@
       labels: {
         useSeriesColors: true
       },
-      fontSize: '26px',
-      fontFamily: 'THSarabunPSK',
-      fontWeight:  'bold'
+      fontSize: legendStyle.fontSize,
+      fontFamily: legendStyle.fontFamily,
+      fontWeight:  legendStyle.fontWeight
     },
     series: {{{getDataChart2 reportData}}},
     chart: {
@@ -150,22 +151,12 @@
         return val.toLocaleString('en-US');
       },
       offsetY: -30,
-      style: {
-        fontSize: '16px',
-        fontFamily: 'THSarabunPSK',
-        fontWeight: 'bold',
-        colors: ["#304758"]
-      }
+      style: dataLabelStyle
     },
     xaxis: {
       labels: {
         rotate: -45,
-        style: {
-          fontSize:  '18px',
-          fontWeight:  'bold',
-          fontFamily:  'THSarabunPSK',
-          color:  '#263238'
-        }
+        style: xyLabelStyle
       },
       categories: {{{getCategoriesChart reportData}}},
       axisBorder: {
@@ -192,12 +183,7 @@
       title: {
         text: 'ประเภทรถ',
         offsetY: 200,
-        style: {
-          fontSize:  '20px',
-          fontWeight:  'bold',
-          fontFamily:  'THSarabunPSK',
-          color:  '#263238'
-        }
+        style: xyTitleStyle
       }
     },
     yaxis: {
@@ -212,21 +198,11 @@
         formatter: function (val) {
           return val.toLocaleString('en-US');
         },
-        style: {
-          fontSize:  '18px',
-          fontWeight:  'bold',
-          fontFamily:  'THSarabunPSK',
-          color:  '#263238'
-        }
+        style: xyLabelStyle
       },
       title: {
         text: 'จำนวนรถ (คัน)',
-        style: {
-          fontSize:  '20px',
-          fontWeight:  'bold',
-          fontFamily:  'THSarabunPSK',
-          color:  '#263238'
-        }
+        style: xyTitleStyle
       }        
     },
     title: {
@@ -234,12 +210,7 @@
       floating: false,
       offsetY: 0,
       align: 'center',
-      style: {
-        fontSize:  '24px',
-        fontWeight:  'bold',
-        fontFamily:  'THSarabunPSK',
-        color:  '#263238'
-      }
+      style: titleStyle
     }
   });
   chart2.render();
@@ -250,7 +221,10 @@
       horizontalAlign: 'right',
       labels: {
         useSeriesColors: true
-      }
+      },
+      fontSize: legendStyle.fontSize,
+      fontFamily: legendStyle.fontFamily,
+      fontWeight:  legendStyle.fontWeight
     },
     series: {{{getDataChart3 reportData}}},
     chart: {
@@ -273,22 +247,12 @@
         return val.toLocaleString('en-US');
       },
       offsetY: -30,
-      style: {
-        fontSize: '16px',
-        fontFamily: 'THSarabunPSK',
-        fontWeight: 'bold',
-        colors: ["#304758"]
-      }
+      style: dataLabelStyle
     },
     xaxis: {
       labels: {
         rotate: -45,
-        style: {
-          fontSize:  '18px',
-          fontWeight:  'bold',
-          fontFamily:  'THSarabunPSK',
-          color:  "#263238"
-        }
+        style: xyLabelStyle
       },
       categories: {{{getCategoriesChart reportData}}},
       axisBorder: {
@@ -314,7 +278,8 @@
       },
       title: {
         text: 'ประเภทรถ',
-        offsetY: 220
+        offsetY: 220,
+        style: xyTitleStyle
       }
     },
     yaxis: {
@@ -329,21 +294,11 @@
         formatter: function (val) {
           return val.toLocaleString('en-US');
         },
-        style: {
-          fontSize:  '18px',
-          fontWeight:  'bold',
-          fontFamily:  'THSarabunPSK',
-          color:  "#263238"
-        }
+        style: xyLabelStyle
       },
       title: {
         text: 'ปริมาณสินค้า (ตัน)',
-        style: {
-          fontSize:  '24px',
-          fontWeight:  'bold',
-          fontFamily:  'THSarabunPSK',
-          color:  "#263238"
-        }
+        style: xyTitleStyle
       }
     },
     title: {
@@ -351,12 +306,7 @@
       floating: false,
       offsetY: 0,
       align: 'center',
-      style: {
-        fontSize:  '24px',
-        fontWeight:  'bold',
-        fontFamily:  'THSarabunPSK',
-        color:  "#263238"
-      }
+      style: titleStyle
     }
   });
   chart3.render();

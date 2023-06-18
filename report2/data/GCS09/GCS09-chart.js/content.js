@@ -106,6 +106,7 @@
       },
       title: {
         text: 'จำนวนรถ (คัน)',
+        style: xyTitleStyle
       }        
     },
     title: {

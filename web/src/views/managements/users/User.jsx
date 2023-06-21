@@ -117,7 +117,7 @@ export default function User() {
                       <SelectAgency value={query.agency} onChange={(e) => {setQuery({...query, agency: e.target.value})}} stationId={query.station}></SelectAgency>
                     </Grid>
                     <Grid item xs={12} sm={12} md={4} lg={4}>
-                      <DltTextField label='ชื่อ/นามสกุล/UserName' value={query.text} onChange={(e) => {setQuery({...query, text: e.target.value})}}></DltTextField>
+                      <DltTextField label='ชื่อ/นามสกุล/UserName' value={query.text} onChange={(e) => {setQuery({...query, text: e.target.value})}} autoComplete='on'></DltTextField>
                     </Grid>
                     <Grid item xs={12}>
                       <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', py: 2}}>

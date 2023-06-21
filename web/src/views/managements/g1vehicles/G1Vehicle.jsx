@@ -133,7 +133,7 @@ export default function G1Vehicle() {
                     <SelectCompany value={g1Vehicle.company.value} name='company' onChange={handleValueChange} station={g1Vehicle.station.value}></SelectCompany>
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <DltTextField value={g1Vehicle.licensePlate.value} name='licensePlate' onChange={handleValueChange} label='ค้นหาทะเบียนรถ / RFID'></DltTextField>
+                    <DltTextField value={g1Vehicle.licensePlate.value} name='licensePlate' onChange={handleValueChange} label='ค้นหาทะเบียนรถ / RFID' autoComplete='on'></DltTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>

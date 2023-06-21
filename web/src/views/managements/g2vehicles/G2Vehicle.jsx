@@ -133,7 +133,7 @@ export default function G2Vehicle() {
                     <SelectCompany value={g2Vehicle.company.value} name='company' onChange={handleValueChange} station={g2Vehicle.station.value}></SelectCompany>
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <DltTextField value={g2Vehicle.licensePlate.value} name='licensePlate' onChange={handleValueChange} label='ค้นหาทะเบียนรถ / RFID'></DltTextField>
+                    <DltTextField value={g2Vehicle.licensePlate.value} name='licensePlate' onChange={handleValueChange} label='ค้นหาทะเบียนรถ / RFID' autoComplete='on'></DltTextField>
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
@@ -148,7 +148,7 @@ export default function G2Vehicle() {
                   </Grid>
                   <Grid item xs={12}>
                     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                      <TableContainer sx={{ minHeight: '40vh', maxHeight: '40vh', color: 'white' }}>
+                      <TableContainer sx={{ minHeight: '40vh', maxHeight: '60vh', color: 'white' }}>
                         <Table stickyHeader aria-label="sticky table">
                           <TableHead>
                             <TableRow>

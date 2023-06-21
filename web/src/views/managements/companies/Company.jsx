@@ -10,6 +10,7 @@ import BtnClear from '../../../components/BtnClear'
 import BtnSearch from '../../../components/BtnSearch'
 import { useEffect } from 'react'
 import DltSearchBar from '../../../components/DltSearchBar'
+import AddIcon from '@mui/icons-material/Add'
 
 export default function Company() {
   const navigate = useNavigate()
@@ -136,7 +137,7 @@ export default function Company() {
                   </Grid>
                   <Grid item xs={12}>
                     <Box sx={{width: '100%', display: 'flex', justifyContent: 'end'}}>
-                      <LoadingButton loading={loading} disabled={loading} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 22, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3, color: 'white', mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/company/0')}}>เพิ่มรายชื่อผู้ประกอบการ</LoadingButton>
+                      <LoadingButton loading={loading} disabled={loading} startIcon={<AddIcon />} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 22, height: 48, background: 'linear-gradient(102.79deg, #F3B922 0%, #A37A10 98.65%)', borderRadius: 3, color: 'white', mx: 1}} color='warning' variant='contained' onClick={() => {navigate('/management/company/0')}}>เพิ่มรายชื่อผู้ประกอบการ</LoadingButton>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>

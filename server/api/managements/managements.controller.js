@@ -130,9 +130,12 @@ exports.getG1Vehicles = async (req, res, next) => {
         if (!!req.query.company) {
             extWhere += ' and G1Vehicle.CompanyID = ' + req.query.company
         }
+        
         if (!!req.query.text) {
-            extWhere += ` and (FrontLP like '%${req.query.text}%' or RearLP like  '%${req.query.text}%')`
+            req.query.text = req.query.text.trim()
+            extWhere += ` and (FrontLP like '%${req.query.text}%' or RearLP like '%${req.query.text}%' or RFID like '%${req.query.text.toUpperCase()}%')`
         }
+
         const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G1VehicleID, EntryDate, Company.CompanyName, (select Description from VehicleClass where VehicleClass.VehicleClassID = G1Vehicle.VehicleClassID) as Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G1Vehicle.IsActive
         FROM G1Vehicle
         inner join Company on G1Vehicle.CompanyID = Company.CompanyID
@@ -179,15 +182,28 @@ exports.updateG1Vehicle = async (req, res, next) => {
     }
 }
 
+exports.deleteG1Vehicle = async (req, res, next) => {
+    try {
+        await sequelize.query(`delete G1Vehicle
+        where G1VehicleID = ${req.params.id}`, { type: QueryTypes.DELETE })
+        res.sendStatus(204)
+    } catch (error) {
+        next(error)
+    }
+}
+
 exports.getG2Vehicles = async (req, res, next) => {
     try {
         let extWhere = ''
         if (!!req.query.company) {
             extWhere += ' and G2Vehicle.CompanyID = ' + req.query.company
         }
+
         if (!!req.query.text) {
-            extWhere += ` and (FrontLP like '%${req.query.text}%' or RearLP like  '%${req.query.text}%')`
+            req.query.text = req.query.text.trim()
+            extWhere += ` and (FrontLP like '%${req.query.text}%' or RearLP like '%${req.query.text}%' or RFID like '%${req.query.text.toUpperCase()}%')`
         }
+        
         const vehicles = await sequelize.query(`SELECT id = ROW_NUMBER() OVER (order by EntryDate), G2VehicleID, EntryDate, Company.CompanyName, (select Description from VehicleClass where VehicleClass.VehicleClassID = G2Vehicle.VehicleClassID) as Description, CONCAT(FrontLP, ' ', ProvinceName) as FrontLP, CONCAT(RearLP, ' ', ProvinceName) as RearLP, G2Vehicle.IsActive
         FROM G2Vehicle
         inner join Company on G2Vehicle.CompanyID = Company.CompanyID
@@ -230,6 +246,16 @@ exports.updateG2Vehicle = async (req, res, next) => {
         set StationID = ${station}, CompanyID = ${company}, FrontLP = '${frontLP}', FrontLPPID = ${frontLPProvince}, RearLP = '${rearLP}', RearLPPID = ${rearLPProvince}, VehicleClassID = ${vehicleClass || 'NULL'}, IsActive = ${bool2bit(isActive)}, RFID = '${rfid || 'NULL'}'
         where G2VehicleID = ${req.params.id}`, { type: QueryTypes.UPDATE })
         res.sendStatus(201)
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.deleteG2Vehicle = async (req, res, next) => {
+    try {
+        await sequelize.query(`delete G2Vehicle
+        where G2VehicleID = ${req.params.id}`, { type: QueryTypes.DELETE })
+        res.sendStatus(204)
     } catch (error) {
         next(error)
     }

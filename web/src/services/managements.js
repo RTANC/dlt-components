@@ -63,6 +63,10 @@ export function updateG1Vehicle (id, G1Vehicle) {
     return api.patch('/managements/G1/vehicles/' + id, G1Vehicle)
 }
 
+export function deleteG1Vehicle (id) {
+    return api.delete('/managements/G1/vehicles/' + id)
+}
+
 export function getG2Vehicles (stationId, companyId, text) {
     let query = ''
     if (!!companyId) {
@@ -84,6 +88,10 @@ export function createG2Vehicle (G2Vehicle) {
 
 export function updateG2Vehicle (id, G2Vehicle) {
     return api.patch('/managements/G2/vehicles/' + id, G2Vehicle)
+}
+
+export function deleteG2Vehicle (id) {
+    return api.delete('/managements/G2/vehicles/' + id)
 }
 
 export function getG2VehicleRules () {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { DltSelect } from "./DltSelect"
 
 export default function SelectObjective(props) {
-    const [objectives, setObjectives] = useState([{ObjectiveID: 1, Description: 'ขนถ่ายสินค้า'}, {ObjectiveID: 2, Description: 'อื่นๆ'}])
+    const [objectives, setObjectives] = useState([{ObjectiveID: 1, Description: 'ขนถ่ายสินค้า'}, {ObjectiveID: 2, Description: 'อื่นๆ'}, {ObjectiveID: 3, Description: 'ตรวจสภาพรถ'}])
   return (
     <FormControl fullWidth error={props.error !== false} color='warning' focused>
       <InputLabel sx={{fontSize: 20}} shrink>วัตถุประสงค์</InputLabel>

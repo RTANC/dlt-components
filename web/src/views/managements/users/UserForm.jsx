@@ -226,7 +226,7 @@ export default function UserForm() {
                     <Divider variant="middle"></Divider>
                   </Grid>
                   <Grid item xs={4} sm={4} md={2} lg={2}>
-                    <SelectTitle value={user.title.value} onChange={handleValueChange}></SelectTitle>
+                    <SelectTitle  name='title' value={user.title.value} onChange={handleValueChange}></SelectTitle>
                   </Grid>
                   <Grid item xs={4} sm={4} md={5} lg={5}>
                     <DltTextField label='ชื่อ' name='firstname' value={user.firstname.value} onChange={handleValueChange} onKeyUp={handleValidateValue} required error={user.firstname.error}></DltTextField>

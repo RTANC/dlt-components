@@ -360,7 +360,7 @@ export default function Home() {
                 <Typography variant="h5" sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 36, color: 'white'}}>ข้อมูลรถบรรทุก</Typography>
               </Grid>
               <Grid item xs={12} sm={12} md={6} sx={{display: 'flex', justifyContent: 'end'}}>
-                <Button variant='contained' startIcon={<SquareEditOutline/>} onClick={toggleEdit} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 22, height: 44, background: 'linear-gradient(102.79deg, #2283F3 0%, #184C88 98.65%)', borderRadius: 3}}>บันทึกเอง</Button>
+                <Button variant='contained' startIcon={<SquareEditOutline/>} onClick={toggleEdit} sx={{fontFamily: 'Kanit', fontStyle: 'normal', fontWeight: 400, fontSize: 22, height: 44, background: 'linear-gradient(102.79deg, #2283F3 0%, #184C88 98.65%)', borderRadius: 3}}>บันทึกเอง/แก้ไข</Button>
               </Grid>
               <Grid item xs={12}>
                 <DltDateTimePicker value={transport.timeStampIn.value} label='วัน เวลา ที่รถเข้า' name='timeStampIn' onChange={(v) => {transport.timeStampIn.value = v; setTransport({...transport})}} required error={transport.timeStampIn.error}></DltDateTimePicker>

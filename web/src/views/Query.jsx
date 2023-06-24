@@ -30,7 +30,7 @@ export default function Query() {
   const [params, setParams] = useState({
     queryId: 1,
     station: parseInt(Cookies.get('RoleID')) > 1 ? Cookies.get('StationID') : 1,
-    company: Cookies.get('CompanyID'),
+    company: parseInt(Cookies.get('RoleID')) < 3 ? '' : Cookies.get('CompanyID'),
     startDateTime: moment().startOf('day'),
     endDateTime: moment().endOf('day'),
     inProvince: '',
@@ -282,7 +282,7 @@ export default function Query() {
                   <DltDateTimePicker value={params.endDateTime} label='วันเวลา-สิ้นสุด' name='endDateTime' onChange={e => {params.endDateTime = e;setParams({...params})}} required minDateTime={new Date(params.startDateTime)}></DltDateTimePicker>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                  <SelectCompany value={params.company} name='company' onChange={handleChange} station={params.station} disabled={!companyEditable}></SelectCompany>
+                  <SelectCompany value={params.company} name='company' onChange={handleChange} station={params.station} disabled={!companyEditable} admin={parseInt(Cookies.get('RoleID')) < 3}></SelectCompany>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <SelectProvince value={params.inProvince} label='จังหวัดต้นทาง' name='inProvince' onChange={handleChange}></SelectProvince>

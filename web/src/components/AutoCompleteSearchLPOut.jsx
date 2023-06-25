@@ -1,5 +1,5 @@
 import { Autocomplete, CircularProgress, FormControl, FormHelperText, TextField, Box } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { getLicensePlatesOut } from '../services/transports'
 import { dateTimeFormatter, getImageURL, null2empty } from '../services/utils';
@@ -7,11 +7,14 @@ import { dateTimeFormatter, getImageURL, null2empty } from '../services/utils';
 export default function AutoCompleteSearchLPOut(props) {
     const [options, setOptions] = useState([])
     const [loading, setLoading] = useState(false)
+    const [inputValue, setInputValue] = useState(props.inputValue)
+    
 
     const fetchLicenseplates = async (e, v, r) => {
       try {
         setLoading(true)
         if (v !== '') {
+          setInputValue(v)
           const data = (await getLicensePlatesOut(props.station, v, props.timeStampIn)).data
           setOptions(data)
         }
@@ -23,10 +26,17 @@ export default function AutoCompleteSearchLPOut(props) {
       }
     }
 
+    useEffect(() => {
+      // console.log(props.inputValue)
+      fetchLicenseplates(null, props.inputValue, null)
+    }, [])
+    
+
   return (
     <FormControl fullWidth>
         <Autocomplete
           // value={value}
+          inputValue={inputValue}
           disableClearable
           onChange={props.onChange}
           onInputChange={fetchLicenseplates}

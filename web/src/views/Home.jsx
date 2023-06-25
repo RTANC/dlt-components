@@ -301,6 +301,7 @@ export default function Home() {
     transport.R2A = ''
     transport.R2APID = null
     transport.TimeStampOut = null
+    transport.isOut = false
     setImages(['/Image_Mock.png','/Image_Mock.png','/Image_Mock.png','/Image_Mock.png'])
     setTransport({...transport})
   }
@@ -389,7 +390,7 @@ export default function Home() {
                 </Button>
               </Grid>
               {transport.isOut && <React.Fragment><Grid item xs={12}>
-                <AutoCompleteSearchLPOut station={transport.station.value} timeStampIn={transport.timeStampIn.value} name='lpNumberOut' onChange={handleLPSearchOut}></AutoCompleteSearchLPOut>
+                <AutoCompleteSearchLPOut station={transport.station.value} timeStampIn={transport.timeStampIn.value} name='lpNumberOut' onChange={handleLPSearchOut} inputValue={transport.f1a.value.trim() || transport.r1a.value.trim()}></AutoCompleteSearchLPOut>
               </Grid>
               <Grid item xs={6}><DltTextField label='ทะเบียนหน้า-อัตโนมัติ' name='F2A' value={transport.F2A} readOnly></DltTextField></Grid>
               <Grid item xs={6}><DltTextField label='ทะเบียนหลัง-อัตโนมัติ' name='R2A' value={transport.R2A} readOnly></DltTextField></Grid>
@@ -401,7 +402,7 @@ export default function Home() {
             </Grid>
           </CardContent>}
         </Card>
-        {(!!transport.vehicleInId || transport.manualLP) && <Card>
+        {((!!transport.vehicleInId || transport.manualLP) && transport.objective.value === 1) && <Card>
           <CardContent>
             <Grid container spacing={2} direction='row' wrap='wrap'>
               <Grid item xs={12} sm={4} md={4}>

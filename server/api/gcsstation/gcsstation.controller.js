@@ -7,11 +7,11 @@ const moment = require('moment')
 exports.GetMissingList = async (req, res, next) => {
     try {
         let q = `?stationID=${req.query.stationID}&laneID=${req.query.laneID}`
-        if (req.query.dateFrom) {
-            q += `&dateFrom=${req.query.dateFrom}`
+        if (req.query.dateTimeFrom) {
+            q += `&dateTimeFrom=${req.query.dateTimeFrom}`
         }
-        if (req.query.dateTo) {
-            q += `&dateTo=${req.query.dateTo}`
+        if (req.query.dateTimeTo) {
+            q += `&dateTimeTo=${req.query.dateTimeTo}`
         }
         const list = (await axios.get(`http://192.168.238.72/gcs/api/gcsstation/GetMissingList${q}`, { headers: { ApiKey: req.query.ApiKey } })).data
         for (let i = 0;i < list.length;i++) {

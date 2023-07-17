@@ -99,7 +99,7 @@ exports.saveImage = async (body, imageRef) => {
             fs.mkdirSync(PATH, { recursive: true })
         }
     
-        imgName = prefix + '-' + body.stationID.toString() + '-' + body.laneID.toString() + '-' + (moment(body.timeStamp).format('YYYYMMDD')) + '-' + imageRef + '-'
+        const imgName = prefix + '-' + body.stationID.toString() + '-' + body.laneID.toString() + '-' + (moment(body.timeStamp).format('YYYYMMDD')) + '-' + imageRef + '-'
     
         const buffFLP = Buffer.from(body.frontLicensePlate.ImageBase64 || '', 'base64')
         const buffRLP = Buffer.from(body.rearLicensePlate.ImageBase64 || '', 'base64')

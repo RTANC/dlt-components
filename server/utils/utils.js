@@ -120,3 +120,24 @@ exports.saveImage = async (body, imageRef) => {
         console.log(error)
     }    
 }
+
+exports.dyTimePeriod = (dateTimeFrom, dateTimeTo) => {
+    let period = []
+    const d = moment(dateTimeTo).diff(moment(dateTimeFrom), 'hours', true)
+    if (d < 0) {
+      return []
+    } else if (d >= 0 && d <= 1) {
+      return [{ dateTimeFrom: dateTimeFrom, dateTimeTo: dateTimeTo }]
+    } else if (d > 1) {
+      period = [{ dateTimeFrom: dateTimeFrom, dateTimeTo: null }]
+      for (let i = 0; i < Math.floor(d); i++) {
+        period[i].dateTimeTo = moment(period[i].dateTimeFrom).add(1, 'h').subtract(1, 's')
+        period.push({
+          dateTimeFrom: moment(period[i].dateTimeTo).add(1, 's'),
+          dateTimeTo: null,
+        })
+      }
+    }
+    period[Math.floor(d)].dateTimeTo = dateTimeTo
+    return period
+}

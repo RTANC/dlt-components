@@ -141,3 +141,10 @@ exports.dyTimePeriod = (dateTimeFrom, dateTimeTo) => {
     period[Math.floor(d)].dateTimeTo = dateTimeTo
     return period
 }
+exports.isNULL = (v) => {
+    if (v == null) {
+        return true
+    } else {
+        return false
+    }
+}

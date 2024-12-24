@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const { isNULL } = require('../../utils/utils.js')
 
 exports.webAuth = (req, res, next) => {
     try {
@@ -21,5 +22,26 @@ exports.apiAuth = (req, res, next) => {
         }
     } catch (error) {
         res.sendStatus(401)
+    }
+}
+
+exports.apiKeyAuth = (req, res, next) => {
+    try {
+        const apiKey = req.headers.apiKey
+        if (isNULL(apiKey)) {
+            throw Error({
+                ResultCode : '40100',
+                ResultMsg : 'Unauthorized'
+            })
+        } else if (apiKey !== process.env.ApiKey) {
+            throw Error({
+                ResultCode : '40101',
+                ResultMsg : 'Access denied'
+            })
+        } else if (apiKey === process.env.ApiKey) {
+            next()
+        }
+    } catch (error) {
+        res.status(401).send(error)
     }
 }

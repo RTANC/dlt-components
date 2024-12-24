@@ -21,6 +21,7 @@ const VehicleInForMatchingRoutes = require('./VehicleInForMatching')
 const VehicleOutForMatchingRoutes = require('./VehicleOutForMatching')
 const GunMatchingRoutes = require('./GunMatching')
 const RFIDInfoRoutes = require('./RFIDInfo')
+const V1Routes = require('./v1')
 
 router.get('/test', async (req,res,next)=>{
     try{
@@ -37,6 +38,7 @@ router.post('/VehicleInForMatching', apiAuth, VehicleInForMatchingRoutes)
 router.post('/VehicleOutForMatching', apiAuth, VehicleOutForMatchingRoutes)
 router.post('/GunMatching', apiAuth, GunMatchingRoutes)
 router.post('/RFIDInfo', apiAuth, RFIDInfoRoutes)
+router.use('/v1', V1Routes)
 router.use('/gcsstation', gcsstationRoutes)
 router.use('/logins', loginRoutes)
 router.use(webAuth)

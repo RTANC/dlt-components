@@ -26,22 +26,28 @@ exports.apiAuth = (req, res, next) => {
 }
 
 exports.apiKeyAuth = (req, res, next) => {
+    let apiKey = req.headers.apiKey
     try {
-        const apiKey = req.headers.apiKey
         if (isNULL(apiKey)) {
-            throw Error({
-                ResultCode : '40100',
-                ResultMsg : 'Unauthorized'
-            })
+            throw Error('Unauthorized')
         } else if (apiKey !== process.env.ApiKey) {
-            throw Error({
-                ResultCode : '40101',
-                ResultMsg : 'Access denied'
-            })
+            throw Error('Access denied')
         } else if (apiKey === process.env.ApiKey) {
             next()
         }
     } catch (error) {
-        res.status(401).send(error)
+        let err
+        if (isNULL(apiKey)) {
+            err = {
+                ResultCode : '40100',
+                ResultMsg : 'Unauthorized'
+            }
+        } else if (apiKey !== process.env.ApiKey) {
+            err = {
+                ResultCode : '40101',
+                ResultMsg : 'Access denied'
+            }
+        }
+        res.status(401).send(err)
     }
 }

@@ -26,7 +26,7 @@ exports.apiAuth = (req, res, next) => {
 }
 
 exports.apiKeyAuth = (req, res, next) => {
-    let apiKey = req.headers.apiKey
+    let apiKey = req.headers.apikey
     try {
         if (isNULL(apiKey)) {
             throw Error('Unauthorized')

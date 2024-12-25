@@ -148,3 +148,24 @@ exports.isNULL = (v) => {
         return false
     }
 }
+
+exports.getImageURL(stationId, laneId, dateTime, imageRef, ext) {
+    if (stationId === null || laneId === null || !moment(dateTime).isValid() || imageRef === null) {
+        return ''
+    }
+    let prefix = ''
+    switch (laneId) {
+        case 0: prefix = 'IN';
+        break;
+        case 1: prefix = 'OUT';
+        break;
+        case 2: prefix = 'IN';
+        break;
+        case 3: prefix = 'OUT';
+        break;
+    }
+
+    let url = 'http://gcs.dlt.go.th/vehimages/' + stationId.toString() + '/' + laneId.toString() + '/' + (moment(dateTime).utc().format('YYYY/MM/DD')) + '/' + prefix + '/' + prefix + '-' + stationId.toString() + '-' + laneId.toString() + '-' + (moment(dateTime).utc().format('YYYYMMDD')) + '-' + imageRef + '-' + ext + '.jpg'
+
+    return url
+}

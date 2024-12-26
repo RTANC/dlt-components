@@ -149,7 +149,7 @@ exports.isNULL = (v) => {
     }
 }
 
-exports.getImageURL(stationId, laneId, dateTime, imageRef, ext) {
+exports.getImageURL = (stationId, laneId, dateTime, imageRef, ext) => {
     if (stationId === null || laneId === null || !moment(dateTime).isValid() || imageRef === null) {
         return ''
     }
